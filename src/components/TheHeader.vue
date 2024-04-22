@@ -52,15 +52,34 @@
       </nav>
       <div class="Login_Register">
         <div class="login">تسجيل دخول</div>
-        <div class="register">حساب جديد</div>
+        <div class="register">
+          حساب جديد
+          <v-dialog activator="parent" max-width="900">
+            <template v-slot:default="{ isActive }">
+              <v-card rounded="lg">
+                <v-card-title class="d-flex justify-space-between align-center">
+                  <div class="text-h5 text-medium-emphasis ps-2">حساب جديد</div>
+                  <v-btn
+                    icon="mdi-close"
+                    variant="text"
+                    @click="isActive.value = false"
+                  ></v-btn>
+                </v-card-title>
+                <TheRegister />
+              </v-card>
+            </template>
+          </v-dialog>
+        </div>
         <font-awesome-icon :icon="['fab', 'facebook']" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import TheRegister from "@/components/The_Register.vue";
 export default {
   name: "TheHeader",
+  components: { TheRegister },
 };
 </script>
 <style lang="scss" scoped>
