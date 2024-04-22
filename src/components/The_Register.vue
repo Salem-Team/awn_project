@@ -1,7 +1,6 @@
 <template>
   <div class="The_Register">
     <v-container class="form_container mt-4">
-      <div>حساب جديد</div>
       <!--get the data from the user using v-model-->
       <form ref="form" @submit.prevent="validateForm" class="ma-auto">
         <!--name input-->
@@ -126,6 +125,19 @@ import {
 export default {
   setup() {
     return {
+      // Define a local store for existing data
+      existingData: {
+        user1: {
+          name: "جمعية الأمل",
+          email: ["alamal@yahoo.com"],
+          license_number: "1234",
+        },
+        user2: {
+          name: "جمعية رسالة",
+          email: ["resala@yahoo.com"],
+          license_number: "6789",
+        },
+      },
       v$: useVuelidate(),
     };
   },
@@ -155,8 +167,8 @@ export default {
         name: {
           required: helpers.withMessage("ادخل اسم ", required),
           maxLength: helpers.withMessage(
-            " ادخل اسم لا يزيد عن 10 حرف",
-            maxLength(10)
+            " ادخل اسم لا يزيد عن 20 حرف",
+            maxLength(20)
           ),
           alpha: helpers.withMessage("ادخل حروف فقط", alpha),
           minLength: helpers.withMessage(
@@ -171,8 +183,8 @@ export default {
             maxLength(250)
           ),
           minLength: helpers.withMessage(
-            " ادخل ايميل مكون من 10 حروف على الأقل",
-            minLength(10)
+            " ادخل ايميل مكون من 5 حروف على الأقل",
+            minLength(5)
           ),
         },
         phone: {
@@ -239,7 +251,8 @@ export default {
   methods: {
     async validateForm() {
       this.v$.$validate();
-      console.log(this.v$);
+      // Check if the data already exists
+      console.log(this.user);
     },
   },
 };
