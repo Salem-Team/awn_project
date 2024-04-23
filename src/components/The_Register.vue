@@ -122,6 +122,31 @@ import {
   numeric,
   helpers,
 } from "@vuelidate/validators";
+
+// Add data
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+  authDomain: "awn--project.firebaseapp.com",
+  projectId: "awn--project",
+  storageBucket: "awn--project.appspot.com",
+  messagingSenderId: "477381368618",
+  appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default {
   setup() {
     return {
@@ -249,10 +274,52 @@ export default {
     };
   },
   methods: {
+    async Add_Charities() {
+      try {
+        // Add a new document with a generated id.
+        const docRef = await addDoc(collection(db, "Charities"), {
+          title: this.user.name,
+          description: this.user.describetion,
+          address: this.user.address,
+          Package_type: "500",
+          Charities_specialty: this.user.selectedTab,
+          Fame_number: this.user.license_number,
+          Fame_year: this.user.year,
+          phone: this.user.phone,
+          Social_media: this.user.email,
+        });
+        console.log("Document written with ID: ", docRef.id);
+
+        // Update the document with the generated ID
+        await updateDoc(docRef, { id: docRef.id });
+        console.log("Document updated with ID: ", docRef.id);
+        localStorage.setItem("id", docRef.id);
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
+    },
+
+    // async Add_Charities() {
+    //   // Add a new document with a generated id.
+    //   const docRef = await addDoc(collection(db, "Charities"), {
+    //     id: docRef.id,
+    //     title: this.user.name,
+    //     description: this.user.describetion,
+    //     address: this.user.address,
+    //     Package_type: "500",
+    //     Charities_specialty: this.user.selectedTab,
+    //     Fame_number: this.user.license_number,
+    //     Fame_year: this.user.year,
+    //     phone: this.user.phone,
+    //     Social_media: this.user.email,
+    //   });
+    //   console.log("Document written with ID: ", docRef.id);
+    // },
     async validateForm() {
       this.v$.$validate();
       // Check if the data already exists
-      console.log(this.user);
+      console.log("this.user", this.user);
+      this.Add_Charities();
     },
   },
 };
