@@ -105,10 +105,11 @@
           </v-col>
         </v-row>
         <!-- third Row Contain Search & filter & gird view -->
-        <v-row>
+        <!-- <v-row>
           <v-col cols="2"></v-col>
           <v-col cols="10">
             <v-text-field
+              v-model="text"
               style="
                 position: relative;
                 padding: 1px 16px 1px 0px;
@@ -120,6 +121,7 @@
               placeholder="بحث عن المحتاجيين عن طريق الاسم ,الحاله ,الدخل ,الاحتياج"
               append-inner-icon="mdi-magnify"
               variant="outlined"
+              @input="search"
             >
               <div
                 class="d-flex"
@@ -138,7 +140,7 @@
               </div>
             </v-text-field>
           </v-col>
-        </v-row>
+        </v-row> -->
       </div>
     </v-container>
   </div>
@@ -148,7 +150,13 @@ export default {
   name: "nav_bar",
   data: () => ({
     tab: null,
+    text: "",
   }),
+  methods: {
+    search() {
+      this.$emit("search");
+    },
+  },
 };
 </script>
 <style lang="scss">

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import DashBoard from "@/views/DashBoard.vue";
+import DashBoard from "@/views/DashBoard_charities.vue";
 
 const routes = [
   {
@@ -9,8 +9,8 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/Dashboard",
-    name: "Dashboard",
+    path: "/DashBoard_charities",
+    name: "DashBoard_charities",
     component: DashBoard,
   },
 ];

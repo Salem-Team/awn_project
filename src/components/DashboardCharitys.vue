@@ -3,6 +3,17 @@
     <v-row>
       <v-col>
         <v-card>
+          <v-text-field
+            v-model="search"
+            label="أبحث"
+            hide-details
+            style="
+              font-family: 'Inter', sans-serif;
+              font-weight: 500;
+              line-height: 18px;
+              text-align: center;
+            "
+          ></v-text-field>
           <v-table
             height="82vh"
             hover
@@ -24,7 +35,7 @@
             <tbody>
               <tr
                 style="font-size: 25px"
-                v-for="vege in vegetables"
+                v-for="vege in filteredVegetables"
                 :key="vege.name"
               >
                 <td style="text-align: start">
@@ -66,12 +77,9 @@
 <script>
 export default {
   inject: ["Emitter"],
-  methods: {
-    openStatusInformation(product) {
-      this.Emitter.emit("openStatusInformation", product);
-    },
-  },
   data: () => ({
+    search: "",
+    props: ["filteredVegetables"],
     headers: [
       { title: "الترتيب", key: "id" },
       { title: "الاسم", key: "name" },
@@ -549,7 +557,125 @@ export default {
           { Appliances: "66" },
         ],
       },
+
+      {
+        id: 8,
+        name: "محمد سمير",
+        calories: 23,
+        fat: 0.4,
+        carbs: 3.6,
+        protein: 2.9,
+        iron: "15%",
+        personalInformation: [
+          { namea: "محمد سمير" },
+          { nameb: "اسلام ابوسيف" },
+          { cardNumber: 124445788987 },
+          { Region: "Albuhayra" },
+          { HouseNumber: 4 },
+          { FloorNumber: 2 },
+          { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+          { SocialStatus: "اعزب" },
+          { phoneNumber: "01201253897" },
+        ],
+        FinancialInformation: [
+          { Required: 2000 },
+          { Inside: 1000 },
+          { Impotence: 500 },
+          { TreatmentExpenses: 200 },
+        ],
+        SickCases: [
+          { PatientName: "اسلام علاء" },
+          { theDisease: "السكري" },
+          { treatment: "المستشفي" },
+          { Reasontreatment: "عدم القدره الماليه" },
+        ],
+        HousingCondition: [
+          { numberRooms: 3 },
+          { ApartmentType: "ايجار" },
+          { BathroomType: "مشترك" },
+          { FloorType: "بلاط" },
+          { Descriptionkitchen: "صغير" },
+          { DescriptionRoom1: "صغر" },
+          { DescriptionRoom2: "صغر" },
+          { DescriptionRoom3: "صفر" },
+        ],
+        FamilyNeeds: [
+          { medical: "صفر" },
+          { Husband: "صفر" },
+          { clothes: "صفر" },
+          { salaries: "صفر" },
+          { Blankets: "1" },
+          { FoodBag: "صفر" },
+          { MonthlyWarranty: "صفر" },
+          { Appliances: "صفر" },
+        ],
+      },
+      {
+        id: 9,
+        name: "محمد علي",
+        calories: 23,
+        fat: 0.4,
+        carbs: 3.6,
+        protein: 2.9,
+        iron: "15%",
+        personalInformation: [
+          { namea: "محمد علي " },
+          { nameb: "اسلام ابوسيف" },
+          { cardNumber: 124445788987 },
+          { Region: "Albuhayra" },
+          { HouseNumber: 4 },
+          { FloorNumber: 2 },
+          { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+          { SocialStatus: "اعزب" },
+          { phoneNumber: "01201253897" },
+        ],
+        FinancialInformation: [
+          { Required: 2000 },
+          { Inside: 1000 },
+          { Impotence: 500 },
+          { TreatmentExpenses: 200 },
+        ],
+        SickCases: [
+          { PatientName: "اسلام علاء" },
+          { theDisease: "السكري" },
+          { treatment: "المستشفي" },
+          { Reasontreatment: "عدم القدره الماليه" },
+        ],
+        HousingCondition: [
+          { numberRooms: 3 },
+          { ApartmentType: "ايجار" },
+          { BathroomType: "مشترك" },
+          { FloorType: "بلاط" },
+          { Descriptionkitchen: "صغير" },
+          { DescriptionRoom1: "صغر" },
+          { DescriptionRoom2: "صغر" },
+          { DescriptionRoom3: "صفر" },
+        ],
+        FamilyNeeds: [
+          { medical: "صفر" },
+          { Husband: "صفر" },
+          { clothes: "صفر" },
+          { salaries: "صفر" },
+          { Blankets: "1" },
+          { FoodBag: "صفر" },
+          { MonthlyWarranty: "صفر" },
+          { Appliances: "66" },
+        ],
+      },
     ],
   }),
+  // Search Fun
+  computed: {
+    filteredVegetables() {
+      return this.vegetables.filter((vege) => {
+        return vege.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
+  },
+  methods: {
+    openStatusInformation(product) {
+      this.Emitter.emit("openStatusInformation", product);
+    },
+  },
 };
 </script>
