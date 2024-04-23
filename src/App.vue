@@ -1,8 +1,8 @@
 <template>
-  <nav>
-    <TheHeader />
-  </nav>
-  <router-view />
+    <nav>
+        <TheHeader />
+    </nav>
+    <router-view />
 </template>
 
 <script>
@@ -10,41 +10,38 @@
 import TheHeader from "@/components/TheHeader.vue";
 
 export default {
-  components: {
-    TheHeader,
-  },
+    components: {
+        TheHeader,
+    },
 };
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
-* {
-  #app {
+#app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-  }
+}
 
-  body {
+body {
     direction: rtl;
     font-family: "DM Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-  }
-  ul {
+}
+ul {
     margin: 0;
     list-style: none;
     padding: 0;
-  }
-  a {
+}
+a {
     text-decoration: none;
-  }
-  .container {
+}
+.container {
     width: 90%;
     margin: auto;
-  }
 }
 </style>
