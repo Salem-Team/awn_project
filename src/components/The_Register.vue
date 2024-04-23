@@ -1,12 +1,6 @@
 <template>
   <div class="The_Register">
     <v-container class="form_container mt-4">
-<<<<<<< Updated upstream
-      <div>حساب جديد</div>
-      <!--get the data from the user using v-model-->
-      <form ref="form" @submit.prevent="validateForm" class="ma-auto">
-        <!--name input-->
-=======
       <!--get the data from the Charities using v-model-->
       <form
         ref="form"
@@ -15,7 +9,6 @@
         action="post"
       >
         <!--title input-->
->>>>>>> Stashed changes
         <v-text-field
           v-model="Charities.title"
           variant="outlined"
@@ -252,8 +245,6 @@ import {
   numeric,
   helpers,
 } from "@vuelidate/validators";
-<<<<<<< Updated upstream
-=======
 
 // Add data
 import {
@@ -278,8 +269,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
->>>>>>> Stashed changes
 export default {
   setup() {
     return {
@@ -339,17 +328,6 @@ export default {
         },
         Social_media: {
           required: helpers.withMessage("ادخل ايميل ", required),
-<<<<<<< Updated upstream
-          maxLength: helpers.withMessage(
-            " ادخل ايميل لا يزيد عن 250 حرف",
-            maxLength(250)
-          ),
-          minLength: helpers.withMessage(
-            " ادخل ايميل مكون من 10 حروف على الأقل",
-            minLength(10)
-          ),
-=======
->>>>>>> Stashed changes
         },
         phone: {
           required: helpers.withMessage("ادخل رقم ", required),
@@ -447,8 +425,6 @@ export default {
     };
   },
   methods: {
-<<<<<<< Updated upstream
-=======
     async Add_Charities() {
       try {
         // Add a new document with a generated id.
@@ -511,13 +487,9 @@ export default {
         this.user.password == ""
       );
     },
->>>>>>> Stashed changes
     async validateForm() {
       const dataExists = this.checkDataExists();
       this.v$.$validate();
-<<<<<<< Updated upstream
-      console.log(this.v$);
-=======
       if (dataExists) {
         this.v$.$validate();
         await this.$nextTick();
@@ -534,7 +506,6 @@ export default {
       } else {
         console.log("Data required");
       }
->>>>>>> Stashed changes
     },
   },
 };
@@ -548,3 +519,4 @@ form {
   flex-direction: column !important;
 }
 </style>
+
