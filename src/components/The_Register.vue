@@ -113,7 +113,9 @@
             >{{ activity }}</v-chip
           >
         </v-chip-group>
-        <p class="mb-4 text-right">{{ Charities.Charities_specialty }}</p>
+        <p class="mb-4 text-right">
+          {{ Charities.Charities_specialty }}
+        </p>
         <p class="mb-2 text-right">أنواع الباقات</p>
         <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
         <v-chip-group
@@ -513,9 +515,5 @@ export default {
 <style lang="scss" scoped>
 form {
   width: 95% !important;
-}
-.chip {
-  display: flex !important;
-  flex-direction: column !important;
 }
 </style>
