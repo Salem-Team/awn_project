@@ -332,7 +332,7 @@ export default {
                 name: "محمود سامي",
                 gender: "ذكر",
                 phones: ["01011199200"],
-                birthday: "",
+                birthday: "2024-04-24",
                 email: "mas@gmail.com",
                 nationalID: "876898746783876",
                 password: "Mo-on-1000",
@@ -475,13 +475,13 @@ export default {
                     nationalID: this.user.nationalID,
                     phones: this.user.phones,
                     password: this.user.password,
-                    charity_ID: this.user.charity_ID,
                 });
-                console.log("Document written with ID: ", docRef.id);
 
                 // Update the document with the generated ID
-                await updateDoc(docRef, { id: docRef.id });
-                console.log("Document updated with ID: ", docRef.id);
+                await updateDoc(docRef, {
+                    id: docRef.id,
+                    charity_ID: this.user.charity_ID,
+                });
                 localStorage.setItem("id", docRef.id);
             } catch (error) {
                 console.error("Error adding document: ", error);
@@ -501,33 +501,19 @@ export default {
                     phone: this.Charities.phone,
                     Social_media: this.Charities.Social_media,
                 });
-                console.log("Document written with ID: ", docRef.id);
 
                 // Update the document with the generated ID
                 await updateDoc(docRef, { id: docRef.id });
-                console.log("Document updated with ID: ", docRef.id);
                 this.user.charity_ID = docRef.id;
+                // Add  Add_Users
+                if (this.user.charity_ID) {
+                    this.Add_Users();
+                }
             } catch (error) {
                 console.error("Error adding document: ", error);
             }
         },
 
-        // async Add_Charities() {
-        //   // Add a new document with a generated id.
-        //   const docRef = await addDoc(collection(db, "Charities"), {
-        //     id: docRef.id,
-        //     title: this.user.name,
-        //     description: this.user.descripetion,
-        //     address: this.user.address,
-        //     Package_type: "500",
-        //     Charities_specialty: this.user.selectedTab,
-        //     Fame_number: this.user.license_number,
-        //     Fame_year: this.user.year,
-        //     phone: this.user.phone,
-        //     Social_media: this.user.email,
-        //   });
-        //   console.log("Document written with ID: ", docRef.id);
-        // },
         checkDataExists() {
             // Perform comparison with existing data
             // Return true if data exists, false otherwise
@@ -561,9 +547,7 @@ export default {
                     console.log("Charities", this.Charities);
                     console.log("User", this.user);
                     this.Add_Charities();
-                    setTimeout(() => {
-                        this.Add_Users();
-                    }, 100);
+                    // close The_Register
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled Validation errors found");
