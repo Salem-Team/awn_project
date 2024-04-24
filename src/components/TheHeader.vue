@@ -51,7 +51,7 @@
                 </ul>
             </nav>
             <div class="Login_Register">
-                <div class="login">
+                <div class="login" v-if="User_State">
                     تسجيل دخول
                     <v-dialog activator="parent" max-width="900">
                         <template v-slot:default="{ isActive }">
@@ -75,7 +75,7 @@
                         </template>
                     </v-dialog>
                 </div>
-                <div class="register">
+                <div class="register" v-if="User_State">
                     حساب جديد
                     <v-dialog activator="parent" max-width="900">
                         <template v-slot:default="{ isActive }">
@@ -99,6 +99,9 @@
                         </template>
                     </v-dialog>
                 </div>
+                <div class="User_box" v-if="!User_State">
+                    <div class="Initials">hg</div>
+                </div>
                 <font-awesome-icon :icon="['fab', 'facebook']" />
             </div>
         </div>
@@ -107,9 +110,51 @@
 <script>
 import TheRegister from "@/components/The_Register.vue";
 import TheSignin from "@/components/The_Signin.vue";
+
+// firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default {
     name: "TheHeader",
     components: { TheRegister, TheSignin },
+    mounted() {
+        this.Check_User();
+    },
+    data() {
+        return {
+            User_State: true,
+        };
+    },
+    methods: {
+        async Check_User() {
+            const docRef = doc(db, "Users", localStorage.getItem("id"));
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                console.log("Document data:", docSnap.data());
+                this.User_State = false;
+            } else {
+                // docSnap.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>
