@@ -317,25 +317,26 @@ export default {
             ]),
             //ref to store the Charities data
             Charities: {
-                title: "",
+                title: "الرحمن الرحيم",
                 Social_media: [],
-                phone: "",
-                descripetion: "",
-                address: "",
-                Fame_number: "",
-                Charities_specialty: [],
-                Package_type: "",
-                Fame_year: "",
+                phone: "01099877866",
+                descripetion: "جمعية خيرية لمساعدة المحتاجين",
+                address: "شارع الطيران - مدينة نصر",
+                Fame_number: "3566",
+                Charities_specialty: ["إطعام"],
+                Package_type: "1000 جنية مصري  500 حالة",
+                Fame_year: "2020",
             },
             //ref to store the user data
             user: {
-                name: "",
-                gender: "",
-                phones: [""],
+                name: "محمود سامي",
+                gender: "ذكر",
+                phones: ["01011199200"],
                 birthday: "",
-                email: "",
-                nationalID: "",
-                password: "",
+                email: "mas@gmail.com",
+                nationalID: "876898746783876",
+                password: "Mo-on-1000",
+                charity_ID: "",
             },
         };
     },
@@ -345,10 +346,6 @@ export default {
             Charities: {
                 title: {
                     required: helpers.withMessage("ادخل اسم ", required),
-                    maxLength: helpers.withMessage(
-                        " ادخل اسم لا يزيد عن 10 حرف",
-                        maxLength(10)
-                    ),
                     minLength: helpers.withMessage(
                         " ادخل اسم مكون من 3 حروف على الأقل",
                         minLength(3)
@@ -387,8 +384,8 @@ export default {
                 Fame_number: {
                     required: helpers.withMessage("ادخل رقم", required),
                     minLength: helpers.withMessage(
-                        " ادخل رقم مكون من 4 أرقام على الأقل",
-                        minLength(4)
+                        " ادخل رقم مكون من 3 أرقام على الأقل",
+                        minLength(3)
                     ),
                     numeric: helpers.withMessage(" ادخل أرقام فقط", numeric),
                 },
@@ -467,6 +464,29 @@ export default {
         };
     },
     methods: {
+        async Add_Users() {
+            try {
+                // Add a new document with a generated id.
+                const docRef = await addDoc(collection(db, "Users"), {
+                    name: this.user.name,
+                    birthday: this.user.birthday,
+                    gender: this.user.gender,
+                    email: this.user.email,
+                    nationalID: this.user.nationalID,
+                    phones: this.user.phones,
+                    password: this.user.password,
+                    charity_ID: this.user.charity_ID,
+                });
+                console.log("Document written with ID: ", docRef.id);
+
+                // Update the document with the generated ID
+                await updateDoc(docRef, { id: docRef.id });
+                console.log("Document updated with ID: ", docRef.id);
+                localStorage.setItem("id", docRef.id);
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
+        },
         async Add_Charities() {
             try {
                 // Add a new document with a generated id.
@@ -486,7 +506,7 @@ export default {
                 // Update the document with the generated ID
                 await updateDoc(docRef, { id: docRef.id });
                 console.log("Document updated with ID: ", docRef.id);
-                localStorage.setItem("id", docRef.id);
+                this.user.charity_ID = docRef.id;
             } catch (error) {
                 console.error("Error adding document: ", error);
             }
@@ -541,6 +561,9 @@ export default {
                     console.log("Charities", this.Charities);
                     console.log("User", this.user);
                     this.Add_Charities();
+                    setTimeout(() => {
+                        this.Add_Users();
+                    }, 100);
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled Validation errors found");
