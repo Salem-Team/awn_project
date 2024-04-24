@@ -51,7 +51,7 @@
                 </ul>
             </nav>
             <div class="Login_Register">
-                <div class="login" v-if="User_State">
+                <div class="login" v-if="User.User_State">
                     تسجيل دخول
                     <v-dialog activator="parent" max-width="900">
                         <template v-slot:default="{ isActive }">
@@ -75,7 +75,7 @@
                         </template>
                     </v-dialog>
                 </div>
-                <div class="register" v-if="User_State">
+                <div class="register" v-if="User.User_State">
                     حساب جديد
                     <v-dialog activator="parent" max-width="900">
                         <template v-slot:default="{ isActive }">
@@ -99,10 +99,9 @@
                         </template>
                     </v-dialog>
                 </div>
-                <div class="User_box" v-if="!User_State">
-                    <div class="Initials">hg</div>
+                <div class="User_box" v-if="!User.User_State">
+                    <div class="Initials">{{ User.User_name }}</div>
                 </div>
-                <font-awesome-icon :icon="['fab', 'facebook']" />
             </div>
         </div>
     </div>
@@ -138,7 +137,10 @@ export default {
     },
     data() {
         return {
-            User_State: true,
+            User: {
+                User_State: true,
+                User_name: "",
+            },
         };
     },
     methods: {
@@ -148,7 +150,16 @@ export default {
 
             if (docSnap.exists()) {
                 console.log("Document data:", docSnap.data());
-                this.User_State = false;
+                this.User.User_State = false;
+                let name = docSnap.data().name;
+                // let myString = "محمود سامي";
+                this.User.User_name = name
+                    .split(" ")
+                    .map(function (name) {
+                        return name.charAt(0);
+                    })
+                    .join(" ");
+                console.log("this.User.User_name", this.User.User_name);
             } else {
                 // docSnap.data() will be undefined in this case
                 console.log("No such document!");
