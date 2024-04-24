@@ -51,7 +51,30 @@
                 </ul>
             </nav>
             <div class="Login_Register">
-                <div class="login">تسجيل دخول</div>
+                <div class="login">
+                    تسجيل دخول
+                    <v-dialog activator="parent" max-width="900">
+                        <template v-slot:default="{ isActive }">
+                            <v-card rounded="lg">
+                                <v-card-title
+                                    class="d-flex justify-space-between align-center"
+                                >
+                                    <div
+                                        class="text-h5 text-medium-emphasis ps-2"
+                                    >
+                                        تسجيل دخول
+                                    </div>
+                                    <v-btn
+                                        icon="mdi-close"
+                                        variant="text"
+                                        @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-title>
+                                <TheSignin />
+                            </v-card>
+                        </template>
+                    </v-dialog>
+                </div>
                 <div class="register">
                     حساب جديد
                     <v-dialog activator="parent" max-width="900">
@@ -83,9 +106,10 @@
 </template>
 <script>
 import TheRegister from "@/components/The_Register.vue";
+import TheSignin from "@/components/The_Signin.vue";
 export default {
     name: "TheHeader",
-    components: { TheRegister },
+    components: { TheRegister, TheSignin },
 };
 </script>
 <style lang="scss" scoped>
