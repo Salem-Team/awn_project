@@ -139,6 +139,7 @@
         <v-container fluid>
             <div class="Charites d-flex justify-center">
                 <DashboardCharitys />
+                <StatusInformation />
             </div>
         </v-container>
     </div>
@@ -146,10 +147,12 @@
 
 <script>
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
+import StatusInformation from "@/components/StatusInformation.vue";
 export default {
     name: "Dash_board",
     components: {
         DashboardCharitys,
+        StatusInformation,
     },
     data() {
         return {
