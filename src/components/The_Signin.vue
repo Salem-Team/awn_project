@@ -8,7 +8,7 @@
                 class="ma-auto"
                 action="post"
             >
-                <v-text-field
+                <!-- <v-text-field
                     v-model="user.email"
                     type="email"
                     placeholder="example@gmail.com"
@@ -18,7 +18,7 @@
                     :error-messages="
                         v$.user.email.$errors.map((e) => e.$message)
                     "
-                ></v-text-field>
+                ></v-text-field> -->
 
                 <v-text-field
                     v-model="user.nationalID"
@@ -43,8 +43,9 @@
                     class="me-4"
                     type="submit"
                     style="width: 100%; font-size: 25px"
+                    @click="Sing_In"
                 >
-                    تم
+                    تسجيل الدخول
                 </v-btn>
             </form>
         </v-container>
@@ -54,7 +55,27 @@
 <script scoped>
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, numeric, helpers } from "@vuelidate/validators";
+
+// firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+import { getFirestore, getDocs, collection } from "firebase/firestore";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 export default {
+    props: ["Check_User"],
     setup() {
         return {
             v$: useVuelidate(),
@@ -64,7 +85,7 @@ export default {
         return {
             //ref to store the user data
             user: {
-                email: "",
+                // email: "",
                 nationalID: "",
                 password: "",
             },
@@ -74,14 +95,14 @@ export default {
     validations() {
         return {
             user: {
-                email: {
-                    required: helpers.withMessage("ادخل ايميل ", required),
-                    isValidEmail(value) {
-                        // Define your regex pattern for the email
-                        const regexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        return regexPattern.test(value);
-                    },
-                },
+                // email: {
+                //     required: helpers.withMessage("ادخل ايميل ", required),
+                //     isValidEmail(value) {
+                //         // Define your regex pattern for the email
+                //         const regexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                //         return regexPattern.test(value);
+                //     },
+                // },
                 nationalID: {
                     required: helpers.withMessage(
                         "ادخل الرقم القومي ",
@@ -106,6 +127,23 @@ export default {
         };
     },
     methods: {
+        async Sing_In() {
+            const querySnapshot = await getDocs(collection(db, "Users"));
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                if (
+                    doc.data().nationalID === this.user.nationalID &&
+                    doc.data().password === this.user.password
+                ) {
+                    console.log(doc.id, " => ", doc.data().nationalID);
+                    localStorage.setItem("id", doc.id);
+                    setTimeout(() => {
+                        this.Check_User();
+                    }, 100);
+                    // Close Sign IN
+                }
+            });
+        },
         checkDataExists() {
             // Perform comparison with existing data
             // Return true if data exists, false otherwise

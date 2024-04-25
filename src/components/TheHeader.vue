@@ -70,7 +70,7 @@
                                         @click="isActive.value = false"
                                     ></v-btn>
                                 </v-card-title>
-                                <TheSignin />
+                                <TheSignin :Check_User="Check_User" />
                             </v-card>
                         </template>
                     </v-dialog>
@@ -100,7 +100,12 @@
                     </v-dialog>
                 </div>
                 <div class="User_box" v-if="!User.User_State">
-                    <div class="Initials">{{ User.User_name }}</div>
+                    <div class="Initials" @click="Box_User = !Box_User">
+                        {{ User.User_name }}
+                    </div>
+                    <div class="User_box" v-if="Box_User" @click="Sign_Out">
+                        تسجيل خروج
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,6 +142,7 @@ export default {
     },
     data() {
         return {
+            Box_User: null,
             User: {
                 User_State: true,
                 User_name: "",
@@ -144,25 +150,31 @@ export default {
         };
     },
     methods: {
+        Sign_Out() {
+            localStorage.removeItem("id");
+            this.User.User_State = true;
+        },
         async Check_User() {
-            const docRef = doc(db, "Users", localStorage.getItem("id"));
-            const docSnap = await getDoc(docRef);
+            console.log("Check_User");
+            if (localStorage.getItem("id")) {
+                const docRef = doc(db, "Users", localStorage.getItem("id"));
+                const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
-                this.User.User_State = false;
-                let name = docSnap.data().name;
-                // let myString = "محمود سامي";
-                this.User.User_name = name
-                    .split(" ")
-                    .map(function (name) {
-                        return name.charAt(0);
-                    })
-                    .join(" ");
-                console.log("this.User.User_name", this.User.User_name);
-            } else {
-                // docSnap.data() will be undefined in this case
-                console.log("No such document!");
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                    this.User.User_State = false;
+                    let name = docSnap.data().name;
+                    this.User.User_name = name
+                        .split(" ")
+                        .map(function (name) {
+                            return name.charAt(0);
+                        })
+                        .join(" ");
+                    console.log("this.User.User_name", this.User.User_name);
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
             }
         },
     },
