@@ -103,8 +103,19 @@
                     <div class="Initials" @click="Box_User = !Box_User">
                         {{ User.User_name }}
                     </div>
-                    <div class="User_box" v-if="Box_User" @click="Sign_Out">
-                        تسجيل خروج
+                    <div class="User_box" v-if="Box_User">
+                        <ul>
+                            <li>أهلا {{ User_FullName }}</li>
+                            <li>
+                                <router-link to="DashBoard_charities"
+                                    >إدارة الحالات</router-link
+                                >
+                            </li>
+                            <li>
+                                <router-link to="/">إدارة المشرفين</router-link>
+                            </li>
+                            <li @click="Sign_Out">تسجيل خروج</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -146,6 +157,7 @@ export default {
             User: {
                 User_State: true,
                 User_name: "",
+                User_FullName: "",
             },
         };
     },
@@ -164,6 +176,7 @@ export default {
                     console.log("Document data:", docSnap.data());
                     this.User.User_State = false;
                     let name = docSnap.data().name;
+                    this.User_FullName = docSnap.data().name;
                     this.User.User_name = name
                         .split(" ")
                         .map(function (name) {

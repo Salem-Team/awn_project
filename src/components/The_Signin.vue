@@ -86,8 +86,8 @@ export default {
             //ref to store the user data
             user: {
                 // email: "",
-                nationalID: "",
-                password: "",
+                nationalID: "876898746783876",
+                password: "Mo-on-1000",
             },
         };
     },
