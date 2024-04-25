@@ -142,17 +142,21 @@
                 <StatusInformation />
             </div>
         </v-container>
+        <AadCasce />
     </div>
 </template>
 
 <script>
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
+import AadCasce from "@/components/AadCasce.vue";
+
 export default {
     name: "Dash_board",
     components: {
         DashboardCharitys,
         StatusInformation,
+        AadCasce,
     },
     data() {
         return {
