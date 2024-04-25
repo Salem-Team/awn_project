@@ -51,8 +51,31 @@
                 </ul>
             </nav>
             <div class="Login_Register">
-                <div class="login">تسجيل دخول</div>
-                <div class="register">
+                <div class="login" v-if="User.User_State">
+                    تسجيل دخول
+                    <v-dialog activator="parent" max-width="900">
+                        <template v-slot:default="{ isActive }">
+                            <v-card rounded="lg">
+                                <v-card-title
+                                    class="d-flex justify-space-between align-center"
+                                >
+                                    <div
+                                        class="text-h5 text-medium-emphasis ps-2"
+                                    >
+                                        تسجيل دخول
+                                    </div>
+                                    <v-btn
+                                        icon="mdi-close"
+                                        variant="text"
+                                        @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-title>
+                                <TheSignin :Check_User="Check_User" />
+                            </v-card>
+                        </template>
+                    </v-dialog>
+                </div>
+                <div class="register" v-if="User.User_State">
                     حساب جديد
                     <v-dialog activator="parent" max-width="900">
                         <template v-slot:default="{ isActive }">
@@ -76,16 +99,113 @@
                         </template>
                     </v-dialog>
                 </div>
-                <font-awesome-icon :icon="['fab', 'facebook']" />
+                <div
+                    class="User_box"
+                    v-if="!User.User_State"
+                    @click="drawer = !drawer"
+                >
+                    <div
+                        @click="Box_User = !Box_User"
+                        @click.stop="drawer = !drawer"
+                    >
+                        {{ User.User_name }}
+                        <v-layout>
+                            <v-navigation-drawer class="pt-6" v-model="drawer">
+                                <UserBox />
+                            </v-navigation-drawer>
+                        </v-layout>
+                    </div>
+                    <div class="User_box" v-if="Box_User">
+                        <ul>
+                            <li>أهلا {{ User_FullName }}</li>
+                            <li>
+                                <router-link to="DashBoard_charities"
+                                    >إدارة الحالات</router-link
+                                >
+                            </li>
+                            <li>
+                                <router-link to="/">إدارة المشرفين</router-link>
+                            </li>
+                            <li @click="Sign_Out">تسجيل خروج</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import TheRegister from "@/components/The_Register.vue";
+import TheSignin from "@/components/The_Signin.vue";
+import UserBox from "@/components/User_Box.vue";
+import { ref } from "vue";
+
+// firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default {
     name: "TheHeader",
-    components: { TheRegister },
+    components: { TheRegister, TheSignin, UserBox },
+    mounted() {
+        this.Check_User();
+    },
+    data() {
+        return {
+            drawer: ref(false),
+            Box_User: null,
+            User: {
+                User_State: true,
+                User_name: "",
+                User_FullName: "",
+            },
+        };
+    },
+    methods: {
+        Sign_Out() {
+            localStorage.removeItem("id");
+            this.User.User_State = true;
+        },
+        async Check_User() {
+            console.log("Check_User");
+            if (localStorage.getItem("id")) {
+                const docRef = doc(db, "Users", localStorage.getItem("id"));
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                    this.User.User_State = false;
+                    let name = docSnap.data().name;
+                    this.User_FullName = docSnap.data().name;
+                    this.User.User_name = name
+                        .split(" ")
+                        .map(function (name) {
+                            return name.charAt(0);
+                        })
+                        .join(" ");
+                    console.log("this.User.User_name", this.User.User_name);
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>

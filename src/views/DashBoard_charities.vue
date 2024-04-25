@@ -174,18 +174,25 @@
         <v-container fluid>
             <div class="Charites d-flex justify-center">
                 <DashboardCharitys />
+                <StatusInformation />
             </div>
         </v-container>
+        <AddCasce />
     </div>
 </template>
 
 <script>
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
+import StatusInformation from "@/components/StatusInformation.vue";
+import AddCasce from "@/components/AddCasce.vue";
+
 export default {
     inject: ["Emitter"],
     name: "Dash_board",
     components: {
         DashboardCharitys,
+        StatusInformation,
+        AddCasce,
     },
     data() {
         return {
