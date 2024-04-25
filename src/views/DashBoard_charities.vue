@@ -5,7 +5,7 @@
             <v-row>
                 <v-col cols="12">
                     <div
-                        class="d-flex justify-space-between align-center flex-wrap px-12"
+                        class="d-flex justify-space-between align-end flex-wrap px-12"
                         style="
                             position: relative;
                             padding: 1px 16px 1px 0px;
@@ -33,27 +33,62 @@
                                 <span>حالات مشتركه</span>
                             </div>
                         </div>
-                        <div class="d-flex ga-3">
-                            <v-text-field
-                                append-inner-icon="mdi-magnify"
-                                density="compact"
-                                label="أبحث عن"
-                                variant="solo"
-                                hide-details
-                                single-line
-                                style="
-                                    display: inline-block;
-                                    width: 350px;
-                                    height: 40px;
-                                    padding-right: 30px;
-                                    padding-left: 10px;
-                                "
-                            >
-                            </v-text-field>
-
-                            <v-btn variant="tonal"
-                                ><font-awesome-icon icon="list-ul"
-                            /></v-btn>
+                        <div class="d-flex ga-3 mb-3">
+                            <v-menu>
+                                <template v-slot:activator="{ props }">
+                                    <v-btn color="primary" v-bind="props">
+                                        ترتيب حسب
+                                        <v-icon>mdi-filter-variant</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-list>
+                                    <v-list-item @click="funLatestClicked">
+                                        <v-list-item-title>
+                                            الاحدث للاقدم
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funAtZClicked">
+                                        <v-list-item-title>
+                                            أبجدى تصاعدى
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funZtAClicked">
+                                        <v-list-item-title>
+                                            أبجدى تنازلى</v-list-item-title
+                                        >
+                                    </v-list-item>
+                                    <v-list-item @click="funCards_STL">
+                                        <v-list-item-title
+                                            >تصاعدى حسب العجز
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funCards_LTS">
+                                        <v-list-item-title>
+                                            ننازلى حسب العجز
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funFat_STL">
+                                        <v-list-item-title>
+                                            تصاعدى حسب الدخل
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funFat_LTS">
+                                        <v-list-item-title>
+                                            تنازلى حسب الدخل
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funCalories_STL">
+                                        <v-list-item-title>
+                                            تصاعدى حسب المطلوب
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-list-item @click="funCalories_LTS">
+                                        <v-list-item-title>
+                                            تنازلى حسب المطلوب
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
                             <v-btn>
                                 <v-icon
                                     style="font-size: 20px !important"
@@ -61,7 +96,7 @@
                                     >mdi-plus</v-icon
                                 >
                             </v-btn>
-                            <v-btn>
+                            <v-btn @click="Swap">
                                 <v-icon>mdi-view-grid-outline</v-icon>
                             </v-btn>
                         </div>
@@ -147,6 +182,7 @@
 <script>
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 export default {
+    inject: ["Emitter"],
     name: "Dash_board",
     components: {
         DashboardCharitys,
@@ -155,6 +191,46 @@ export default {
         return {
             dialog: false,
         };
+    },
+    methods: {
+        Swap() {
+            this.Emitter.emit("swapView");
+        },
+        // / Firts Function ordered By >>>> Swap BT Latest && Oldest
+        funLatestClicked() {
+            this.Emitter.emit("FunLatest");
+        },
+        // / Seconed  Function ordered By >>>> A To Z
+        funAtZClicked() {
+            this.Emitter.emit("FunATZ");
+        },
+        // / Third  Function ordered By >>>> Z To A
+        funZtAClicked() {
+            this.Emitter.emit("FunZTA");
+        },
+        // / Fourth  Function ordered By Cards >>>> S T L
+        funCards_STL() {
+            this.Emitter.emit("CardsAscending");
+        },
+        funCards_LTS() {
+            this.Emitter.emit("CardsDesaending");
+        },
+        // / Sixth  Function ordered Fat >>>> S T L
+        funFat_STL() {
+            this.Emitter.emit("FatAscending");
+        },
+        // / seventh  Function ordered Fat >>>> L T Z
+        funFat_LTS() {
+            this.Emitter.emit("fatDesaending");
+        },
+        // / Eight  Function ordered calories >>>>S T L
+        funCalories_STL() {
+            this.Emitter.emit("caloriesAscending");
+        },
+        // / nine  Function ordered calories >>>>S T L
+        funCalories_LTS() {
+            this.Emitter.emit("caloriesDesaending");
+        },
     },
 };
 </script>
