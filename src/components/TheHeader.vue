@@ -99,9 +99,21 @@
                         </template>
                     </v-dialog>
                 </div>
-                <div class="User_box" v-if="!User.User_State">
-                    <div class="Initials" @click="Box_User = !Box_User">
+                <div
+                    class="User_box"
+                    v-if="!User.User_State"
+                    @click="drawer = !drawer"
+                >
+                    <div
+                        @click="Box_User = !Box_User"
+                        @click.stop="drawer = !drawer"
+                    >
                         {{ User.User_name }}
+                        <v-layout>
+                            <v-navigation-drawer class="pt-6" v-model="drawer">
+                                <UserBox />
+                            </v-navigation-drawer>
+                        </v-layout>
                     </div>
                     <div class="User_box" v-if="Box_User">
                         <ul>
@@ -125,6 +137,8 @@
 <script>
 import TheRegister from "@/components/The_Register.vue";
 import TheSignin from "@/components/The_Signin.vue";
+import UserBox from "@/components/User_Box.vue";
+import { ref } from "vue";
 
 // firebase
 // Import the functions you need from the SDKs you need
@@ -147,12 +161,13 @@ const db = getFirestore(app);
 
 export default {
     name: "TheHeader",
-    components: { TheRegister, TheSignin },
+    components: { TheRegister, TheSignin, UserBox },
     mounted() {
         this.Check_User();
     },
     data() {
         return {
+            drawer: ref(false),
             Box_User: null,
             User: {
                 User_State: true,
