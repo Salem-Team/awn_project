@@ -101,7 +101,7 @@
                 </div>
                 <div
                     class="User_box"
-                    v-if="User.User_State"
+                    v-if="!User.User_State"
                     @click="drawer = !drawer"
                 >
                     <div
