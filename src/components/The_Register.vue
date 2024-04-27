@@ -91,7 +91,7 @@
                     id="link"
                     v-for="(social, index) in social"
                     :key="index"
-                    v-model="Charities.Social_media[social]"
+                    v-model="Charities.Social_media[index]"
                     label="منصات التواصل"
                     type="text"
                     variant="outlined"
@@ -201,7 +201,7 @@
                     id="phone"
                     v-for="(tel, index) in tel"
                     :key="index"
-                    v-model="user.phones[tel]"
+                    v-model="user.phones[index]"
                     label="تليفون"
                     type="tel"
                     variant="outlined"
@@ -243,16 +243,20 @@
                 ></v-text-field>
                 <v-text-field
                     v-model="user.password"
-                    type="password"
+                    :type="showPassword ? 'text' : 'password'"
                     variant="outlined"
                     label="الباسورد"
-                    class="mt-2"
+                    placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                    class="mt-2 mb-0 pb-0"
                     :error-messages="
                         v$.user.password.$errors.map((e) => e.$message)
                     "
-                ></v-text-field>
+                    :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append="showPassword = !showPassword"
+                >
+                </v-text-field>
                 <v-btn
-                    class="me-4"
+                    class="mt-4"
                     type="submit"
                     style="width: 100%; font-size: 25px"
                 >
@@ -298,6 +302,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
+    props: { IsActive: Object },
     setup() {
         return {
             v$: useVuelidate(),
@@ -305,6 +310,7 @@ export default {
     },
     data() {
         return {
+            Active: this.IsActive,
             tel: ref(1),
             //ref to add another email box
             social: ref(1),
@@ -457,6 +463,7 @@ export default {
                         // Define your regex pattern for the password
                         const regexPattern =
                             /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+                        this.validate = true;
                         return regexPattern.test(value);
                     },
                 },
@@ -548,6 +555,8 @@ export default {
                     console.log("User", this.user);
                     this.Add_Charities();
                     // close The_Register
+                    this.Active = false;
+                    this.v$.$reset();
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled Validation errors found");
