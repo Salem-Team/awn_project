@@ -208,7 +208,7 @@
                             /></v-window-item>
 
                             <v-window-item value="الجمعيات">
-                                Two
+                                <CharityView />
                             </v-window-item>
                         </v-window>
                     </div>
@@ -221,6 +221,7 @@
 <script>
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
+import CharityView from "@/components/Charity_View.vue";
 
 export default {
     inject: ["Emitter"],
@@ -228,6 +229,7 @@ export default {
     components: {
         DashboardCharitys,
         StatusInformation,
+        CharityView,
     },
     data() {
         return {
