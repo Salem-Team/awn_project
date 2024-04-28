@@ -118,8 +118,8 @@
                             activator="#menu-activator"
                         >
                             <v-list nav>
-                                <v-list-title>
-                                    مرحباً {{ User_FullName }}</v-list-title
+                                <v-list-item>
+                                    مرحباً {{ User_FullName }}</v-list-item
                                 >
                                 <v-list-item
                                     @click="
