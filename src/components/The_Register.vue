@@ -243,16 +243,17 @@
                 ></v-text-field>
                 <v-text-field
                     v-model="user.password"
-                    :type="showPassword ? 'text' : 'password'"
+                    :type="inputType"
                     variant="outlined"
                     label="الباسورد"
-                    placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                    placeholder="ادخل كلمة
+                    سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                     class="mt-2 mb-0 pb-0"
                     :error-messages="
                         v$.user.password.$errors.map((e) => e.$message)
                     "
                     :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                    @click:append="showPassword = !showPassword"
+                    @click:append="toggleShowPassword"
                 >
                 </v-text-field>
                 <v-btn
@@ -310,6 +311,7 @@ export default {
     },
     data() {
         return {
+            showPassword: false, // define showPassword
             Active: this.IsActive,
             tel: ref(1),
             //ref to add another email box
@@ -470,7 +472,17 @@ export default {
             },
         };
     },
+    computed: {
+        // Define a computed property to determine the input type based on showPassword
+        inputType() {
+            return this.showPassword ? "text" : "password";
+        },
+    },
     methods: {
+        // Define a method to toggle the showPassword flag when the append icon is clicked
+        toggleShowPassword() {
+            this.showPassword = !this.showPassword;
+        },
         async Add_Users() {
             try {
                 // Add a new document with a generated id.
