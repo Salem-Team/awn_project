@@ -107,27 +107,35 @@
                     <div
                         @click="Box_User = !Box_User"
                         @click.stop="drawer = !drawer"
+                        id="menu-activator"
                     >
                         {{ User.User_name }}
-                        <v-layout>
-                            <v-navigation-drawer class="pt-6" v-model="drawer">
-                                <UserBox />
-                            </v-navigation-drawer>
-                        </v-layout>
                     </div>
-                    <div class="User_box" v-if="Box_User">
-                        <ul>
-                            <li>أهلا {{ User_FullName }}</li>
-                            <li>
-                                <router-link to="DashBoard_charities"
-                                    >إدارة الحالات</router-link
+                    <div class="User_box">
+                        <v-menu
+                            transition="scale-transition"
+                            activator="#menu-activator"
+                        >
+                            <v-list nav>
+                                <v-list-item>
+                                    مرحباً {{ User_FullName }}</v-list-item
                                 >
-                            </li>
-                            <li>
-                                <router-link to="/">إدارة المشرفين</router-link>
-                            </li>
-                            <li @click="Sign_Out">تسجيل خروج</li>
-                        </ul>
+                                <v-list-item
+                                    @click="
+                                        $router.push('/DashBoard_charities')
+                                    "
+                                >
+                                    إدارة الحالات</v-list-item
+                                >
+                                <v-list-item @click="$router.push('/')">
+                                    إدارة المشتركين
+                                </v-list-item>
+                                <v-list-item @click="Sign_Out"
+                                    ><v-icon>mdi-export</v-icon> تسجيل
+                                    خروج</v-list-item
+                                >
+                            </v-list>
+                        </v-menu>
                     </div>
                 </div>
             </div>
@@ -137,7 +145,6 @@
 <script>
 import TheRegister from "@/components/The_Register.vue";
 import TheSignin from "@/components/The_Signin.vue";
-import UserBox from "@/components/User_Box.vue";
 import { ref } from "vue";
 
 // firebase
@@ -161,7 +168,7 @@ const db = getFirestore(app);
 
 export default {
     name: "TheHeader",
-    components: { TheRegister, TheSignin, UserBox },
+    components: { TheRegister, TheSignin },
     mounted() {
         this.Check_User();
     },

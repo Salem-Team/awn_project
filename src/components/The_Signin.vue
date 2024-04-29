@@ -8,18 +8,6 @@
                 class="ma-auto"
                 action="post"
             >
-                <!-- <v-text-field
-                    v-model="user.email"
-                    type="email"
-                    placeholder="example@gmail.com"
-                    variant="outlined"
-                    label="الايميل"
-                    class="mt-2"
-                    :error-messages="
-                        v$.user.email.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field> -->
-
                 <v-text-field
                     v-model="user.nationalID"
                     variant="outlined"
@@ -31,16 +19,21 @@
                 ></v-text-field>
                 <v-text-field
                     v-model="user.password"
-                    type="password"
+                    :type="inputType"
                     variant="outlined"
                     label="الباسورد"
-                    class="mt-2"
+                    placeholder="ادخل كلمة
+                    سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                    class="mt-2 mb-0 pb-0"
                     :error-messages="
                         v$.user.password.$errors.map((e) => e.$message)
                     "
-                ></v-text-field>
+                    :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append="toggleShowPassword"
+                >
+                </v-text-field>
                 <v-btn
-                    class="me-4"
+                    class="mt-4"
                     type="submit"
                     style="width: 100%; font-size: 25px"
                     @click="Sing_In"
@@ -75,7 +68,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
-    props: ["Check_User"],
+    props: ["Check_User", "IsActive"],
     setup() {
         return {
             v$: useVuelidate(),
@@ -83,9 +76,10 @@ export default {
     },
     data() {
         return {
+            showPassword: false, // define showPassword
+            Active: this.IsActive,
             //ref to store the user data
             user: {
-                // email: "",
                 nationalID: "876898746783876",
                 password: "Mo-on-1000",
             },
@@ -95,14 +89,6 @@ export default {
     validations() {
         return {
             user: {
-                // email: {
-                //     required: helpers.withMessage("ادخل ايميل ", required),
-                //     isValidEmail(value) {
-                //         // Define your regex pattern for the email
-                //         const regexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                //         return regexPattern.test(value);
-                //     },
-                // },
                 nationalID: {
                     required: helpers.withMessage(
                         "ادخل الرقم القومي ",
@@ -126,7 +112,17 @@ export default {
             },
         };
     },
+    computed: {
+        // Define a computed property to determine the input type based on showPassword
+        inputType() {
+            return this.showPassword ? "text" : "password";
+        },
+    },
     methods: {
+        // Define a method to toggle the showPassword flag when the append icon is clicked
+        toggleShowPassword() {
+            this.showPassword = !this.showPassword;
+        },
         async Sing_In() {
             const querySnapshot = await getDocs(collection(db, "Users"));
             querySnapshot.forEach((doc) => {
@@ -141,17 +137,15 @@ export default {
                         this.Check_User();
                     }, 100);
                     // Close Sign IN
+                    this.Active = false;
+                    this.v$.$reset();
                 }
             });
         },
         checkDataExists() {
             // Perform comparison with existing data
             // Return true if data exists, false otherwise
-            return !(
-                this.user.email == "" &&
-                this.user.nationalID == "" &&
-                this.user.password == ""
-            );
+            return !(this.user.nationalID == "" && this.user.password == "");
         },
         async validateForm() {
             const dataExists = this.checkDataExists();
@@ -163,6 +157,9 @@ export default {
                     // If no errors, proceed with further processing
                     console.log("Data filled and Form submitted successfully");
                     console.log("User", this.user);
+                    // Close Sign IN
+                    this.Active = false;
+                    this.v$.$reset();
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled Validation errors found");
