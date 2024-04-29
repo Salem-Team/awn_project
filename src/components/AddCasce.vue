@@ -796,7 +796,19 @@
                                         >{{ err.$message }}</span
                                     >
                                 </span>
-                                <div class="card d-flex">
+                                <v-btn
+                                    style="
+                                        display: block;
+                                        margin-bottom: 25px;
+                                        margin-right: 400px;
+                                    "
+                                    v-if="!showDiv1"
+                                    @click="toggleDiv1"
+                                    icon="mdi-plus"
+                                    size="x-large"
+                                >
+                                </v-btn>
+                                <div class="card d-flex" v-if="showDiv1">
                                     <h1 class="w-25">وصف سريع للغرفه رقم 2</h1>
                                     <v-text-field
                                         v-model="form4.DescriptionRoom2"
@@ -814,6 +826,7 @@
                                         margin-bottom: 17px;
                                         color: red;
                                     "
+                                    v-show="showDiv1"
                                 >
                                     <span
                                         v-if="
@@ -822,7 +835,20 @@
                                         >{{ err.$message }}</span
                                     >
                                 </span>
-                                <div class="card d-flex">
+                                <v-btn
+                                    style="
+                                        display: block;
+                                        margin-bottom: 25px;
+                                        margin-right: 400px;
+                                    "
+                                    v-show="showDiv1"
+                                    v-if="!showDiv2"
+                                    @click="toggleDiv2"
+                                    icon="mdi-plus"
+                                    size="x-large"
+                                >
+                                </v-btn>
+                                <div class="card d-flex" v-if="showDiv2">
                                     <h1 class="w-25">وصف سريع للغرفه رقم 3</h1>
                                     <v-text-field
                                         v-model="form4.DescriptionRoom3"
@@ -832,6 +858,7 @@
                                     ></v-text-field>
                                 </div>
                                 <span
+                                    v-show="showDiv2"
                                     v-for="err in v$.$errors"
                                     :key="err.$uid"
                                     style="
@@ -863,12 +890,17 @@
                             <form @submit.prevent="validateForm5">
                                 <div class="card d-flex">
                                     <h1 class="w-25">طبي</h1>
-                                    <v-text-field
-                                        v-model="form5.medical"
+                                    <!-- <v-text-field
+                                       
                                         label="طبي"
                                         variant="outlined"
                                         placeholder="طبي"
-                                    ></v-text-field>
+                                    ></v-text-field> -->
+                                    <v-checkbox
+                                        v-model="form5.medical"
+                                        label="طبي"
+                                        value="طبي"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -886,12 +918,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">زوج</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.Husband"
                                         label="زوج"
-                                        variant="outlined"
-                                        placeholder="زوج"
-                                    ></v-text-field>
+                                        value="زوج"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -909,12 +940,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">ملابس</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.clothes"
                                         label="ملابس"
-                                        variant="outlined"
-                                        placeholder="ملابس"
-                                    ></v-text-field>
+                                        value="ملابس"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -932,12 +962,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">مرتبات</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.salaries"
                                         label="مرتبات"
-                                        variant="outlined"
-                                        placeholder="مرتبات"
-                                    ></v-text-field>
+                                        value="مرتبات"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -955,12 +984,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">بطاطين</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.Blankets"
                                         label="بطاطين"
-                                        variant="outlined"
-                                        placeholder="بطاطين"
-                                    ></v-text-field>
+                                        value="بطاطين"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -978,12 +1006,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">شنطه غذائيه</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.FoodBag"
                                         label="شنطه غذائيه"
-                                        variant="outlined"
-                                        placeholder="شنطه غذائيه"
-                                    ></v-text-field>
+                                        value="شنطه غذائيه"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -1001,12 +1028,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">كفاله شهريه</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.MonthlyWarranty"
                                         label="كفاله شهريه"
-                                        variant="outlined"
-                                        placeholder="كفاله شهريه"
-                                    ></v-text-field>
+                                        value="كفاله شهريه"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -1027,12 +1053,11 @@
                                 </span>
                                 <div class="card d-flex">
                                     <h1 class="w-25">اجهزه منزليه</h1>
-                                    <v-text-field
+                                    <v-checkbox
                                         v-model="form5.Appliances"
                                         label="اجهزه منزليه"
-                                        variant="outlined"
-                                        placeholder="اجهزه منزليه"
-                                    ></v-text-field>
+                                        value="اجهزه منزليه"
+                                    ></v-checkbox>
                                 </div>
                                 <span
                                     v-for="err in v$.$errors"
@@ -1125,6 +1150,8 @@ export default {
         return { v$: useVuelidate() };
     },
     data: () => ({
+        showDiv1: false,
+        showDiv2: false,
         form1: {
             namea: "",
             nameb: "",
@@ -1434,20 +1461,12 @@ export default {
                     ),
                 },
                 DescriptionRoom2: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 DescriptionRoom3: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
@@ -1455,58 +1474,14 @@ export default {
                 },
             },
             form5: {
-                medical: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
-                Husband: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
-                clothes: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
-                salaries: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
-                    ),
-                },
-                Blankets: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
-                FoodBag: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
-                MonthlyWarranty: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
-                Appliances: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
-                },
+                medical: {},
+                Husband: {},
+                clothes: {},
+                salaries: {},
+                Blankets: {},
+                FoodBag: {},
+                MonthlyWarranty: {},
+                Appliances: {},
             },
         };
     },
@@ -1601,10 +1576,14 @@ export default {
                     this.form4.BathroomType,
                     this.form4.FloorType,
                     this.form4.Descriptionkitchen,
-                    this.form4.DescriptionRoom1,
-                    this.form4.DescriptionRoom2,
-                    this.form4.DescriptionRoom3
+                    this.form4.DescriptionRoom1
                 );
+                if (this.showDiv1 == "true") {
+                    this.testform4.push(this.form4.DescriptionRoom2);
+                }
+                if (this.showDiv2 == "true") {
+                    this.testform4.push(this.form4.DescriptionRoom3);
+                }
                 const arr = document.querySelectorAll(".tabtest")[3];
                 const arr1 = document.querySelectorAll(".tabtest")[4];
                 arr1.click();
@@ -1658,6 +1637,13 @@ export default {
         },
         reloadPage() {
             window.location.reload();
+        },
+
+        toggleDiv1() {
+            this.showDiv1 = !this.showDiv1; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        toggleDiv2() {
+            this.showDiv2 = !this.showDiv2; // تغيير حالة العنصر ما بين الظهور والاختفاء
         },
     },
 };
