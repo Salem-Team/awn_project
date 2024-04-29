@@ -112,43 +112,6 @@
                         </v-card>
                     </v-col>
                 </v-row>
-                <!-- third Row Contain Search & filter & gird view -->
-                <!-- <v-row>
-          <v-col cols="2"></v-col>
-          <v-col cols="10">
-            <v-text-field
-              v-model="text"
-              style="
-                position: relative;
-                padding: 1px 16px 1px 0px;
-                margin-left: 50px;
-                border-radius: 7px 0px 0px 0px;
-                height: 100px;
-              "
-              density="compact"
-              placeholder="بحث عن المحتاجيين عن طريق الاسم ,الحاله ,الدخل ,الاحتياج"
-              append-inner-icon="mdi-magnify"
-              variant="outlined"
-              @input="search"
-            >
-              <div
-                class="d-flex"
-                style="position: absolute; left: 0; top: 4px; margin-left: 5px"
-              >
-                <v-btn
-                  >تصفيه
-                  <v-icon>mdi-filter-variant</v-icon>
-                </v-btn>
-                <v-btn variant="text">
-                  <v-icon>mdi-view-grid-outline</v-icon>
-                </v-btn>
-                <v-btn variant="tonal"
-                  ><font-awesome-icon icon="list-ul"
-                /></v-btn>
-              </div>
-            </v-text-field>
-          </v-col>
-        </v-row> -->
             </div>
         </v-container>
     </div>

@@ -70,7 +70,7 @@
                                         @click="isActive.value = false"
                                     ></v-btn>
                                 </v-card-title>
-                                <TheSignin />
+                                <TheSignin :Check_User="Check_User" />
                             </v-card>
                         </template>
                     </v-dialog>
@@ -99,8 +99,45 @@
                         </template>
                     </v-dialog>
                 </div>
-                <div class="User_box" v-if="!User.User_State">
-                    <div class="Initials">{{ User.User_name }}</div>
+                <div
+                    class="User_box"
+                    v-if="!User.User_State"
+                    @click="drawer = !drawer"
+                >
+                    <div
+                        @click="Box_User = !Box_User"
+                        @click.stop="drawer = !drawer"
+                        id="menu-activator"
+                    >
+                        {{ User.User_name }}
+                    </div>
+                    <div class="User_box" v-if="Box_User">
+                        <v-menu
+                            open-on-hover
+                            transition="scale-transition"
+                            activator="#menu-activator"
+                        >
+                            <v-list nav>
+                                <v-list-item>
+                                    مرحباً {{ User_FullName }}</v-list-item
+                                >
+                                <v-list-item
+                                    @click="
+                                        $router.push('/DashBoard_charities')
+                                    "
+                                >
+                                    إدارة الحالات</v-list-item
+                                >
+                                <v-list-item @click="$router.push('/')">
+                                    إدارة المشتركين
+                                </v-list-item>
+                                <v-list-item @click="Sign_Out"
+                                    ><v-icon>mdi-export</v-icon> تسجيل
+                                    خروج</v-list-item
+                                >
+                            </v-list>
+                        </v-menu>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,6 +146,7 @@
 <script>
 import TheRegister from "@/components/The_Register.vue";
 import TheSignin from "@/components/The_Signin.vue";
+import { ref } from "vue";
 
 // firebase
 // Import the functions you need from the SDKs you need
@@ -137,32 +175,42 @@ export default {
     },
     data() {
         return {
+            drawer: ref(false),
+            Box_User: null,
             User: {
                 User_State: true,
                 User_name: "",
+                User_FullName: "",
             },
         };
     },
     methods: {
+        Sign_Out() {
+            localStorage.removeItem("id");
+            this.User.User_State = true;
+        },
         async Check_User() {
-            const docRef = doc(db, "Users", localStorage.getItem("id"));
-            const docSnap = await getDoc(docRef);
+            console.log("Check_User");
+            if (localStorage.getItem("id")) {
+                const docRef = doc(db, "Users", localStorage.getItem("id"));
+                const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
-                this.User.User_State = false;
-                let name = docSnap.data().name;
-                // let myString = "محمود سامي";
-                this.User.User_name = name
-                    .split(" ")
-                    .map(function (name) {
-                        return name.charAt(0);
-                    })
-                    .join(" ");
-                console.log("this.User.User_name", this.User.User_name);
-            } else {
-                // docSnap.data() will be undefined in this case
-                console.log("No such document!");
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data());
+                    this.User.User_State = false;
+                    let name = docSnap.data().name;
+                    this.User_FullName = docSnap.data().name;
+                    this.User.User_name = name
+                        .split(" ")
+                        .map(function (name) {
+                            return name.charAt(0);
+                        })
+                        .join(" ");
+                    console.log("this.User.User_name", this.User.User_name);
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
             }
         },
     },
