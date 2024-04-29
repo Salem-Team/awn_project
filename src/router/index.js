@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import DashBoard from "@/views/DashBoard_charities.vue";
+import DashBoard_charities from "@/views/DashBoard_charities.vue";
+import DashBoard_Admin from "@/views/DashBoard_Admin.vue";
 
 const routes = [
     {
@@ -11,7 +12,12 @@ const routes = [
     {
         path: "/DashBoard_charities",
         name: "DashBoard_charities",
-        component: DashBoard,
+        component: DashBoard_charities,
+    },
+    {
+        path: "/DashBoard_Admin",
+        name: "DashBoard_Admin",
+        component: DashBoard_Admin,
     },
 ];
 

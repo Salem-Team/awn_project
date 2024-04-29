@@ -111,9 +111,8 @@
                     >
                         {{ User.User_name }}
                     </div>
-                    <div class="User_box" v-if="Box_User">
+                    <div class="User_box">
                         <v-menu
-                            open-on-hover
                             transition="scale-transition"
                             activator="#menu-activator"
                         >
