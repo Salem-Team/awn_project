@@ -12,9 +12,9 @@
                 </div>
             </div>
             <!--the Charities_specialty-->
-            <v-chip-group
+            <v-container
                 selected-class="bg-grey-lighten-1"
-                class="text-right"
+                class="text-right d-flex align-center flex-wrap justify-around"
                 v-model="Charities.Charities_specialty"
             >
                 <h3
@@ -22,17 +22,16 @@
                 >
                     تخصص الجمعية:
                 </h3>
-                <v-chip
+                <v-card
                     elevation="2"
                     v-for="(activity, index) in activities"
                     :key="index"
-                    class="ma-2"
+                    class="ma-2 pa-3"
                     rounded="lg"
-                    size="x-large"
                     :value="activity"
-                    >{{ activity }}</v-chip
+                    >{{ activity }}</v-card
                 >
-            </v-chip-group>
+            </v-container>
             <br />
             <!--the Charities_descripetion-->
             <div class="d-flex align-center flex-wrap justify-around">
