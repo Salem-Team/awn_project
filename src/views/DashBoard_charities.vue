@@ -153,7 +153,14 @@
                                             <div
                                                 class="text-h3 flex-grow-1 text-center"
                                             >
-                                                ملف اكسل
+                                                ملف اكسل<input
+                                                    type="file"
+                                                    id="myinput"
+                                                    accept=".xlsx"
+                                                    @change="
+                                                        onFileChange($event)
+                                                    "
+                                                />
                                             </div>
                                         </v-card>
                                     </v-item>
@@ -182,6 +189,10 @@
 </template>
 
 <script>
+// import Xlsx File
+import readXlsxFile from "read-excel-file";
+// import XLSX from "xlsx";
+// import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
 import AddCasce from "@/components/AddCasce.vue";
@@ -200,6 +211,15 @@ export default {
         };
     },
     methods: {
+        onFileChange(event) {
+            const xlsxFile = event.target.files ? event.target.files[0] : null;
+            if (xlsxFile) {
+                readXlsxFile(xlsxFile).then((rows) => {
+                    console.log("Rows:", rows);
+                });
+            }
+        },
+
         Swap() {
             this.Emitter.emit("swapView");
         },
@@ -239,6 +259,7 @@ export default {
             this.Emitter.emit("caloriesDesaending");
         },
     },
+    mounted() {},
 };
 </script>
 <style lang="scss">
