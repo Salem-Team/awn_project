@@ -157,9 +157,7 @@
                                                     type="file"
                                                     id="myinput"
                                                     accept=".xlsx"
-                                                    @change="
-                                                        onFileChange($event)
-                                                    "
+                                                    @change="To_Json()"
                                                 />
                                             </div>
                                         </v-card>
@@ -208,17 +206,18 @@ export default {
     data() {
         return {
             dialog: false,
+            items: [],
         };
     },
     methods: {
-        onFileChange(event) {
-            const xlsxFile = event.target.files ? event.target.files[0] : null;
-            if (xlsxFile) {
-                readXlsxFile(xlsxFile).then((rows) => {
-                    console.log("Rows:", rows);
-                });
-            }
-        },
+        // onFileChange(event) {
+        //     const xlsxFile = event.target.files ? event.target.files[0] : null;
+        //     if (xlsxFile) {
+        //         readXlsxFile(xlsxFile).then((rows) => {
+        //             console.log("Rows:", rows);
+        //         });
+        //     }
+        // },
 
         Swap() {
             this.Emitter.emit("swapView");
@@ -258,8 +257,19 @@ export default {
         funCalories_LTS() {
             this.Emitter.emit("caloriesDesaending");
         },
+        To_Json() {
+            const input = document.getElementById("myinput");
+            readXlsxFile(input.files[0]).then((rows) => {
+                const headers = rows[1]; // assuming the first row contains column headers
+                const data = rows.slice(2); // data rows
+                const objByColumn = {};
+                headers.forEach((header, index) => {
+                    objByColumn[header] = data.map((row) => row[index]);
+                });
+                console.log(objByColumn); // output the resulting object
+            });
+        },
     },
-    mounted() {},
 };
 </script>
 <style lang="scss">
