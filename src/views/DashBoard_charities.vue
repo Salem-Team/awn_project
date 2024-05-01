@@ -1,6 +1,7 @@
 <template>
     <div class="Dash_board">
         <!-- NavBar  -->
+        <Side_Bar />
         <v-container fluid>
             <v-row>
                 <v-col cols="12">
@@ -194,6 +195,7 @@ import readXlsxFile from "read-excel-file";
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
 import AddCasce from "@/components/AddCasce.vue";
+import Side_Bar from "@/components/Side_Bar.vue";
 
 export default {
     inject: ["Emitter"],
@@ -202,6 +204,7 @@ export default {
         DashboardCharitys,
         StatusInformation,
         AddCasce,
+        Side_Bar,
     },
     data() {
         return {
