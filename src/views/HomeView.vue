@@ -15,33 +15,25 @@
                         prepend-icon="mdi-home-outline"
                         >الصفحة الرئيسية
                     </v-list-item>
-                    <v-list-item link prepend-icon="mdi-receipt-outline">
-                        التبرعات</v-list-item
-                    >
+
                     <v-list-item link prepend-icon="mdi-chart-pie-outline">
                         التقارير</v-list-item
                     >
                     <v-list-item link prepend-icon="mdi-cog-outline">
                         الاعدادات</v-list-item
                     >
-                    <v-list-item
-                        link
-                        prepend-icon="mdi-file-edit-outline"
-                        class="mb-16"
-                    >
-                        المشاريع
-                    </v-list-item>
-                    <br />
-                    <br />
-                    <br />
-                    <v-list-item
+
+                    <!-- <br /> -->
+                    <!-- <br /> -->
+                    <!-- <br /> -->
+                    <!-- <v-list-item
                         class="text-red lighten-2"
                         link
                         @click="Sign_Out"
                         prepend-icon="mdi-export"
                     >
                         تسجيل خروج
-                    </v-list-item>
+                    </v-list-item> -->
                 </v-list>
             </v-navigation-drawer>
         </v-layout>
@@ -243,10 +235,10 @@ export default {
         };
     },
     methods: {
-        Sign_Out() {
-            localStorage.removeItem("id");
-            this.User.User_State = true;
-        },
+        // Sign_Out() {
+        //     localStorage.removeItem("id");
+        //     this.User.User_State = true;
+        // },
         Swap() {
             this.Emitter.emit("swapView");
         },

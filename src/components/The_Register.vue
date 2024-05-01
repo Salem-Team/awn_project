@@ -494,6 +494,7 @@ export default {
                     nationalID: this.user.nationalID,
                     phones: this.user.phones,
                     password: this.user.password,
+                    type: "owner",
                 });
 
                 // Update the document with the generated ID

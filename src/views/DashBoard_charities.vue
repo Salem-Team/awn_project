@@ -262,6 +262,7 @@ export default {
             readXlsxFile(input.files[0]).then((rows) => {
                 const headers = rows[1]; // assuming the first row contains column headers
                 const data = rows.slice(2); // data rows
+                console.log("data", data);
                 const objByColumn = {};
                 headers.forEach((header, index) => {
                     objByColumn[header] = data.map((row) => row[index]);

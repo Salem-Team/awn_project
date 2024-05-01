@@ -121,14 +121,24 @@
                                     مرحباً {{ User_FullName }}</v-list-item
                                 >
                                 <v-list-item
+                                    v-if="User.type === 'owner'"
                                     @click="
                                         $router.push('/DashBoard_charities')
                                     "
                                 >
                                     إدارة الحالات</v-list-item
                                 >
-                                <v-list-item @click="$router.push('/')">
-                                    إدارة المشتركين
+                                <v-list-item
+                                    v-if="User.type === 'admin'"
+                                    @click="$router.push('/')"
+                                >
+                                    إدارة الموقع
+                                </v-list-item>
+                                <v-list-item
+                                    v-if="User.type === 'owner'"
+                                    @click="$router.push('/')"
+                                >
+                                    إدارة المشرفين
                                 </v-list-item>
                                 <v-list-item @click="Sign_Out"
                                     ><v-icon>mdi-export</v-icon> تسجيل
@@ -180,6 +190,7 @@ export default {
                 User_State: true,
                 User_name: "",
                 User_FullName: "",
+                type: "",
             },
         };
     },
@@ -199,6 +210,12 @@ export default {
                     this.User.User_State = false;
                     let name = docSnap.data().name;
                     this.User_FullName = docSnap.data().name;
+                    if (docSnap.data().type === "owner") {
+                        this.User.type = "owner";
+                        console.log(this.User.type);
+                    } else if (docSnap.data().type === "admin") {
+                        this.User.type = "admin";
+                    }
                     this.User.User_name = name
                         .split(" ")
                         .map(function (name) {
