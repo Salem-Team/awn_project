@@ -1,74 +1,434 @@
 <template>
-    <div class="Charities">
-        <v-container class="Charities_container mt-4">
-            <!--get the Charities data from the database-->
-            <div class="Charity">
-                <div class="d-flex align-center flex-wrap justify-around">
-                    <h3>اسم الجمعية :</h3>
-                    <p>{{ Charities.title }}</p>
-                    <v-spacer></v-spacer>
-                    <h3>عدد الحالات :</h3>
-                    <p>{{ Charities.cases_number }}</p>
-                </div>
+    <v-window v-model="tab">
+        <v-window-item value="1">
+            <span>1</span>
+            <div class="Charities">
+                <v-container class="Charities_container mt-4">
+                    <!--get the Charities data from the database-->
+                    <div class="Charity">
+                        <div
+                            class="d-flex align-center flex-wrap justify-around"
+                        >
+                            <h3>اسم الجمعية :</h3>
+                            <p>{{ Charities.title }}</p>
+                            <v-spacer></v-spacer>
+                            <h3>عدد الحالات :</h3>
+                            <p>{{ Charities.cases_number }}</p>
+                        </div>
+                    </div>
+                    <!--the Charities_specialty-->
+                    <v-container
+                        class="text-right d-flex align-center flex-wrap justify-around"
+                        v-model="Charities.Charities_specialty"
+                    >
+                        <h3
+                            class="mb-2 text-right d-flex align-center flex-wrap justify-around"
+                        >
+                            تخصص الجمعية:
+                        </h3>
+                        <v-card
+                            elevation="2"
+                            v-for="(activity, index) in activities"
+                            :key="index"
+                            class="ma-2 pa-3"
+                            rounded="lg"
+                            :value="activity"
+                            >{{ activity }}</v-card
+                        >
+                    </v-container>
+                    <br />
+                    <!--the Charities_descripetion-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>وصف قصيرللجمعية :</h3>
+                        <p>{{ Charities.descripetion }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Package_type-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>نوع الإشتراك :</h3>
+                        <p>{{ Charities.Package_type }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Social_media-->
+                    <h3>منصات التواصل :</h3>
+                    <br />
+                    <!--return the icon according to the Charities_Social_media links-->
+                    <div class="d-flex align-center justify-between">
+                        <a
+                            v-if="facebook"
+                            :href="Charities.Social_media[facebookIndex]"
+                            ><v-icon>mdi-facebook</v-icon></a
+                        >
+                        <a
+                            v-if="youtube"
+                            :href="Charities.Social_media[youtubeIndex]"
+                            ><v-icon>mdi-youtube</v-icon>
+                        </a>
+                        <a
+                            v-if="linkedin"
+                            :href="Charities.Social_media[linkedinIndex]"
+                            ><v-icon>mdi-linkedin</v-icon>
+                        </a>
+                        <a
+                            v-if="whatsapp"
+                            :href="Charities.Social_media[whatsappIndex]"
+                            ><v-icon>mdi-whatsapp</v-icon></a
+                        >
+                        <a
+                            v-if="instagram"
+                            :href="Charities.Social_media[instagramIndex]"
+                            ><v-icon>mdi-instagram</v-icon></a
+                        >
+                    </div>
+                </v-container>
             </div>
-            <!--the Charities_specialty-->
-            <v-container
-                selected-class="bg-grey-lighten-1"
-                class="text-right d-flex align-center flex-wrap justify-around"
-                v-model="Charities.Charities_specialty"
-            >
-                <h3
-                    class="mb-2 text-right d-flex align-center flex-wrap justify-around"
-                >
-                    تخصص الجمعية:
-                </h3>
-                <v-card
-                    elevation="2"
-                    v-for="(activity, index) in activities"
-                    :key="index"
-                    class="ma-2 pa-3"
-                    rounded="lg"
-                    :value="activity"
-                    >{{ activity }}</v-card
-                >
-            </v-container>
-            <br />
-            <!--the Charities_descripetion-->
-            <div class="d-flex align-center flex-wrap justify-around">
-                <h3>وصف قصيرللجمعية :</h3>
-                <p>{{ Charities.descripetion }}</p>
+        </v-window-item>
+
+        <v-window-item value="2">
+            <span>2</span>
+            <div class="Charities">
+                <v-container class="Charities_container mt-4">
+                    <!--get the Charities data from the database-->
+                    <div class="Charity">
+                        <div
+                            class="d-flex align-center flex-wrap justify-around"
+                        >
+                            <h3>اسم الجمعية :</h3>
+                            <p>{{ Charities.title }}</p>
+                            <v-spacer></v-spacer>
+                            <h3>عدد الحالات :</h3>
+                            <p>{{ Charities.cases_number }}</p>
+                        </div>
+                    </div>
+                    <!--the Charities_specialty-->
+                    <v-container
+                        class="text-right d-flex align-center flex-wrap justify-around"
+                        v-model="Charities.Charities_specialty"
+                    >
+                        <h3
+                            class="mb-2 text-right d-flex align-center flex-wrap justify-around"
+                        >
+                            تخصص الجمعية:
+                        </h3>
+                        <v-card
+                            elevation="2"
+                            v-for="(activity, index) in activities"
+                            :key="index"
+                            class="ma-2 pa-3"
+                            rounded="lg"
+                            :value="activity"
+                            >{{ activity }}</v-card
+                        >
+                    </v-container>
+                    <br />
+                    <!--the Charities_descripetion-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>وصف قصيرللجمعية :</h3>
+                        <p>{{ Charities.descripetion }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Package_type-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>نوع الإشتراك :</h3>
+                        <p>{{ Charities.Package_type }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Social_media-->
+                    <h3>منصات التواصل :</h3>
+                    <br />
+                    <!--return the icon according to the Charities_Social_media links-->
+                    <div class="d-flex align-center justify-between">
+                        <a
+                            v-if="facebook"
+                            :href="Charities.Social_media[facebookIndex]"
+                            ><v-icon>mdi-facebook</v-icon></a
+                        >
+                        <a
+                            v-if="youtube"
+                            :href="Charities.Social_media[youtubeIndex]"
+                            ><v-icon>mdi-youtube</v-icon>
+                        </a>
+                        <a
+                            v-if="linkedin"
+                            :href="Charities.Social_media[linkedinIndex]"
+                            ><v-icon>mdi-linkedin</v-icon>
+                        </a>
+                        <a
+                            v-if="whatsapp"
+                            :href="Charities.Social_media[whatsappIndex]"
+                            ><v-icon>mdi-whatsapp</v-icon></a
+                        >
+                        <a
+                            v-if="instagram"
+                            :href="Charities.Social_media[instagramIndex]"
+                            ><v-icon>mdi-instagram</v-icon></a
+                        >
+                    </div>
+                </v-container>
             </div>
-            <br />
-            <!--the Charities_Package_type-->
-            <div class="d-flex align-center flex-wrap justify-around">
-                <h3>نوع الإشتراك :</h3>
-                <p>{{ Charities.Package_type }}</p>
+        </v-window-item>
+        <v-window-item value="3">
+            <span>3</span>
+            <div class="Charities">
+                <v-container class="Charities_container mt-4">
+                    <!--get the Charities data from the database-->
+                    <div class="Charity">
+                        <div
+                            class="d-flex align-center flex-wrap justify-around"
+                        >
+                            <h3>اسم الجمعية :</h3>
+                            <p>{{ Charities.title }}</p>
+                            <v-spacer></v-spacer>
+                            <h3>عدد الحالات :</h3>
+                            <p>{{ Charities.cases_number }}</p>
+                        </div>
+                    </div>
+                    <!--the Charities_specialty-->
+                    <v-container
+                        class="text-right d-flex align-center flex-wrap justify-around"
+                        v-model="Charities.Charities_specialty"
+                    >
+                        <h3
+                            class="mb-2 text-right d-flex align-center flex-wrap justify-around"
+                        >
+                            تخصص الجمعية:
+                        </h3>
+                        <v-card
+                            elevation="2"
+                            v-for="(activity, index) in activities"
+                            :key="index"
+                            class="ma-2 pa-3"
+                            rounded="lg"
+                            :value="activity"
+                            >{{ activity }}</v-card
+                        >
+                    </v-container>
+                    <br />
+                    <!--the Charities_descripetion-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>وصف قصيرللجمعية :</h3>
+                        <p>{{ Charities.descripetion }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Package_type-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>نوع الإشتراك :</h3>
+                        <p>{{ Charities.Package_type }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Social_media-->
+                    <h3>منصات التواصل :</h3>
+                    <br />
+                    <!--return the icon according to the Charities_Social_media links-->
+                    <div class="d-flex align-center justify-between">
+                        <a
+                            v-if="facebook"
+                            :href="Charities.Social_media[facebookIndex]"
+                            ><v-icon>mdi-facebook</v-icon></a
+                        >
+                        <a
+                            v-if="youtube"
+                            :href="Charities.Social_media[youtubeIndex]"
+                            ><v-icon>mdi-youtube</v-icon>
+                        </a>
+                        <a
+                            v-if="linkedin"
+                            :href="Charities.Social_media[linkedinIndex]"
+                            ><v-icon>mdi-linkedin</v-icon>
+                        </a>
+                        <a
+                            v-if="whatsapp"
+                            :href="Charities.Social_media[whatsappIndex]"
+                            ><v-icon>mdi-whatsapp</v-icon></a
+                        >
+                        <a
+                            v-if="instagram"
+                            :href="Charities.Social_media[instagramIndex]"
+                            ><v-icon>mdi-instagram</v-icon></a
+                        >
+                    </div>
+                </v-container>
             </div>
-            <br />
-            <!--the Charities_Social_media-->
-            <h3>منصات التواصل :</h3>
-            <br />
-            <!--return the icon according to the Charities_Social_media links-->
-            <div class="d-flex align-center justify-between">
-                <a v-if="facebook" :href="Charities.Social_media[facebookIndex]"
-                    ><v-icon>mdi-facebook</v-icon></a
-                >
-                <a v-if="youtube" :href="Charities.Social_media[youtubeIndex]"
-                    ><v-icon>mdi-youtube</v-icon>
-                </a>
-                <a v-if="linkedin" :href="Charities.Social_media[linkedinIndex]"
-                    ><v-icon>mdi-linkedin</v-icon>
-                </a>
-                <a v-if="whatsapp" :href="Charities.Social_media[whatsappIndex]"
-                    ><v-icon>mdi-whatsapp</v-icon></a
-                >
-                <a
-                    v-if="instagram"
-                    :href="Charities.Social_media[instagramIndex]"
-                    ><v-icon>mdi-instagram</v-icon></a
-                >
-            </div>
-        </v-container>
+        </v-window-item>
+        <v-window-item value="4">
+            <span>4</span>
+            <div class="Charities">
+                <v-container class="Charities_container mt-4">
+                    <!--get the Charities data from the database-->
+                    <div class="Charity">
+                        <div
+                            class="d-flex align-center flex-wrap justify-around"
+                        >
+                            <h3>اسم الجمعية :</h3>
+                            <p>{{ Charities.title }}</p>
+                            <v-spacer></v-spacer>
+                            <h3>عدد الحالات :</h3>
+                            <p>{{ Charities.cases_number }}</p>
+                        </div>
+                    </div>
+                    <!--the Charities_specialty-->
+                    <v-container
+                        class="text-right d-flex align-center flex-wrap justify-around"
+                        v-model="Charities.Charities_specialty"
+                    >
+                        <h3
+                            class="mb-2 text-right d-flex align-center flex-wrap justify-around"
+                        >
+                            تخصص الجمعية:
+                        </h3>
+                        <v-card
+                            elevation="2"
+                            v-for="(activity, index) in activities"
+                            :key="index"
+                            class="ma-2 pa-3"
+                            rounded="lg"
+                            :value="activity"
+                            >{{ activity }}</v-card
+                        >
+                    </v-container>
+                    <br />
+                    <!--the Charities_descripetion-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>وصف قصيرللجمعية :</h3>
+                        <p>{{ Charities.descripetion }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Package_type-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>نوع الإشتراك :</h3>
+                        <p>{{ Charities.Package_type }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Social_media-->
+                    <h3>منصات التواصل :</h3>
+                    <br />
+                    <!--return the icon according to the Charities_Social_media links-->
+                    <div class="d-flex align-center justify-between">
+                        <a
+                            v-if="facebook"
+                            :href="Charities.Social_media[facebookIndex]"
+                            ><v-icon>mdi-facebook</v-icon></a
+                        >
+                        <a
+                            v-if="youtube"
+                            :href="Charities.Social_media[youtubeIndex]"
+                            ><v-icon>mdi-youtube</v-icon>
+                        </a>
+                        <a
+                            v-if="linkedin"
+                            :href="Charities.Social_media[linkedinIndex]"
+                            ><v-icon>mdi-linkedin</v-icon>
+                        </a>
+                        <a
+                            v-if="whatsapp"
+                            :href="Charities.Social_media[whatsappIndex]"
+                            ><v-icon>mdi-whatsapp</v-icon></a
+                        >
+                        <a
+                            v-if="instagram"
+                            :href="Charities.Social_media[instagramIndex]"
+                            ><v-icon>mdi-instagram</v-icon></a
+                        >
+                    </div>
+                </v-container>
+            </div></v-window-item
+        >
+        <v-window-item value="5">
+            <span>5</span>
+            <div class="Charities">
+                <v-container class="Charities_container mt-4">
+                    <!--get the Charities data from the database-->
+                    <div class="Charity">
+                        <div
+                            class="d-flex align-center flex-wrap justify-around"
+                        >
+                            <h3>اسم الجمعية :</h3>
+                            <p>{{ Charities.title }}</p>
+                            <v-spacer></v-spacer>
+                            <h3>عدد الحالات :</h3>
+                            <p>{{ Charities.cases_number }}</p>
+                        </div>
+                    </div>
+                    <!--the Charities_specialty-->
+                    <v-container
+                        class="text-right d-flex align-center flex-wrap justify-around"
+                        v-model="Charities.Charities_specialty"
+                    >
+                        <h3
+                            class="mb-2 text-right d-flex align-center flex-wrap justify-around"
+                        >
+                            تخصص الجمعية:
+                        </h3>
+                        <v-card
+                            elevation="2"
+                            v-for="(activity, index) in activities"
+                            :key="index"
+                            class="ma-2 pa-3"
+                            rounded="lg"
+                            :value="activity"
+                            >{{ activity }}</v-card
+                        >
+                    </v-container>
+                    <br />
+                    <!--the Charities_descripetion-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>وصف قصيرللجمعية :</h3>
+                        <p>{{ Charities.descripetion }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Package_type-->
+                    <div class="d-flex align-center flex-wrap justify-around">
+                        <h3>نوع الإشتراك :</h3>
+                        <p>{{ Charities.Package_type }}</p>
+                    </div>
+                    <br />
+                    <!--the Charities_Social_media-->
+                    <h3>منصات التواصل :</h3>
+                    <br />
+                    <!--return the icon according to the Charities_Social_media links-->
+                    <div class="d-flex align-center justify-between">
+                        <a
+                            v-if="facebook"
+                            :href="Charities.Social_media[facebookIndex]"
+                            ><v-icon>mdi-facebook</v-icon></a
+                        >
+                        <a
+                            v-if="youtube"
+                            :href="Charities.Social_media[youtubeIndex]"
+                            ><v-icon>mdi-youtube</v-icon>
+                        </a>
+                        <a
+                            v-if="linkedin"
+                            :href="Charities.Social_media[linkedinIndex]"
+                            ><v-icon>mdi-linkedin</v-icon>
+                        </a>
+                        <a
+                            v-if="whatsapp"
+                            :href="Charities.Social_media[whatsappIndex]"
+                            ><v-icon>mdi-whatsapp</v-icon></a
+                        >
+                        <a
+                            v-if="instagram"
+                            :href="Charities.Social_media[instagramIndex]"
+                            ><v-icon>mdi-instagram</v-icon></a
+                        >
+                    </div>
+                </v-container>
+            </div></v-window-item
+        >
+    </v-window>
+    <div class="d-flex align-center justify-center">
+        <v-tabs
+            v-model="tab"
+            next-icon="mdi-menu-left"
+            prev-icon="mdi-menu-right"
+        >
+            <v-tab value="1">1</v-tab>
+            <v-tab value="2">2</v-tab>
+            <v-tab value="3">3</v-tab>
+            <v-tab value="4">4</v-tab>
+            <v-tab value="5">5</v-tab>
+        </v-tabs>
     </div>
 </template>
 
@@ -83,6 +443,7 @@ export default {
             youtube: false,
             instagram: false,
             activities: ref(["كفالة", "إطعام"]),
+            tab: null,
             //ref to store the Charities data
             Charities: {
                 cases_number: "1000",
