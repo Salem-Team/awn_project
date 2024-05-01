@@ -136,7 +136,7 @@
                                 </v-list-item>
                                 <v-list-item
                                     v-if="User.type === 'owner'"
-                                    @click="$router.push('/')"
+                                    @click="$router.push('/DashBoard_Admin')"
                                 >
                                     إدارة المشرفين
                                 </v-list-item>
