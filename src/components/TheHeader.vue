@@ -130,15 +130,12 @@
                                 >
                                 <v-list-item
                                     v-if="User.type === 'admin'"
-                                    @click="$router.push('/')"
+                                    @click="$router.push('/DashBoard_Admin')"
                                 >
                                     إدارة الموقع
                                 </v-list-item>
-                                <v-list-item
-                                    v-if="User.type === 'owner'"
-                                    @click="$router.push('/DashBoard_Admin')"
-                                >
-                                    إدارة المشرفين
+                                <v-list-item v-if="User.type === 'owner'">
+                                    إدارة المساعديين
                                 </v-list-item>
                                 <v-list-item @click="Sign_Out"
                                     ><v-icon>mdi-export</v-icon> تسجيل
