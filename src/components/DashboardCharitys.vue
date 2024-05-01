@@ -453,7 +453,7 @@ export default {
                 protein: 2.9,
                 iron: "15%",
                 personalInformation: [
-                    { namea: " محمد محمود" },
+                    { namea: " سعيد محمود" },
                     { nameb: "اسلام ابوسيف" },
                     { cardNumber: 124445788987 },
                     { Region: "Albuhayra" },
