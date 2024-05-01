@@ -94,16 +94,14 @@
             next-icon="mdi-menu-left"
             prev-icon="mdi-menu-right"
         >
-            <v-tab value="1">1</v-tab>
-            <v-tab value="2">2</v-tab>
-            <v-tab value="3">3</v-tab>
-            <v-tab value="4">4</v-tab>
-            <v-tab value="5">5</v-tab>
+            <v-tab v-for="index in 5" :key="index" :value="`${index}`">{{
+                index
+            }}</v-tab>
         </v-tabs>
     </div> -->
 </template>
 
-<script scoped>
+<script>
 import { ref } from "vue";
 // Get Data
 import { getDocs, getFirestore, collection } from "@firebase/firestore";
@@ -133,12 +131,13 @@ export default {
             instagram: false,
             activities: ref(["كفالة", "إطعام"]),
             tab: null,
-            //ref to store the Charities data
+            // ref to store the Charities data
             Charities: {
                 cases_number: "1000",
                 title: "الرحمن الرحيم",
                 Social_media: [],
                 descripetion: "جمعية خيرية لمساعدة المحتاجين",
+
                 Charities_specialty: ["إطعام"],
                 Package_type: "1000 جنية مصري  500 حالة",
             },
@@ -163,6 +162,7 @@ export default {
             this.detectSocialMediaType();
         },
         //fuction to detect the Social_media link type
+
         detectSocialMediaType() {
             const socialMediaLinks = this.Charities.Social_media;
             socialMediaLinks.forEach((link) => {
@@ -175,7 +175,7 @@ export default {
                 if (whatsappRegex.test(link)) {
                     console.log("WhatsApp");
                     this.whatsapp = true;
-                    this.whatsAppIndex = socialMediaLinks.indexOf(link);
+                    this.whatsappIndex = socialMediaLinks.indexOf(link);
                 } else if (youtubeRegex.test(link)) {
                     console.log("Youtube");
                     this.youtube = true;
@@ -183,7 +183,7 @@ export default {
                 } else if (linkedinRegex.test(link)) {
                     console.log("LinkedIn");
                     this.linkedin = true;
-                    this.linkedInIndex = socialMediaLinks.indexOf(link);
+                    this.linkedinIndex = socialMediaLinks.indexOf(link);
                 } else if (facebookRegex.test(link)) {
                     console.log("Facebook");
                     this.facebook = true;
@@ -198,4 +198,5 @@ export default {
     },
 };
 </script>
+
 <style lang="scss" scoped></style>
