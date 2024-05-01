@@ -1490,15 +1490,15 @@ export default {
             const res = await this.v$.form1.$validate();
             if (res) {
                 this.testform1.push(
-                    { "الاسم ثلاثي": this.form1.namea },
-                    { "اسم الشهره": this.form1.nameb },
-                    { "رقم البطاقه": this.form1.cardNumber },
-                    { المحافظه: this.form1.Region },
-                    { "رقم المنزل": this.form1.HouseNumber },
-                    { "رقم الدور": this.form1.FloorNumber },
-                    { العنوان: this.form1.theAddress },
-                    { "الحاله الجتماعيه": this.form1.SocialStatus },
-                    { "رقم التليفون": this.form1.phoneNumber }
+                    { namea: this.form1.namea },
+                    { nameb: this.form1.nameb },
+                    { cardNumber: this.form1.cardNumber },
+                    { Region: this.form1.Region },
+                    { HouseNumber: this.form1.HouseNumber },
+                    { FloorNumber: this.form1.FloorNumber },
+                    { theAddress: this.form1.theAddress },
+                    { SocialStatus: this.form1.SocialStatus },
+                    { phoneNumber: this.form1.phoneNumber }
                 );
                 const arr = document.querySelectorAll(".tabtest")[0];
                 const arr1 = document.querySelectorAll(".tabtest")[1];
@@ -1523,10 +1523,10 @@ export default {
             const res = await this.v$.form2.$validate();
             if (res) {
                 this.testform2.push(
-                    { المطلوب: this.form2.Required },
-                    { الداخل: this.form2.Inside },
-                    { العجز: this.form2.Impotence },
-                    { "مصروفات العلاج": this.form2.TreatmentExpenses }
+                    { Required: this.form2.Required },
+                    { Inside: this.form2.Inside },
+                    { Impotence: this.form2.Impotence },
+                    { TreatmentExpenses: this.form2.TreatmentExpenses }
                 );
                 const arr = document.querySelectorAll(".tabtest")[1];
                 const arr1 = document.querySelectorAll(".tabtest")[2];
@@ -1547,12 +1547,11 @@ export default {
             const res = await this.v$.form3.$validate();
             if (res) {
                 this.testform3.push(
-                    { "اسم المريض": this.form3.PatientName },
-                    { المرض: this.form3.theDisease },
-                    { "كيفيه الحصول علي العلاج": this.form3.treatment },
+                    { PatientName: this.form3.PatientName },
+                    { theDisease: this.form3.theDisease },
+                    { treatment: this.form3.treatment },
                     {
-                        "السبب في عد العلاج علي نفقه الدوله":
-                            this.form3.Reasontreatment,
+                        Reasontreatment: this.form3.Reasontreatment,
                     }
                 );
                 const arr = document.querySelectorAll(".tabtest")[2];
@@ -1574,21 +1573,21 @@ export default {
             const res = await this.v$.form4.$validate();
             if (res) {
                 this.testform4.push(
-                    { "عدد الغرف": this.form4.numberRooms },
-                    { "الشقه ملك ام ايجار": this.form4.ApartmentType },
-                    { "الحمام خاص ام مشترك": this.form4.BathroomType },
-                    { "نوع الارضيه": this.form4.FloorType },
-                    { "وصف شامل للمطبخ": this.form4.Descriptionkitchen },
-                    { "وصف سريع للغرفه رقم 1": this.form4.DescriptionRoom1 }
+                    { numberRooms: this.form4.numberRooms },
+                    { ApartmentType: this.form4.ApartmentType },
+                    { BathroomType: this.form4.BathroomType },
+                    { FloorType: this.form4.FloorType },
+                    { Descriptionkitchen: this.form4.Descriptionkitchen },
+                    { DescriptionRoom1: this.form4.DescriptionRoom1 }
                 );
                 if (this.showDiv1) {
                     this.testform4.push({
-                        "وصف سريع للغرفه رقم 2": this.form4.DescriptionRoom2,
+                        DescriptionRoom2: this.form4.DescriptionRoom2,
                     });
                 }
                 if (this.showDiv2) {
                     this.testform4.push({
-                        "وصف سريع للغرفه رقم 3": this.form4.DescriptionRoom3,
+                        DescriptionRoom3: this.form4.DescriptionRoom3,
                     });
                 }
                 const arr = document.querySelectorAll(".tabtest")[3];
@@ -1614,14 +1613,14 @@ export default {
             const res = await this.v$.form5.$validate();
             if (res) {
                 this.testform5.push(
-                    { طبي: this.form5.medical },
-                    { زوج: this.form5.Husband },
-                    { ملابس: this.form5.clothes },
-                    { مرتبات: this.form5.salaries },
-                    { بطاطين: this.form5.Blankets },
-                    { "شنطه غذائيه": this.form5.FoodBag },
-                    { "كفاله شهريه": this.form5.MonthlyWarranty },
-                    { "اجهزه منزليه": this.form5.Appliances }
+                    { medical: this.form5.medical },
+                    { Husband: this.form5.Husband },
+                    { clothes: this.form5.clothes },
+                    { salaries: this.form5.salaries },
+                    { Blankets: this.form5.Blankets },
+                    { FoodBag: this.form5.FoodBag },
+                    { MonthlyWarranty: this.form5.MonthlyWarranty },
+                    { Appliances: this.form5.Appliances }
                 );
                 const arr = document.querySelectorAll(".tabtest")[4];
                 const arr1 = document.querySelectorAll(".tabtest")[5];
