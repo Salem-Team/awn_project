@@ -1,7 +1,7 @@
 <template>
     <!-- navigation-drawer  -->
     <v-layout>
-        <v-navigation-drawer permanent rail expand-on-hover location="right">
+        <v-navigation-drawer permanent rail location="right">
             <v-list nav class="pt-16 pa-5 px-2">
                 <v-list-item
                     link
