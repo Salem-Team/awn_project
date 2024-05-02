@@ -1,83 +1,5 @@
 <template>
     <div style="width: 100%">
-        <!-- Old Table -->
-        <!-- <v-container style="direction: rtl">
-            <v-row>
-                <v-col>
-                    <v-card>
-                        <v-text-field
-                            v-model="search"
-                            label="أبحث"
-                            hide-details
-                            style="
-                                font-family: 'Inter', sans-serif;
-                                font-weight: 500;
-                                line-height: 18px;
-                                text-align: center;
-                            "
-                        ></v-text-field>
-                        <v-table
-                            height="82vh"
-                            hover
-                            fixed-header
-                            style="
-                                font-family: 'Inter', sans-serif;
-                                font-weight: 500;
-                                line-height: 18px;
-                                text-align: center;
-                            "
-                        >
-                            <thead>
-                                <tr style="font-size: 30px">
-                                    <th
-                                        v-for="head in headers"
-                                        :key="head.title"
-                                    >
-                                        {{ head.title }}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    style="font-size: 25px"
-                                    v-for="vege in filteredVegetables"
-                                    :key="vege.id"
-                                >
-                                    <td style="text-align: start">
-                                        {{ vege.id }}
-                                    </td>
-                                    <td style="text-align: start">
-                                        {{ vege.name }}
-                                    </td>
-                                    <td style="text-align: start">
-                                        {{ vege.calories }}
-                                    </td>
-                                    <td style="text-align: start">
-                                        {{ vege.fat }}
-                                    </td>
-                                    <td style="text-align: start">
-                                        {{ vege.carbs }}
-                                    </td>
-                                    <td style="text-align: start">
-                                        <v-btn
-                                            @click="openStatusInformation(vege)"
-                                            style="
-                                                font-family: 'Inter', sans-serif;
-                                                font-weight: 600;
-                                                line-height: 18px;
-                                                text-align: center;
-                                                font-size: 25px;
-                                            "
-                                            >عرض التفاصيل</v-btn
-                                        >
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </v-table>
-                    </v-card>
-                </v-col>
-            </v-row>
-        </v-container> -->
         <v-container>
             <v-text-field
                 v-model="search"
@@ -91,75 +13,36 @@
                 "
             ></v-text-field>
 
-            <div class="Table" v-if="!isGridView">
-                <div class="Title"></div>
-                <div class="Heading">
-                    <div class="Cell" v-for="head in headers" :key="head.title">
-                        <p>{{ head.title }}</p>
-                    </div>
-                </div>
+            <v-btn @click="change_view" class="mt-5">
+                <v-icon>mdi-view-grid-outline</v-icon>
+            </v-btn>
+            <div class="boxes">
                 <div
-                    class="Row"
+                    class="box"
                     v-for="vege in filteredVegetables"
                     :key="vege.id"
                 >
-                    <div class="Cell">
-                        <p>{{ vege.id }}</p>
+                    <div class="About">
+                        <div class="index">{{ vege.id }}</div>
+                        <div class="name">{{ vege.name }}</div>
                     </div>
-                    <div class="Cell">
-                        <p>{{ vege.name }}</p>
+                    <div class="Financial_details">
+                        <div class="required">
+                            <span>{{ vege.calories }} </span>
+                            <div>مطلوب</div>
+                        </div>
+                        <div class="incom">
+                            <span>{{ vege.fat }} </span>
+                            <div>دخل</div>
+                        </div>
+                        <div class="deficit">
+                            <span>{{ vege.carbs }} </span>
+                            <div>عجز</div>
+                        </div>
                     </div>
-                    <div class="Cell">
-                        <p>{{ vege.calories }}</p>
-                    </div>
-                    <div class="Cell">
-                        <p>{{ vege.fat }}</p>
-                    </div>
-                    <div class="Cell">
-                        <p>{{ vege.carbs }}</p>
-                    </div>
-                    <div class="Cell">
-                        <v-btn color="" @click="openStatusInformation(vege)"
-                            >عرض التفاصيل</v-btn
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid" v-else>
-                <div class="grid-item">
-                    <div
-                        class="grid-Cell"
-                        v-for="head in headers"
-                        :key="head.title"
-                    >
-                        <p>{{ head.title }}</p>
-                    </div>
-                </div>
-                <div
-                    class="grid-item"
-                    v-for="vege in filteredVegetables"
-                    :key="vege.id"
-                >
-                    <div class="grid-cell">
-                        <p>{{ vege.id }}</p>
-                    </div>
-                    <div class="grid-cell">
-                        <p>{{ vege.name }}</p>
-                    </div>
-                    <div class="grid-cell">
-                        <p>{{ vege.calories }}</p>
-                    </div>
-                    <div class="grid-cell">
-                        <p>{{ vege.fat }}</p>
-                    </div>
-                    <div class="grid-cell">
-                        <p>{{ vege.carbs }}</p>
-                    </div>
-                    <div class="grid-cell">
-                        <v-btn color="" @click="openStatusInformation(vege)"
-                            >عرض التفاصيل</v-btn
-                        >
+                    <div class="details" @click="openStatusInformation(vege)">
+                        <font-awesome-icon :icon="['fas', 'circle-info']" />
+                        <div>التفاصيل</div>
                     </div>
                 </div>
             </div>
@@ -187,9 +70,9 @@ export default {
             {
                 id: 1,
                 name: "اسلام ابوسيف",
-                calories: 5,
-                fat: 0.4,
-                carbs: 1000,
+                calories: 5000,
+                fat: 3000,
+                carbs: 2000,
                 protein: 2.9,
                 iron: "15%",
                 personalInformation: [
@@ -770,6 +653,11 @@ export default {
         },
     },
     methods: {
+        // change view
+        change_view() {
+            console.log("change_view");
+            document.querySelector(".boxes ").classList.toggle("Change_View");
+        },
         openStatusInformation(product) {
             this.Emitter.emit("openStatusInformation", product);
         },
@@ -829,7 +717,7 @@ export default {
     },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .Table {
     display: table;
     width: 100%;
@@ -873,5 +761,101 @@ export default {
 
 .grid-cell {
     padding: 5px;
+}
+.boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 10px auto;
+    &.Change_View {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .box {
+            width: 32%;
+            flex-direction: column;
+            gap: 20px;
+            .About {
+                width: 100%;
+                justify-content: start;
+            }
+            .details {
+                width: 100%;
+            }
+        }
+    }
+    .box {
+        width: 100%;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ddd;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: system-ui;
+
+        .About {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            .index {
+                padding: 5px 15px;
+                border-radius: 5px;
+                background: #eee;
+                font-weight: bold;
+            }
+            .name {
+                font-size: 20px;
+                color: #767676;
+                font-weight: bold;
+                width: 250px;
+            }
+        }
+        .Financial_details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            & > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                background: #fafafa;
+                padding: 10px 15px;
+                border-radius: 5px;
+                div {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #767676;
+                }
+                span {
+                    color: #0088ff;
+                    font-weight: bold;
+                    font-size: 20px;
+                    width: 70px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 5px;
+                }
+            }
+        }
+        .details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #0088ff;
+            padding: 7px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
 }
 </style>
