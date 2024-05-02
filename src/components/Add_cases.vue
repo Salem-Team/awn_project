@@ -342,7 +342,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <div
+                                    <!-- <div
                                         class="mt-2 d-flex flex-column"
                                         style="width: 50%"
                                     >
@@ -370,7 +370,7 @@
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
-                                    </div>
+                                    </div> -->
                                     <div
                                         class="mt-2 d-flex flex-column"
                                         style="width: 50%"
