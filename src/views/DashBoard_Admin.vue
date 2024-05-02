@@ -85,70 +85,26 @@
             </v-row>
         </v-container>
         <v-container>
-            <v-dialog v-model="dialog" width="auto">
-                <v-card
-                    class="d-flex flex-column jusrify-center"
-                    width="800"
-                    prepend-icon="mdi-update"
-                    title="إضــــافه"
-                >
-                    <v-item-group selected-class="bg-primary">
-                        <v-container>
-                            <v-row class="mydailog justify-center">
-                                <v-col
-                                    cols="12"
-                                    class="d-flex justify-center ga-6"
-                                >
-                                    <v-item>
-                                        <v-card
-                                            style="cursor: pointer"
-                                            :class="[
-                                                'd-flex align-center',
-                                                selectedClass,
-                                            ]"
-                                            height="200"
-                                            width="200"
-                                            dark
-                                            @click="toggle"
-                                        >
-                                            <div
-                                                class="text-h3 flex-grow-1 text-center"
-                                            >
-                                                اضافه
-                                            </div>
-                                        </v-card>
-                                    </v-item>
-                                    <v-item>
-                                        <v-card
-                                            style="cursor: pointer"
-                                            :class="[
-                                                'd-flex align-center',
-                                                selectedClass,
-                                            ]"
-                                            height="200"
-                                            width="200"
-                                            dark
-                                            @click="toggle"
-                                        >
-                                            <div
-                                                class="text-h3 flex-grow-1 text-center"
-                                            >
-                                                ملف اكسل
-                                            </div>
-                                        </v-card>
-                                    </v-item>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-item-group>
-                    <template v-slot:actions>
-                        <v-btn
-                            class="ms-auto"
-                            text="Ok"
+            <v-dialog v-model="dialog" width="90%">
+                <div class="popup bg-white w-100 rounded">
+                    <div class="header">
+                        <div>إضافة الحالات</div>
+                        <font-awesome-icon
+                            :icon="['fas', 'xmark']"
                             @click="dialog = false"
-                        ></v-btn>
-                    </template>
-                </v-card>
+                        />
+                    </div>
+                    <div class="body">
+                        <div class="box">
+                            <font-awesome-icon :icon="['fas', 'keyboard']" />
+                            <div>يدوي</div>
+                        </div>
+                        <div class="box">
+                            <font-awesome-icon :icon="['fas', 'file-excel']" />
+                            <div>إكسل</div>
+                        </div>
+                    </div>
+                </div>
             </v-dialog>
         </v-container>
         <v-container fluid>
@@ -257,6 +213,46 @@ export default {
     font-size: 20px;
     span {
         font-size: 25px;
+    }
+}
+.popup {
+    padding: 20px;
+    font-family: system-ui;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafafa;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 21px;
+        color: #0088ff;
+        font-weight: bold;
+        svg {
+            cursor: pointer;
+        }
+    }
+    .body {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+        .box {
+            cursor: pointer;
+            width: 48%;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+            &:hover {
+                box-shadow: 0 0 10px #ddd;
+                color: #0088ff;
+            }
+        }
     }
 }
 </style>

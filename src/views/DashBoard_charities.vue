@@ -106,6 +106,29 @@
             </v-row>
         </v-container>
         <v-container>
+            <v-dialog v-model="dialog" width="90%">
+                <div class="popup bg-white w-100 rounded">
+                    <div class="header">
+                        <div>إضافة الحالات</div>
+                        <font-awesome-icon
+                            :icon="['fas', 'xmark']"
+                            @click="dialog = false"
+                        />
+                    </div>
+                    <div class="body">
+                        <div class="box">
+                            <font-awesome-icon :icon="['fas', 'keyboard']" />
+                            <div>يدوي</div>
+                        </div>
+                        <div class="box">
+                            <font-awesome-icon :icon="['fas', 'file-excel']" />
+                            <div>إكسل</div>
+                        </div>
+                    </div>
+                </div>
+            </v-dialog>
+        </v-container>
+        <!-- <v-container>
             <v-dialog v-model="dialog" width="auto">
                 <v-card
                     class="d-flex flex-column jusrify-center"
@@ -176,7 +199,7 @@
                     </template>
                 </v-card>
             </v-dialog>
-        </v-container>
+        </v-container> -->
         <v-container fluid>
             <div class="Charites d-flex justify-center">
                 <DashboardCharitys />
@@ -184,6 +207,7 @@
             </div>
         </v-container>
         <AddCasce />
+        <Add_cases />
     </div>
 </template>
 
@@ -195,6 +219,7 @@ import readXlsxFile from "read-excel-file";
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
 import AddCasce from "@/components/AddCasce.vue";
+import Add_cases from "@/components/Add_cases.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
 
 export default {
@@ -205,6 +230,7 @@ export default {
         StatusInformation,
         AddCasce,
         Side_Bar,
+        Add_cases,
     },
     data() {
         return {
@@ -276,14 +302,55 @@ export default {
     },
 };
 </script>
-<style lang="scss">
-* {
-    direction: rtl !important;
-}
+<style lang="scss" scoped>
 .info_stat .info {
     font-size: 20px;
     span {
         font-size: 25px;
+    }
+}
+.Dash_board {
+    width: calc(100% - 56px);
+    margin-right: auto;
+}
+.popup {
+    padding: 20px;
+    font-family: system-ui;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafafa;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 21px;
+        color: #0088ff;
+        font-weight: bold;
+        svg {
+            cursor: pointer;
+        }
+    }
+    .body {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+        .box {
+            cursor: pointer;
+            width: 48%;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+            &:hover {
+                box-shadow: 0 0 10px #ddd;
+                color: #0088ff;
+            }
+        }
     }
 }
 </style>
