@@ -58,47 +58,25 @@
                 <!-- return the icon according to the Charities_Social_media links-->
 
                 <div class="d-flex align-center justify-between">
-                    <a
-                        v-if="facebook"
-                        :href="charity.Social_media[facebookIndex]"
+                    <a v-if="facebook" :href="facebookLink"
                         ><v-icon>mdi-facebook</v-icon></a
                     >
-                    <a
-                        v-if="youtube"
-                        :href="Charities.Social_media[youtubeIndex]"
-                        ><v-icon>mdi-youtube</v-icon>
-                    </a>
-                    <a
-                        v-if="linkedin"
-                        :href="Charities.Social_media[linkedinIndex]"
-                        ><v-icon>mdi-linkedin</v-icon>
-                    </a>
-                    <a
-                        v-if="whatsapp"
-                        :href="Charities.Social_media[whatsappIndex]"
+                    <a v-if="youtube" :href="youtubeLink"
+                        ><v-icon>mdi-youtube</v-icon></a
+                    >
+                    <a v-if="linkedin" :href="linkedinLink"
+                        ><v-icon>mdi-linkedin</v-icon></a
+                    >
+                    <a v-if="whatsapp" :href="whatsappLink"
                         ><v-icon>mdi-whatsapp</v-icon></a
                     >
-                    <a
-                        v-if="instagram"
-                        :href="Charities.Social_media[instagramIndex]"
+                    <a v-if="instagram" :href="instagramLink"
                         ><v-icon>mdi-instagram</v-icon></a
                     >
                 </div>
             </v-container>
         </div>
     </div>
-
-    <!-- <div class="d-flex align-center justify-center">
-        <v-tabs
-            v-model="tab"
-            next-icon="mdi-menu-left"
-            prev-icon="mdi-menu-right"
-        >
-            <v-tab v-for="index in 5" :key="index" :value="`${index}`">{{
-                index
-            }}</v-tab>
-        </v-tabs>
-    </div> -->
 </template>
 
 <script>
@@ -129,8 +107,12 @@ export default {
             facebook: false,
             youtube: false,
             instagram: false,
+            facebookLink: null,
+            youtubeLink: null,
+            linkedinLink: null,
+            instagramLink: null,
+            whatsappLink: null,
             activities: ref(["كفالة", "إطعام"]),
-            tab: null,
             // ref to store the Charities data
             Charities: {
                 cases_number: "1000",
@@ -146,7 +128,6 @@ export default {
     },
     mounted() {
         //call the function
-
         this.Get_Data();
     },
     methods: {
@@ -162,37 +143,41 @@ export default {
             this.detectSocialMediaType();
         },
         //fuction to detect the Social_media link type
-
         detectSocialMediaType() {
-            const socialMediaLinks = this.Charities.Social_media;
-            socialMediaLinks.forEach((link) => {
-                const whatsappRegex =
-                    /^(https?):\/\/(www\.)?api\.whatsapp\.com/i;
-                const youtubeRegex = /^(https?):\/\/(www\.)?youtube\.com/i;
-                const linkedinRegex = /^(https?):\/\/(www\.)?linkedin\.com/i;
-                const facebookRegex = /^(https?):\/\/(www\.)?facebook\.com/i;
-                const instagramRegex = /^(https?):\/\/(www\.)?instagram\.com/i;
-                if (whatsappRegex.test(link)) {
-                    console.log("WhatsApp");
-                    this.whatsapp = true;
-                    this.whatsappIndex = socialMediaLinks.indexOf(link);
-                } else if (youtubeRegex.test(link)) {
-                    console.log("Youtube");
-                    this.youtube = true;
-                    this.youtubeIndex = socialMediaLinks.indexOf(link);
-                } else if (linkedinRegex.test(link)) {
-                    console.log("LinkedIn");
-                    this.linkedin = true;
-                    this.linkedinIndex = socialMediaLinks.indexOf(link);
-                } else if (facebookRegex.test(link)) {
-                    console.log("Facebook");
-                    this.facebook = true;
-                    this.facebookIndex = socialMediaLinks.indexOf(link);
-                } else if (instagramRegex.test(link)) {
-                    console.log("Instagram");
-                    this.instagram = true;
-                    this.instagramIndex = socialMediaLinks.indexOf(link);
-                }
+            this.CharitiesDB.forEach((charity) => {
+                charity.Social_media.forEach((link) => {
+                    const whatsappRegex =
+                        /^(https?):\/\/(www\.)?api\.whatsapp\.com/i;
+                    const youtubeRegex = /^(https?):\/\/(www\.)?youtube\.com/i;
+                    const linkedinRegex =
+                        /^(https?):\/\/(www\.)?linkedin\.com/i;
+                    const facebookRegex =
+                        /^(https?):\/\/(www\.)?facebook\.com/i;
+                    const instagramRegex =
+                        /^(https?):\/\/(www\.)?instagram\.com/i;
+
+                    if (whatsappRegex.test(link)) {
+                        console.log("WhatsApp");
+                        this.whatsapp = true;
+                        this.whatsappLink = link;
+                    } else if (youtubeRegex.test(link)) {
+                        console.log("Youtube");
+                        this.youtube = true;
+                        this.youtubeLink = link;
+                    } else if (linkedinRegex.test(link)) {
+                        console.log("LinkedIn");
+                        this.linkedin = true;
+                        this.linkedinLink = link;
+                    } else if (facebookRegex.test(link)) {
+                        console.log("Facebook");
+                        this.facebook = true;
+                        this.facebookLink = link;
+                    } else if (instagramRegex.test(link)) {
+                        console.log("Instagram");
+                        this.instagram = true;
+                        this.instagramLink = link;
+                    }
+                });
             });
         },
     },
