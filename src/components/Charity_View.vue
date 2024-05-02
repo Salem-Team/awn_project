@@ -2,7 +2,7 @@
     <div
         class="box px-5 py-3 mt-5 border rounded"
         v-for="(charity, index) in CharitiesDB"
-        :key="charity"
+        :key="charity.title"
     >
         <span>{{ index + 1 }}</span>
         <div class="Charities">
@@ -42,8 +42,8 @@
                 <br />
                 <!--the Charities_descripetion-->
                 <div class="d-flex align-center flex-wrap justify-around">
-                    <h3>وصف قصيرللجمعية :</h3>
-                    <p>{{ charity.description }}</p>
+                    <h3>وصف قصير للجمعية :</h3>
+                    <p>{{ charity.descripetion }}</p>
                 </div>
                 <br />
                 <!--the Charities_Package_type-->
@@ -58,19 +58,29 @@
                 <!-- return the icon according to the Charities_Social_media links-->
 
                 <div class="d-flex align-center justify-between">
-                    <a v-if="facebook" :href="facebookLink"
+                    <a
+                        v-if="charity.facebook && charity.facebookLink"
+                        :href="charity.facebookLink"
                         ><v-icon>mdi-facebook</v-icon></a
                     >
-                    <a v-if="youtube" :href="youtubeLink"
+                    <a
+                        v-if="charity.youtube && charity.youtubeLink"
+                        :href="charity.youtubeLink"
                         ><v-icon>mdi-youtube</v-icon></a
                     >
-                    <a v-if="linkedin" :href="linkedinLink"
+                    <a
+                        v-if="charity.linkedin && charity.linkedinLink"
+                        :href="charity.linkedinLink"
                         ><v-icon>mdi-linkedin</v-icon></a
                     >
-                    <a v-if="whatsapp" :href="whatsappLink"
+                    <a
+                        v-if="charity.whatsapp && charity.whatsappLink"
+                        :href="charity.whatsappLink"
                         ><v-icon>mdi-whatsapp</v-icon></a
                     >
-                    <a v-if="instagram" :href="instagramLink"
+                    <a
+                        v-if="charity.instagram && charity.instagramLink"
+                        :href="charity.instagramLink"
                         ><v-icon>mdi-instagram</v-icon></a
                     >
                 </div>
@@ -102,27 +112,9 @@ const db = getFirestore(app);
 export default {
     data() {
         return {
-            whatsapp: false,
-            linkedin: false,
-            facebook: false,
-            youtube: false,
-            instagram: false,
-            facebookLink: null,
-            youtubeLink: null,
-            linkedinLink: null,
-            instagramLink: null,
-            whatsappLink: null,
             activities: ref(["كفالة", "إطعام"]),
             // ref to store the Charities data
-            Charities: {
-                cases_number: "1000",
-                title: "الرحمن الرحيم",
-                Social_media: [],
-                descripetion: "جمعية خيرية لمساعدة المحتاجين",
-
-                Charities_specialty: ["إطعام"],
-                Package_type: "1000 جنية مصري  500 حالة",
-            },
+            Charities: {}, // Initialize as an empty object
             CharitiesDB: [],
         };
     },
@@ -136,49 +128,44 @@ export default {
             const querySnapshot = await getDocs(collection(db, "Charities"));
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
-                this.CharitiesDB.push(doc.data());
-                this.Charities.Social_media.push(doc.data().Social_media);
+                const charityData = doc.data();
+                this.detectSocialMediaType(charityData);
+                this.CharitiesDB.push(charityData);
             });
-            console.log(this.Charities.Social_media);
-            this.detectSocialMediaType();
         },
         //fuction to detect the Social_media link type
-        detectSocialMediaType() {
-            this.CharitiesDB.forEach((charity) => {
-                charity.Social_media.forEach((link) => {
-                    const whatsappRegex =
-                        /^(https?):\/\/(www\.)?api\.whatsapp\.com/i;
-                    const youtubeRegex = /^(https?):\/\/(www\.)?youtube\.com/i;
-                    const linkedinRegex =
-                        /^(https?):\/\/(www\.)?linkedin\.com/i;
-                    const facebookRegex =
-                        /^(https?):\/\/(www\.)?facebook\.com/i;
-                    const instagramRegex =
-                        /^(https?):\/\/(www\.)?instagram\.com/i;
+        detectSocialMediaType(charity) {
+            const whatsappRegex = /^(https?):\/\/(www\.)?api\.whatsapp\.com/i;
+            const youtubeRegex = /^(https?):\/\/(www\.)?youtube\.com/i;
+            const linkedinRegex = /^(https?):\/\/(www\.)?linkedin\.com/i;
+            const facebookRegex = /^(https?):\/\/(www\.)?facebook\.com/i;
+            const instagramRegex = /^(https?):\/\/(www\.)?instagram\.com/i;
 
+            if (charity.Social_media && Array.isArray(charity.Social_media)) {
+                charity.Social_media.forEach((link) => {
                     if (whatsappRegex.test(link)) {
                         console.log("WhatsApp");
-                        this.whatsapp = true;
-                        this.whatsappLink = link;
+                        charity.whatsapp = true;
+                        charity.whatsappLink = link;
                     } else if (youtubeRegex.test(link)) {
                         console.log("Youtube");
-                        this.youtube = true;
-                        this.youtubeLink = link;
+                        charity.youtube = true;
+                        charity.youtubeLink = link;
                     } else if (linkedinRegex.test(link)) {
                         console.log("LinkedIn");
-                        this.linkedin = true;
-                        this.linkedinLink = link;
+                        charity.linkedin = true;
+                        charity.linkedinLink = link;
                     } else if (facebookRegex.test(link)) {
                         console.log("Facebook");
-                        this.facebook = true;
-                        this.facebookLink = link;
+                        charity.facebook = true;
+                        charity.facebookLink = link;
                     } else if (instagramRegex.test(link)) {
                         console.log("Instagram");
-                        this.instagram = true;
-                        this.instagramLink = link;
+                        charity.instagram = true;
+                        charity.instagramLink = link;
                     }
                 });
-            });
+            }
         },
     },
 };
