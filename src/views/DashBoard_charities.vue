@@ -206,7 +206,6 @@
                 <StatusInformation />
             </div>
         </v-container>
-        <AddCasce />
         <Add_cases />
     </div>
 </template>
@@ -218,7 +217,6 @@ import readXlsxFile from "read-excel-file";
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
-import AddCasce from "@/components/AddCasce.vue";
 import Add_cases from "@/components/Add_cases.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
 
@@ -228,7 +226,6 @@ export default {
     components: {
         DashboardCharitys,
         StatusInformation,
-        AddCasce,
         Side_Bar,
         Add_cases,
     },

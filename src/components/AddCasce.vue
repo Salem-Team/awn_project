@@ -33,6 +33,8 @@
                                         v-model="form1.namea"
                                         label="الاسم ثلاثي"
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder="الاسم ثلاثي"
                                         :class="[
                                             `${
@@ -66,6 +68,8 @@
                                         v-model="form1.nameb"
                                         label="اسم الشهره"
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder="اسم الشهره"
                                         :class="[
                                             `${
@@ -101,6 +105,8 @@
                                         v-model="form1.cardNumber"
                                         label="رقم البطاقه"
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder="رقم البطاقه"
                                         :class="[
                                             `${
@@ -135,6 +141,8 @@
                                     <v-text-field
                                         v-model="form1.Region"
                                         label="المحافظه"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         variant="outlined"
                                         placeholder="المحافظه"
                                         :class="[
@@ -168,6 +176,8 @@
                                     <h1 class="w-25">رقم المنزل</h1>
                                     <v-text-field
                                         v-model="form1.HouseNumber"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         label="رقم المنزل"
                                         variant="outlined"
                                         placeholder="رقم المنزل"
@@ -204,6 +214,8 @@
                                     <v-text-field
                                         v-model="form1.FloorNumber"
                                         label="رقم الدور"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         variant="outlined"
                                         placeholder="رقم الدور"
                                         :class="[
@@ -238,6 +250,8 @@
                                     <h1 class="w-25">العنوان</h1>
                                     <v-text-field
                                         v-model="form1.theAddress"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         label=" العنوان"
                                         variant="outlined"
                                         placeholder=" العنوان"
@@ -274,6 +288,8 @@
 
                                     <v-select
                                         v-model="form1.SocialStatus"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         :items="SocialStatuss"
                                         label="الحاله الجتماعيه  "
                                     ></v-select>
@@ -297,6 +313,8 @@
                                     <h1 class="w-25">رقم التليفون</h1>
                                     <v-text-field
                                         v-model="form1.phoneNumber"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         label="رقم التليفون"
                                         variant="outlined"
                                         placeholder="رقم التليفون"
@@ -534,6 +552,8 @@
                                         v-model="form3.theDisease"
                                         label="  المرض "
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder=" المرض"
                                         :class="[
                                             `${
@@ -571,6 +591,8 @@
                                         v-model="form3.treatment"
                                         label="كيفيه الحصول علي العلاج"
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder="كيفيه الحصول علي العلاج "
                                         :class="[
                                             `${
@@ -607,6 +629,8 @@
                                         v-model="form3.Reasontreatment"
                                         label=" السبب في عد العلاج علي نفقه الدوله"
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder="السبب في عد العلاج علي نفقه الدوله"
                                         :class="[
                                             `${
@@ -657,6 +681,8 @@
                                         v-model="form4.numberRooms"
                                         label="  عدد الغرف "
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder=" عدد الغرف"
                                     ></v-text-field>
                                 </div>
@@ -680,6 +706,8 @@
                                     <v-select
                                         v-model="form4.ApartmentType"
                                         :items="items"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         label="الشقه ملك ام ايجار"
                                     ></v-select>
                                 </div>
@@ -703,6 +731,8 @@
                                     <v-select
                                         v-model="form4.BathroomType"
                                         :items="amam"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         label="الحمام خاص ام مشترك"
                                     ></v-select>
                                 </div>
@@ -726,6 +756,8 @@
                                     <v-select
                                         v-model="form4.FloorType"
                                         :items="kitchen"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         label="  نوع الارضيه "
                                     ></v-select>
                                 </div>
@@ -748,6 +780,8 @@
                                     <v-text-field
                                         v-model="form4.Descriptionkitchen"
                                         label="  وصف شامل للمطبخ "
+                                        class="mt-2"
+                                        style="width: 45%"
                                         variant="outlined"
                                         placeholder="وصف شامل للمطبخ"
                                     ></v-text-field>
@@ -776,6 +810,8 @@
                                         v-model="form4.DescriptionRoom1"
                                         label="  وصف سريع للغرفه رقم 1 "
                                         variant="outlined"
+                                        class="mt-2"
+                                        style="width: 45%"
                                         placeholder="وصف سريع للغرفه رقم 1 "
                                     ></v-text-field>
                                 </div>
@@ -813,6 +849,8 @@
                                     <v-text-field
                                         v-model="form4.DescriptionRoom2"
                                         label="  وصف سريع للغرفه رقم 2 "
+                                        class="mt-2"
+                                        style="width: 45%"
                                         variant="outlined"
                                         placeholder="وصف سريع للغرفه رقم 2 "
                                     ></v-text-field>
@@ -853,6 +891,8 @@
                                     <v-text-field
                                         v-model="form4.DescriptionRoom3"
                                         label="  وصف سريع للغرفه رقم 3 "
+                                        class="mt-2"
+                                        style="width: 45%"
                                         variant="outlined"
                                         placeholder="وصف سريع للغرفه رقم 3 "
                                     ></v-text-field>
@@ -890,12 +930,7 @@
                             <form @submit.prevent="validateForm5">
                                 <div class="card d-flex">
                                     <h1 class="w-25">طبي</h1>
-                                    <!-- <v-text-field
-                                       
-                                        label="طبي"
-                                        variant="outlined"
-                                        placeholder="طبي"
-                                    ></v-text-field> -->
+
                                     <v-checkbox
                                         v-model="form5.medical"
                                         label="طبي"
