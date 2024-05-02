@@ -134,7 +134,7 @@
                                 >
                                     إدارة الموقع
                                 </v-list-item>
-                                <v-list-item v-if="User.type === 'owner'">
+                                <v-list-item link v-if="User.type === 'owner'">
                                     إدارة المساعديين
                                 </v-list-item>
                                 <v-list-item @click="Sign_Out"
