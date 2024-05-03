@@ -12,10 +12,6 @@
                     text-align: center;
                 "
             ></v-text-field>
-
-            <v-btn @click="change_view" class="mt-5">
-                <v-icon>mdi-view-grid-outline</v-icon>
-            </v-btn>
             <div class="boxes">
                 <div
                     class="box"
@@ -668,6 +664,10 @@ export default {
         },
     },
     mounted() {
+        // change view
+        this.Emitter.on("change_view", () => {
+            this.change_view();
+        });
         // Firts Function ordered By >>>> Swap Grid & Table
         this.Emitter.on("swapView", () => {
             this.isGridView = !this.isGridView;
