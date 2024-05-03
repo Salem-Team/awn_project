@@ -655,7 +655,6 @@ export default {
     methods: {
         // change view
         change_view() {
-            console.log("change_view");
             document.querySelector(".boxes ").classList.toggle("Change_View");
         },
         openStatusInformation(product) {

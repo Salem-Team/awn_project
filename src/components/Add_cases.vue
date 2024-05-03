@@ -315,7 +315,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <!-- <div
+                                    <div
                                         class="mt-2 d-flex flex-column"
                                         style="width: 50%"
                                     >
@@ -343,7 +343,7 @@
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
-                                    </div> -->
+                                    </div>
                                     <div
                                         class="mt-2 d-flex flex-column"
                                         style="width: 50%"
@@ -522,8 +522,8 @@
                     </div>
                     <div v-if="e1 === 3">
                         <form @submit.prevent="validateForm3">
-                            <div class="form">
-                                <div>
+                            <div class="form form_pashent">
+                                <div class="bg-[#eee]">
                                     <div
                                         class="mt-2 d-flex flex-column"
                                         style="width: 50%"
@@ -655,11 +655,11 @@
                                     >
                                         <v-text-field
                                             v-model="form3.Reasontreatment"
-                                            label=" السبب في عد العلاج علي نفقه الدوله"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
                                             variant="outlined"
                                             class="mt-2"
                                             style="width: 100%"
-                                            placeholder="السبب في عد العلاج علي نفقه الدوله"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
                                             :class="[
                                                 `${
                                                     v$.form1.$errors.find(
@@ -842,11 +842,11 @@
                                     >
                                         <v-text-field
                                             v-model="form3.Reasontreatment"
-                                            label=" السبب في عد العلاج علي نفقه الدوله"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
                                             variant="outlined"
                                             class="mt-2"
                                             style="width: 100%"
-                                            placeholder="السبب في عد العلاج علي نفقه الدوله"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
                                             :class="[
                                                 `${
                                                     v$.form1.$errors.find(
@@ -1029,11 +1029,11 @@
                                     >
                                         <v-text-field
                                             v-model="form3.Reasontreatment"
-                                            label=" السبب في عد العلاج علي نفقه الدوله"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
                                             variant="outlined"
                                             class="mt-2"
                                             style="width: 100%"
-                                            placeholder="السبب في عد العلاج علي نفقه الدوله"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
                                             :class="[
                                                 `${
                                                     v$.form1.$errors.find(
@@ -1804,7 +1804,15 @@ export default {
             },
             items: ["ملك", "ايجار"],
             amam: ["مشترك", "خاص"],
-            SocialStatuss: ["متزوج", "اعزب"],
+            SocialStatuss: [
+                "متزوج",
+                "مطلق",
+                "أعزب",
+                "أرمل",
+                "مطلقة",
+                "عزباء",
+                "أرملة",
+            ],
             kitchen: ["بلاط", "سراميك", "بورسلين"],
 
             tab: null,

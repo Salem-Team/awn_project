@@ -112,7 +112,7 @@
                         <div>إضافة الحالات</div>
                         <font-awesome-icon
                             :icon="['fas', 'xmark']"
-                            @click="dialog = true"
+                            @click="dialog = false"
                         />
                     </div>
                     <div class="body">
