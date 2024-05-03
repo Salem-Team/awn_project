@@ -248,14 +248,17 @@
                     label="الباسورد"
                     placeholder="ادخل كلمة
                     سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
-                    class="mt-2 mb-0 pb-0"
+                    class="mt-2"
                     :error-messages="
                         v$.user.password.$errors.map((e) => e.$message)
                     "
-                    :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                    @click:append="toggleShowPassword"
+                    :append-inner-icon="
+                        showPassword ? 'mdi-eye-off' : 'mdi-eye'
+                    "
+                    @click:append-inner="toggleShowPassword"
                 >
                 </v-text-field>
+
                 <v-btn
                     class="mt-4"
                     type="submit"

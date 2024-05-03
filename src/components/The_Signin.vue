@@ -24,28 +24,70 @@
                     label="الباسورد"
                     placeholder="ادخل كلمة
                     سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
-                    class="mt-2 mb-0 pb-0"
+                    class="mt-2"
                     :error-messages="
                         v$.user.password.$errors.map((e) => e.$message)
                     "
-                    :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                    @click:append="toggleShowPassword"
+                    :append-inner-icon="
+                        showPassword ? 'mdi-eye-off' : 'mdi-eye'
+                    "
+                    @click:append-inner="toggleShowPassword"
                 >
                 </v-text-field>
+                <!-- remember me checkbox -->
+                <div
+                    class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
+                >
+                    <v-Checkbox label="تذكرني"></v-Checkbox>
+                    <a class="ms-2 mb-1" href=""> هل نسيت كلمة المرور؟ </a>
+                </div>
                 <v-btn
-                    class="mt-4"
+                    class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
                     type="submit"
-                    style="width: 100%; font-size: 25px"
+                    style="width: 100%; font-size: 16px; margin: auto"
                     @click="Sing_In"
                 >
                     تسجيل الدخول
                 </v-btn>
+                <v-divider></v-divider>
+                <!-- create account -->
+                <v-Col
+                    cols="12"
+                    class="text-center text-base d-flex align-center justify-space-between flex-wrap mt-4 mb-4"
+                >
+                    <span>هل أنت جديد على منصتنا؟ </span>
+                    <div class="register cursor-pointer text-primary">
+                        حساب جديد
+                        <v-dialog activator="parent" max-width="900">
+                            <template v-slot:default="{ isActive }">
+                                <v-card rounded="lg">
+                                    <v-card-title
+                                        class="d-flex justify-space-between align-center"
+                                    >
+                                        <div
+                                            class="text-h5 text-medium-emphasis ps-2"
+                                        >
+                                            حساب جديد
+                                        </div>
+                                        <v-btn
+                                            icon="mdi-close"
+                                            variant="text"
+                                            @click="isActive.value = false"
+                                        ></v-btn>
+                                    </v-card-title>
+                                    <TheRegister />
+                                </v-card>
+                            </template>
+                        </v-dialog>
+                    </div>
+                </v-Col>
             </form>
         </v-container>
     </div>
 </template>
 
 <script scoped>
+import TheRegister from "@/components/The_Register.vue";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, numeric, helpers } from "@vuelidate/validators";
 
@@ -68,6 +110,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
+    components: { TheRegister },
     props: ["Check_User", "IsActive"],
     setup() {
         return {
