@@ -120,25 +120,125 @@
                             <font-awesome-icon :icon="['fas', 'keyboard']" />
                             <div>يدوي</div>
                         </div>
-                        <div class="box">
+                        <div class="box" @click="dialog1 = true">
                             <font-awesome-icon :icon="['fas', 'file-excel']" />
-                            <div @click="dialog = true">إكسل</div>
                             <div>
-                                <v-dialog v-model="dialog1" width="auto">
-                                    <v-card
-                                        max-width="400"
-                                        prepend-icon="mdi-update"
-                                        text="Your application will relaunch automatically after the update is complete."
-                                        title="Update in progress"
-                                    >
-                                        <template v-slot:actions>
-                                            <v-btn
-                                                class="ms-auto"
-                                                text="Ok"
-                                                @click="dialog = false"
-                                            ></v-btn>
-                                        </template>
-                                    </v-card>
+                                <div @click="dialog1 = true">اكسل</div>
+
+                                <v-dialog v-model="dialog1" max-width="600">
+                                    <template v-slot:default="{ isActive }">
+                                        <v-card
+                                            rounded="lg"
+                                            class="mx-16"
+                                            height="400"
+                                        >
+                                            <v-card-title
+                                                class="d-flex justify-space-between align-center"
+                                            >
+                                                <div
+                                                    class="text-h5 text-medium-emphasis ps-2"
+                                                >
+                                                    اضافه ملف اكسيل
+                                                </div>
+
+                                                <v-btn
+                                                    icon="mdi-close"
+                                                    variant="text"
+                                                    @click="
+                                                        isActive.value = false
+                                                    "
+                                                ></v-btn>
+                                            </v-card-title>
+
+                                            <v-divider class="mb-4"></v-divider>
+
+                                            <v-card-text
+                                                class="d-flex justify-end"
+                                            >
+                                                <div class="mb-4">
+                                                    <v-btn
+                                                        rounded="xl"
+                                                        size="x-large"
+                                                        block
+                                                        style="
+                                                            font-family: 'Roboto',
+                                                                sans-serif !important;
+                                                            font-size: 20px;
+                                                        "
+                                                        >تحميل الملف</v-btn
+                                                    >
+                                                </div>
+                                            </v-card-text>
+                                            <div
+                                                class="d-flex justify-center align-center"
+                                            >
+                                                <div
+                                                    class="text-medium-emphasis mb-1"
+                                                    style="
+                                                        display: flex;
+                                                        flex-wrap: wrap;
+                                                        justify-content: center;
+                                                        width: 60%;
+                                                        height: 120px;
+                                                        border: 3px dashed #777;
+                                                        align-content: center;
+                                                        justify-content: space-around;
+                                                    "
+                                                >
+                                                    <label
+                                                        style="
+                                                            width: 200px;
+                                                            position: relative;
+                                                        "
+                                                    >
+                                                        <v-icon
+                                                            color=""
+                                                            style="
+                                                                position: absolute;
+                                                                right: 37px;
+                                                                bottom: 19px;
+                                                            "
+                                                        >
+                                                            mdi-cloud-upload</v-icon
+                                                        >
+                                                        <input
+                                                            type="file"
+                                                            id="myinput"
+                                                        />
+
+                                                        <span
+                                                            style="
+                                                                font-family: 'Roboto',
+                                                                    sans-serif;
+                                                                font-size: 18px;
+                                                            "
+                                                            >رفع ملف
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <v-card-actions
+                                                class="my-2 d-flex justify-end"
+                                            >
+                                                <v-btn
+                                                    style="
+                                                        font-size: 27px;
+                                                        width: 50%;
+                                                        margin: 15px 113px;
+                                                    "
+                                                    class="text-none"
+                                                    color="primary"
+                                                    text="تم"
+                                                    variant="flat"
+                                                    @click="
+                                                        To_Json(),
+                                                            (isActive.value = false)
+                                                    "
+                                                ></v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </template>
                                 </v-dialog>
                             </div>
                         </div>
@@ -146,78 +246,6 @@
                 </div>
             </v-dialog>
         </v-container>
-        <!-- <v-container>
-            <v-dialog v-model="dialog" width="auto">
-                <v-card
-                    class="d-flex flex-column jusrify-center"
-                    width="800"
-                    prepend-icon="mdi-update"
-                    title="إضــــافه"
-                >
-                    <v-item-group selected-class="bg-primary">
-                        <v-container>
-                            <v-row class="mydailog justify-center">
-                                <v-col
-                                    cols="12"
-                                    class="d-flex justify-center ga-6"
-                                >
-                                    <v-item>
-                                        <v-card
-                                            style="cursor: pointer"
-                                            :class="[
-                                                'd-flex align-center',
-                                                selectedClass,
-                                            ]"
-                                            height="200"
-                                            width="200"
-                                            dark
-                                            @click="toggle"
-                                        >
-                                            <div
-                                                class="text-h3 flex-grow-1 text-center"
-                                            >
-                                                اضافه
-                                            </div>
-                                        </v-card>
-                                    </v-item>
-                                    <v-item>
-                                        <v-card
-                                            style="cursor: pointer"
-                                            :class="[
-                                                'd-flex align-center',
-                                                selectedClass,
-                                            ]"
-                                            height="200"
-                                            width="200"
-                                            dark
-                                            @click="toggle"
-                                        >
-                                            <div
-                                                class="text-h3 flex-grow-1 text-center"
-                                            >
-                                                ملف اكسل<input
-                                                    type="file"
-                                                    id="myinput"
-                                                    accept=".xlsx"
-                                                    @change="To_Json()"
-                                                />
-                                            </div>
-                                        </v-card>
-                                    </v-item>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-item-group>
-                    <template v-slot:actions>
-                        <v-btn
-                            class="ms-auto"
-                            text="Ok"
-                            @click="dialog = false"
-                        ></v-btn>
-                    </template>
-                </v-card>
-            </v-dialog>
-        </v-container> -->
         <v-container fluid>
             <div class="Charites d-flex justify-center">
                 <DashboardCharitys />
@@ -231,7 +259,6 @@
 <script>
 // import Xlsx File
 import readXlsxFile from "read-excel-file";
-// import XLSX from "xlsx";
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
@@ -252,20 +279,13 @@ export default {
             dialog: false,
             dialog1: false,
             items: [],
+            isActive: false,
         };
     },
     methods: {
-        // onFileChange(event) {
-        //     const xlsxFile = event.target.files ? event.target.files[0] : null;
-        //     if (xlsxFile) {
-        //         readXlsxFile(xlsxFile).then((rows) => {
-        //             console.log("Rows:", rows);
-        //         });
-        //     }
-        // },
-
+        // change viw
         Swap() {
-            this.Emitter.emit("swapView");
+            this.Emitter.emit("change_view");
         },
         // / Firts Function ordered By >>>> Swap BT Latest && Oldest
         funLatestClicked() {
@@ -305,14 +325,24 @@ export default {
         To_Json() {
             const input = document.getElementById("myinput");
             readXlsxFile(input.files[0]).then((rows) => {
-                const headers = rows[1]; // assuming the first row contains column headers
-                const data = rows.slice(2); // data rows
-                console.log("data", data);
+                const headers = rows[1];
+                const data = rows.slice(3);
+
                 const objByColumn = {};
+
                 headers.forEach((header, index) => {
-                    objByColumn[header] = data.map((row) => row[index]);
+                    const columnData = data.map((row) => row[index]);
+                    const adjacentColumnData = data.map((row) => row[index]);
+
+                    const columnObj = {};
+                    columnData.forEach((value, i) => {
+                        columnObj[value] = adjacentColumnData[i];
+                    });
+
+                    objByColumn[header] = columnObj;
                 });
-                console.log(objByColumn); // output the resulting object
+
+                console.log(objByColumn);
             });
         },
     },
@@ -368,5 +398,29 @@ export default {
             }
         }
     }
+    // btn style
+}
+label input[type="file"] {
+    display: none;
+}
+label span {
+    cursor: pointer;
+    background: #ddd;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: flex-start;
+    align-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 65px;
+}
+label span:hover {
+    border-color: #09f;
+}
+label span:active {
+    box-shadow: 1px 1px 0 #012;
 }
 </style>
