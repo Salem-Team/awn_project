@@ -44,7 +44,7 @@
                 <v-btn
                     class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
                     type="submit"
-                    style="width: fit-contant; font-size: 25px; margin: auto"
+                    style="width: 100%; font-size: 16px; margin: auto"
                     @click="Sing_In"
                 >
                     تسجيل الدخول
