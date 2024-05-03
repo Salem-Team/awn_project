@@ -188,7 +188,6 @@
                                         </span>
                                     </div>
                                 </div>
-
                                 <div>
                                     <div
                                         class="mt-2 d-flex flex-column"
@@ -231,62 +230,22 @@
                                         </span>
                                     </div>
                                     <div
-                                        class="mt-2 d-flex flex-column"
+                                        class="d-flex flex-column"
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.nameb"
-                                            label="اسم الشهره"
-                                            variant="outlined"
-                                            style="width: 100%"
-                                            placeholder="اسم الشهره"
-                                            :class="[
-                                                `${
-                                                    v$.form1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'nameb'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        >
-                                        </v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="err.$property == 'nameb'"
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="form1.theAddress"
+                                            v-model="form1.FloorNumber"
+                                            label="رقم الدور"
                                             class="mt-2"
                                             style="width: 100%"
-                                            label=" العنوان"
                                             variant="outlined"
-                                            placeholder=" العنوان"
+                                            placeholder="رقم الدور"
                                             :class="[
                                                 `${
                                                     v$.form1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'theAddress'
+                                                            'FloorNumber'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -305,23 +264,37 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'theAddress'
+                                                    'FloorNumber'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
                                     </div>
+                                </div>
+                                <div>
                                     <div
                                         class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
+                                        style="width: 100%"
                                     >
-                                        <v-select
-                                            v-model="form1.SocialStatus"
+                                        <v-textarea
+                                            v-model="form1.theAddress"
                                             class="mt-2"
                                             style="width: 100%"
-                                            :items="SocialStatuss"
-                                            label="الحاله الجتماعيه  "
-                                        ></v-select>
+                                            label=" العنوان"
+                                            variant="outlined"
+                                            placeholder=" العنوان"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'theAddress'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-textarea>
                                         <span
                                             v-for="err in v$.$errors"
                                             :key="err.$uid"
@@ -334,7 +307,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'SocialStatus'
+                                                    'theAddress'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -411,17 +384,6 @@
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="card w-25 mx-auto">
-                                        <v-btn
-                                            class="mt-2 bg-red"
-                                            style="padding: 32px"
-                                            type="submit"
-                                            block
-                                            >ارسال</v-btn
-                                        >
                                     </div>
                                 </div>
                             </div>
@@ -513,13 +475,16 @@
                                 <div>
                                     <div
                                         class="d-flex flex-column"
-                                        style="width: 50%"
+                                        style="width: 100%"
                                     >
                                         <v-text-field
                                             v-model="form2.Impotence"
                                             label="العجز "
                                             class="mt-2"
-                                            style="width: 100%"
+                                            style="
+                                                width: 100%;
+                                                pointer-events: none;
+                                            "
                                             variant="outlined"
                                             placeholder="العجز "
                                             :class="[
@@ -550,58 +515,6 @@
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="form2.TreatmentExpenses"
-                                            label=" مصروفات العلاج "
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="  مصروفات العلاج  "
-                                            :class="[
-                                                `${
-                                                    v$.form2.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'TreatmentExpenses'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'TreatmentExpenses'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="card w-25 mx-auto">
-                                        <v-btn
-                                            class="mt-2 bg-red"
-                                            style="padding: 32px"
-                                            type="submit"
-                                            block
-                                            >ارسال</v-btn
-                                        >
                                     </div>
                                 </div>
                             </div>
@@ -778,15 +691,395 @@
                                         </span>
                                     </div>
                                 </div>
+
                                 <div>
-                                    <div class="card w-25 mx-auto">
+                                    <div class="card w-25">
                                         <v-btn
-                                            class="mt-2 bg-red"
-                                            style="padding: 32px"
-                                            type="submit"
-                                            block
-                                            >ارسال</v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            v-if="!this.showDiv1"
+                                            @click="toggleDiv1"
+                                            icon="mdi-plus"
+                                            size="small"
                                         >
+                                        </v-btn>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form" v-if="this.showDiv1">
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.PatientName"
+                                            label=" اسم المريض "
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم المريض"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'PatientName'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'PatientName'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.theDisease"
+                                            label="  المرض "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder=" المرض"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'theDisease'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'theDisease'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.treatment"
+                                            label="كيفيه الحصول علي العلاج"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="كيفيه الحصول علي العلاج "
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'treatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.Reasontreatment"
+                                            label=" السبب في عد العلاج علي نفقه الدوله"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عد العلاج علي نفقه الدوله"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'Reasontreatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'Reasontreatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="card w-25">
+                                        <v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            v-if="!this.showDiv2"
+                                            @click="toggleDiv2"
+                                            icon="mdi-plus"
+                                            size="small"
+                                        >
+                                        </v-btn>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form" v-if="this.showDiv2">
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.PatientName"
+                                            label=" اسم المريض "
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم المريض"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'PatientName'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'PatientName'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.theDisease"
+                                            label="  المرض "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder=" المرض"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'theDisease'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'theDisease'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.treatment"
+                                            label="كيفيه الحصول علي العلاج"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="كيفيه الحصول علي العلاج "
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'treatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="form3.Reasontreatment"
+                                            label=" السبب في عد العلاج علي نفقه الدوله"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عد العلاج علي نفقه الدوله"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'Reasontreatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'Reasontreatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="card w-25">
+                                        <v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            v-if="!this.showDiv2"
+                                            @click="toggleDiv2"
+                                            icon="mdi-plus"
+                                            size="small"
+                                        >
+                                        </v-btn>
                                     </div>
                                 </div>
                             </div>
@@ -800,14 +1093,14 @@
                                         class="d-flex flex-column"
                                         style="width: 50%"
                                     >
-                                        <v-text-field
+                                        <v-select
                                             v-model="form4.numberRooms"
-                                            label="عدد الغرف "
-                                            variant="outlined"
+                                            :items="numberRooms"
                                             class="mt-2"
                                             style="width: 100%"
-                                            placeholder=" عدد الغرف"
-                                        ></v-text-field>
+                                            label=" عدد الغرف"
+                                        ></v-select>
+
                                         <span
                                             v-for="err in v$.$errors"
                                             :key="err.$uid"
@@ -984,6 +1277,7 @@
                                     >
                                         <v-text-field
                                             v-model="form4.DescriptionRoom2"
+                                            v-show="form4.numberRooms > 1"
                                             label="  وصف سريع للغرفه رقم 2 "
                                             class="mt-2"
                                             style="width: 100%"
@@ -1014,6 +1308,7 @@
                                     <v-text-field
                                         v-model="form4.DescriptionRoom3"
                                         label="  وصف سريع للغرفه رقم 3 "
+                                        v-show="form4.numberRooms > 2"
                                         class="mt-2"
                                         style="width: 45%"
                                         variant="outlined"
@@ -1039,16 +1334,70 @@
                                         >
                                     </span>
                                 </div>
+
                                 <div>
-                                    <div class="card w-25 mx-auto">
-                                        <v-btn
-                                            class="mt-2 bg-red"
-                                            style="padding: 32px"
-                                            type="submit"
-                                            block
-                                            >ارسال</v-btn
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="form4.DescriptionRoom2"
+                                            v-show="form4.numberRooms > 3"
+                                            label="  وصف سريع للغرفه رقم 4 "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="وصف سريع للغرفه رقم 4 "
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                            v-show="showDiv1"
                                         >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'DescriptionRoom4'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
                                     </div>
+
+                                    <v-text-field
+                                        v-model="form4.DescriptionRoom3"
+                                        label="  وصف سريع للغرفه رقم 5 "
+                                        v-show="form4.numberRooms > 4"
+                                        class="mt-2"
+                                        style="width: 45%"
+                                        variant="outlined"
+                                        placeholder="وصف سريع للغرفه رقم 5 "
+                                    ></v-text-field>
+                                    <span
+                                        v-show="showDiv2"
+                                        v-for="err in v$.$errors"
+                                        :key="err.$uid"
+                                        style="
+                                            display: block;
+                                            margin-right: 273px;
+                                            margin-bottom: 17px;
+                                            color: red;
+                                        "
+                                    >
+                                        <span
+                                            v-if="
+                                                err.$property ==
+                                                'DescriptionRoom5'
+                                            "
+                                            >{{ err.$message }}</span
+                                        >
+                                    </span>
                                 </div>
                             </div>
                         </form>
@@ -1290,9 +1639,9 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.MonthlyWarranty"
-                                            label="كفاله شهريه"
-                                            value="كفاله شهريه"
+                                            v-model="form5.MonthlyWarranty2"
+                                            label="كفاله "
+                                            value="كفاله "
                                         ></v-checkbox>
 
                                         <span
@@ -1308,22 +1657,11 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'MonthlyWarranty'
+                                                    'MonthlyWarranty2'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
-                                    </div>
-                                </div>
-                                <div class="height: 59px;">
-                                    <div class="card w-25 mx-auto">
-                                        <v-btn
-                                            class="mt-2 bg-red"
-                                            style="padding: 32px"
-                                            type="submit"
-                                            block
-                                            >ارسال</v-btn
-                                        >
                                     </div>
                                 </div>
                             </div>
@@ -1335,6 +1673,7 @@
                     :disabled="disabled"
                     @click:next="next"
                     @click:prev="prev"
+                    type="submit"
                 ></v-stepper-actions>
             </template>
         </v-stepper>
@@ -1352,11 +1691,21 @@ import {
     // between,
     helpers,
 } from "@vuelidate/validators";
+
 export default {
     data() {
         return {
+            formError: false,
+            formError2: false,
+            formError3: false,
+            formError4: false,
+            formError5: false,
+
+            currentStep: 1, // الخطوة الحالية
+
             e1: 1,
             steps: 5,
+            numberRooms: [1, 2, 3, 4, 5],
             title: [
                 "",
                 "المعلومات الشخصية",
@@ -1403,6 +1752,9 @@ export default {
             ],
             showDiv1: false,
             showDiv2: false,
+            showDiv3: false,
+            showDiv4: false,
+            currentForm1: false,
             form1: {
                 namea: "",
                 nameb: "",
@@ -1436,6 +1788,8 @@ export default {
                 DescriptionRoom1: "",
                 DescriptionRoom2: "",
                 DescriptionRoom3: "",
+                DescriptionRoom4: "",
+                DescriptionRoom5: "",
             },
             form5: {
                 medical: "",
@@ -1446,6 +1800,7 @@ export default {
                 FoodBag: "",
                 MonthlyWarranty: "",
                 Appliances: "",
+                MonthlyWarranty2: "",
             },
             items: ["ملك", "ايجار"],
             amam: ["مشترك", "خاص"],
@@ -1463,11 +1818,7 @@ export default {
 
     computed: {
         disabled() {
-            return this.e1 === 1
-                ? "prev"
-                : this.e1 === this.steps
-                ? "next"
-                : undefined;
+            return this.e1 === 1 ? "prev" : this.e1 === 5 ? "next" : undefined;
         },
     },
     inject: ["Emitter"],
@@ -1479,10 +1830,7 @@ export default {
         return {
             form1: {
                 namea: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     minLength: helpers.withMessage(
                         "لا يجب ان تقل عن 10 حروف ",
                         minLength(10)
@@ -1498,10 +1846,7 @@ export default {
                     ),
                 },
                 nameb: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
@@ -1516,66 +1861,45 @@ export default {
                     ),
                 },
                 cardNumber: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 Region: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 HouseNumber: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 FloorNumber: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 theAddress: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 SocialStatus: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                 },
                 phoneNumber: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     // between: between(, 120),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
@@ -1585,40 +1909,28 @@ export default {
             },
             form2: {
                 Required: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 Inside: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 Impotence: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 TreatmentExpenses: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
@@ -1627,40 +1939,28 @@ export default {
             },
             form3: {
                 PatientName: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 theDisease: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 treatment: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 Reasontreatment: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
@@ -1669,60 +1969,54 @@ export default {
             },
             form4: {
                 numberRooms: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
                 ApartmentType: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                 },
                 BathroomType: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                 },
                 FloorType: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                 },
                 Descriptionkitchen: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 DescriptionRoom1: {
-                    required: helpers.withMessage(
-                        "لا يجب تركها فارغه",
-                        required
-                    ),
+                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
+                        "حقل مطلوب",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 DescriptionRoom2: {
                     regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
+                        "حقل مطلوب",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 DescriptionRoom3: {
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom4: {
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom5: {
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
@@ -1738,10 +2032,33 @@ export default {
                 FoodBag: {},
                 MonthlyWarranty: {},
                 Appliances: {},
+                MonthlyWarranty2: {},
             },
         };
     },
     methods: {
+        // async validateAndNext() {
+        //     let isValid = false;
+
+        //     if (this.currentStep === 1) {
+        //         isValid = await this.validateForm1();
+        //     } else if (this.currentStep === 2) {
+        //         isValid = await this.validateForm2();
+        //     } else if (this.currentStep === 3) {
+        //         isValid = await this.validateForm3();
+        //     }
+        //     if (!isValid) {
+        //         this.formError = true;
+        //         return;
+        //     } else {
+        //         this.formError = false;
+        //         this.currentStep++;
+        //     }
+        // },
+        // prev() {
+        //     this.currentStep--;
+        //     this.formError = false;
+        // },
         async validateForm1() {
             const res = await this.v$.form1.$validate();
             if (res) {
@@ -1756,7 +2073,8 @@ export default {
                     { SocialStatus: this.form1.SocialStatus },
                     { phoneNumber: this.form1.phoneNumber }
                 );
-
+                this.e1++;
+                console.log(this.testform1);
                 this.v$.$reset();
                 this.form1.namea = "";
                 this.form1.nameb = "";
@@ -1776,11 +2094,12 @@ export default {
                 this.testform2.push(
                     { Required: this.form2.Required },
                     { Inside: this.form2.Inside },
-                    { Impotence: this.form2.Impotence },
+                    { Impotence: this.form2.Required - this.form2.Impotence },
                     { TreatmentExpenses: this.form2.TreatmentExpenses }
                 );
-
+                this.e1++;
                 console.log(this.testform2);
+
                 this.v$.$reset();
                 this.form2.Required = "";
                 this.form2.Inside = "";
@@ -1801,7 +2120,7 @@ export default {
                         Reasontreatment: this.form3.Reasontreatment,
                     }
                 );
-
+                this.e1++;
                 console.log(this.testform3);
                 this.v$.$reset();
                 this.form3.PatientName = "";
@@ -1823,6 +2142,7 @@ export default {
                     { Descriptionkitchen: this.form4.Descriptionkitchen },
                     { DescriptionRoom1: this.form4.DescriptionRoom1 }
                 );
+                this.e1++;
                 if (this.showDiv1) {
                     this.testform4.push({
                         DescriptionRoom2: this.form4.DescriptionRoom2,
@@ -1831,6 +2151,16 @@ export default {
                 if (this.showDiv2) {
                     this.testform4.push({
                         DescriptionRoom3: this.form4.DescriptionRoom3,
+                    });
+                }
+                if (this.showDiv3) {
+                    this.testform4.push({
+                        DescriptionRoom4: this.form4.DescriptionRoom4,
+                    });
+                }
+                if (this.showDiv4) {
+                    this.testform4.push({
+                        DescriptionRoom5: this.form4.DescriptionRoom5,
                     });
                 }
 
@@ -1845,6 +2175,8 @@ export default {
             this.form4.DescriptionRoom1 = "";
             this.form4.DescriptionRoom2 = "";
             this.form4.DescriptionRoom3 = "";
+            this.form4.DescriptionRoom4 = "";
+            this.form4.DescriptionRoom5 = "";
 
             this.testform4 = [];
         },
@@ -1859,9 +2191,10 @@ export default {
                     { Blankets: this.form5.Blankets },
                     { FoodBag: this.form5.FoodBag },
                     { MonthlyWarranty: this.form5.MonthlyWarranty },
-                    { Appliances: this.form5.Appliances }
+                    { Appliances: this.form5.Appliances },
+                    { MonthlyWarranty2: this.form5.MonthlyWarranty2 }
                 );
-
+                this.e1++;
                 console.log(this.testform5);
                 this.v$.$reset();
                 this.form5.medical = "";
@@ -1876,6 +2209,7 @@ export default {
                 this.testform5 = [];
             }
         },
+
         reloadPage() {
             window.location.reload();
         },
@@ -1886,7 +2220,30 @@ export default {
         toggleDiv2() {
             this.showDiv2 = !this.showDiv2; // تغيير حالة العنصر ما بين الظهور والاختفاء
         },
+        toggleDiv3() {
+            this.showDiv3 = !this.showDiv3; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        toggleDiv4() {
+            this.showDiv4 = !this.showDiv4; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        calculateDifference() {
+            // حساب الفرق بين Required و Inside
+            this.form2.Impotence = this.form2.Required - this.form2.Inside;
+        },
     },
+    watch: {
+        "form2.Required": function () {
+            this.calculateDifference();
+        },
+        "form2.Inside": function () {
+            this.calculateDifference();
+        },
+    },
+    // mounted() {
+    //     console.log(
+    //         document.querySelector(".v-stepper-actions").children[1].click()
+    //     );
+    // },
 };
 </script>
 <style lang="scss" scoped>
