@@ -271,7 +271,49 @@
                                         </span>
                                     </div>
                                 </div>
-
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-textarea
+                                            v-model="form1.theAddress"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label=" العنوان"
+                                            variant="outlined"
+                                            placeholder=" العنوان"
+                                            :class="[
+                                                `${
+                                                    v$.form1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'theAddress'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-textarea>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'theAddress'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
                                 <div>
                                     <div
                                         class="mt-2 d-flex flex-column"
@@ -669,8 +711,8 @@
                             </div>
                             <v-divider
                                 :thickness="8"
-                                v-if="this.showDiv1"
                                 class="my-5"
+                                v-if="this.showDiv1"
                             ></v-divider>
                             <div class="form" v-if="this.showDiv1">
                                 <div>
@@ -861,8 +903,8 @@
                             </div>
                             <v-divider
                                 :thickness="8"
-                                v-if="this.showDiv2"
                                 class="my-5"
+                                v-if="this.showDiv2"
                             ></v-divider>
                             <div class="form" v-if="this.showDiv2">
                                 <div>
@@ -1730,6 +1772,7 @@ export default {
                 Region: "",
                 HouseNumber: "",
                 FloorNumber: "",
+                theAddress: "",
                 SocialStatus: "",
                 phoneNumber: "",
             },
@@ -1855,7 +1898,13 @@ export default {
                         numeric
                     ),
                 },
-
+                theAddress: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
                 SocialStatus: {
                     required: helpers.withMessage("حقل مطلوب", required),
                 },
@@ -2043,6 +2092,7 @@ export default {
                 this.form1.Region = "";
                 this.form1.HouseNumber = "";
                 this.form1.FloorNumber = "";
+                this.form1.theAddress = "";
                 this.form1.SocialStatus = "";
                 this.form1.phoneNumber = "";
                 this.testform1 = [];

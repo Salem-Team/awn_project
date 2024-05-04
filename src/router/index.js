@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import DashBoard_charities from "@/views/DashBoard_charities.vue";
 import DashBoard_Admin from "@/views/DashBoard_Admin.vue";
+import Settings_Admin from "@/views/Settings_Admin.vue";
 
 const routes = [
     {
@@ -18,6 +19,12 @@ const routes = [
         path: "/DashBoard_Admin",
         name: "DashBoard_Admin",
         component: DashBoard_Admin,
+    },
+
+    {
+        path: "/Settings_Admin",
+        name: "/Settings_Admin",
+        component: Settings_Admin,
     },
 ];
 
