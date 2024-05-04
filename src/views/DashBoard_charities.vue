@@ -43,51 +43,137 @@
                                     </v-btn>
                                 </template>
                                 <v-list>
-                                    <v-list-item @click="funLatestClicked">
-                                        <v-list-item-title>
-                                            الاحدث للاقدم
-                                        </v-list-item-title>
+                                    <v-list-item>
+                                        ابجدى
+                                        <v-btn-toggle v-model="isActive1">
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('up'),
+                                                        funAtZClicked()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'up',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-up</v-icon>
+                                            </v-btn>
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('down'),
+                                                        funZtAClicked()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'down',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-down</v-icon>
+                                            </v-btn>
+                                        </v-btn-toggle>
                                     </v-list-item>
-                                    <v-list-item @click="funAtZClicked">
-                                        <v-list-item-title>
-                                            أبجدى تصاعدى
-                                        </v-list-item-title>
+                                    <!-- العجز بداية ------------------------------------------ -->
+                                    <v-list-item>
+                                        العجز
+                                        <v-btn-toggle v-model="isActive2">
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('up'),
+                                                        funCards_STL()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'up',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-up</v-icon>
+                                            </v-btn>
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('down'),
+                                                        funCards_LTS()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'down',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-down</v-icon>
+                                            </v-btn>
+                                        </v-btn-toggle>
                                     </v-list-item>
-                                    <v-list-item @click="funZtAClicked">
-                                        <v-list-item-title>
-                                            أبجدى تنازلى</v-list-item-title
-                                        >
+                                    <!-- العجز نهايه ----------------------------------------------- -->
+
+                                    <!-- الدخل بدايه ------------------------------------------------ -->
+                                    <v-list-item>
+                                        الدخل
+                                        <v-btn-toggle v-model="isActive3">
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('up'),
+                                                        funFat_STL()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'up',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-up</v-icon>
+                                            </v-btn>
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('down'),
+                                                        funFat_LTS()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'down',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-down</v-icon>
+                                            </v-btn>
+                                        </v-btn-toggle>
                                     </v-list-item>
-                                    <v-list-item @click="funCards_STL">
-                                        <v-list-item-title
-                                            >تصاعدى حسب العجز
-                                        </v-list-item-title>
+                                    <!-- الدخل نهايه---------------------------------------------------- -->
+                                    <!-- المطلوب بدايه ------------------------------------------------ -->
+                                    <v-list-item>
+                                        المطلوب
+                                        <v-btn-toggle v-model="isActive4">
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('up'),
+                                                        funCalories_STL()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'up',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-up</v-icon>
+                                            </v-btn>
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('down'),
+                                                        funCalories_LTS()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'down',
+                                                }"
+                                            >
+                                                <v-icon>mdi-arrow-down</v-icon>
+                                            </v-btn>
+                                        </v-btn-toggle>
                                     </v-list-item>
-                                    <v-list-item @click="funCards_LTS">
-                                        <v-list-item-title>
-                                            ننازلى حسب العجز
-                                        </v-list-item-title>
-                                    </v-list-item>
-                                    <v-list-item @click="funFat_STL">
-                                        <v-list-item-title>
-                                            تصاعدى حسب الدخل
-                                        </v-list-item-title>
-                                    </v-list-item>
-                                    <v-list-item @click="funFat_LTS">
-                                        <v-list-item-title>
-                                            تنازلى حسب الدخل
-                                        </v-list-item-title>
-                                    </v-list-item>
-                                    <v-list-item @click="funCalories_STL">
-                                        <v-list-item-title>
-                                            تصاعدى حسب المطلوب
-                                        </v-list-item-title>
-                                    </v-list-item>
-                                    <v-list-item @click="funCalories_LTS">
-                                        <v-list-item-title>
-                                            تنازلى حسب المطلوب
-                                        </v-list-item-title>
-                                    </v-list-item>
+                                    <!-- المطلوب نهايه ------------------------------------------------ -->
                                 </v-list>
                             </v-menu>
                             <v-btn>
@@ -280,9 +366,20 @@ export default {
             dialog1: false,
             items: [],
             isActive: false,
+            isActive1: null,
+            isActive2: null,
+            isActive3: null,
+            isActive4: null,
         };
     },
     methods: {
+        toggleActive(direction) {
+            if (direction === "up") {
+                this.isActive = this.isActive === "up" ? null : "up";
+            } else if (direction === "down") {
+                this.isActive = this.isActive === "down" ? null : "down";
+            }
+        },
         // change viw
         Swap() {
             this.Emitter.emit("change_view");
@@ -324,25 +421,29 @@ export default {
         },
         To_Json() {
             const input = document.getElementById("myinput");
+            // readXlsxFile(input.files[0]).then((rows) => {
+            //     const headers = rows[1];
+            //     const data = rows.slice(3);
+
+            //     const objByColumn = {};
+
+            //     headers.forEach((header, index) => {
+            //         const columnData = data.map((row) => row[index]);
+            //         const adjacentColumnData = data.map((row) => row[index]);
+
+            //         const columnObj = {};
+            //         columnData.forEach((value, i) => {
+            //             columnObj[value] = adjacentColumnData[i];
+            //         });
+
+            //         objByColumn[header] = columnObj;
+            //     });
+
+            //     console.log(objByColumn);
+            // });
             readXlsxFile(input.files[0]).then((rows) => {
-                const headers = rows[1];
-                const data = rows.slice(3);
-
-                const objByColumn = {};
-
-                headers.forEach((header, index) => {
-                    const columnData = data.map((row) => row[index]);
-                    const adjacentColumnData = data.map((row) => row[index]);
-
-                    const columnObj = {};
-                    columnData.forEach((value, i) => {
-                        columnObj[value] = adjacentColumnData[i];
-                    });
-
-                    objByColumn[header] = columnObj;
-                });
-
-                console.log(objByColumn);
+                rows.splice(2, 1);
+                console.log(rows);
             });
         },
     },
@@ -422,5 +523,19 @@ label span:hover {
 }
 label span:active {
     box-shadow: 1px 1px 0 #012;
+}
+// customize list
+.v-list-item.v-theme--light.v-list-item--density-default.v-list-item--one-line.rounded-0.v-list-item--variant-text {
+    padding-left: 0px !important;
+    padding-right: 9px !important;
+}
+.v-btn-group.v-theme--light.v-btn-group--density-default.v-btn-toggle {
+    height: 40px !important;
+}
+.v-btn-group--density-default.v-btn-group {
+    width: 122px !important;
+}
+.v-btn-group--density-default.v-btn-group {
+    padding-bottom: 0 !important;
 }
 </style>

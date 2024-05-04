@@ -668,14 +668,13 @@ export default {
         this.Emitter.on("change_view", () => {
             this.change_view();
         });
-        // Firts Function ordered By >>>> Swap Grid & Table
-        this.Emitter.on("swapView", () => {
-            this.isGridView = !this.isGridView;
-        });
+
+        // -----------------------------------------------------------------------------
+
         // Firts Function ordered By >>>> Swap BT Latest && Oldest
-        this.Emitter.on("FunLatest", () => {
-            this.vegetables.sort((a, b) => (b[name] > a[name] ? 1 : -1));
-        });
+        // this.Emitter.on("FunLatest", () => {
+        //     this.vegetables.sort((a, b) => (b[name] > a[name] ? 1 : -1));
+        // });
         // / Seconed  Function ordered By >>>> A To Z
         this.Emitter.on("FunATZ", () => {
             this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -684,6 +683,8 @@ export default {
         this.Emitter.on("FunZTA", () => {
             this.vegetables.sort((a, b) => (b.name > a.name ? 1 : -1));
         });
+
+        // ---------------------------------------------------------------------------
         // / Fourth  Function ordered By Cards >>>> S T L
         this.Emitter.on("CardsAscending", () => {
             this.newVegetables = this.vegetables.sort(
