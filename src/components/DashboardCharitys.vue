@@ -13,30 +13,27 @@
                 "
             ></v-text-field>
             <div class="boxes">
-                <div
-                    class="box"
-                    v-for="vege in filteredVegetables"
-                    :key="vege.id"
-                >
+                <div class="box" v-for="(Case, index) in Cases" :key="Case">
                     <div class="About">
-                        <div class="index">{{ vege.id }}</div>
-                        <div class="name">{{ vege.name }}</div>
+                        <div class="index">{{ index + 1 }}</div>
+
+                        <div class="name">{{ Case.personal_info.name }}</div>
                     </div>
                     <div class="Financial_details">
                         <div class="required">
-                            <span>{{ vege.calories }} </span>
+                            <span>{{ Case.financial_info.required }} </span>
                             <div>مطلوب</div>
                         </div>
                         <div class="incom">
-                            <span>{{ vege.fat }} </span>
+                            <span>{{ Case.financial_info.incom }} </span>
                             <div>دخل</div>
                         </div>
                         <div class="deficit">
-                            <span>{{ vege.carbs }} </span>
+                            <span>{{ Case.financial_info.deficit }} </span>
                             <div>عجز</div>
                         </div>
                     </div>
-                    <div class="details" @click="openStatusInformation(vege)">
+                    <div class="details" @click="openStatusInformation(Case)">
                         <font-awesome-icon :icon="['fas', 'circle-info']" />
                         <div>التفاصيل</div>
                     </div>
@@ -46,9 +43,30 @@
     </div>
 </template>
 <script>
+// Get  data
+import { getFirestore, getDocs, collection } from "@firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default {
     inject: ["Emitter"],
     data: () => ({
+        Cases_length: 0,
+        Cases: [],
         isGridView: false,
         search: "",
         newVegetables: [],
@@ -62,6 +80,7 @@ export default {
             { title: "عجز", key: "carbs" },
             { title: "التفاصيل", key: "protein" },
         ],
+
         vegetables: [
             {
                 id: 1,
@@ -649,9 +668,21 @@ export default {
         },
     },
     methods: {
+        Send_Function_To_Perant() {
+            this.$emit("Send_Function_To_Perant", this.Get_data());
+        },
+        async Get_data() {
+            this.Cases = [];
+            const querySnapshot = await getDocs(collection(db, "Cases"));
+            querySnapshot.forEach((doc) => {
+                this.Cases.push(doc.data());
+            });
+            console.log("this.Cases", this.Cases);
+            this.Cases_length = this.Cases.length;
+            this.$emit("child-result", this.Cases_length);
+        },
         // change view
         change_view() {
-            console.log("change_view");
             document.querySelector(".boxes ").classList.toggle("Change_View");
         },
         openStatusInformation(product) {

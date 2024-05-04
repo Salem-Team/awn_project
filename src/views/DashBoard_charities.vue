@@ -22,7 +22,7 @@
                             class="info_stat d-flex justify-space-between align-center ga-12"
                         >
                             <div class="info">
-                                <div class="num">750</div>
+                                <div class="num">{{ childResult }}</div>
                                 <span>الحاله</span>
                             </div>
                             <div class="info">
@@ -176,10 +176,8 @@
                                     <!-- المطلوب نهايه ------------------------------------------------ -->
                                 </v-list>
                             </v-menu>
-                            <v-btn>
-                                <v-icon
-                                    style="font-size: 20px !important"
-                                    @click="dialog = true"
+                            <v-btn @click="dialog = true">
+                                <v-icon style="font-size: 20px !important"
                                     >mdi-plus</v-icon
                                 >
                             </v-btn>
@@ -198,11 +196,11 @@
                         <div>إضافة الحالات</div>
                         <font-awesome-icon
                             :icon="['fas', 'xmark']"
-                            @click="dialog = true"
+                            @click="dialog = false"
                         />
                     </div>
                     <div class="body">
-                        <div class="box">
+                        <div class="box" @click="close_function">
                             <font-awesome-icon :icon="['fas', 'keyboard']" />
                             <div>يدوي</div>
                         </div>
@@ -334,11 +332,14 @@
         </v-container>
         <v-container fluid>
             <div class="Charites d-flex justify-center">
-                <DashboardCharitys />
+                <DashboardCharitys
+                    ref="childComponentRef"
+                    @child-result="handleChildResult"
+                />
                 <StatusInformation />
             </div>
         </v-container>
-        <Add_cases />
+        <Add_cases v-if="Show_Add" :close_function="close_function" />
     </div>
 </template>
 
@@ -370,8 +371,15 @@ export default {
             isActive2: null,
             isActive3: null,
             isActive4: null,
+            Show_Add: null,
+            Cases: [],
+            childResult: 0,
         };
     },
+    mounted() {
+        this.$refs.childComponentRef.Get_data();
+    },
+
     methods: {
         toggleActive(direction) {
             if (direction === "up") {
@@ -381,6 +389,17 @@ export default {
             }
         },
         // change viw
+        handleChildResult(result) {
+            this.childResult = result;
+            console.log("Received result from child:", this.childResult);
+        },
+        // close function
+        close_function() {
+            this.Show_Add = !this.Show_Add;
+            this.dialog = false;
+            this.$refs.childComponentRef.Get_data();
+        },
+        // change view
         Swap() {
             this.Emitter.emit("change_view");
         },
