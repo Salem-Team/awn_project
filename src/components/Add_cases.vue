@@ -1,16 +1,15 @@
 <template>
-    <div>
-        <!-- <v-card class="mb-4">
-            <v-card-text>
-                <v-select
-                    v-model="steps"
-                    :items="[2, 3, 4, 5, 6]"
-                    label="# of steps"
-                ></v-select>
-            </v-card-text>
-        </v-card> -->
+    <div class="mian_overlay" @click="close_function_1"></div>
+    <div class="main_popup">
+        <div class="header">
+            <div>إضافة حالة</div>
+            <font-awesome-icon
+                :icon="['fas', 'xmark']"
+                @click="close_function_1"
+            />
+        </div>
 
-        <v-stepper v-model="e1" alt-labels>
+        <v-stepper v-model="e1" alt-labels style="padding: 20px">
             <template v-slot:default="{ prev, next }">
                 <v-stepper-header>
                     <template v-for="n in steps" :key="`${n}-step`">
@@ -35,17 +34,17 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.namea"
+                                            v-model="personal_info_1.name"
                                             label="الاسم ثلاثي"
                                             variant="outlined"
                                             style="width: 100%"
                                             placeholder="الاسم ثلاثي"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'namea'
+                                                            'name'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -62,7 +61,7 @@
                                             "
                                         >
                                             <span
-                                                v-if="err.$property == 'namea'"
+                                                v-if="err.$property == 'name'"
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
@@ -72,17 +71,17 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.nameb"
+                                            v-model="personal_info_1.nick_name"
                                             label="اسم الشهره"
                                             variant="outlined"
                                             style="width: 100%"
                                             placeholder="اسم الشهره"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'nameb'
+                                                            'nick_name'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -100,7 +99,9 @@
                                             "
                                         >
                                             <span
-                                                v-if="err.$property == 'nameb'"
+                                                v-if="
+                                                    err.$property == 'nick_name'
+                                                "
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
@@ -112,7 +113,9 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.cardNumber"
+                                            v-model="
+                                                personal_info_1.national_id
+                                            "
                                             label="رقم البطاقه"
                                             variant="outlined"
                                             class="mt-2"
@@ -120,10 +123,10 @@
                                             placeholder="رقم البطاقه"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'cardNumber'
+                                                            'national_id'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -142,7 +145,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'cardNumber'
+                                                    'national_id'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -153,7 +156,9 @@
                                         style="width: 50%"
                                     >
                                         <v-select
-                                            v-model="form1.Region"
+                                            v-model="
+                                                personal_info_1.governorate
+                                            "
                                             label="المحافظه"
                                             class="mt-2"
                                             style="width: 100%"
@@ -161,10 +166,10 @@
                                             placeholder="المحافظه"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'Region'
+                                                            'governorate'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -182,7 +187,10 @@
                                             "
                                         >
                                             <span
-                                                v-if="err.$property == 'Region'"
+                                                v-if="
+                                                    err.$property ==
+                                                    'governorate'
+                                                "
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
@@ -194,17 +202,19 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.HouseNumber"
+                                            v-model="
+                                                personal_info_1.house_number
+                                            "
                                             style="width: 100%"
                                             label="رقم المنزل"
                                             variant="outlined"
                                             placeholder="رقم المنزل"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'HouseNumber'
+                                                            'house_number'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -223,7 +233,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'HouseNumber'
+                                                    'house_number'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -234,7 +244,9 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.FloorNumber"
+                                            v-model="
+                                                personal_info_1.floor_number
+                                            "
                                             label="رقم الدور"
                                             class="mt-2"
                                             style="width: 100%"
@@ -242,10 +254,10 @@
                                             placeholder="رقم الدور"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'FloorNumber'
+                                                            'floor_number'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -264,7 +276,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'FloorNumber'
+                                                    'floor_number'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -278,7 +290,9 @@
                                         style="width: 50%"
                                     >
                                         <v-select
-                                            v-model="form1.SocialStatus"
+                                            v-model="
+                                                personal_info_1.marital_status
+                                            "
                                             class="mt-2"
                                             style="width: 100%"
                                             :items="SocialStatuss"
@@ -296,7 +310,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'SocialStatus'
+                                                    'marital_status'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -307,7 +321,7 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form1.phoneNumber"
+                                            v-model="personal_info_1.phone"
                                             class="mt-2"
                                             style="width: 100%"
                                             label="رقم التليفون"
@@ -315,10 +329,10 @@
                                             placeholder="رقم التليفون"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'phoneNumber'
+                                                            'phone'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -335,10 +349,7 @@
                                             "
                                         >
                                             <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'phoneNumber'
-                                                "
+                                                v-if="err.$property == 'phone'"
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
@@ -356,7 +367,7 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form2.Required"
+                                            v-model="financial_info_2.required"
                                             label="المطلوب "
                                             class="mt-2"
                                             style="width: 100%"
@@ -364,10 +375,10 @@
                                             placeholder="المطلوب "
                                             :class="[
                                                 `${
-                                                    v$.form2.$errors.find(
+                                                    v$.financial_info_2.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'Required'
+                                                            'required'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -385,7 +396,7 @@
                                         >
                                             <span
                                                 v-if="
-                                                    err.$property == 'Required'
+                                                    err.$property == 'required'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -396,7 +407,7 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form2.Inside"
+                                            v-model="financial_info_2.incom"
                                             label="الداخل "
                                             class="mt-2"
                                             style="width: 100%"
@@ -404,10 +415,10 @@
                                             placeholder="الداخل "
                                             :class="[
                                                 `${
-                                                    v$.form2.$errors.find(
+                                                    v$.financial_info_2.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'Inside'
+                                                            'incom'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -424,7 +435,7 @@
                                             "
                                         >
                                             <span
-                                                v-if="err.$property == 'Inside'"
+                                                v-if="err.$property == 'incom'"
                                                 >{{ err.$message }}</span
                                             >
                                         </span>
@@ -436,7 +447,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="form2.Impotence"
+                                            v-model="financial_info_2.deficit"
                                             label="العجز "
                                             class="mt-2"
                                             style="
@@ -447,10 +458,10 @@
                                             placeholder="العجز "
                                             :class="[
                                                 `${
-                                                    v$.form2.$errors.find(
+                                                    v$.financial_info_2.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'Impotence'
+                                                            'deficit'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -468,7 +479,7 @@
                                         >
                                             <span
                                                 v-if="
-                                                    err.$property == 'Impotence'
+                                                    err.$property == 'deficit'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -487,17 +498,17 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form3.PatientName"
+                                            v-model="diseases_3.patien_name"
                                             label=" اسم المريض "
                                             variant="outlined"
                                             style="width: 100%"
                                             placeholder="اسم المريض"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'PatientName'
+                                                            'patien_name'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -516,7 +527,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'PatientName'
+                                                    'patien_name'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -527,7 +538,7 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form3.theDisease"
+                                            v-model="diseases_3.disease"
                                             label="  المرض "
                                             variant="outlined"
                                             class="mt-2"
@@ -535,10 +546,10 @@
                                             placeholder=" المرض"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'theDisease'
+                                                            'disease'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -556,8 +567,7 @@
                                         >
                                             <span
                                                 v-if="
-                                                    err.$property ==
-                                                    'theDisease'
+                                                    err.$property == 'disease'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -570,7 +580,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="form3.treatment"
+                                            v-model="diseases_3.get_treatment"
                                             label="كيفيه الحصول علي العلاج"
                                             variant="outlined"
                                             class="mt-2"
@@ -578,52 +588,10 @@
                                             placeholder="كيفيه الحصول علي العلاج "
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'treatment'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'treatment'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="form3.Reasontreatment"
-                                            label=" السبب في عدم العلاج علي نفقه الدولة"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                            :class="[
-                                                `${
-                                                    v$.form1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'Reasontreatment'
+                                                            'get_treatment'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -642,7 +610,50 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'Reasontreatment'
+                                                    'get_treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'not_available'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'not_available'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -679,17 +690,17 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form3.PatientName"
+                                            v-model="diseases_3.patien_name"
                                             label=" اسم المريض "
                                             variant="outlined"
                                             style="width: 100%"
                                             placeholder="اسم المريض"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'PatientName'
+                                                            'patien_name'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -708,7 +719,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'PatientName'
+                                                    'patien_name'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -719,7 +730,7 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form3.theDisease"
+                                            v-model="diseases_3.disease"
                                             label="  المرض "
                                             variant="outlined"
                                             class="mt-2"
@@ -727,10 +738,10 @@
                                             placeholder=" المرض"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'theDisease'
+                                                            'disease'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -748,8 +759,7 @@
                                         >
                                             <span
                                                 v-if="
-                                                    err.$property ==
-                                                    'theDisease'
+                                                    err.$property == 'disease'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -762,7 +772,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="form3.treatment"
+                                            v-model="diseases_3.get_treatment"
                                             label="كيفيه الحصول علي العلاج"
                                             variant="outlined"
                                             class="mt-2"
@@ -770,52 +780,10 @@
                                             placeholder="كيفيه الحصول علي العلاج "
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'treatment'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'treatment'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="form3.Reasontreatment"
-                                            label=" السبب في عدم العلاج علي نفقه الدولة"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                            :class="[
-                                                `${
-                                                    v$.form1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'Reasontreatment'
+                                                            'get_treatment'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -834,7 +802,50 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'Reasontreatment'
+                                                    'get_treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'not_available'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'not_available'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -871,17 +882,17 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form3.PatientName"
+                                            v-model="diseases_3.patien_name"
                                             label=" اسم المريض "
                                             variant="outlined"
                                             style="width: 100%"
                                             placeholder="اسم المريض"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'PatientName'
+                                                            'patien_name'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -900,7 +911,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'PatientName'
+                                                    'patien_name'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -911,7 +922,7 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form3.theDisease"
+                                            v-model="diseases_3.disease"
                                             label="  المرض "
                                             variant="outlined"
                                             class="mt-2"
@@ -919,10 +930,10 @@
                                             placeholder=" المرض"
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'theDisease'
+                                                            'disease'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -940,8 +951,7 @@
                                         >
                                             <span
                                                 v-if="
-                                                    err.$property ==
-                                                    'theDisease'
+                                                    err.$property == 'disease'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -954,7 +964,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="form3.treatment"
+                                            v-model="diseases_3.get_treatment"
                                             label="كيفيه الحصول علي العلاج"
                                             variant="outlined"
                                             class="mt-2"
@@ -962,52 +972,10 @@
                                             placeholder="كيفيه الحصول علي العلاج "
                                             :class="[
                                                 `${
-                                                    v$.form1.$errors.find(
+                                                    v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'treatment'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'treatment'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="form3.Reasontreatment"
-                                            label=" السبب في عدم العلاج علي نفقه الدولة"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                            :class="[
-                                                `${
-                                                    v$.form1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'Reasontreatment'
+                                                            'get_treatment'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -1026,7 +994,50 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'Reasontreatment'
+                                                    'get_treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'not_available'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'not_available'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -1062,8 +1073,10 @@
                                         style="width: 50%"
                                     >
                                         <v-select
-                                            v-model="form4.numberRooms"
-                                            :items="numberRooms"
+                                            v-model="
+                                                housing_condition_4.number_rooms
+                                            "
+                                            :items="number_rooms"
                                             class="mt-2"
                                             style="width: 100%"
                                             label=" عدد الغرف"
@@ -1081,7 +1094,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'numberRooms'
+                                                    'number_rooms'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -1092,7 +1105,9 @@
                                         style="width: 50%"
                                     >
                                         <v-select
-                                            v-model="form4.ApartmentType"
+                                            v-model="
+                                                housing_condition_4.house_type
+                                            "
                                             :items="items"
                                             class="mt-2"
                                             style="width: 100%"
@@ -1110,7 +1125,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'ApartmentType'
+                                                    'house_type'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -1123,7 +1138,9 @@
                                         style="width: 50%"
                                     >
                                         <v-select
-                                            v-model="form4.BathroomType"
+                                            v-model="
+                                                housing_condition_4.bathroom_type
+                                            "
                                             :items="amam"
                                             class="mt-2"
                                             style="width: 100%"
@@ -1141,7 +1158,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'BathroomType'
+                                                    'bathroom_type'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -1152,7 +1169,9 @@
                                         style="width: 50%"
                                     >
                                         <v-select
-                                            v-model="form4.FloorType"
+                                            v-model="
+                                                housing_condition_4.floor_type
+                                            "
                                             :items="kitchen"
                                             class="mt-2"
                                             style="width: 100%"
@@ -1169,7 +1188,8 @@
                                         >
                                             <span
                                                 v-if="
-                                                    err.$property == 'FloorType'
+                                                    err.$property ==
+                                                    'floor_type'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -1182,7 +1202,9 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form4.Descriptionkitchen"
+                                            v-model="
+                                                housing_condition_4.description_kitchen
+                                            "
                                             label="  وصف شامل للمطبخ "
                                             class="mt-2"
                                             style="width: 100%"
@@ -1201,7 +1223,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'Descriptionkitchen'
+                                                    'description_kitchen'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -1212,7 +1234,9 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form4.DescriptionRoom1"
+                                            v-model="
+                                                housing_condition_4.DescriptionRoom1
+                                            "
                                             label="  وصف سريع للغرفه رقم 1 "
                                             variant="outlined"
                                             class="mt-2"
@@ -1244,8 +1268,13 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form4.DescriptionRoom2"
-                                            v-show="form4.numberRooms > 1"
+                                            v-model="
+                                                housing_condition_4.DescriptionRoom2
+                                            "
+                                            v-show="
+                                                housing_condition_4.number_rooms >
+                                                1
+                                            "
                                             label="  وصف سريع للغرفه رقم 2 "
                                             class="mt-2"
                                             style="width: 100%"
@@ -1274,9 +1303,13 @@
                                     </div>
 
                                     <v-text-field
-                                        v-model="form4.DescriptionRoom3"
+                                        v-model="
+                                            housing_condition_4.DescriptionRoom3
+                                        "
                                         label="  وصف سريع للغرفه رقم 3 "
-                                        v-show="form4.numberRooms > 2"
+                                        v-show="
+                                            housing_condition_4.number_rooms > 2
+                                        "
                                         class="mt-2"
                                         style="width: 45%"
                                         variant="outlined"
@@ -1309,8 +1342,13 @@
                                         style="width: 50%"
                                     >
                                         <v-text-field
-                                            v-model="form4.DescriptionRoom2"
-                                            v-show="form4.numberRooms > 3"
+                                            v-model="
+                                                housing_condition_4.DescriptionRoom2
+                                            "
+                                            v-show="
+                                                housing_condition_4.number_rooms >
+                                                3
+                                            "
                                             label="  وصف سريع للغرفه رقم 4 "
                                             class="mt-2"
                                             style="width: 100%"
@@ -1339,9 +1377,13 @@
                                     </div>
 
                                     <v-text-field
-                                        v-model="form4.DescriptionRoom3"
+                                        v-model="
+                                            housing_condition_4.DescriptionRoom3
+                                        "
                                         label="  وصف سريع للغرفه رقم 5 "
-                                        v-show="form4.numberRooms > 4"
+                                        v-show="
+                                            housing_condition_4.number_rooms > 4
+                                        "
                                         class="mt-2"
                                         style="width: 45%"
                                         variant="outlined"
@@ -1379,7 +1421,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.medical"
+                                            v-model="family_needs_5.medical"
                                             label="طبي"
                                             value="طبي"
                                         ></v-checkbox>
@@ -1407,7 +1449,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.Husband"
+                                            v-model="family_needs_5.Husband"
                                             label="زوج"
                                             value="زوج"
                                         ></v-checkbox>
@@ -1434,7 +1476,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.clothes"
+                                            v-model="family_needs_5.clothes"
                                             label="ملابس"
                                             value="ملابس"
                                         ></v-checkbox>
@@ -1463,7 +1505,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.salaries"
+                                            v-model="family_needs_5.salaries"
                                             label="مرتبات"
                                             value="مرتبات"
                                         ></v-checkbox>
@@ -1492,7 +1534,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.Blankets"
+                                            v-model="family_needs_5.Blankets"
                                             label="بطاطين"
                                             value="بطاطين"
                                         ></v-checkbox>
@@ -1519,7 +1561,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.FoodBag"
+                                            v-model="family_needs_5.FoodBag"
                                             label="شنطه غذائيه"
                                             value="شنطه غذائيه"
                                         ></v-checkbox>
@@ -1548,7 +1590,9 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.MonthlyWarranty"
+                                            v-model="
+                                                family_needs_5.MonthlyWarranty
+                                            "
                                             label="كفاله شهريه"
                                             value="كفاله شهريه"
                                         ></v-checkbox>
@@ -1578,7 +1622,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.Appliances"
+                                            v-model="family_needs_5.Appliances"
                                             label="اجهزه منزليه"
                                             value="اجهزه منزليه"
                                         ></v-checkbox>
@@ -1607,7 +1651,9 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="form5.MonthlyWarranty2"
+                                            v-model="
+                                                family_needs_5.MonthlyWarranty2
+                                            "
                                             label="كفاله "
                                             value="كفاله "
                                         ></v-checkbox>
@@ -1633,6 +1679,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="btn" @click="Add_Cases">أضف الحالة</div>
                         </form>
                     </div>
                 </v-stepper-window>
@@ -1648,6 +1695,25 @@
     </div>
 </template>
 <script>
+// Add data
+import { collection, addDoc, getFirestore } from "@firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 import useVuelidate from "@vuelidate/core";
 import {
     required,
@@ -1661,8 +1727,12 @@ import {
 } from "@vuelidate/validators";
 
 export default {
+    props: ["close_function"],
     data() {
         return {
+            close: null,
+            family_needs_Array: ["غرف"],
+            personal_info_1_State: null,
             formError: false,
             formError2: false,
             formError3: false,
@@ -1673,7 +1743,7 @@ export default {
 
             e1: 1,
             steps: 5,
-            numberRooms: [1, 2, 3, 4, 5],
+            number_rooms: [1, 2, 3, 4, 5],
             title: [
                 "",
                 "المعلومات الشخصية",
@@ -1723,42 +1793,44 @@ export default {
             showDiv3: false,
             showDiv4: false,
             currentForm1: false,
-            form1: {
-                namea: "",
-                nameb: "",
-                cardNumber: "",
-                Region: "",
-                HouseNumber: "",
-                FloorNumber: "",
-                SocialStatus: "",
-                phoneNumber: "",
+            personal_info_1: {
+                name: "محمود علي حسين",
+                nick_name: "حودة",
+                national_id: "93847683903897",
+                governorate: "القاهرة",
+                house_number: "33",
+                floor_number: "4",
+                marital_status: "متزوج",
+                phone: "01099877833",
             },
-            form2: {
-                Required: "",
-                Inside: "",
-                Impotence: "",
-                TreatmentExpenses: "",
+            financial_info_2: {
+                required: "",
+                incom: "",
+                deficit: "",
             },
 
-            form3: {
-                PatientName: "",
-                theDisease: "",
-                treatment: "",
-                Reasontreatment: "",
-            },
-            form4: {
-                numberRooms: 1,
-                ApartmentType: "",
-                BathroomType: "",
-                FloorType: "",
-                Descriptionkitchen: "",
+            diseases_3: [
+                {
+                    patient_name: "",
+                    disease: "",
+                    get_treatment: "",
+                    not_available: "",
+                },
+            ],
+
+            housing_condition_4: {
+                number_rooms: 1,
+                house_type: "",
+                bathroom_type: "",
+                floor_type: "",
+                description_kitchen: "",
                 DescriptionRoom1: "",
                 DescriptionRoom2: "",
                 DescriptionRoom3: "",
                 DescriptionRoom4: "",
                 DescriptionRoom5: "",
             },
-            form5: {
+            family_needs_5: {
                 medical: "",
                 Husband: "",
                 clothes: "",
@@ -1803,8 +1875,8 @@ export default {
 
     validations() {
         return {
-            form1: {
-                namea: {
+            personal_info_1: {
+                name: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     minLength: helpers.withMessage(
                         "لا يجب ان تقل عن 10 حروف ",
@@ -1820,7 +1892,7 @@ export default {
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
-                nameb: {
+                nick_name: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
@@ -1835,28 +1907,28 @@ export default {
                         maxLength(100)
                     ),
                 },
-                cardNumber: {
+                national_id: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
-                Region: {
+                governorate: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
-                HouseNumber: {
+                house_number: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
-                FloorNumber: {
+                floor_number: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
@@ -1864,10 +1936,10 @@ export default {
                     ),
                 },
 
-                SocialStatus: {
+                marital_status: {
                     required: helpers.withMessage("حقل مطلوب", required),
                 },
-                phoneNumber: {
+                phone: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     // between: between(, 120),
                     numeric: helpers.withMessage(
@@ -1876,29 +1948,22 @@ export default {
                     ),
                 },
             },
-            form2: {
-                Required: {
+            financial_info_2: {
+                required: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
-                Inside: {
+                incom: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
-                Impotence: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
-                    ),
-                },
-                TreatmentExpenses: {
+                deficit: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
@@ -1906,29 +1971,29 @@ export default {
                     ),
                 },
             },
-            form3: {
-                PatientName: {
+            diseases_3: {
+                patien_name: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
-                theDisease: {
+                disease: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
-                treatment: {
+                get_treatment: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
-                Reasontreatment: {
+                not_available: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
@@ -1936,24 +2001,24 @@ export default {
                     ),
                 },
             },
-            form4: {
-                numberRooms: {
+            housing_condition_4: {
+                number_rooms: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
-                ApartmentType: {
+                house_type: {
                     required: helpers.withMessage("حقل مطلوب", required),
                 },
-                BathroomType: {
+                bathroom_type: {
                     required: helpers.withMessage("حقل مطلوب", required),
                 },
-                FloorType: {
+                floor_type: {
                     required: helpers.withMessage("حقل مطلوب", required),
                 },
-                Descriptionkitchen: {
+                description_kitchen: {
                     required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
@@ -1992,7 +2057,7 @@ export default {
                     ),
                 },
             },
-            form5: {
+            family_needs_5: {
                 medical: {},
                 Husband: {},
                 clothes: {},
@@ -2006,173 +2071,211 @@ export default {
         };
     },
     methods: {
-        // async validateAndNext() {
-        //     let isValid = false;
+        close_function_1() {
+            this.close_function();
+        },
+        async Add_Cases() {
+            this.validateForm1();
 
-        //     if (this.currentStep === 1) {
-        //         isValid = await this.validateForm1();
-        //     } else if (this.currentStep === 2) {
-        //         isValid = await this.validateForm2();
-        //     } else if (this.currentStep === 3) {
-        //         isValid = await this.validateForm3();
-        //     }
-        //     if (!isValid) {
-        //         this.formError = true;
-        //         return;
-        //     } else {
-        //         this.formError = false;
-        //         this.currentStep++;
-        //     }
-        // },
-        // prev() {
-        //     this.currentStep--;
-        //     this.formError = false;
-        // },
+            // Add a new document with a generated id.
+
+            const docRef = await addDoc(collection(db, "Cases"), {
+                personal_info: {
+                    name: this.personal_info_1.name,
+                    nick_name: this.personal_info_1.nick_name,
+                    national_id: this.personal_info_1.national_id,
+                    governorate: this.personal_info_1.governorate,
+                    house_number: this.personal_info_1.house_number,
+                    floor_number: this.personal_info_1.floor_number,
+                    detailed_address: "detailed_address",
+                    marital_status: this.personal_info_1.marital_status,
+                    phone: this.personal_info_1.phone,
+                },
+                financial_info: {
+                    required: this.financial_info_2.required,
+                    incom: this.financial_info_2.incom,
+                    deficit: this.financial_info_2.deficit,
+                },
+                diseases: this.diseases_3,
+                housing_condition: {
+                    number_rooms: this.housing_condition_4.number_rooms,
+                    house_type: this.housing_condition_4.house_type,
+                    bathroom_type: this.housing_condition_4.bathroom_type,
+                    floor_type: this.housing_condition_4.floor_type,
+                    description_kitchen:
+                        this.housing_condition_4.description_kitchen,
+                    DescriptionRoom1: this.housing_condition_4.DescriptionRoom1,
+                    DescriptionRoom2: this.housing_condition_4.DescriptionRoom2,
+                    DescriptionRoom3: this.housing_condition_4.DescriptionRoom3,
+                    DescriptionRoom4: this.housing_condition_4.DescriptionRoom4,
+                    DescriptionRoom5: this.housing_condition_4.DescriptionRoom5,
+                },
+                family_needs: this.family_needs_Array,
+            });
+            console.log("Document written with ID: ", docRef.id);
+            console.log("validations");
+            this.close_function();
+            // }
+        },
         async validateForm1() {
-            const res = await this.v$.form1.$validate();
+            const res = await this.v$.personal_info_1.$validate();
             if (res) {
                 this.testform1.push(
-                    { namea: this.form1.namea },
-                    { nameb: this.form1.nameb },
-                    { cardNumber: this.form1.cardNumber },
-                    { Region: this.form1.Region },
-                    { HouseNumber: this.form1.HouseNumber },
-                    { FloorNumber: this.form1.FloorNumber },
-                    { theAddress: this.form1.theAddress },
-                    { SocialStatus: this.form1.SocialStatus },
-                    { phoneNumber: this.form1.phoneNumber }
+                    { name: this.personal_info_1.name },
+                    { nick_name: this.personal_info_1.nick_name },
+                    { national_id: this.personal_info_1.national_id },
+                    { governorate: this.personal_info_1.governorate },
+                    { house_number: this.personal_info_1.house_number },
+                    { floor_number: this.personal_info_1.floor_number },
+                    { theAddress: this.personal_info_1.theAddress },
+                    { marital_status: this.personal_info_1.marital_status },
+                    { phone: this.personal_info_1.phone }
                 );
-                this.e1++;
-                console.log(this.testform1);
-                this.v$.$reset();
-                this.form1.namea = "";
-                this.form1.nameb = "";
-                this.form1.cardNumber = "";
-                this.form1.Region = "";
-                this.form1.HouseNumber = "";
-                this.form1.FloorNumber = "";
-                this.form1.SocialStatus = "";
-                this.form1.phoneNumber = "";
-                this.testform1 = [];
+                // console.log(this.testform1);
+                // this.v$.$reset();
+                // this.personal_info_1.name = "";
+                // this.personal_info_1.nick_name = "";
+                // this.personal_info_1.national_id = "";
+                // this.personal_info_1.governorate = "";
+                // this.personal_info_1.house_number = "";
+                // this.personal_info_1.floor_number = "";
+                // this.personal_info_1.marital_status = "";
+                // this.personal_info_1.phone = "";
+                // this.testform1 = [];
+                // this.personal_info_1_State = true;
+            } else {
+                this.e1 = 1;
             }
         },
         async validateForm2() {
-            const res = await this.v$.form2.$validate();
+            const res = await this.v$.financial_info_2.$validate();
             if (res) {
                 this.testform2.push(
-                    { Required: this.form2.Required },
-                    { Inside: this.form2.Inside },
-                    { Impotence: this.form2.Required - this.form2.Impotence },
-                    { TreatmentExpenses: this.form2.TreatmentExpenses }
+                    { required: this.financial_info_2.required },
+                    { incom: this.financial_info_2.incom },
+                    {
+                        deficit:
+                            this.financial_info_2.required -
+                            this.financial_info_2.deficit,
+                    }
                 );
                 this.e1++;
                 console.log(this.testform2);
 
                 this.v$.$reset();
-                this.form2.Required = "";
-                this.form2.Inside = "";
-                this.form2.Impotence = "";
-                this.form2.TreatmentExpenses = "";
+                this.financial_info_2.required = "";
+                this.financial_info_2.incom = "";
+                this.financial_info_2.deficit = "";
 
                 this.testform2 = [];
             }
         },
         async validateForm3() {
-            const res = await this.v$.form3.$validate();
+            const res = await this.v$.diseases_3.$validate();
             if (res) {
                 this.testform3.push(
-                    { PatientName: this.form3.PatientName },
-                    { theDisease: this.form3.theDisease },
-                    { treatment: this.form3.treatment },
+                    { patien_name: this.diseases_3.patien_name },
+                    { disease: this.diseases_3.disease },
+                    { get_treatment: this.diseases_3.get_treatment },
                     {
-                        Reasontreatment: this.form3.Reasontreatment,
+                        not_available: this.diseases_3.not_available,
                     }
                 );
                 this.e1++;
                 console.log(this.testform3);
                 this.v$.$reset();
-                this.form3.PatientName = "";
-                this.form3.theDisease = "";
-                this.form3.treatment = "";
-                this.form3.Reasontreatment = "";
+                this.diseases_3.patien_name = "";
+                this.diseases_3.disease = "";
+                this.diseases_3.get_treatment = "";
+                this.diseases_3.not_available = "";
 
                 this.testform3 = [];
             }
         },
         async validateForm4() {
-            const res = await this.v$.form4.$validate();
+            const res = await this.v$.housing_condition_4.$validate();
             if (res) {
                 this.testform4.push(
-                    { numberRooms: this.form4.numberRooms },
-                    { ApartmentType: this.form4.ApartmentType },
-                    { BathroomType: this.form4.BathroomType },
-                    { FloorType: this.form4.FloorType },
-                    { Descriptionkitchen: this.form4.Descriptionkitchen },
-                    { DescriptionRoom1: this.form4.DescriptionRoom1 }
+                    { number_rooms: this.housing_condition_4.number_rooms },
+                    { house_type: this.housing_condition_4.house_type },
+                    { bathroom_type: this.housing_condition_4.bathroom_type },
+                    { floor_type: this.housing_condition_4.floor_type },
+                    {
+                        description_kitchen:
+                            this.housing_condition_4.description_kitchen,
+                    },
+                    {
+                        DescriptionRoom1:
+                            this.housing_condition_4.DescriptionRoom1,
+                    }
                 );
                 this.e1++;
                 if (this.showDiv1) {
                     this.testform4.push({
-                        DescriptionRoom2: this.form4.DescriptionRoom2,
+                        DescriptionRoom2:
+                            this.housing_condition_4.DescriptionRoom2,
                     });
                 }
                 if (this.showDiv2) {
                     this.testform4.push({
-                        DescriptionRoom3: this.form4.DescriptionRoom3,
+                        DescriptionRoom3:
+                            this.housing_condition_4.DescriptionRoom3,
                     });
                 }
                 if (this.showDiv3) {
                     this.testform4.push({
-                        DescriptionRoom4: this.form4.DescriptionRoom4,
+                        DescriptionRoom4:
+                            this.housing_condition_4.DescriptionRoom4,
                     });
                 }
                 if (this.showDiv4) {
                     this.testform4.push({
-                        DescriptionRoom5: this.form4.DescriptionRoom5,
+                        DescriptionRoom5:
+                            this.housing_condition_4.DescriptionRoom5,
                     });
                 }
 
                 console.log(this.testform4);
                 this.v$.$reset();
-                this.form4.numberRooms = "";
-                this.form4.ApartmentType = "";
-                this.form4.BathroomType = "";
+                this.housing_condition_4.number_rooms = "";
+                this.housing_condition_4.house_type = "";
+                this.housing_condition_4.bathroom_type = "";
             }
-            this.form4.FloorType = "";
-            this.form4.Descriptionkitchen = "";
-            this.form4.DescriptionRoom1 = "";
-            this.form4.DescriptionRoom2 = "";
-            this.form4.DescriptionRoom3 = "";
-            this.form4.DescriptionRoom4 = "";
-            this.form4.DescriptionRoom5 = "";
+            this.housing_condition_4.floor_type = "";
+            this.housing_condition_4.description_kitchen = "";
+            this.housing_condition_4.DescriptionRoom1 = "";
+            this.housing_condition_4.DescriptionRoom2 = "";
+            this.housing_condition_4.DescriptionRoom3 = "";
+            this.housing_condition_4.DescriptionRoom4 = "";
+            this.housing_condition_4.DescriptionRoom5 = "";
 
             this.testform4 = [];
         },
         async validateForm5() {
-            const res = await this.v$.form5.$validate();
+            const res = await this.v$.family_needs_5.$validate();
             if (res) {
                 this.testform5.push(
-                    { medical: this.form5.medical },
-                    { Husband: this.form5.Husband },
-                    { clothes: this.form5.clothes },
-                    { salaries: this.form5.salaries },
-                    { Blankets: this.form5.Blankets },
-                    { FoodBag: this.form5.FoodBag },
-                    { MonthlyWarranty: this.form5.MonthlyWarranty },
-                    { Appliances: this.form5.Appliances },
-                    { MonthlyWarranty2: this.form5.MonthlyWarranty2 }
+                    { medical: this.family_needs_5.medical },
+                    { Husband: this.family_needs_5.Husband },
+                    { clothes: this.family_needs_5.clothes },
+                    { salaries: this.family_needs_5.salaries },
+                    { Blankets: this.family_needs_5.Blankets },
+                    { FoodBag: this.family_needs_5.FoodBag },
+                    { MonthlyWarranty: this.family_needs_5.MonthlyWarranty },
+                    { Appliances: this.family_needs_5.Appliances },
+                    { MonthlyWarranty2: this.family_needs_5.MonthlyWarranty2 }
                 );
                 this.e1++;
                 console.log(this.testform5);
                 this.v$.$reset();
-                this.form5.medical = "";
-                this.form5.Husband = "";
-                this.form5.clothes = "";
-                this.form5.salaries = "";
-                this.form5.Blankets = "";
-                this.form5.FoodBag = "";
-                this.form5.MonthlyWarranty = "";
-                this.form5.Appliances = "";
+                this.family_needs_5.medical = "";
+                this.family_needs_5.Husband = "";
+                this.family_needs_5.clothes = "";
+                this.family_needs_5.salaries = "";
+                this.family_needs_5.Blankets = "";
+                this.family_needs_5.FoodBag = "";
+                this.family_needs_5.MonthlyWarranty = "";
+                this.family_needs_5.Appliances = "";
 
                 this.testform5 = [];
             }
@@ -2195,15 +2298,16 @@ export default {
             this.showDiv4 = !this.showDiv4; // تغيير حالة العنصر ما بين الظهور والاختفاء
         },
         calculateDifference() {
-            // حساب الفرق بين Required و Inside
-            this.form2.Impotence = this.form2.Required - this.form2.Inside;
+            // حساب الفرق بين Required و incom
+            this.financial_info_2.deficit =
+                this.financial_info_2.Required - this.financial_info_2.incom;
         },
     },
     watch: {
-        "form2.Required": function () {
+        "financial_info_2.Required": function () {
             this.calculateDifference();
         },
-        "form2.Inside": function () {
+        "financial_info_2.incom": function () {
             this.calculateDifference();
         },
     },
@@ -2221,6 +2325,54 @@ export default {
         gap: 10px;
         justify-content: space-between;
         width: 100%;
+    }
+}
+.btn {
+    background: #e4e4e4;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #5c5c5c;
+}
+.main_popup {
+    width: 90%;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    overflow: auto;
+    background: #fff;
+    z-index: 4;
+    font-family: system-ui;
+}
+.mian_overlay {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: fixed;
+    background: #7f7f7f80;
+    top: 0;
+    left: 0;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // background: #fafafa;
+    border-bottom: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 25px;
+    color: #0088ff;
+    font-weight: bold;
+    svg {
+        cursor: pointer;
     }
 }
 </style>

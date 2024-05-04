@@ -90,10 +90,8 @@
                                     </v-list-item>
                                 </v-list>
                             </v-menu>
-                            <v-btn>
-                                <v-icon
-                                    style="font-size: 20px !important"
-                                    @click="dialog = true"
+                            <v-btn @click="dialog = true">
+                                <v-icon style="font-size: 20px !important"
                                     >mdi-plus</v-icon
                                 >
                             </v-btn>
@@ -116,7 +114,7 @@
                         />
                     </div>
                     <div class="body">
-                        <div class="box">
+                        <div class="box" @click="close_function">
                             <font-awesome-icon :icon="['fas', 'keyboard']" />
                             <div>يدوي</div>
                         </div>
@@ -248,11 +246,11 @@
         </v-container>
         <v-container fluid>
             <div class="Charites d-flex justify-center">
-                <DashboardCharitys />
+                <DashboardCharitys ref="childComponentRef" />
                 <StatusInformation />
             </div>
         </v-container>
-        <Add_cases />
+        <Add_cases v-if="Show_Add" :close_function="close_function" />
     </div>
 </template>
 
@@ -280,10 +278,22 @@ export default {
             dialog1: false,
             items: [],
             isActive: false,
+            Show_Add: null,
+            Cases: [],
         };
     },
+    mounted() {
+        this.$refs.childComponentRef.Get_data();
+    },
+
     methods: {
-        // change viw
+        // close function
+        close_function() {
+            this.Show_Add = !this.Show_Add;
+            this.dialog = false;
+            this.$refs.childComponentRef.Get_data();
+        },
+        // change view
         Swap() {
             this.Emitter.emit("change_view");
         },
