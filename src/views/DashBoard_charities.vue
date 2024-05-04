@@ -22,7 +22,7 @@
                             class="info_stat d-flex justify-space-between align-center ga-12"
                         >
                             <div class="info">
-                                <div class="num">750</div>
+                                <div class="num">{{ childResult }}</div>
                                 <span>الحاله</span>
                             </div>
                             <div class="info">
@@ -246,7 +246,10 @@
         </v-container>
         <v-container fluid>
             <div class="Charites d-flex justify-center">
-                <DashboardCharitys ref="childComponentRef" />
+                <DashboardCharitys
+                    ref="childComponentRef"
+                    @child-result="handleChildResult"
+                />
                 <StatusInformation />
             </div>
         </v-container>
@@ -280,6 +283,7 @@ export default {
             isActive: false,
             Show_Add: null,
             Cases: [],
+            childResult: 0,
         };
     },
     mounted() {
@@ -287,6 +291,10 @@ export default {
     },
 
     methods: {
+        handleChildResult(result) {
+            this.childResult = result;
+            console.log("Received result from child:", this.childResult);
+        },
         // close function
         close_function() {
             this.Show_Add = !this.Show_Add;

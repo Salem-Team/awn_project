@@ -65,6 +65,7 @@ const db = getFirestore(app);
 export default {
     inject: ["Emitter"],
     data: () => ({
+        Cases_length: 0,
         Cases: [],
         isGridView: false,
         search: "",
@@ -677,6 +678,8 @@ export default {
                 this.Cases.push(doc.data());
             });
             console.log("this.Cases", this.Cases);
+            this.Cases_length = this.Cases.length;
+            this.$emit("child-result", this.Cases_length);
         },
         // change view
         change_view() {
