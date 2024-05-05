@@ -1,0 +1,2378 @@
+<template>
+    <div class="mian_overlay" @click="close_function_1"></div>
+    <div class="main_popup">
+        <div class="header">
+            <div>إضافة حالة</div>
+            <font-awesome-icon
+                :icon="['fas', 'xmark']"
+                @click="close_function_1"
+            />
+        </div>
+
+        <v-stepper v-model="e1" alt-labels style="padding: 20px">
+            <template v-slot:default="{ prev, next }">
+                <v-stepper-header>
+                    <template v-for="n in steps" :key="`${n}-step`">
+                        <v-stepper-item
+                            :title="title[n]"
+                            :complete="e1 > n"
+                            :step="`Step {{ n }}`"
+                            :value="n"
+                        ></v-stepper-item>
+
+                        <v-divider v-if="n !== steps" :key="n"></v-divider>
+                    </template>
+                </v-stepper-header>
+
+                <v-stepper-window>
+                    <div v-if="e1 === 1">
+                        <form @submit.prevent="validateForm1">
+                            <div class="form">
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="personal_info_1.name"
+                                            label="الاسم ثلاثي"
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="الاسم ثلاثي"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'name'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="err.$property == 'name'"
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="personal_info_1.nick_name"
+                                            label="اسم الشهره"
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم الشهره"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'nick_name'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        >
+                                        </v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'nick_name'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                personal_info_1.national_id
+                                            "
+                                            label="رقم البطاقه"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="رقم البطاقه"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'national_id'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'national_id'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-select
+                                            v-model="
+                                                personal_info_1.governorate
+                                            "
+                                            label="المحافظه"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="المحافظه"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'governorate'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                            :items="Governorates"
+                                        ></v-select>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'governorate'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                personal_info_1.house_number
+                                            "
+                                            style="width: 100%"
+                                            label="رقم المنزل"
+                                            variant="outlined"
+                                            placeholder="رقم المنزل"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'house_number'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'house_number'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                personal_info_1.floor_number
+                                            "
+                                            label="رقم الدور"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="رقم الدور"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'floor_number'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'floor_number'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-select
+                                            v-model="
+                                                personal_info_1.marital_status
+                                            "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            :items="SocialStatuss"
+                                            label="الحاله الجتماعيه  "
+                                        ></v-select>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'marital_status'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="personal_info_1.phone"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label="رقم التليفون"
+                                            variant="outlined"
+                                            placeholder="رقم التليفون"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'phone'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="err.$property == 'phone'"
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div v-if="e1 === 2">
+                        <form @submit.prevent="validateForm2">
+                            <div class="form">
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="financial_info_2.required"
+                                            label="المطلوب "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="المطلوب "
+                                            :class="[
+                                                `${
+                                                    v$.financial_info_2.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'required'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'required'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="financial_info_2.incom"
+                                            label="الداخل "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="الداخل "
+                                            :class="[
+                                                `${
+                                                    v$.financial_info_2.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'incom'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="err.$property == 'incom'"
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="financial_info_2.deficit"
+                                            label="العجز "
+                                            class="mt-2"
+                                            style="
+                                                width: 100%;
+                                                pointer-events: none;
+                                            "
+                                            variant="outlined"
+                                            placeholder="العجز "
+                                            :class="[
+                                                `${
+                                                    v$.financial_info_2.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'deficit'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'deficit'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div v-if="e1 === 3">
+                        <form @submit.prevent="validateForm3">
+                            <div class="form form_pashent">
+                                <div class="bg-[#eee]">
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.patien_name"
+                                            label=" اسم المريض "
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم المريض"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'patien_name'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'patien_name'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.disease"
+                                            label="  المرض "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder=" المرض"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'disease'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'disease'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.get_treatment"
+                                            label="كيفيه الحصول علي العلاج"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="كيفيه الحصول علي العلاج "
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'get_treatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'get_treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'not_available'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'not_available'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="card w-25">
+                                        <v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            v-if="!this.showDiv1"
+                                            @click="toggleDiv1"
+                                            icon="mdi-plus"
+                                            size="small"
+                                        >
+                                        </v-btn>
+                                    </div>
+                                </div>
+                            </div>
+                            <v-divider
+                                :thickness="8"
+                                v-if="this.showDiv1"
+                                class="my-5"
+                            ></v-divider>
+                            <div class="form" v-if="this.showDiv1">
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.patien_name"
+                                            label=" اسم المريض "
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم المريض"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'patien_name'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'patien_name'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.disease"
+                                            label="  المرض "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder=" المرض"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'disease'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'disease'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.get_treatment"
+                                            label="كيفيه الحصول علي العلاج"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="كيفيه الحصول علي العلاج "
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'get_treatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'get_treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'not_available'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'not_available'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="card w-25">
+                                        <v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            v-if="!this.showDiv2"
+                                            @click="toggleDiv2"
+                                            icon="mdi-plus"
+                                            size="small"
+                                        >
+                                        </v-btn>
+                                    </div>
+                                </div>
+                            </div>
+                            <v-divider
+                                :thickness="8"
+                                v-if="this.showDiv2"
+                                class="my-5"
+                            ></v-divider>
+                            <div class="form" v-if="this.showDiv2">
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.patien_name"
+                                            label=" اسم المريض "
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم المريض"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'patien_name'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'patien_name'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.disease"
+                                            label="  المرض "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder=" المرض"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'disease'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'disease'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.get_treatment"
+                                            label="كيفيه الحصول علي العلاج"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="كيفيه الحصول علي العلاج "
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'get_treatment'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'get_treatment'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="diseases_3.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'not_available'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'not_available'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="card w-25">
+                                        <v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            v-if="!this.showDiv2"
+                                            @click="toggleDiv2"
+                                            icon="mdi-plus"
+                                            size="small"
+                                        >
+                                        </v-btn>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div v-if="e1 === 4">
+                        <form @submit.prevent="validateForm4">
+                            <div class="form">
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-select
+                                            v-model="
+                                                housing_condition_4.number_rooms
+                                            "
+                                            :items="number_rooms"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label=" عدد الغرف"
+                                        ></v-select>
+
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'number_rooms'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-select
+                                            v-model="
+                                                housing_condition_4.house_type
+                                            "
+                                            :items="items"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label="الشقه ملك ام ايجار"
+                                        ></v-select>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'house_type'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-select
+                                            v-model="
+                                                housing_condition_4.bathroom_type
+                                            "
+                                            :items="amam"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label="الحمام خاص ام مشترك"
+                                        ></v-select>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'bathroom_type'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-select
+                                            v-model="
+                                                housing_condition_4.floor_type
+                                            "
+                                            :items="kitchen"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label="  نوع الارضيه "
+                                        ></v-select>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'floor_type'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                housing_condition_4.description_kitchen
+                                            "
+                                            label="  وصف شامل للمطبخ "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="وصف شامل للمطبخ"
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'description_kitchen'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                housing_condition_4.DescriptionRoom1
+                                            "
+                                            label="  وصف سريع للغرفه رقم 1 "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="وصف سريع للغرفه رقم 1 "
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'DescriptionRoom1'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                housing_condition_4.DescriptionRoom2
+                                            "
+                                            v-show="
+                                                housing_condition_4.number_rooms >
+                                                1
+                                            "
+                                            label="  وصف سريع للغرفه رقم 2 "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="وصف سريع للغرفه رقم 2 "
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                            v-show="showDiv1"
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'DescriptionRoom2'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+
+                                    <v-text-field
+                                        v-model="
+                                            housing_condition_4.DescriptionRoom3
+                                        "
+                                        label="  وصف سريع للغرفه رقم 3 "
+                                        v-show="
+                                            housing_condition_4.number_rooms > 2
+                                        "
+                                        class="mt-2"
+                                        style="width: 45%"
+                                        variant="outlined"
+                                        placeholder="وصف سريع للغرفه رقم 3 "
+                                    ></v-text-field>
+                                    <span
+                                        v-show="showDiv2"
+                                        v-for="err in v$.$errors"
+                                        :key="err.$uid"
+                                        style="
+                                            display: block;
+                                            margin-right: 273px;
+                                            margin-bottom: 17px;
+                                            color: red;
+                                        "
+                                    >
+                                        <span
+                                            v-if="
+                                                err.$property ==
+                                                'DescriptionRoom3'
+                                            "
+                                            >{{ err.$message }}</span
+                                        >
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="
+                                                housing_condition_4.DescriptionRoom2
+                                            "
+                                            v-show="
+                                                housing_condition_4.number_rooms >
+                                                3
+                                            "
+                                            label="  وصف سريع للغرفه رقم 4 "
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            variant="outlined"
+                                            placeholder="وصف سريع للغرفه رقم 4 "
+                                        ></v-text-field>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                            v-show="showDiv1"
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'DescriptionRoom4'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+
+                                    <v-text-field
+                                        v-model="
+                                            housing_condition_4.DescriptionRoom3
+                                        "
+                                        label="  وصف سريع للغرفه رقم 5 "
+                                        v-show="
+                                            housing_condition_4.number_rooms > 4
+                                        "
+                                        class="mt-2"
+                                        style="width: 45%"
+                                        variant="outlined"
+                                        placeholder="وصف سريع للغرفه رقم 5 "
+                                    ></v-text-field>
+                                    <span
+                                        v-show="showDiv2"
+                                        v-for="err in v$.$errors"
+                                        :key="err.$uid"
+                                        style="
+                                            display: block;
+                                            margin-right: 273px;
+                                            margin-bottom: 17px;
+                                            color: red;
+                                        "
+                                    >
+                                        <span
+                                            v-if="
+                                                err.$property ==
+                                                'DescriptionRoom5'
+                                            "
+                                            >{{ err.$message }}</span
+                                        >
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div v-if="e1 === 5">
+                        <form @submit.prevent="validateForm5">
+                            <div class="form">
+                                <div class="height: 59px;">
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.medical"
+                                            label="طبي"
+                                            value="طبي"
+                                        ></v-checkbox>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'medical'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.Husband"
+                                            label="زوج"
+                                            value="زوج"
+                                        ></v-checkbox>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'Husband'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.clothes"
+                                            label="ملابس"
+                                            value="ملابس"
+                                        ></v-checkbox>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'clothes'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="height: 59px;">
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.salaries"
+                                            label="مرتبات"
+                                            value="مرتبات"
+                                        ></v-checkbox>
+
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'salaries'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.Blankets"
+                                            label="بطاطين"
+                                            value="بطاطين"
+                                        ></v-checkbox>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'Blankets'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.FoodBag"
+                                            label="شنطه غذائيه"
+                                            value="شنطه غذائيه"
+                                        ></v-checkbox>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property == 'FoodBag'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="height: 59px;">
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="
+                                                family_needs_5.MonthlyWarranty
+                                            "
+                                            label="كفاله شهريه"
+                                            value="كفاله شهريه"
+                                        ></v-checkbox>
+
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'MonthlyWarranty'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="family_needs_5.Appliances"
+                                            label="اجهزه منزليه"
+                                            value="اجهزه منزليه"
+                                        ></v-checkbox>
+
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'Appliances'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-checkbox
+                                            v-model="
+                                                family_needs_5.MonthlyWarranty2
+                                            "
+                                            label="كفاله "
+                                            value="كفاله "
+                                        ></v-checkbox>
+
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                margin-right: 273px;
+                                                margin-bottom: 17px;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'MonthlyWarranty2'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn" @click="Add_Cases">أضف الحالة</div>
+                        </form>
+                    </div>
+                </v-stepper-window>
+
+                <v-stepper-actions
+                    :disabled="disabled"
+                    @click:next="next"
+                    @click:prev="prev"
+                    type="submit"
+                ></v-stepper-actions>
+            </template>
+        </v-stepper>
+    </div>
+</template>
+<script>
+// Add data
+import { collection, addDoc, getFirestore } from "@firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+import useVuelidate from "@vuelidate/core";
+import {
+    required,
+    minLength,
+    maxLength,
+    // alpha,
+    numeric,
+    // regex,
+    // between,
+    helpers,
+} from "@vuelidate/validators";
+
+export default {
+    props: ["close_function"],
+    data() {
+        return {
+            close: null,
+            family_needs_Array: ["غرف"],
+            personal_info_1_State: null,
+            formError: false,
+            formError2: false,
+            formError3: false,
+            formError4: false,
+            formError5: false,
+
+            currentStep: 1, // الخطوة الحالية
+
+            e1: 1,
+            steps: 5,
+            number_rooms: [1, 2, 3, 4, 5],
+            title: [
+                "",
+                "المعلومات الشخصية",
+                "المعلومات المالية",
+                "الأمراض",
+                "حالة المسكن",
+                "إحتياجات الأسرة",
+            ],
+            Case: {
+                personal_info: {
+                    name: "",
+                    nickname: "",
+                    nationalID: "",
+                    governorate: "",
+                },
+            },
+            Governorates: [
+                "القاهرة",
+                "الإسكندرية",
+                "الجيزة",
+                "القليوبية",
+                "بورسعيد",
+                "السويس",
+                "أسيوط",
+                "الإسماعيلية",
+                "أسوان",
+                "الفيوم",
+                "دمياط",
+                "الدقهلية",
+                "الأقصر",
+                "البحيرة",
+                "المنيا",
+                "قنا",
+                "الشرقية",
+                "سوهاج",
+                "المنوفية",
+                "الغربية",
+                "مطروح",
+                "كفر الشيخ",
+                "شمال سيناء",
+                "الوادي الجديد",
+                "البحر الأحمر",
+                "جنوب سيناء",
+            ],
+            showDiv1: false,
+            showDiv2: false,
+            showDiv3: false,
+            showDiv4: false,
+            currentForm1: false,
+            personal_info_1: {
+                name: "محمود علي حسين",
+                nick_name: "حودة",
+                national_id: "93847683903897",
+                governorate: "القاهرة",
+                house_number: "33",
+                floor_number: "4",
+                marital_status: "متزوج",
+                phone: "01099877833",
+            },
+            financial_info_2: {
+                required: "",
+                incom: "",
+                deficit: "",
+            },
+
+            diseases_3: [
+                {
+                    patient_name: "",
+                    disease: "",
+                    get_treatment: "",
+                    not_available: "",
+                },
+            ],
+
+            housing_condition_4: {
+                number_rooms: 1,
+                house_type: "",
+                bathroom_type: "",
+                floor_type: "",
+                description_kitchen: "",
+                DescriptionRoom1: "",
+                DescriptionRoom2: "",
+                DescriptionRoom3: "",
+                DescriptionRoom4: "",
+                DescriptionRoom5: "",
+            },
+            family_needs_5: {
+                medical: "",
+                Husband: "",
+                clothes: "",
+                salaries: "",
+                Blankets: "",
+                FoodBag: "",
+                MonthlyWarranty: "",
+                Appliances: "",
+                MonthlyWarranty2: "",
+            },
+            items: ["ملك", "ايجار"],
+            amam: ["مشترك", "خاص"],
+            SocialStatuss: [
+                "متزوج",
+                "مطلق",
+                "أعزب",
+                "أرمل",
+                "مطلقة",
+                "عزباء",
+                "أرملة",
+            ],
+            kitchen: ["بلاط", "سراميك", "بورسلين"],
+
+            tab: null,
+            testform1: [],
+            testform2: [],
+            testform3: [],
+            testform4: [],
+            testform5: [],
+        };
+    },
+
+    computed: {
+        disabled() {
+            return this.e1 === 1 ? "prev" : this.e1 === 5 ? "next" : undefined;
+        },
+    },
+    inject: ["Emitter"],
+    setup() {
+        return { v$: useVuelidate() };
+    },
+
+    validations() {
+        return {
+            personal_info_1: {
+                name: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    minLength: helpers.withMessage(
+                        "لا يجب ان تقل عن 10 حروف ",
+                        minLength(10)
+                    ),
+                    maxLength: helpers.withMessage(
+                        "لا يجب ان تذيد عن 100 حروف ",
+                        maxLength(100)
+                    ),
+
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                nick_name: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                    minLength: helpers.withMessage(
+                        "لا يجب ان تقل عن 3 حروف ",
+                        minLength(3)
+                    ),
+                    maxLength: helpers.withMessage(
+                        "لا يجب ان تذيد عن 100 حروف ",
+                        maxLength(100)
+                    ),
+                },
+                national_id: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                governorate: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                house_number: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                floor_number: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+
+                marital_status: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+                phone: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    // between: between(, 120),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+            },
+            financial_info_2: {
+                required: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                incom: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                deficit: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+            },
+            diseases_3: {
+                patien_name: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                disease: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                get_treatment: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                not_available: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+            },
+            housing_condition_4: {
+                number_rooms: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                house_type: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+                bathroom_type: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+                floor_type: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+                description_kitchen: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom1: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "حقل مطلوب",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom2: {
+                    regex: helpers.withMessage(
+                        "حقل مطلوب",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom3: {
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom4: {
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                DescriptionRoom5: {
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+            },
+            family_needs_5: {
+                medical: {},
+                Husband: {},
+                clothes: {},
+                salaries: {},
+                Blankets: {},
+                FoodBag: {},
+                MonthlyWarranty: {},
+                Appliances: {},
+                MonthlyWarranty2: {},
+            },
+        };
+    },
+    methods: {
+        close_function_1() {
+            this.close_function();
+        },
+        async Add_Cases() {
+            this.validateForm1();
+
+            // Add a new document with a generated id.
+
+            const docRef = await addDoc(collection(db, "Cases"), {
+                personal_info: {
+                    name: this.personal_info_1.name,
+                    nick_name: this.personal_info_1.nick_name,
+                    national_id: this.personal_info_1.national_id,
+                    governorate: this.personal_info_1.governorate,
+                    house_number: this.personal_info_1.house_number,
+                    floor_number: this.personal_info_1.floor_number,
+                    detailed_address: "detailed_address",
+                    marital_status: this.personal_info_1.marital_status,
+                    phone: this.personal_info_1.phone,
+                },
+                financial_info: {
+                    required: this.financial_info_2.required,
+                    incom: this.financial_info_2.incom,
+                    deficit: this.financial_info_2.deficit,
+                },
+                diseases: this.diseases_3,
+                housing_condition: {
+                    number_rooms: this.housing_condition_4.number_rooms,
+                    house_type: this.housing_condition_4.house_type,
+                    bathroom_type: this.housing_condition_4.bathroom_type,
+                    floor_type: this.housing_condition_4.floor_type,
+                    description_kitchen:
+                        this.housing_condition_4.description_kitchen,
+                    DescriptionRoom1: this.housing_condition_4.DescriptionRoom1,
+                    DescriptionRoom2: this.housing_condition_4.DescriptionRoom2,
+                    DescriptionRoom3: this.housing_condition_4.DescriptionRoom3,
+                    DescriptionRoom4: this.housing_condition_4.DescriptionRoom4,
+                    DescriptionRoom5: this.housing_condition_4.DescriptionRoom5,
+                },
+                family_needs: this.family_needs_Array,
+            });
+            console.log("Document written with ID: ", docRef.id);
+            console.log("validations");
+            this.close_function();
+            // }
+        },
+        async validateForm1() {
+            const res = await this.v$.personal_info_1.$validate();
+            if (res) {
+                this.testform1.push(
+                    { name: this.personal_info_1.name },
+                    { nick_name: this.personal_info_1.nick_name },
+                    { national_id: this.personal_info_1.national_id },
+                    { governorate: this.personal_info_1.governorate },
+                    { house_number: this.personal_info_1.house_number },
+                    { floor_number: this.personal_info_1.floor_number },
+                    { theAddress: this.personal_info_1.theAddress },
+                    { marital_status: this.personal_info_1.marital_status },
+                    { phone: this.personal_info_1.phone }
+                );
+                // console.log(this.testform1);
+                // this.v$.$reset();
+                // this.personal_info_1.name = "";
+                // this.personal_info_1.nick_name = "";
+                // this.personal_info_1.national_id = "";
+                // this.personal_info_1.governorate = "";
+                // this.personal_info_1.house_number = "";
+                // this.personal_info_1.floor_number = "";
+                // this.personal_info_1.marital_status = "";
+                // this.personal_info_1.phone = "";
+                // this.testform1 = [];
+                // this.personal_info_1_State = true;
+            } else {
+                this.e1 = 1;
+            }
+        },
+        async validateForm2() {
+            const res = await this.v$.financial_info_2.$validate();
+            if (res) {
+                this.testform2.push(
+                    { required: this.financial_info_2.required },
+                    { incom: this.financial_info_2.incom },
+                    {
+                        deficit:
+                            this.financial_info_2.required -
+                            this.financial_info_2.deficit,
+                    }
+                );
+                this.e1++;
+                console.log(this.testform2);
+
+                this.v$.$reset();
+                this.financial_info_2.required = "";
+                this.financial_info_2.incom = "";
+                this.financial_info_2.deficit = "";
+
+                this.testform2 = [];
+            }
+        },
+        async validateForm3() {
+            const res = await this.v$.diseases_3.$validate();
+            if (res) {
+                this.testform3.push(
+                    { patien_name: this.diseases_3.patien_name },
+                    { disease: this.diseases_3.disease },
+                    { get_treatment: this.diseases_3.get_treatment },
+                    {
+                        not_available: this.diseases_3.not_available,
+                    }
+                );
+                this.e1++;
+                console.log(this.testform3);
+                this.v$.$reset();
+                this.diseases_3.patien_name = "";
+                this.diseases_3.disease = "";
+                this.diseases_3.get_treatment = "";
+                this.diseases_3.not_available = "";
+
+                this.testform3 = [];
+            }
+        },
+        async validateForm4() {
+            const res = await this.v$.housing_condition_4.$validate();
+            if (res) {
+                this.testform4.push(
+                    { number_rooms: this.housing_condition_4.number_rooms },
+                    { house_type: this.housing_condition_4.house_type },
+                    { bathroom_type: this.housing_condition_4.bathroom_type },
+                    { floor_type: this.housing_condition_4.floor_type },
+                    {
+                        description_kitchen:
+                            this.housing_condition_4.description_kitchen,
+                    },
+                    {
+                        DescriptionRoom1:
+                            this.housing_condition_4.DescriptionRoom1,
+                    }
+                );
+                this.e1++;
+                if (this.showDiv1) {
+                    this.testform4.push({
+                        DescriptionRoom2:
+                            this.housing_condition_4.DescriptionRoom2,
+                    });
+                }
+                if (this.showDiv2) {
+                    this.testform4.push({
+                        DescriptionRoom3:
+                            this.housing_condition_4.DescriptionRoom3,
+                    });
+                }
+                if (this.showDiv3) {
+                    this.testform4.push({
+                        DescriptionRoom4:
+                            this.housing_condition_4.DescriptionRoom4,
+                    });
+                }
+                if (this.showDiv4) {
+                    this.testform4.push({
+                        DescriptionRoom5:
+                            this.housing_condition_4.DescriptionRoom5,
+                    });
+                }
+
+                console.log(this.testform4);
+                this.v$.$reset();
+                this.housing_condition_4.number_rooms = "";
+                this.housing_condition_4.house_type = "";
+                this.housing_condition_4.bathroom_type = "";
+            }
+            this.housing_condition_4.floor_type = "";
+            this.housing_condition_4.description_kitchen = "";
+            this.housing_condition_4.DescriptionRoom1 = "";
+            this.housing_condition_4.DescriptionRoom2 = "";
+            this.housing_condition_4.DescriptionRoom3 = "";
+            this.housing_condition_4.DescriptionRoom4 = "";
+            this.housing_condition_4.DescriptionRoom5 = "";
+
+            this.testform4 = [];
+        },
+        async validateForm5() {
+            const res = await this.v$.family_needs_5.$validate();
+            if (res) {
+                this.testform5.push(
+                    { medical: this.family_needs_5.medical },
+                    { Husband: this.family_needs_5.Husband },
+                    { clothes: this.family_needs_5.clothes },
+                    { salaries: this.family_needs_5.salaries },
+                    { Blankets: this.family_needs_5.Blankets },
+                    { FoodBag: this.family_needs_5.FoodBag },
+                    { MonthlyWarranty: this.family_needs_5.MonthlyWarranty },
+                    { Appliances: this.family_needs_5.Appliances },
+                    { MonthlyWarranty2: this.family_needs_5.MonthlyWarranty2 }
+                );
+                this.e1++;
+                console.log(this.testform5);
+                this.v$.$reset();
+                this.family_needs_5.medical = "";
+                this.family_needs_5.Husband = "";
+                this.family_needs_5.clothes = "";
+                this.family_needs_5.salaries = "";
+                this.family_needs_5.Blankets = "";
+                this.family_needs_5.FoodBag = "";
+                this.family_needs_5.MonthlyWarranty = "";
+                this.family_needs_5.Appliances = "";
+
+                this.testform5 = [];
+            }
+        },
+
+        reloadPage() {
+            window.location.reload();
+        },
+
+        toggleDiv1() {
+            this.showDiv1 = !this.showDiv1; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        toggleDiv2() {
+            this.showDiv2 = !this.showDiv2; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        toggleDiv3() {
+            this.showDiv3 = !this.showDiv3; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        toggleDiv4() {
+            this.showDiv4 = !this.showDiv4; // تغيير حالة العنصر ما بين الظهور والاختفاء
+        },
+        calculateDifference() {
+            // حساب الفرق بين Required و incom
+            this.financial_info_2.deficit =
+                this.financial_info_2.Required - this.financial_info_2.incom;
+        },
+    },
+    watch: {
+        "financial_info_2.Required": function () {
+            this.calculateDifference();
+        },
+        "financial_info_2.incom": function () {
+            this.calculateDifference();
+        },
+    },
+    // mounted() {
+    //     console.log(
+    //         document.querySelector(".v-stepper-actions").children[1].click()
+    //     );
+    // },
+};
+</script>
+<style lang="scss" scoped>
+.form {
+    & > div {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+.btn {
+    background: #e4e4e4;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #5c5c5c;
+}
+.main_popup {
+    width: 90%;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 90%;
+    overflow: auto;
+    background: #fff;
+    z-index: 4;
+    font-family: system-ui;
+}
+.mian_overlay {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: fixed;
+    background: #7f7f7f80;
+    top: 0;
+    left: 0;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // background: #fafafa;
+    border-bottom: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 25px;
+    color: #0088ff;
+    font-weight: bold;
+    svg {
+        cursor: pointer;
+    }
+}
+</style>

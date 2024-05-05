@@ -1,17 +1,21 @@
 <template>
-  <div class="home">
-    <DashboardCharitys />
-    <StatusInformation />
-  </div>
+    <div class="Dash_board"></div>
 </template>
 
 <script>
-import DashboardCharitys from "@/components/DashboardCharitys.vue";
-import StatusInformation from "@/components/StatusInformation.vue";
-
-// @ is an alias to /src
 export default {
-  name: "HomeView",
-  components: { DashboardCharitys, StatusInformation },
+    name: "HomeView",
+    components: {},
 };
 </script>
+<style lang="scss" scoped>
+* {
+    direction: rtl !important;
+}
+.info_stat .info {
+    font-size: 20px;
+    span {
+        font-size: 25px;
+    }
+}
+</style>
