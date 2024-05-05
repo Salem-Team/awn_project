@@ -199,6 +199,50 @@
                                 <div>
                                     <div
                                         class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-textarea
+                                            v-model="personal_info_1.theAddress"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            label=" العنوان"
+                                            variant="outlined"
+                                            placeholder=" العنوان"
+                                            auto-grow
+                                            :class="[
+                                                `${
+                                                    v$.personal_info_1.$errors.find(
+                                                        (err) =>
+                                                            err.$property ==
+                                                            'theAddress'
+                                                    )
+                                                        ? 'danger'
+                                                        : ''
+                                                }`,
+                                            ]"
+                                        ></v-textarea>
+                                        <span
+                                            v-for="err in v$.$errors"
+                                            :key="err.$uid"
+                                            style="
+                                                display: block;
+                                                width: 100%;
+                                                color: red;
+                                            "
+                                        >
+                                            <span
+                                                v-if="
+                                                    err.$property ==
+                                                    'theAddress'
+                                                "
+                                                >{{ err.$message }}</span
+                                            >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
                                         style="width: 50%"
                                     >
                                         <v-text-field
