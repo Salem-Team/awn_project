@@ -1,6 +1,7 @@
 <template>
     <div class="The_Signin">
         <v-container class="form_container mt-4">
+            <span class="pr-8">{{ radio }}</span>
             <!--get the data from the Charities using v-model-->
             <form
                 ref="form"
@@ -8,6 +9,22 @@
                 class="ma-auto"
                 action="post"
             >
+                <v-radio-group
+                    inline
+                    label="أختر صلاحية الدخول "
+                    v-model="radio"
+                >
+                    <v-radio
+                        label="مشرف"
+                        value="مشرف"
+                        @click="handleRadioInput('مشرف')"
+                    ></v-radio>
+                    <v-radio
+                        label="مالك"
+                        value="مالك"
+                        @click="handleRadioInput('مالك')"
+                    ></v-radio>
+                </v-radio-group>
                 <v-text-field
                     v-model="user.nationalID"
                     variant="outlined"
@@ -29,7 +46,7 @@
                         v$.user.password.$errors.map((e) => e.$message)
                     "
                     :append-inner-icon="
-                        showPassword ? 'mdi-eye-off' : 'mdi-eye'
+                        showPassword ? 'mdi-eye' : 'mdi-eye-off'
                     "
                     @click:append-inner="toggleShowPassword"
                 >
@@ -38,8 +55,13 @@
                 <div
                     class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
                 >
-                    <v-Checkbox label="تذكرني"></v-Checkbox>
-                    <a class="ms-2 mb-1" href=""> هل نسيت كلمة المرور؟ </a>
+                    <v-checkbox label="تذكرني"></v-checkbox>
+                    <a
+                        class="ms-2 mb-1 cursor-pointer text-primary"
+                        @click="$router.push('/Reset_Password')"
+                    >
+                        هل نسيت كلمة المرور؟
+                    </a>
                 </div>
                 <v-btn
                     class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
@@ -51,14 +73,18 @@
                 </v-btn>
                 <v-divider></v-divider>
                 <!-- create account -->
-                <v-Col
+                <v-col
                     cols="12"
                     class="text-center text-base d-flex align-center justify-space-between flex-wrap mt-4 mb-4"
                 >
                     <span>هل أنت جديد على منصتنا؟ </span>
                     <div class="register cursor-pointer text-primary">
                         حساب جديد
-                        <v-dialog activator="parent" max-width="900">
+                        <v-dialog
+                            activator="parent"
+                            max-width="900"
+                            @click="showRegisterDialog = !showRegisterDialog"
+                        >
                             <template v-slot:default="{ isActive }">
                                 <v-card rounded="lg">
                                     <v-card-title
@@ -80,7 +106,7 @@
                             </template>
                         </v-dialog>
                     </div>
-                </v-Col>
+                </v-col>
             </form>
         </v-container>
     </div>
@@ -121,9 +147,11 @@ export default {
         return {
             showPassword: false, // define showPassword
             Active: this.IsActive,
+            radio: "",
+            showRegisterDialog: false,
             //ref to store the user data
             user: {
-                nationalID: "876898746783876",
+                nationalID: "",
                 password: "Mo-on-1000",
             },
         };
@@ -162,28 +190,20 @@ export default {
         },
     },
     methods: {
+        /* reset_Password() {
+            const wbm = require("wbm");
+            wbm.start()
+                .then(async () => {
+                    const phones = ["5535988841854"];
+                    const message = "Good Morning.";
+                    await wbm.send(phones, message);
+                    await wbm.end();
+                })
+                .catch((err) => console.log(err));
+        },*/
         // Define a method to toggle the showPassword flag when the append icon is clicked
         toggleShowPassword() {
             this.showPassword = !this.showPassword;
-        },
-        async Sing_In() {
-            const querySnapshot = await getDocs(collection(db, "Users"));
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                if (
-                    doc.data().nationalID === this.user.nationalID &&
-                    doc.data().password === this.user.password
-                ) {
-                    console.log(doc.id, " => ", doc.data().nationalID);
-                    localStorage.setItem("id", doc.id);
-                    setTimeout(() => {
-                        this.Check_User();
-                    }, 100);
-                    // Close Sign IN
-                    this.Active = false;
-                    this.v$.$reset();
-                }
-            });
         },
         checkDataExists() {
             // Perform comparison with existing data
@@ -211,9 +231,39 @@ export default {
                 console.log("Data required");
             }
         },
+        // Function to handle radio button input
+        handleRadioInput(value) {
+            // Update nationalID value when "مشرف" is clicked
+            if (value === "مشرف") {
+                this.user.nationalID = "12345678901111";
+            } else if (value === "مالك") {
+                // Reset nationalID value when other option is selected
+                this.user.nationalID = "876898746783876";
+            }
+        },
+        async Sing_In() {
+            const querySnapshot = await getDocs(collection(db, "Users"));
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                if (
+                    doc.data().nationalID === this.user.nationalID &&
+                    doc.data().password === this.user.password
+                ) {
+                    console.log(doc.id, " => ", doc.data().nationalID);
+                    localStorage.setItem("id", doc.id);
+                    setTimeout(() => {
+                        this.Check_User();
+                    }, 100);
+                    // Close Sign IN
+                    this.Active = false;
+                    this.v$.$reset();
+                }
+            });
+        },
     },
 };
 </script>
+
 <style lang="scss" scoped>
 form {
     width: 50% !important;
