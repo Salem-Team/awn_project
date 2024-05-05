@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import DashBoard_charities from "@/views/DashBoard_charities.vue";
 import DashBoard_Admin from "@/views/DashBoard_Admin.vue";
 import Settings_Admin from "@/views/Settings_Admin.vue";
-
+import Reset_Password from "@/components/Reset_Password.vue";
 const routes = [
     {
         path: "/",
@@ -25,6 +25,11 @@ const routes = [
         path: "/Settings_Admin",
         name: "/Settings_Admin",
         component: Settings_Admin,
+    },
+    {
+        path: "/Reset_Password",
+        name: "Reset_Password",
+        component: Reset_Password,
     },
 ];
 
