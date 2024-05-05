@@ -23,7 +23,8 @@ export default {
 
 body {
     direction: rtl;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Cairo", sans-serif;
+    font-variation-settings: "slnt" 0;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
