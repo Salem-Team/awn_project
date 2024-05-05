@@ -1,10 +1,10 @@
 <template>
     <div
         class="box px-5 py-3 mt-5 border rounded"
-        v-for="(charity, index) in CharitiesDB"
-        :key="charity.title"
+        v-for="(charity, index) in paginatedCharities"
+        :key="charity.id"
     >
-        <span>{{ index + 1 }}</span>
+        <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
         <div class="Charities">
             <v-container class="Charities_container mt-4">
                 <!--get the Charities data from the database-->
@@ -87,6 +87,15 @@
             </v-container>
         </div>
     </div>
+    <div class="text-center">
+        <v-pagination
+            v-model="currentPage"
+            next-icon="mdi-menu-left"
+            prev-icon="mdi-menu-right"
+            :length="Math.ceil(CharitiesDB.length / 5)"
+            :total-visible="5"
+        ></v-pagination>
+    </div>
 </template>
 
 <script>
@@ -112,6 +121,7 @@ const db = getFirestore(app);
 export default {
     data() {
         return {
+            currentPage: 1,
             activities: ref(["كفالة", "إطعام"]),
             // ref to store the Charities data
             Charities: {}, // Initialize as an empty object
@@ -121,6 +131,13 @@ export default {
     mounted() {
         //call the function
         this.Get_Data();
+    },
+    computed: {
+        paginatedCharities() {
+            const start = (this.currentPage - 1) * 5;
+            const end = start + 5;
+            return this.CharitiesDB.slice(start, end);
+        },
     },
     methods: {
         // Get Data
