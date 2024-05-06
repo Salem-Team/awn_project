@@ -2,7 +2,7 @@
     <div class="Dash_board">
         <!-- navigation-drawer  -->
         <Side_Bar />
-        <v-container fluid>
+        <v-container>
             <v-row>
                 <v-col cols="12">
                     <div
