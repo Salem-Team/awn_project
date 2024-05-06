@@ -40,6 +40,7 @@
                                 </div>
                             </div></v-col
                         >
+
                         <v-col lg="4" md="6" sm="12" class="col_chys">
                             <div class="Financial_details">
                                 <div class="required">
@@ -87,6 +88,15 @@
                 </div>
             </div>
         </v-container>
+        <div class="text-center">
+            <v-pagination
+                v-model="currentPage"
+                next-icon="mdi-menu-left"
+                prev-icon="mdi-menu-right"
+                :length="Math.ceil(Cases.length / 5)"
+                :total-visible="5"
+            ></v-pagination>
+        </div>
     </div>
 </template>
 <script>
@@ -112,6 +122,8 @@ const db = getFirestore(app);
 export default {
     inject: ["Emitter"],
     data: () => ({
+        currentPage: 1, // Current page
+        pageSize: 5, // Number of cases per page
         Cases_length: 0,
         Cases: [],
         isGridView: false,
@@ -706,6 +718,10 @@ export default {
     }),
     // Search Fun
     computed: {
+        // Calculate total number of pages based on number of cases and page size
+        totalPages() {
+            return Math.ceil(this.filteredCases.length / this.pageSize);
+        },
         filteredVegetables() {
             return this.vegetables.filter((vege) => {
                 return vege.name
@@ -713,8 +729,27 @@ export default {
                     .includes(this.search.toLowerCase());
             });
         },
+        // Filtered cases based on search term
+        filteredCases() {
+            return this.Cases.filter((Case) =>
+                Case.personal_info.name.includes(this.search)
+            );
+        },
+        // Paginated cases based on current page and page size
+        paginatedCases() {
+            const startIndex = (this.currentPage - 1) * this.pageSize;
+            return this.filteredCases.slice(
+                startIndex,
+                startIndex + this.pageSize
+            );
+        },
     },
     methods: {
+        // Method to handle pagination input change
+        paginate(page) {
+            this.currentPage = page;
+        },
+
         Send_Function_To_Perant() {
             this.$emit("Send_Function_To_Perant", this.Get_data());
         },
