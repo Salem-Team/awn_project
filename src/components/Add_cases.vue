@@ -26,7 +26,7 @@
 
                 <v-stepper-window>
                     <div v-if="e1 === 1">
-                        <form @submit.prevent="validateForm1">
+                        <form @submit.prevent="validateForm">
                             <div class="form">
                                 <div>
                                     <div
@@ -39,32 +39,25 @@
                                             variant="outlined"
                                             style="width: 100%"
                                             placeholder="الاسم ثلاثي"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'name'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
+                                            @input="
+                                                v$.personal_info_1.name.$touch()
+                                            "
+                                            :error-messages="
+                                                v$.personal_info_1.name.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
                                         ></v-text-field>
                                         <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
+                                            v-if="!regex1"
                                             style="
                                                 display: block;
-                                                width: 100%;
-                                                color: red;
+                                                margin-right: 15px;
+                                                font-size: small;
+                                                color: #af0829;
                                             "
+                                            >حروف عربية فقط</span
                                         >
-                                            <span
-                                                v-if="err.$property == 'name'"
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="mt-2 d-flex flex-column"
@@ -75,36 +68,26 @@
                                             label="اسم الشهره"
                                             variant="outlined"
                                             style="width: 100%"
+                                            @input="
+                                                v$.personal_info_1.nick_name.$touch()
+                                            "
                                             placeholder="اسم الشهره"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'nick_name'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        >
-                                        </v-text-field>
+                                            :error-messages="
+                                                v$.personal_info_1.nick_name.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
+                                        ></v-text-field>
                                         <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
+                                            v-if="!regex2"
                                             style="
                                                 display: block;
-                                                width: 100%;
-                                                color: red;
+                                                margin-right: 15px;
+                                                font-size: small;
+                                                color: #af0829;
                                             "
+                                            >حروف عربية فقط</span
                                         >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'nick_name'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div>
@@ -121,35 +104,15 @@
                                             class="mt-2"
                                             style="width: 100%"
                                             placeholder="رقم البطاقه"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'national_id'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            @input="
+                                                v$.personal_info_1.national_id.$touch()
                                             "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'national_id'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                            :error-messages="
+                                                v$.personal_info_1.national_id.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
+                                        ></v-text-field>
                                     </div>
                                     <div
                                         class="mt-2 d-flex flex-column"
@@ -164,36 +127,16 @@
                                             style="width: 100%"
                                             variant="outlined"
                                             placeholder="المحافظه"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'governorate'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
+                                            @input="
+                                                v$.personal_info_1.governorate.$touch()
+                                            "
+                                            :error-messages="
+                                                v$.personal_info_1.governorate.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
                                             :items="Governorates"
                                         ></v-select>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'governorate'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div>
@@ -253,35 +196,15 @@
                                             label="رقم المنزل"
                                             variant="outlined"
                                             placeholder="رقم المنزل"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'house_number'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            @input="
+                                                v$.personal_info_1.house_number.$touch()
                                             "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'house_number'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                            :error-messages="
+                                                v$.personal_info_1.house_number.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
+                                        ></v-text-field>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -296,35 +219,15 @@
                                             style="width: 100%"
                                             variant="outlined"
                                             placeholder="رقم الدور"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'floor_number'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            @input="
+                                                v$.personal_info_1.floor_number.$touch()
                                             "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'floor_number'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                            :error-messages="
+                                                v$.personal_info_1.floor_number.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
+                                        ></v-text-field>
                                     </div>
                                 </div>
 
@@ -341,24 +244,15 @@
                                             style="width: 100%"
                                             :items="SocialStatuss"
                                             label="الحاله الجتماعيه  "
-                                        ></v-select>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            @input="
+                                                v$.personal_info_1.marital_status.$touch()
                                             "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'marital_status'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                            :error-messages="
+                                                v$.personal_info_1.marital_status.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
+                                        ></v-select>
                                     </div>
                                     <div
                                         class="mt-2 d-flex flex-column"
@@ -371,32 +265,15 @@
                                             label="رقم التليفون"
                                             variant="outlined"
                                             placeholder="رقم التليفون"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'phone'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            @input="
+                                                v$.personal_info_1.phone.$touch()
                                             "
-                                        >
-                                            <span
-                                                v-if="err.$property == 'phone'"
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                            :error-messages="
+                                                v$.personal_info_1.phone.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
+                                        ></v-text-field>
                                     </div>
                                 </div>
                             </div>
@@ -1763,10 +1640,7 @@ import {
     required,
     minLength,
     maxLength,
-    // alpha,
     numeric,
-    // regex,
-    // between,
     helpers,
 } from "@vuelidate/validators";
 
@@ -1774,6 +1648,8 @@ export default {
     props: ["close_function"],
     data() {
         return {
+            regex2: true,
+            regex1: true,
             close: null,
             family_needs_Array: ["غرف"],
             personal_info_1_State: null,
@@ -1782,7 +1658,6 @@ export default {
             formError3: false,
             formError4: false,
             formError5: false,
-
             currentStep: 1, // الخطوة الحالية
 
             e1: 1,
@@ -1921,75 +1796,89 @@ export default {
         return {
             personal_info_1: {
                 name: {
-                    required: helpers.withMessage("حقل مطلوب", required),
+                    required: helpers.withMessage(
+                        " ادخل الاسم ثلاثي ",
+                        required
+                    ),
                     minLength: helpers.withMessage(
                         "لا يجب ان تقل عن 10 حروف ",
                         minLength(10)
                     ),
                     maxLength: helpers.withMessage(
-                        "لا يجب ان تذيد عن 100 حروف ",
+                        "لا يجب ان يزيد عن 100 حروف ",
                         maxLength(100)
                     ),
-
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
+                    regex1: function (value) {
+                        const regexPattern = /[\u0600-\u06FF\s]+/;
+                        const matchResult = regexPattern.test(value);
+                        this.regex1 = matchResult;
+                        return matchResult;
+                    },
                 },
                 nick_name: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
+                    required: helpers.withMessage("ادخل اسم الشهرة ", required),
+                    regex2: function (value) {
+                        const regexPattern = /[\u0600-\u06FF\s]+/;
+                        const matchResult = regexPattern.test(value);
+                        this.regex2 = matchResult;
+                        return matchResult;
+                    },
                     minLength: helpers.withMessage(
                         "لا يجب ان تقل عن 3 حروف ",
                         minLength(3)
                     ),
                     maxLength: helpers.withMessage(
-                        "لا يجب ان تذيد عن 100 حروف ",
-                        maxLength(100)
+                        "لا يجب ان تزيد عن 10 حروف ",
+                        maxLength(10)
                     ),
                 },
                 national_id: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
+                    required: helpers.withMessage(
+                        "ادخل الرقم القومي ",
+                        required
+                    ),
+                    numeric: helpers.withMessage(" ادخل أرقام فقط", numeric),
+                    minLength: helpers.withMessage(
+                        " ادخل عنوان مكون من 14 أرقام على الأقل",
+                        minLength(14)
                     ),
                 },
                 governorate: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
+                    required: helpers.withMessage("ادخل المحافظه ", required),
                 },
                 house_number: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
+                    required: helpers.withMessage("ادخل رقم ", required),
+                    minLength: helpers.withMessage(
+                        " ادخل رقم مكون من 2 أرقام على الأقل",
+                        minLength(2)
                     ),
+                    maxLength: helpers.withMessage(
+                        " لا يجب ان تزيد عن 4 أرقام",
+                        maxLength(4)
+                    ),
+                    numeric: helpers.withMessage(" ادخل أرقام فقط", numeric),
                 },
                 floor_number: {
-                    required: helpers.withMessage("حقل مطلوب", required),
+                    required: helpers.withMessage("ادخل رقم ", required),
+                    maxLength: helpers.withMessage(
+                        " لا يجب ان تزيد عن 2 رقمين",
+                        maxLength(2)
+                    ),
                     numeric: helpers.withMessage(
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
                 },
-
                 marital_status: {
-                    required: helpers.withMessage("حقل مطلوب", required),
+                    required: helpers.withMessage("ادخل الحالة ", required),
                 },
                 phone: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    // between: between(, 120),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
+                    required: helpers.withMessage("ادخل رقم ", required),
+                    minLength: helpers.withMessage(
+                        " ادخل رقم مكون من 8 أرقام على الأقل",
+                        minLength(8)
                     ),
+                    numeric: helpers.withMessage(" ادخل أرقام فقط", numeric),
                 },
             },
             financial_info_2: {
@@ -2118,8 +2007,42 @@ export default {
         close_function_1() {
             this.close_function();
         },
+        checkDataExists() {
+            // Perform comparison with existing data
+            // Return true if data exists, false otherwise
+            return !(
+                this.personal_info_1.name == "" &&
+                this.personal_info_1.phone == "" &&
+                this.personal_info_1.nick_name == "" &&
+                this.personal_info_1.governorate == "" &&
+                this.personal_info_1.house_number == "" &&
+                this.personal_info_1.floor_number == "" &&
+                this.personal_info_1.marital_status == ""
+            );
+        },
+        async validateForm() {
+            const dataExists = this.checkDataExists();
+            this.v$.personal_info_1.$validate();
+            if (dataExists) {
+                this.v$.personal_info_1.$validate();
+                await this.$nextTick();
+                if (!this.v$.$error) {
+                    // If no errors, proceed with further processing
+                    console.log("Data filled and Form submitted successfully");
+                    console.log("personal_info_1", this.personal_info_1);
+                    this.v$.$reset();
+                } else {
+                    // If there are validation errors, handle them accordingly
+                    console.log("Data not all filled Validation errors found");
+                    this.e1 = 1;
+                }
+            } else {
+                console.log("Data required");
+                this.e1 = 1;
+            }
+        },
         async Add_Cases() {
-            this.validateForm1();
+            this.validateForm();
 
             // Add a new document with a generated id.
 
