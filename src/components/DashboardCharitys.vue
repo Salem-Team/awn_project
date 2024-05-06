@@ -13,7 +13,11 @@
                 "
             ></v-text-field>
             <div class="boxes">
-                <div class="box" v-for="(Case, index) in Cases" :key="Case">
+                <div
+                    class="box"
+                    v-for="(Case, index) in paginatedCases"
+                    :key="Case"
+                >
                     <v-row class="row_chys" style="width: 100%">
                         <v-col
                             style="
@@ -27,7 +31,9 @@
                             md="6"
                         >
                             <div class="About">
-                                <div class="index">{{ index + 1 }}</div>
+                                <div class="index">
+                                    {{ (currentPage - 1) * 5 + index + 1 }}
+                                </div>
 
                                 <div class="name">
                                     {{ Case.personal_info.name }}
