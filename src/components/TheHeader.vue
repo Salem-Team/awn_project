@@ -53,51 +53,11 @@
             <div class="Login_Register">
                 <div class="login" v-if="User.User_State">
                     تسجيل دخول
-                    <v-dialog activator="parent" max-width="900">
-                        <template v-slot:default="{ isActive }">
-                            <v-card rounded="lg">
-                                <v-card-title
-                                    class="d-flex justify-space-between align-center"
-                                >
-                                    <div
-                                        class="text-h5 text-medium-emphasis ps-2"
-                                    >
-                                        تسجيل دخول
-                                    </div>
-                                    <v-btn
-                                        icon="mdi-close"
-                                        variant="text"
-                                        @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-title>
-                                <TheSignin :Check_User="Check_User" />
-                            </v-card>
-                        </template>
-                    </v-dialog>
+                    <TheSignin :Check_User="Check_User" />
                 </div>
                 <div class="register" v-if="User.User_State">
                     حساب جديد
-                    <v-dialog activator="parent" max-width="900">
-                        <template v-slot:default="{ isActive }">
-                            <v-card rounded="lg">
-                                <v-card-title
-                                    class="d-flex justify-space-between align-center"
-                                >
-                                    <div
-                                        class="text-h5 text-medium-emphasis ps-2"
-                                    >
-                                        حساب جديد
-                                    </div>
-                                    <v-btn
-                                        icon="mdi-close"
-                                        variant="text"
-                                        @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-title>
-                                <TheRegister />
-                            </v-card>
-                        </template>
-                    </v-dialog>
+                    <TheRegister />
                 </div>
                 <div
                     class="User_box"
