@@ -10,3 +10,4 @@
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     }
 }
+
