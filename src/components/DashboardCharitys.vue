@@ -1,641 +1,1012 @@
 <template>
-    <div class="Dash_board">
-        <!-- NavBar  -->
-        <Side_Bar />
+    <div style="width: 100%">
         <v-container>
-            <v-container>
-                <v-row
-                    style="
-                        padding: 40px;
-                        border-radius: 7px 0px 0px 0px;
-                        border-radius: 20px;
-                        border: 1px solid #ddd;
-                    "
+            <v-text-field
+                v-model="search"
+                label="أبحث"
+                hide-details
+                style="
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 500;
+                    line-height: 18px;
+                    text-align: center;
+                "
+            ></v-text-field>
+            <div class="boxes">
+                <div
+                    class="box"
+                    v-for="(Case, index) in paginatedCases"
+                    :key="Case"
                 >
-                    <v-col lg="5" md="7" sm="12">
-                        <!-- Info Status -->
-                        <div
-                            class="info_stat d-flex justify-space-between align-center ga-4"
+                    <v-row class="row_chys" style="width: 100%">
+                        <v-col
+                            style="
+                                display: flex;
+                                justify-content: start;
+                                align-items: center;
+                            "
+                            class="col_chys"
+                            lg="4"
+                            sm="12"
+                            md="6"
                         >
-                            <v-chip
-                                style="padding: 46px; height: 10px"
-                                class="text-center chip_info"
-                            >
-                                <div class="info">
-                                    <div class="num">{{ childResult }}</div>
-                                    <span class="text-primary">الحاله</span>
+                            <div class="About">
+                                <div class="index">
+                                    {{ (currentPage - 1) * 5 + index + 1 }}
                                 </div>
-                            </v-chip>
-                            <v-chip
-                                style="padding: 46px; height: 10px"
-                                class="text-center chip_info"
-                            >
-                                <div class="info">
-                                    <div class="num">30000</div>
-                                    <span class="text-primary">عجز</span>
-                                </div>
-                            </v-chip>
-                            <v-chip
-                                style="padding: 46px; height: 10px"
-                                class="text-center chip_info"
-                            >
-                                <div class="info">
-                                    <div class="num">50</div>
-                                    <span class="text-primary"
-                                        >حالات مشتركه</span
-                                    >
-                                </div>
-                            </v-chip>
-                        </div>
-                    </v-col>
-                    <v-col
-                        lg="7"
-                        md="5"
-                        sm="12"
-                        style="
-                            display: flex;
-                            justify-content: flex-end;
-                            align-items: center;
-                        "
-                        class="info_col2"
-                    >
-                        <div class="d-flex ga-3 mb-3">
-                            <v-menu>
-                                <template v-slot:activator="{ props }">
-                                    <v-btn
-                                        class="btn_menu"
-                                        color="primary"
-                                        v-bind="props"
-                                    >
-                                        ترتيب حسب
-                                        <v-icon>mdi-filter-variant</v-icon>
-                                    </v-btn>
-                                </template>
-                                <v-list>
-                                    <v-list-item>
-                                        ابجدى
-                                        <v-btn-toggle v-model="isActive1">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funAtZClicked()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funZtAClicked()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <!-- العجز بداية ------------------------------------------ -->
-                                    <v-list-item>
-                                        العجز
-                                        <v-btn-toggle v-model="isActive2">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funCards_STL()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funCards_LTS()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <!-- العجز نهايه ----------------------------------------------- -->
-
-                                    <!-- الدخل بدايه ------------------------------------------------ -->
-                                    <v-list-item>
-                                        الدخل
-                                        <v-btn-toggle v-model="isActive3">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funFat_STL()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funFat_LTS()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <!-- الدخل نهايه---------------------------------------------------- -->
-                                    <!-- المطلوب بدايه ------------------------------------------------ -->
-                                    <v-list-item>
-                                        المطلوب
-                                        <v-btn-toggle v-model="isActive4">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funCalories_STL()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funCalories_LTS()
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <!-- المطلوب نهايه ------------------------------------------------ -->
-                                </v-list>
-                            </v-menu>
-                            <v-btn @click="dialog = true" class="btn_menu">
-                                <v-icon style="font-size: 20px !important"
-                                    >mdi-plus</v-icon
-                                >
-                            </v-btn>
-                            <v-btn @click="Swap" class="btn_menu">
-                                <v-icon>mdi-view-grid-outline</v-icon>
-                            </v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-container>
-        <v-container>
-            <v-dialog v-model="dialog" width="90%">
-                <div class="popup bg-white w-100 rounded">
-                    <div class="header">
-                        <div>إضافة الحالات</div>
-                        <font-awesome-icon
-                            :icon="['fas', 'xmark']"
-                            @click="dialog = false"
-                        />
-                    </div>
-                    <div class="body">
-                        <div class="box" @click="close_function">
-                            <font-awesome-icon :icon="['fas', 'keyboard']" />
-                            <div>يدوي</div>
-                        </div>
-                        <div class="box" @click="dialog1 = true">
-                            <font-awesome-icon :icon="['fas', 'file-excel']" />
-                            <div>
-                                <div @click="dialog1 = true">اكسل</div>
-
-                                <v-dialog v-model="dialog1" max-width="600">
-                                    <template v-slot:default="{ isActive }">
-                                        <v-card
-                                            rounded="lg"
-                                            class="mx-16"
-                                            height="400"
-                                        >
-                                            <v-card-title
-                                                class="d-flex justify-space-between align-center"
-                                            >
-                                                <div
-                                                    class="text-h5 text-medium-emphasis ps-2"
-                                                >
-                                                    اضافه ملف اكسيل
-                                                </div>
-
-                                                <v-btn
-                                                    icon="mdi-close"
-                                                    variant="text"
-                                                    @click="
-                                                        isActive.value = false
-                                                    "
-                                                ></v-btn>
-                                            </v-card-title>
-
-                                            <v-divider class="mb-4"></v-divider>
-
-                                            <v-card-text
-                                                class="d-flex justify-end"
-                                            >
-                                                <div class="mb-4">
-                                                    <v-btn
-                                                        rounded="xl"
-                                                        size="x-large"
-                                                        block
-                                                        style="
-                                                            font-family: 'Roboto',
-                                                                sans-serif !important;
-                                                            font-size: 20px;
-                                                        "
-                                                        >تحميل الملف</v-btn
-                                                    >
-                                                </div>
-                                            </v-card-text>
-                                            <div
-                                                class="d-flex justify-center align-center"
-                                            >
-                                                <div
-                                                    class="text-medium-emphasis mb-1"
-                                                    style="
-                                                        display: flex;
-                                                        flex-wrap: wrap;
-                                                        justify-content: center;
-                                                        width: 60%;
-                                                        height: 120px;
-                                                        border: 3px dashed #777;
-                                                        align-content: center;
-                                                        justify-content: space-around;
-                                                    "
-                                                >
-                                                    <label
-                                                        style="
-                                                            width: 200px;
-                                                            position: relative;
-                                                        "
-                                                    >
-                                                        <v-icon
-                                                            color=""
-                                                            style="
-                                                                position: absolute;
-                                                                right: 37px;
-                                                                bottom: 19px;
-                                                            "
-                                                        >
-                                                            mdi-cloud-upload</v-icon
-                                                        >
-                                                        <input
-                                                            type="file"
-                                                            id="myinput"
-                                                        />
-
-                                                        <span
-                                                            style="
-                                                                font-family: 'Roboto',
-                                                                    sans-serif;
-                                                                font-size: 18px;
-                                                            "
-                                                            >رفع ملف
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <v-card-actions
-                                                class="my-2 d-flex justify-end"
-                                            >
-                                                <v-btn
-                                                    style="
-                                                        font-size: 27px;
-                                                        width: 50%;
-                                                        margin: 15px 113px;
-                                                    "
-                                                    class="text-none"
-                                                    color="primary"
-                                                    text="تم"
-                                                    variant="flat"
-                                                    @click="
-                                                        To_Json(),
-                                                            (isActive.value = false)
-                                                    "
-                                                ></v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </template>
-                                </v-dialog>
                             </div>
-                        </div>
-                    </div>
+                        </v-col>
+                        <v-col lg="4" md="6" sm="12" class="col_chys">
+                            <div class="Financial_details">
+                                <div class="required">
+                                    <span
+                                        >{{ Case.financial_info.required }}
+                                    </span>
+                                    <div>مطلوب</div>
+                                </div>
+                                <div class="incom">
+                                    <span
+                                        >{{ Case.financial_info.incom }}
+                                    </span>
+                                    <div>دخل</div>
+                                </div>
+                                <div class="deficit">
+                                    <span
+                                        >{{ Case.financial_info.deficit }}
+                                    </span>
+                                    <div>عجز</div>
+                                </div>
+                            </div></v-col
+                        >
+                        <v-col
+                            lg="4"
+                            md="12"
+                            sm="12"
+                            class="col_chys"
+                            style="
+                                display: flex;
+                                justify-content: end;
+                                align-items: center;
+                            "
+                        >
+                            <div
+                                class="details"
+                                @click="openStatusInformation(Case)"
+                            >
+                                <font-awesome-icon
+                                    :icon="['fas', 'circle-info']"
+                                />
+                                <div>التفاصيل</div>
+                            </div></v-col
+                        >
+                    </v-row>
                 </div>
-            </v-dialog>
-        </v-container>
-        <v-container>
-            <div class="Charites d-flex justify-center">
-                <DashboardCharitys
-                    ref="childComponentRef"
-                    @child-result="handleChildResult"
-                />
-                <StatusInformation />
             </div>
         </v-container>
-        <Add_cases v-if="Show_Add" :close_function="close_function" />
+        <div class="text-center">
+            <v-pagination
+                v-model="currentPage"
+                next-icon="mdi-menu-left"
+                prev-icon="mdi-menu-right"
+                :length="Math.ceil(Cases.length / 5)"
+                :total-visible="5"
+            ></v-pagination>
+        </div>
     </div>
 </template>
-
 <script>
-// import Xlsx File
-import readXlsxFile from "read-excel-file";
-// import Components
-import DashboardCharitys from "@/components/DashboardCharitys.vue";
-import StatusInformation from "@/components/StatusInformation.vue";
-import Add_cases from "@/components/Add_cases.vue";
-import Side_Bar from "@/components/Side_Bar.vue";
+// Get  data
+import { getFirestore, getDocs, collection } from "@firebase/firestore";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export default {
     inject: ["Emitter"],
-    name: "Dash_board",
-    components: {
-        DashboardCharitys,
-        StatusInformation,
-        Side_Bar,
-        Add_cases,
-    },
-    data() {
-        return {
-            dialog: false,
-            dialog1: false,
-            items: [],
-            isActive: false,
-            isActive1: null,
-            isActive2: null,
-            isActive3: null,
-            isActive4: null,
-            Show_Add: null,
-            Cases: [],
-            childResult: 0,
-        };
-    },
-    mounted() {
-        this.$refs.childComponentRef.Get_data();
-    },
+    data: () => ({
+        currentPage: 1, // Current page
+        pageSize: 5, // Number of cases per page
+        Cases_length: 0,
+        Cases: [],
+        isGridView: false,
+        search: "",
+        newVegetables: [],
+        Byasc: [],
+        props: ["filteredVegetables"],
+        headers: [
+            { title: "الترتيب", key: "id" },
+            { title: "الاسم", key: "name" },
+            { title: "مطلوب", key: "calories" },
+            { title: "داخل", key: "fat" },
+            { title: "عجز", key: "carbs" },
+            { title: "التفاصيل", key: "protein" },
+        ],
 
-    methods: {
-        toggleActive(direction) {
-            if (direction === "up") {
-                this.isActive = this.isActive === "up" ? null : "up";
-            } else if (direction === "down") {
-                this.isActive = this.isActive === "down" ? null : "down";
-            }
-        },
-        // change viw
-        handleChildResult(result) {
-            this.childResult = result;
-            console.log("Received result from child:", this.childResult);
-        },
-        // close function
-        close_function() {
-            this.Show_Add = !this.Show_Add;
-            this.dialog = false;
-            this.$refs.childComponentRef.Get_data();
-        },
-        // change view
-        Swap() {
-            this.Emitter.emit("change_view");
-        },
-        // / Firts Function ordered By >>>> Swap BT Latest && Oldest
-        funLatestClicked() {
-            this.Emitter.emit("FunLatest");
-        },
-        // / Seconed  Function ordered By >>>> A To Z
-        funAtZClicked() {
-            this.Emitter.emit("FunATZ");
-        },
-        // / Third  Function ordered By >>>> Z To A
-        funZtAClicked() {
-            this.Emitter.emit("FunZTA");
-        },
-        // / Fourth  Function ordered By Cards >>>> S T L
-        funCards_STL() {
-            this.Emitter.emit("CardsAscending");
-        },
-        funCards_LTS() {
-            this.Emitter.emit("CardsDesaending");
-        },
-        // / Sixth  Function ordered Fat >>>> S T L
-        funFat_STL() {
-            this.Emitter.emit("FatAscending");
-        },
-        // / seventh  Function ordered Fat >>>> L T Z
-        funFat_LTS() {
-            this.Emitter.emit("fatDesaending");
-        },
-        // / Eight  Function ordered calories >>>>S T L
-        funCalories_STL() {
-            this.Emitter.emit("caloriesAscending");
-        },
-        // / nine  Function ordered calories >>>>S T L
-        funCalories_LTS() {
-            this.Emitter.emit("caloriesDesaending");
-        },
-        To_Json() {
-            const input = document.getElementById("myinput");
-            // readXlsxFile(input.files[0]).then((rows) => {
-            //     const headers = rows[1];
-            //     const data = rows.slice(3);
+        vegetables: [
+            {
+                id: 1,
+                name: "اسلام ابوسيف",
+                calories: 5000,
+                fat: 3000,
+                carbs: 2000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "اسلام ابوسيف" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "البحيره" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "صفر" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 2,
+                name: "بهاء احمد",
+                calories: 3,
+                fat: 300,
+                carbs: 2000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: " محمد احمد " },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "صفر" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 3,
+                name: "جمال علي",
+                calories: 23,
+                fat: 400,
+                carbs: 3000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "خالد علي" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "خالد علي" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "صفر" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 4,
+                name: "على ابراهيم",
+                calories: 32,
+                fat: 500,
+                carbs: 4000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "محمد ابراهيم " },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "صفر" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 5,
+                name: "كريم محمود",
+                calories: 50,
+                fat: 600,
+                carbs: 5000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "خالد محمود" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 6,
+                name: "سعيد محمود",
+                calories: 20,
+                fat: 700,
+                carbs: 6000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: " سعيد محمود" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 7,
+                name: "عبد الرحمن شاهين",
+                calories: 8,
+                fat: 700,
+                carbs: 7000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "محمد شاهين" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 8,
+                name: "يزيد سمير",
+                calories: 40,
+                fat: 800,
+                carbs: 8000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "محمد سمير" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 9,
+                name: "انس علي",
+                calories: 30,
+                fat: 900,
+                carbs: 2000,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "محمد علي " },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "66" },
+                ],
+            },
 
-            //     const objByColumn = {};
-
-            //     headers.forEach((header, index) => {
-            //         const columnData = data.map((row) => row[index]);
-            //         const adjacentColumnData = data.map((row) => row[index]);
-
-            //         const columnObj = {};
-            //         columnData.forEach((value, i) => {
-            //             columnObj[value] = adjacentColumnData[i];
-            //         });
-
-            //         objByColumn[header] = columnObj;
-            //     });
-
-            //     console.log(objByColumn);
-            // });
-            readXlsxFile(input.files[0]).then((rows) => {
-                rows.splice(2, 1);
-                console.log(rows);
+            {
+                id: 10,
+                name: "محمد سمير",
+                calories: 28,
+                fat: 500,
+                carbs: 900,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "محمد سمير" },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "صفر" },
+                ],
+            },
+            {
+                id: 11,
+                name: "   اكرم علي",
+                calories: 33,
+                fat: 300,
+                carbs: 300,
+                protein: 2.9,
+                iron: "15%",
+                personalInformation: [
+                    { namea: "محمد علي " },
+                    { nameb: "اسلام ابوسيف" },
+                    { cardNumber: 124445788987 },
+                    { Region: "Albuhayra" },
+                    { HouseNumber: 4 },
+                    { FloorNumber: 2 },
+                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
+                    { SocialStatus: "اعزب" },
+                    { phoneNumber: "01201253897" },
+                ],
+                FinancialInformation: [
+                    { Required: 2000 },
+                    { Inside: 1000 },
+                    { Impotence: 500 },
+                    { TreatmentExpenses: 200 },
+                ],
+                SickCases: [
+                    { PatientName: "اسلام علاء" },
+                    { theDisease: "السكري" },
+                    { treatment: "المستشفي" },
+                    { Reasontreatment: "عدم القدره الماليه" },
+                ],
+                HousingCondition: [
+                    { numberRooms: 3 },
+                    { ApartmentType: "ايجار" },
+                    { BathroomType: "مشترك" },
+                    { FloorType: "بلاط" },
+                    { Descriptionkitchen: "صغير" },
+                    { DescriptionRoom1: "صغر" },
+                    { DescriptionRoom2: "صغر" },
+                    { DescriptionRoom3: "صفر" },
+                ],
+                FamilyNeeds: [
+                    { medical: "صفر" },
+                    { Husband: "صفر" },
+                    { clothes: "صفر" },
+                    { salaries: "صفر" },
+                    { Blankets: "1" },
+                    { FoodBag: "صفر" },
+                    { MonthlyWarranty: "صفر" },
+                    { Appliances: "66" },
+                ],
+            },
+        ],
+    }),
+    // Search Fun
+    computed: {
+        // Calculate total number of pages based on number of cases and page size
+        totalPages() {
+            return Math.ceil(this.filteredCases.length / this.pageSize);
+        },
+        filteredVegetables() {
+            return this.vegetables.filter((vege) => {
+                return vege.name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
             });
         },
+        // Filtered cases based on search term
+        filteredCases() {
+            return this.Cases.filter((Case) =>
+                Case.personal_info.name.includes(this.search)
+            );
+        },
+        // Paginated cases based on current page and page size
+        paginatedCases() {
+            const startIndex = (this.currentPage - 1) * this.pageSize;
+            return this.filteredCases.slice(
+                startIndex,
+                startIndex + this.pageSize
+            );
+        },
+    },
+    methods: {
+        // Method to handle pagination input change
+        paginate(page) {
+            this.currentPage = page;
+        },
+
+        Send_Function_To_Perant() {
+            this.$emit("Send_Function_To_Perant", this.Get_data());
+        },
+        async Get_data() {
+            this.Cases = [];
+            const querySnapshot = await getDocs(collection(db, "Cases"));
+            querySnapshot.forEach((doc) => {
+                this.Cases.push(doc.data());
+            });
+            console.log("this.Cases", this.Cases);
+            this.Cases_length = this.Cases.length;
+            this.$emit("child-result", this.Cases_length);
+        },
+        // change view
+        change_view() {
+            document.querySelector(".boxes ").classList.toggle("Change_View");
+        },
+        openStatusInformation(product) {
+            this.Emitter.emit("openStatusInformation", product);
+        },
+        filterData() {
+            const filteredData = this.vegetables.filter();
+
+            this.vegetables = filteredData;
+        },
+    },
+    mounted() {
+        // change view
+        this.Emitter.on("change_view", () => {
+            this.change_view();
+        });
+
+        // -----------------------------------------------------------------------------
+
+        // Firts Function ordered By >>>> Swap BT Latest && Oldest
+        // this.Emitter.on("FunLatest", () => {
+        //     this.vegetables.sort((a, b) => (b[name] > a[name] ? 1 : -1));
+        // });
+        // / Seconed  Function ordered By >>>> A To Z
+        this.Emitter.on("FunATZ", () => {
+            this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
+        });
+        // / Third  Function ordered By >>>> Z To A
+        this.Emitter.on("FunZTA", () => {
+            this.vegetables.sort((a, b) => (b.name > a.name ? 1 : -1));
+        });
+
+        // ---------------------------------------------------------------------------
+        // / Fourth  Function ordered By Cards >>>> S T L
+        this.Emitter.on("CardsAscending", () => {
+            this.newVegetables = this.vegetables.sort(
+                (a, b) => a.carbs - b.carbs
+            );
+        });
+        // / Fivth  Function ordered By Cards >>>> L T S
+        this.Emitter.on("CardsDesaending", () => {
+            this.newVegetables = this.vegetables.sort(
+                (a, b) => b.carbs - a.carbs
+            );
+        });
+        // / Sixth  Function ordered Fat >>>> S T L
+        this.Emitter.on("FatAscending", () => {
+            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
+        });
+        // / seventh  Function ordered Fat >>>> L T Z
+        this.Emitter.on("fatDesaending", () => {
+            this.newVegetables = this.vegetables.sort((a, b) => b.fat - a.fat);
+        });
+        // / Eight  Function ordered calories >>>>S T L
+        this.Emitter.on("caloriesAscending", () => {
+            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
+        });
+        // / nine  Function ordered calories >>>>S T L
+        this.Emitter.on("caloriesDesaending", () => {
+            this.newVegetables = this.vegetables.sort(
+                (a, b) => b.calories - a.calories
+            );
+        });
     },
 };
 </script>
 <style lang="scss" scoped>
-// .info_stat .info {
-//     font-size: 20px;
-//     span {
-//         font-size: 25px;
-//     }
-// }
-.Dash_board {
-    width: calc(100% - 56px);
-    margin-right: auto;
+.Table {
+    display: table;
+    width: 100%;
 }
-.popup {
-    padding: 20px;
-    font-family: system-ui;
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 10px;
-        font-size: 21px;
-        color: #0088ff;
-        font-weight: bold;
-        svg {
-            cursor: pointer;
-        }
-    }
-    .body {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 10px;
+.Title {
+    display: table-caption;
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+.Heading {
+    display: table-row;
+    font-weight: bold;
+    text-align: center;
+}
+.Row {
+    display: table-row;
+}
+.Cell {
+    display: table-cell;
+    border: solid;
+    border-width: thin;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.grid-cell {
+    padding: 5px;
+}
+.boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 10px auto;
+    &.Change_View {
+        flex-direction: row;
+        flex-wrap: wrap;
+
         .box {
-            cursor: pointer;
-            width: 48%;
-            background: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 20px;
-            border-radius: 5px;
-            transition: 0.3s;
-            &:hover {
-                box-shadow: 0 0 10px #ddd;
-                color: #0088ff;
+            width: 32%;
+            flex-direction: column !important;
+            gap: 20px;
+            .row_chys {
+                flex-direction: column !important;
+                flex-wrap: nowrap;
+                .col_chys {
+                    max-width: 100% !important;
+                    flex: 0;
+                }
+            }
+            .About {
+                width: 100%;
+                justify-content: start;
+            }
+            .details {
+                width: 100%;
             }
         }
     }
-    // btn style
-}
-label input[type="file"] {
-    display: none;
-}
-label span {
-    cursor: pointer;
-    background: #ddd;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: flex-start;
-    align-content: space-around;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: 65px;
-}
-label span:hover {
-    border-color: #09f;
-}
-label span:active {
-    box-shadow: 1px 1px 0 #012;
-}
-// customize list
-.v-list-item.v-theme--light.v-list-item--density-default.v-list-item--one-line.rounded-0.v-list-item--variant-text {
-    padding-left: 0px !important;
-    padding-right: 9px !important;
-}
-.v-btn-group.v-theme--light.v-btn-group--density-default.v-btn-toggle {
-    height: 40px !important;
-}
-.v-btn-group--density-default.v-btn-group {
-    width: 122px !important;
-}
-.v-btn-group--density-default.v-btn-group {
-    padding-bottom: 0 !important;
-}
-.chip_info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .box {
+        width: 100%;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ddd;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: system-ui;
 
-@media (max-width: 1000px) {
-    .info_col2 {
-        justify-content: center !important;
-        font-size: 20px !important;
+        .About {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            .index {
+                padding: 5px 15px;
+                border-radius: 5px;
+                background: #eee;
+                font-weight: bold;
+            }
+            .name {
+                font-size: 20px;
+                color: #767676;
+                font-weight: bold;
+                width: 250px;
+            }
+        }
+        .Financial_details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            & > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                background: #fafafa;
+                padding: 10px 15px;
+                border-radius: 5px;
+                div {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #767676;
+                }
+                span {
+                    color: #0088ff;
+                    font-weight: bold;
+                    font-size: 20px;
+                    width: 70px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 5px;
+                }
+            }
+        }
+        .details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #0088ff;
+            padding: 7px;
+            border-radius: 5px;
+            color: #fff;
+            width: 50% !important;
+            font-weight: bold;
+            cursor: pointer;
+        }
     }
 }
-@media (min-width: 400px) {
-    .chip_info {
-        padding: 42px !important;
-        font-size: 14px !important;
+@media (max-width: 768px) {
+    .boxes .box .details {
+        width: 50% !important;
     }
 }
-@media (max-width: 400px) {
-    .chip_info {
-        padding: 34px !important;
-        font-size: 16px !important;
+@media (max-width: 1400px) {
+    .boxes.Change_View .box {
+        width: 48% !important;
     }
 }
-@media (max-width: 400px) {
-    .btn_menu {
-        font-size: 7px !important;
+@media (max-width: 800px) {
+    .boxes.Change_View .box {
+        width: 100% !important;
     }
 }
-
-@media (min-width: 768px) {
-    .chip_info {
-        padding: 40px !important;
-        font-size: 18px !important;
+@media (max-width: 900px) {
+    .boxes .box .Financial_details > div[data-v-5f88210f] {
+        padding: 0 !important;
+        gap: 4px;
     }
-}
-@media (min-width: 1200px) {
-    .chip_info {
-        padding: 50px !important;
-        font-size: 23px !important;
+    .boxes .box .row_chys .col_chys .details {
+        width: 100% !important;
     }
-}
-@media (max-width: 400px) {
-    .info_stat {
-        gap: 2px !important;
+    .boxes .box .row_chys .col_chys .Financial_details {
+        gap: 4px !important;
     }
 }
 @media (max-width: 400px) {
     .chip_info[data-v-d1ccef3e] {
-        font-size: 9px !important;
+        padding: 5px !important;
+        font-size: 16px !important;
     }
 }
 </style>
