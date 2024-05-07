@@ -397,7 +397,9 @@
                                                     class="mt-2 d-flex flex-column"
                                                     style="width: 100%"
                                                 >
-                                                    <h2>07952572059 : id</h2>
+                                                    <h2 class="text-disabled">
+                                                        07952572059 : id
+                                                    </h2>
                                                 </div>
                                             </div>
                                             <div
@@ -495,7 +497,7 @@
                                                                 style="
                                                                     width: 100%;
                                                                 "
-                                                                placeholder=" الايميل"
+                                                                placeholder=" العنوان"
                                                                 :class="[
                                                                     `${
                                                                         v$.form1.$errors.find(
@@ -590,7 +592,7 @@
                                                             style="width: 100%"
                                                         >
                                                             <div
-                                                                class="social-boxes p-20 bg-white rad-10"
+                                                                class="social-boxes p-20 rad-10"
                                                             >
                                                                 <h2
                                                                     class="mt-0 mb-10 text-primary"
@@ -627,28 +629,28 @@
                                                                             }`,
                                                                         ]"
                                                                     ></v-text-field>
-                                                                    <span
-                                                                        v-for="err in v$.$errors"
-                                                                        :key="
-                                                                            err.$uid
-                                                                        "
-                                                                        style="
-                                                                            display: block;
-                                                                            width: 100%;
-                                                                            color: red;
-                                                                        "
-                                                                    >
-                                                                        <span
-                                                                            v-if="
-                                                                                err.$property ==
-                                                                                'Facebook'
-                                                                            "
-                                                                            >{{
-                                                                                err.$message
-                                                                            }}</span
-                                                                        >
-                                                                    </span>
                                                                 </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'Facebook'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
                                                                 <div
                                                                     class="d-flex align-center"
                                                                 >
@@ -677,28 +679,28 @@
                                                                             }`,
                                                                         ]"
                                                                     ></v-text-field>
-                                                                    <span
-                                                                        v-for="err in v$.$errors"
-                                                                        :key="
-                                                                            err.$uid
-                                                                        "
-                                                                        style="
-                                                                            display: block;
-                                                                            width: 100%;
-                                                                            color: red;
-                                                                        "
-                                                                    >
-                                                                        <span
-                                                                            v-if="
-                                                                                err.$property ==
-                                                                                'Twitter'
-                                                                            "
-                                                                            >{{
-                                                                                err.$message
-                                                                            }}</span
-                                                                        >
-                                                                    </span>
                                                                 </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'Twitter'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
                                                                 <div
                                                                     class="d-flex align-center"
                                                                 >
@@ -727,28 +729,28 @@
                                                                             }`,
                                                                         ]"
                                                                     ></v-text-field>
-                                                                    <span
-                                                                        v-for="err in v$.$errors"
-                                                                        :key="
-                                                                            err.$uid
-                                                                        "
-                                                                        style="
-                                                                            display: block;
-                                                                            width: 100%;
-                                                                            color: red;
-                                                                        "
-                                                                    >
-                                                                        <span
-                                                                            v-if="
-                                                                                err.$property ==
-                                                                                'whatsapp'
-                                                                            "
-                                                                            >{{
-                                                                                err.$message
-                                                                            }}</span
-                                                                        >
-                                                                    </span>
                                                                 </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'whatsapp'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
                                                                 <div
                                                                     class="d-flex align-center"
                                                                 >
@@ -777,28 +779,28 @@
                                                                             }`,
                                                                         ]"
                                                                     ></v-text-field>
-                                                                    <span
-                                                                        v-for="err in v$.$errors"
-                                                                        :key="
-                                                                            err.$uid
-                                                                        "
-                                                                        style="
-                                                                            display: block;
-                                                                            width: 100%;
-                                                                            color: red;
-                                                                        "
-                                                                    >
-                                                                        <span
-                                                                            v-if="
-                                                                                err.$property ==
-                                                                                'Youtube'
-                                                                            "
-                                                                            >{{
-                                                                                err.$message
-                                                                            }}</span
-                                                                        >
-                                                                    </span>
                                                                 </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'Youtube'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -842,6 +844,9 @@
                                                         اسلام ابوسيف
                                                     </v-card-title>
                                                     <v-card-text
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
                                                         class="bg-white text--primary text-center"
                                                     >
                                                         <div>
@@ -905,6 +910,9 @@
                                                         محمد محمود
                                                     </v-card-title>
                                                     <v-card-text
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
                                                         class="bg-white text--primary text-center"
                                                     >
                                                         <div>
@@ -968,6 +976,9 @@
                                                         اسلام ابوسيف
                                                     </v-card-title>
                                                     <v-card-text
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
                                                         class="bg-white text--primary text-center"
                                                     >
                                                         <div>
@@ -1032,6 +1043,9 @@
                                                     </v-card-title>
                                                     <v-card-text
                                                         class="bg-white text--primary text-center"
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
                                                     >
                                                         <div>
                                                             <div

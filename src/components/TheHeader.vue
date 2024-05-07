@@ -97,6 +97,13 @@
                                 <v-list-item link v-if="User.type === 'owner'">
                                     إدارة المساعديين
                                 </v-list-item>
+                                <v-list-item
+                                    link
+                                    @click="$router.push('/Settings_Admin')"
+                                    v-if="User.type === 'owner'"
+                                >
+                                    الاعدادات
+                                </v-list-item>
                                 <v-list-item @click="Sign_Out"
                                     ><v-icon>mdi-export</v-icon> تسجيل
                                     خروج</v-list-item

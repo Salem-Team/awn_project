@@ -18,31 +18,68 @@
                     v-for="(Case, index) in paginatedCases"
                     :key="Case"
                 >
-                    <div class="About">
-                        <div class="index">
-                            {{ (currentPage - 1) * 5 + index + 1 }}
-                        </div>
-
-                        <div class="name">{{ Case.personal_info.name }}</div>
-                    </div>
-                    <div class="Financial_details">
-                        <div class="required">
-                            <span>{{ Case.financial_info.required }} </span>
-                            <div>مطلوب</div>
-                        </div>
-                        <div class="incom">
-                            <span>{{ Case.financial_info.incom }} </span>
-                            <div>دخل</div>
-                        </div>
-                        <div class="deficit">
-                            <span>{{ Case.financial_info.deficit }} </span>
-                            <div>عجز</div>
-                        </div>
-                    </div>
-                    <div class="details" @click="openStatusInformation(Case)">
-                        <font-awesome-icon :icon="['fas', 'circle-info']" />
-                        <div>التفاصيل</div>
-                    </div>
+                    <v-row class="row_chys" style="width: 100%">
+                        <v-col
+                            style="
+                                display: flex;
+                                justify-content: start;
+                                align-items: center;
+                            "
+                            class="col_chys"
+                            lg="4"
+                            sm="12"
+                            md="6"
+                        >
+                            <div class="About">
+                                <div class="index">
+                                    {{ (currentPage - 1) * 5 + index + 1 }}
+                                </div>
+                            </div>
+                        </v-col>
+                        <v-col lg="4" md="6" sm="12" class="col_chys">
+                            <div class="Financial_details">
+                                <div class="required">
+                                    <span
+                                        >{{ Case.financial_info.required }}
+                                    </span>
+                                    <div>مطلوب</div>
+                                </div>
+                                <div class="incom">
+                                    <span
+                                        >{{ Case.financial_info.incom }}
+                                    </span>
+                                    <div>دخل</div>
+                                </div>
+                                <div class="deficit">
+                                    <span
+                                        >{{ Case.financial_info.deficit }}
+                                    </span>
+                                    <div>عجز</div>
+                                </div>
+                            </div></v-col
+                        >
+                        <v-col
+                            lg="4"
+                            md="12"
+                            sm="12"
+                            class="col_chys"
+                            style="
+                                display: flex;
+                                justify-content: end;
+                                align-items: center;
+                            "
+                        >
+                            <div
+                                class="details"
+                                @click="openStatusInformation(Case)"
+                            >
+                                <font-awesome-icon
+                                    :icon="['fas', 'circle-info']"
+                                />
+                                <div>التفاصيل</div>
+                            </div></v-col
+                        >
+                    </v-row>
                 </div>
             </div>
         </v-container>
@@ -846,8 +883,16 @@ export default {
 
         .box {
             width: 32%;
-            flex-direction: column;
+            flex-direction: column !important;
             gap: 20px;
+            .row_chys {
+                flex-direction: column !important;
+                flex-wrap: nowrap;
+                .col_chys {
+                    max-width: 100% !important;
+                    flex: 0;
+                }
+            }
             .About {
                 width: 100%;
                 justify-content: start;
@@ -925,9 +970,43 @@ export default {
             padding: 7px;
             border-radius: 5px;
             color: #fff;
+            width: 50% !important;
             font-weight: bold;
             cursor: pointer;
         }
+    }
+}
+@media (max-width: 768px) {
+    .boxes .box .details {
+        width: 50% !important;
+    }
+}
+@media (max-width: 1400px) {
+    .boxes.Change_View .box {
+        width: 48% !important;
+    }
+}
+@media (max-width: 800px) {
+    .boxes.Change_View .box {
+        width: 100% !important;
+    }
+}
+@media (max-width: 900px) {
+    .boxes .box .Financial_details > div[data-v-5f88210f] {
+        padding: 0 !important;
+        gap: 4px;
+    }
+    .boxes .box .row_chys .col_chys .details {
+        width: 100% !important;
+    }
+    .boxes .box .row_chys .col_chys .Financial_details {
+        gap: 4px !important;
+    }
+}
+@media (max-width: 400px) {
+    .chip_info[data-v-d1ccef3e] {
+        padding: 5px !important;
+        font-size: 16px !important;
     }
 }
 </style>
