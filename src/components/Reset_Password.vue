@@ -1,5 +1,5 @@
 <template>
-    <div class="The_Register">
+    <div class="reset_password">
         <v-container class="mt-4">
             <form
                 ref="form"
@@ -14,6 +14,7 @@
                     label="تليفون"
                     type="tel"
                     variant="outlined"
+                    @input="v$.user.phone.$touch()"
                     :error-messages="
                         v$.user.phone.$errors.map((e) => e.$message)
                     "
@@ -25,17 +26,28 @@
                     variant="outlined"
                     label="الايميل"
                     class="mt-2"
+                    @input="v$.user.email.$touch()"
                     :error-messages="
                         v$.user.email.$errors.map((e) => e.$message)
                     "
                 ></v-text-field>
 
+                <span
+                    v-if="!isValidEmail1"
+                    style="
+                        display: block;
+                        margin-right: 15px;
+                        font-size: small;
+                        color: #af0829;
+                    "
+                    >ادخل ايميل صحيح</span
+                >
                 <v-btn
                     class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
                     type="submit"
-                    style="width: 100%; font-size: 16px; margin: auto"
+                    style="width: 100%; font-size: 25px; margin: auto"
                 >
-                    حفظ التعديلات
+                    ارسال
                 </v-btn>
             </form>
             <p>{{ message }}</p>
@@ -69,10 +81,12 @@ export default {
             user: {
                 email: {
                     required: helpers.withMessage("ادخل ايميل ", required),
-                    isValidEmail(value) {
+                    isValidEmail: function (value) {
                         // Define your regex pattern for the email
                         const regexPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        return regexPattern.test(value);
+                        const matchResult = regexPattern.test(value);
+                        this.isValidEmail1 = matchResult;
+                        return matchResult;
                     },
                 },
                 phone: {
