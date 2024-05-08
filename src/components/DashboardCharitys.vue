@@ -34,6 +34,9 @@
                                 <div class="index">
                                     {{ (currentPage - 1) * 5 + index + 1 }}
                                 </div>
+                                <div class="name">
+                                    {{ Case.personal_info.name }}
+                                </div>
                             </div>
                         </v-col>
                         <v-col lg="4" md="6" sm="12" class="col_chys">
