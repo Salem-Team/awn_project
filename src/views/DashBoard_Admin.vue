@@ -35,8 +35,7 @@
                         <v-window v-model="tab">
                             <v-window-item value="المحتاجين">
                                 <DashboardCharitys ref="childComponentRef" />
-                                <StatusInformation
-                            /></v-window-item>
+                            </v-window-item>
 
                             <v-window-item value="الجمعيات">
                                 <CharityView />
@@ -55,7 +54,6 @@ import readXlsxFile from "read-excel-file";
 // import Components
 import CharityView from "@/components/Charity_View.vue";
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
-import StatusInformation from "@/components/StatusInformation.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
 
 export default {
@@ -63,7 +61,6 @@ export default {
     name: "Dash_board",
     components: {
         DashboardCharitys,
-        StatusInformation,
         Side_Bar,
         CharityView,
     },
