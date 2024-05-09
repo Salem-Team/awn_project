@@ -365,7 +365,6 @@
                     ref="childComponentRef"
                     @child-result="handleChildResult"
                 />
-                <StatusInformation />
             </div>
         </v-container>
         <Add_cases v-if="Show_Add" :close_function="close_function" />
@@ -377,7 +376,6 @@
 import readXlsxFile from "read-excel-file";
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
-import StatusInformation from "@/components/StatusInformation.vue";
 import Add_cases from "@/components/Add_cases.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
 
@@ -386,7 +384,6 @@ export default {
     name: "Dash_board",
     components: {
         DashboardCharitys,
-        StatusInformation,
         Side_Bar,
         Add_cases,
     },
@@ -410,6 +407,12 @@ export default {
     },
 
     methods: {
+        // close function
+        close_function() {
+            this.Show_Add = !this.Show_Add;
+            this.dialog = false;
+            this.$refs.childComponentRef.Get_data();
+        },
         toggleActive(direction) {
             if (direction === "up") {
                 this.isActive = this.isActive === "up" ? null : "up";
@@ -421,12 +424,6 @@ export default {
         handleChildResult(result) {
             this.childResult = result;
             console.log("Received result from child:", this.childResult);
-        },
-        // close function
-        close_function() {
-            this.Show_Add = !this.Show_Add;
-            this.dialog = false;
-            this.$refs.childComponentRef.Get_data();
         },
         // change view
         Swap() {
