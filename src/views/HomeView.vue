@@ -555,10 +555,7 @@ export default {
 //font-size: 25px;
 // }
 //}
-* {
-    padding: 0;
-    margin: 0;
-}
+
 .body,
 p,
 h1,
