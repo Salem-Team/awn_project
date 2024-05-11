@@ -73,7 +73,7 @@
                             <v-tab
                                 prepend-icon="mdi-access-point"
                                 text=" الجمعيه"
-                                v-if="owneer"
+                                v-if="owner"
                                 value="option-3"
                                 style="
                                     font-size: 20px;
@@ -88,7 +88,7 @@
                             <v-tab
                                 prepend-icon="mdi-account-box"
                                 text=" اضافه مساعدين"
-                                v-if="owneer"
+                                v-if="owner"
                                 value="option-4"
                                 style="font-size: 20px"
                                 class="my-2"
@@ -96,7 +96,7 @@
                             ><v-tab
                                 prepend-icon="mdi-plus"
                                 text="  الاشتراك"
-                                v-if="owneer"
+                                v-if="owner"
                                 value="option-5"
                                 style="font-size: 20px"
                                 class="my-2"
@@ -1709,6 +1709,33 @@
 </template>
 
 <script>
+// firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+import {
+    doc,
+    getDoc,
+    getFirestore,
+    collection,
+    query,
+    where,
+    getDocs,
+} from "firebase/firestore";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 import useVuelidate from "@vuelidate/core";
 import {
     required,
@@ -1722,8 +1749,9 @@ import {
 } from "@vuelidate/validators";
 export default {
     data: () => ({
+        Charities: [],
         showPassword: false,
-        owneer: true,
+        owner: true,
         owneerform: [],
         isEditing: null,
         isEditing2: null,
@@ -1961,6 +1989,40 @@ export default {
         },
     },
     methods: {
+        async Check_User() {
+            if (localStorage.getItem("id")) {
+                const docRef = doc(db, "Users", localStorage.getItem("id"));
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    console.log("Document data:", docSnap.data().charity_ID);
+
+                    const q = query(
+                        collection(db, "Charities"),
+                        where("id", "==", docSnap.data().charity_ID)
+                    );
+
+                    const querySnapshot = await getDocs(q);
+                    querySnapshot.forEach((doc) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, " => ", doc.data());
+                        this.Charities.push(doc.data());
+                        console.log("this.Charities", this.Charities);
+                    });
+
+                    if (docSnap.data().type === "owner") {
+                        this.owner = true;
+                    } else {
+                        this.owner = false;
+                    }
+
+                    // console.log("this.User.User_name", this.User.User_name);
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }
+        },
         toggleTheme() {
             if (this.modtheme) {
                 this.theme = "dark";
@@ -2151,6 +2213,7 @@ export default {
         },
     },
     mounted() {
+        this.Check_User();
         const oldData = JSON.parse(localStorage.getItem("formmosed2")) || [];
         localStorage.setItem("formmosed2", JSON.stringify(oldData));
         this.storedArray = oldData;

@@ -346,13 +346,13 @@
         </v-container>
         <!-- reviwes end -->
         <!-- footer start -->
-        <v-container
+        <div
             class="footer bg-blue-lighten-5 d-flex align-center justify-space-between"
-            style="padding: 50px 20px"
+            style="padding: 50px 20px; width: 1000% !important"
         >
             <!-- Contact Info -->
             <div class="pb-0" id="contact">
-                <div class="container" style="padding-bottom: 40px">
+                <div class="container-0" style="padding-bottom: 40px">
                     <div class="contact-item">
                         <div class="row align-items-center">
                             <div class="contact-info">
@@ -476,7 +476,7 @@
                     </v-col>
                 </v-row>
             </div>
-        </v-container>
+        </div>
         <!-- footer end -->
     </div>
 </template>

@@ -95,7 +95,7 @@
                                     إدارة الموقع
                                 </v-list-item>
                                 <v-list-item link v-if="User.type === 'owner'">
-                                    إدارة المساعديين
+                                    التقارير
                                 </v-list-item>
                                 <v-list-item
                                     link
@@ -162,6 +162,7 @@ export default {
         Sign_Out() {
             localStorage.removeItem("id");
             this.User.User_State = true;
+            this.$router.push("/");
         },
         async Check_User() {
             console.log("Check_User");
