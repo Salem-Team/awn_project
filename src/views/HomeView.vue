@@ -347,9 +347,9 @@
         </v-container>
         <!-- reviwes end -->
         <!-- footer start -->
-        <v-container
+        <div
             class="footer bg-blue-lighten-5 d-flex align-center justify-space-between"
-            style="padding: 50px 20px"
+            style="padding: 50px 20px; width: 100%"
         >
             <!-- Contact Info -->
             <div class="pb-0" id="contact">
@@ -477,7 +477,7 @@
                     </v-col>
                 </v-row>
             </div>
-        </v-container>
+        </div>
         <!-- footer end -->
     </div>
 </template>
