@@ -199,6 +199,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 0 10px #ddd;
+    z-index: 10;
     .container {
         display: flex;
         align-items: center;

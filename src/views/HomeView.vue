@@ -6,36 +6,37 @@
         data-bs-spy="scroll"
         data-bs-target=".navbar"
         class="body"
+        style="margin-top: 100px"
     >
         <!--Navbar Start-->
         <!-- <v-app-bar app color="primary" fixed dark>
-            <v-container>
-                LOGO 
-                <router-link to="/">
-                    <v-img
-                        src="../assets/images/awn-logo.svg"
-                        max-width="50px"
-                    ></v-img>
-                </router-link>
-                <h3 class="charity-name">عون</h3>
-                <v-app-bar-nav-icon
-                    @click.stop="drawer = !drawer"
-                ></v-app-bar-nav-icon>
-                <v-navigation-drawer v-model="drawer" app>
-                    <v-list-item-group>
-                        <v-list-item
-                            v-for="(item, index) in items"
-                            :key="index"
-                            link
-                        >
-                            <v-list-item-title>{{
-                                item.title
-                            }}</v-list-item-title>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-navigation-drawer>
-            </v-container>
-        </v-app-bar> -->
+              <v-container>
+                  LOGO 
+                  <router-link to="/">
+                      <v-img
+                          src="../assets/images/awn-logo.svg"
+                          max-width="50px"
+                      ></v-img>
+                  </router-link>
+                  <h3 class="charity-name">عون</h3>
+                  <v-app-bar-nav-icon
+                      @click.stop="drawer = !drawer"
+                  ></v-app-bar-nav-icon>
+                  <v-navigation-drawer v-model="drawer" app>
+                      <v-list-item-group>
+                          <v-list-item
+                              v-for="(item, index) in items"
+                              :key="index"
+                              link
+                          >
+                              <v-list-item-title>{{
+                                  item.title
+                              }}</v-list-item-title>
+                          </v-list-item>
+                      </v-list-item-group>
+                  </v-navigation-drawer>
+              </v-container>
+          </v-app-bar> -->
         <!-- navbar end -->
         <!-- home-agency start -->
         <v-container fluid class="hero-agency mb-50" id="home">
@@ -346,13 +347,13 @@
         </v-container>
         <!-- reviwes end -->
         <!-- footer start -->
-        <div
+        <v-container
             class="footer bg-blue-lighten-5 d-flex align-center justify-space-between"
-            style="padding: 50px 20px; width: 1000% !important"
+            style="padding: 50px 20px"
         >
             <!-- Contact Info -->
             <div class="pb-0" id="contact">
-                <div class="container-0" style="padding-bottom: 40px">
+                <div class="container" style="padding-bottom: 40px">
                     <div class="contact-item">
                         <div class="row align-items-center">
                             <div class="contact-info">
@@ -476,7 +477,7 @@
                     </v-col>
                 </v-row>
             </div>
-        </div>
+        </v-container>
         <!-- footer end -->
     </div>
 </template>
@@ -555,7 +556,10 @@ export default {
 //font-size: 25px;
 // }
 //}
-
+//   * {
+//     padding: 0;
+//     margin: 0;
+//   }
 .body,
 p,
 h1,
