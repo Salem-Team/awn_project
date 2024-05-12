@@ -1,362 +1,404 @@
 <template>
     <div style="width: 100%">
-        <v-container>
-            <v-text-field
-                v-model="search"
-                label="أبحث"
-                hide-details
-                style="
-                    font-family: 'Inter', sans-serif;
-                    font-weight: 500;
-                    line-height: 18px;
-                    text-align: center;
-                "
-            ></v-text-field>
-            <div class="boxes">
-                <div
-                    class="box"
-                    v-for="(Case, index) in paginatedCases"
-                    :key="Case"
-                >
-                    <v-row class="row_chys" style="width: 100%">
-                        <v-col
-                            style="
-                                display: flex;
-                                justify-content: start;
-                                align-items: center;
-                            "
-                            class="col_chys"
-                            lg="4"
-                            sm="12"
-                            md="6"
-                        >
-                            <div class="About">
-                                <div class="index">
-                                    {{ (currentPage - 1) * 5 + index + 1 }}
-                                </div>
-                                <div class="name">
-                                    {{ Case.personal_info.name }}
-                                </div>
-                            </div>
-                        </v-col>
-                        <v-col lg="4" md="6" sm="12" class="col_chys">
-                            <div class="Financial_details">
-                                <div class="required">
-                                    <span
-                                        >{{ Case.financial_info.required }}
-                                    </span>
-                                    <div>مطلوب</div>
-                                </div>
-                                <div class="incom">
-                                    <span
-                                        >{{ Case.financial_info.incom }}
-                                    </span>
-                                    <div>دخل</div>
-                                </div>
-                                <div class="deficit">
-                                    <span
-                                        >{{ Case.financial_info.deficit }}
-                                    </span>
-                                    <div>عجز</div>
-                                </div>
-                            </div></v-col
-                        >
-                        <v-col
-                            lg="4"
-                            md="12"
-                            sm="12"
-                            class="col_chys"
-                            style="
-                                display: flex;
-                                justify-content: end;
-                                align-items: center;
-                            "
-                        >
-                            <div
-                                class="details"
-                                @click="openStatusInformation(Case)"
+        <v-lazy>
+            <v-container>
+                <v-text-field
+                    v-model="search"
+                    label="أبحث"
+                    hide-details
+                    style="
+                        font-family: 'Inter', sans-serif;
+                        font-weight: 500;
+                        line-height: 18px;
+                        text-align: center;
+                    "
+                ></v-text-field>
+                <div class="boxes">
+                    <div
+                        class="box"
+                        v-for="(Case, index) in paginatedCases"
+                        :key="Case"
+                    >
+                        <v-row class="row_chys" style="width: 100%">
+                            <v-col
+                                style="
+                                    display: flex;
+                                    justify-content: start;
+                                    align-items: center;
+                                "
+                                class="col_chys"
+                                lg="4"
+                                sm="12"
+                                md="6"
                             >
-                                <font-awesome-icon
-                                    :icon="['fas', 'circle-info']"
-                                />
-                                <div>التفاصيل</div>
-                                <!--this a dialog to show the case's data-->
-                                <v-dialog activator="parent" max-width="900">
-                                    <template v-slot:default="{ isActive }">
-                                        <v-card rounded="lg">
-                                            <v-card-title
-                                                class="d-flex justify-space-between align-center"
-                                            >
-                                                <div
-                                                    class="text-h5 ps-2 text-primary"
+                                <div class="About">
+                                    <div class="index">
+                                        {{ (currentPage - 1) * 5 + index + 1 }}
+                                    </div>
+                                    <div class="name">
+                                        {{ Case.personal_info.name }}
+                                    </div>
+                                </div>
+                            </v-col>
+                            <v-col lg="4" md="6" sm="12" class="col_chys">
+                                <div class="Financial_details">
+                                    <div class="required">
+                                        <span
+                                            >{{ Case.financial_info.required }}
+                                        </span>
+                                        <div>مطلوب</div>
+                                    </div>
+                                    <div class="incom">
+                                        <span
+                                            >{{ Case.financial_info.incom }}
+                                        </span>
+                                        <div>دخل</div>
+                                    </div>
+                                    <div class="deficit">
+                                        <span
+                                            >{{ Case.financial_info.deficit }}
+                                        </span>
+                                        <div>عجز</div>
+                                    </div>
+                                </div></v-col
+                            >
+                            <v-col
+                                lg="4"
+                                md="12"
+                                sm="12"
+                                class="col_chys"
+                                style="
+                                    display: flex;
+                                    justify-content: end;
+                                    align-items: center;
+                                "
+                            >
+                                <div
+                                    class="details"
+                                    @click="openStatusInformation(Case)"
+                                >
+                                    <font-awesome-icon
+                                        :icon="['fas', 'circle-info']"
+                                    />
+                                    <div>التفاصيل</div>
+                                    <!--this a dialog to show the case's data-->
+                                    <v-dialog
+                                        activator="parent"
+                                        max-width="900"
+                                        max-height="600"
+                                    >
+                                        <template v-slot:default="{ isActive }">
+                                            <v-card rounded="lg">
+                                                <v-card-title
+                                                    class="d-flex justify-space-between align-center"
                                                 >
-                                                    تفاصيل الحالة
-                                                </div>
-                                                <v-btn
-                                                    class="text-primary"
-                                                    icon="mdi-close"
-                                                    variant="text"
-                                                    @click="
-                                                        isActive.value = false
-                                                    "
-                                                ></v-btn>
-                                            </v-card-title>
-                                            <!--tabs to toggle between the windows-->
-                                            <v-tabs
-                                                v-model="tab"
-                                                bg-color="primary"
-                                            >
-                                                <v-tab value="المعلومات الشخصية"
-                                                    >المعلومات الشخصية</v-tab
-                                                >
-                                                <v-tab value="المعلومات المالية"
-                                                    >المعلومات المالية</v-tab
-                                                >
-                                                <v-tab value="الأمراض"
-                                                    >الأمراض</v-tab
-                                                >
-                                                <v-tab value="حالة المسكن"
-                                                    >حالة المسكن</v-tab
-                                                >
-                                                <v-tab value="إحتياجات الأسرة"
-                                                    >إحتياجات الأسرة</v-tab
-                                                >
-                                            </v-tabs>
-                                            <v-window
-                                                v-model="tab"
-                                                class="pa-5"
-                                            >
-                                                <!--window to show the personal_info-->
-                                                <v-window-item
-                                                    value="المعلومات الشخصية"
-                                                >
-                                                    <span>الاسم: </span>
-                                                    {{
-                                                        Case.personal_info.name
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>اسم الشهرة: </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .nick_name
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>الرقم القومي: </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .national_id
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>المحافظة: </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .governorate
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>العنوان: </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .detailed_address
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>رقم المنزل: </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .house_number
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>الدور: </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .floor_number
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span
-                                                        >الحالة الاجتماعيه:
-                                                    </span>
-                                                    {{
-                                                        Case.personal_info
-                                                            .marital_status
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>تليفون: </span>
-                                                    {{
-                                                        Case.personal_info.phone
-                                                    }}
-                                                </v-window-item>
-                                                <!--window to show the financial_info-->
-                                                <v-window-item
-                                                    value="المعلومات المالية"
-                                                >
-                                                    <span>المطلوب : </span>
-                                                    {{
-                                                        Case.financial_info
-                                                            .required
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>الدخل : </span>
-                                                    {{
-                                                        Case.financial_info
-                                                            .incom
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>العجز: </span>
-                                                    {{
-                                                        Case.financial_info
-                                                            .deficit
-                                                    }}
-                                                </v-window-item>
-                                                <!--window to show the diseases-->
-                                                <v-window-item value="الأمراض">
-                                                    <span>اسم المريض : </span>
-                                                    {{
-                                                        Case.diseases
-                                                            .patient_name
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>المرض: </span>
-                                                    {{ Case.diseases.disease }}
-                                                    <br />
-                                                    <br />
-                                                    <span
-                                                        >كيفية الحصول على العلاج
-                                                        :
-                                                    </span>
-                                                    {{
-                                                        Case.diseases
-                                                            .get_treatment
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span
-                                                        >السبب في عدم العلاج على
-                                                        نفقة الدولة :
-                                                    </span>
-                                                    {{
-                                                        Case.diseases
-                                                            .not_available
-                                                    }}
-                                                </v-window-item>
-                                                <!--window to show the housing_condition-->
-                                                <v-window-item
-                                                    value="حالة المسكن"
-                                                >
-                                                    <span>عدد الغرف: </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .number_rooms
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>ملكية المنزل: </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .house_type
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>نوع الارضيه : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .floor_type
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>وصف للمطبخ : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .description_kitchen
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>نوع الحمام : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .bathroom_type
-                                                    }}
-                                                    <br />
-                                                    <br />
-                                                    <span>
-                                                        وصف للغرفة 1 :
-                                                    </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .DescriptionRoom1
-                                                    }}
-                                                    <br />
-                                                    <span>وصف للغرفة 2 : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .DescriptionRoom2
-                                                    }}
-                                                    <br />
-                                                    <span>وصف للغرفة 3 : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .DescriptionRoom3
-                                                    }}
-                                                    <br />
-                                                    <span>وصف للغرفة 4 : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .DescriptionRoom4
-                                                    }}
-                                                    <br />
-                                                    <span>وصف للغرفة 5 : </span>
-                                                    {{
-                                                        Case.housing_condition
-                                                            .DescriptionRoom5
-                                                    }}
-                                                </v-window-item>
-                                                <!--window to show the family_needs-->
-                                                <v-window-item
-                                                    value="إحتياجات الأسرة"
-                                                >
-                                                    <v-container
-                                                        class="text-right d-flex align-center flex-wrap justify-around"
-                                                        ><span
-                                                            class="text-right d-flex align-center flex-wrap justify-around"
-                                                        >
-                                                            إحتياجات الأسرة :
-                                                        </span>
-                                                        <v-card
-                                                            elevation="0"
-                                                            class="ma-2 pa-3"
-                                                            rounded="lg"
-                                                            :value="
-                                                                family_needs
-                                                            "
-                                                            v-for="(
-                                                                family_needs,
-                                                                index_1
-                                                            ) in Case.family_needs"
-                                                            :key="index_1"
-                                                        >
-                                                            {{ family_needs }}
-                                                        </v-card></v-container
+                                                    <div
+                                                        class="text-h5 ps-2 text-primary"
                                                     >
-                                                </v-window-item>
-                                            </v-window>
-                                        </v-card>
-                                    </template>
-                                </v-dialog>
-                            </div></v-col
-                        >
-                    </v-row>
+                                                        تفاصيل الحالة
+                                                    </div>
+                                                    <v-btn
+                                                        class="text-primary"
+                                                        icon="mdi-close"
+                                                        variant="text"
+                                                        @click="
+                                                            isActive.value = false
+                                                        "
+                                                    ></v-btn>
+                                                </v-card-title>
+                                                <!--tabs to toggle between the windows-->
+                                                <v-tabs
+                                                    v-model="tab"
+                                                    bg-color="primary"
+                                                >
+                                                    <v-tab
+                                                        value="المعلومات الشخصية"
+                                                        >المعلومات
+                                                        الشخصية</v-tab
+                                                    >
+                                                    <v-tab
+                                                        value="المعلومات المالية"
+                                                        >المعلومات
+                                                        المالية</v-tab
+                                                    >
+                                                    <v-tab value="الأمراض"
+                                                        >الأمراض</v-tab
+                                                    >
+                                                    <v-tab value="حالة المسكن"
+                                                        >حالة المسكن</v-tab
+                                                    >
+                                                    <v-tab
+                                                        value="إحتياجات الأسرة"
+                                                        >إحتياجات الأسرة</v-tab
+                                                    >
+                                                </v-tabs>
+                                                <v-window
+                                                    v-model="tab"
+                                                    class="pa-5 bg-grey-lighten-3"
+                                                >
+                                                    <!--window to show the personal_info-->
+                                                    <v-window-item
+                                                        style="
+                                                            height: 400px !important;
+                                                        "
+                                                        value="المعلومات الشخصية"
+                                                    >
+                                                        {{
+                                                            Case.personal_info
+                                                                .name
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.personal_info
+                                                                .nick_name
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.personal_info
+                                                                .national_id
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.personal_info
+                                                                .governorate
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.personal_info
+                                                                .detailed_address
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span> منزل </span>
+                                                        {{
+                                                            Case.personal_info
+                                                                .house_number
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span>الدور</span>
+                                                        {{
+                                                            Case.personal_info
+                                                                .floor_number
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.personal_info
+                                                                .marital_status
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.personal_info
+                                                                .phone
+                                                        }}
+                                                    </v-window-item>
+                                                    <!--window to show the financial_info-->
+                                                    <v-window-item
+                                                        value="المعلومات المالية"
+                                                        style="
+                                                            height: 400px !important;
+                                                        "
+                                                    >
+                                                        <span>المطلوب : </span>
+                                                        {{
+                                                            Case.financial_info
+                                                                .required
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span>الدخل : </span>
+                                                        {{
+                                                            Case.financial_info
+                                                                .incom
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span>العجز: </span>
+                                                        {{
+                                                            Case.financial_info
+                                                                .deficit
+                                                        }}
+                                                    </v-window-item>
+                                                    <!--window to show the diseases-->
+                                                    <v-window-item
+                                                        value="الأمراض"
+                                                        style="
+                                                            height: 400px !important;
+                                                        "
+                                                    >
+                                                        {{
+                                                            Case.diseases
+                                                                .patien_name
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        {{
+                                                            Case.diseases
+                                                                .disease
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span>
+                                                            نحصل على العلاج عن
+                                                            طريق
+                                                        </span>
+                                                        {{
+                                                            Case.diseases
+                                                                .get_treatment
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span
+                                                            >السبب في عدم العلاج
+                                                            على نفقة الدولة :
+                                                        </span>
+                                                        {{
+                                                            Case.diseases
+                                                                .not_available
+                                                        }}
+                                                    </v-window-item>
+                                                    <!--window to show the housing_condition-->
+                                                    <v-window-item
+                                                        value="حالة المسكن"
+                                                        style="
+                                                            height: 400px !important;
+                                                        "
+                                                    >
+                                                        <span>عدد الغرف: </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .number_rooms
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span> المنزل </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .house_type
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span> الارضيه </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .floor_type
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span> المطبخ </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .description_kitchen
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span> الحمام </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .bathroom_type
+                                                        }}
+                                                        <br />
+                                                        <br />
+                                                        <span>
+                                                            وصف للغرفة 1 :
+                                                        </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .DescriptionRoom1
+                                                        }}
+                                                        <br />
+                                                        <span
+                                                            >وصف للغرفة 2 :
+                                                        </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .DescriptionRoom2
+                                                        }}
+                                                        <br />
+                                                        <span
+                                                            >وصف للغرفة 3 :
+                                                        </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .DescriptionRoom3
+                                                        }}
+                                                        <br />
+                                                        <span
+                                                            >وصف للغرفة 4 :
+                                                        </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .DescriptionRoom4
+                                                        }}
+                                                        <br />
+                                                        <span
+                                                            >وصف للغرفة 5 :
+                                                        </span>
+                                                        {{
+                                                            Case
+                                                                .housing_condition
+                                                                .DescriptionRoom5
+                                                        }}
+                                                    </v-window-item>
+                                                    <!--window to show the family_needs-->
+                                                    <v-window-item
+                                                        value="إحتياجات الأسرة"
+                                                        style="
+                                                            height: 400px !important;
+                                                        "
+                                                    >
+                                                        <v-container
+                                                            class="text-right d-flex align-center flex-wrap justify-around"
+                                                            ><span
+                                                                class="text-right d-flex align-center flex-wrap justify-around"
+                                                            >
+                                                                الأسرة تحتاج
+                                                            </span>
+                                                            <v-card
+                                                                elevation="0"
+                                                                class="ma-2 pa-3"
+                                                                rounded="lg"
+                                                                :value="
+                                                                    family_needs
+                                                                "
+                                                                v-for="(
+                                                                    family_needs,
+                                                                    index_1
+                                                                ) in Case.family_needs"
+                                                                :key="index_1"
+                                                            >
+                                                                {{
+                                                                    family_needs
+                                                                }}
+                                                            </v-card></v-container
+                                                        >
+                                                    </v-window-item>
+                                                </v-window>
+                                            </v-card>
+                                        </template>
+                                    </v-dialog>
+                                </div></v-col
+                            >
+                        </v-row>
+                    </div>
                 </div>
-            </div>
-        </v-container>
+            </v-container>
+        </v-lazy>
         <div class="text-center">
             <v-pagination
                 v-model="currentPage"
@@ -368,7 +410,7 @@
         </div>
     </div>
 </template>
-<script>
+<script scoped>
 import { ref } from "vue";
 // Get  data
 import { getFirestore, getDocs, collection } from "@firebase/firestore";
