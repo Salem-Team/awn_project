@@ -1,8 +1,8 @@
 <template>
-    <div class="Dash_board">
+    <div class="Dash_board mt-16">
         <!-- NavBar  -->
         <Side_Bar />
-        <v-container>
+        <v-container class="mt-16">
             <v-container>
                 <v-row
                     style="
