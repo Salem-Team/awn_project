@@ -1,13 +1,13 @@
 <template>
-    <div class="reset_password">
-        <v-container class="mt-4">
+    <div class="reset_password mt-16">
+        <v-container class="mt-16">
             <form
                 ref="form"
                 @submit.prevent="validateForm"
                 class="ma-auto"
                 action="post"
             >
-                <h2 class="mb-4">نسيت كلمة المرور</h2>
+                <h2 class="mt-16 mb-4">نسيت كلمة المرور</h2>
                 <!--phone input-->
                 <v-text-field
                     v-model="user.phone"

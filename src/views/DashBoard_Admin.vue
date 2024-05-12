@@ -1,5 +1,5 @@
 <template>
-    <div class="Dash_board">
+    <div class="Dash_board mt-16">
         <!-- NavBar  -->
         <Side_Bar />
         <v-container fluid>
