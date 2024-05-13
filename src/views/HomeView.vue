@@ -9,33 +9,33 @@
     >
         <!--Navbar Start-->
         <!-- <v-app-bar app color="primary" fixed dark>
-            <v-container>
-                LOGO 
-                <router-link to="/">
-                    <v-img
-                        src="../assets/images/awn-logo.svg"
-                        max-width="50px"
-                    ></v-img>
-                </router-link>
-                <h3 class="charity-name">عون</h3>
-                <v-app-bar-nav-icon
-                    @click.stop="drawer = !drawer"
-                ></v-app-bar-nav-icon>
-                <v-navigation-drawer v-model="drawer" app>
-                    <v-list-item-group>
-                        <v-list-item
-                            v-for="(item, index) in items"
-                            :key="index"
-                            link
-                        >
-                            <v-list-item-title>{{
-                                item.title
-                            }}</v-list-item-title>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-navigation-drawer>
-            </v-container>
-        </v-app-bar> -->
+              <v-container>
+                  LOGO 
+                  <router-link to="/">
+                      <v-img
+                          src="../assets/images/awn-logo.svg"
+                          max-width="50px"
+                      ></v-img>
+                  </router-link>
+                  <h3 class="charity-name">عون</h3>
+                  <v-app-bar-nav-icon
+                      @click.stop="drawer = !drawer"
+                  ></v-app-bar-nav-icon>
+                  <v-navigation-drawer v-model="drawer" app>
+                      <v-list-item-group>
+                          <v-list-item
+                              v-for="(item, index) in items"
+                              :key="index"
+                              link
+                          >
+                              <v-list-item-title>{{
+                                  item.title
+                              }}</v-list-item-title>
+                          </v-list-item>
+                      </v-list-item-group>
+                  </v-navigation-drawer>
+              </v-container>
+          </v-app-bar> -->
         <!-- navbar end -->
         <!-- home-agency start -->
         <v-container fluid class="hero-agency mb-50" id="home">
@@ -346,9 +346,9 @@
         </v-container>
         <!-- reviwes end -->
         <!-- footer start -->
-        <v-container
+        <div
             class="footer bg-blue-lighten-5 d-flex align-center justify-space-between"
-            style="padding: 50px 20px"
+            style="padding: 50px 20px; width: 100%"
         >
             <!-- Contact Info -->
             <div class="pb-0" id="contact">
@@ -476,7 +476,7 @@
                     </v-col>
                 </v-row>
             </div>
-        </v-container>
+        </div>
         <!-- footer end -->
     </div>
 </template>
@@ -484,9 +484,9 @@
 <script>
 // import Home_Nav from "@/components/Home_Nav.vue";
 // import Section_One from "@/components/Section_One.vue";
-// import animate from "../styles/animate.css";
-// import style from "../styles/style.css";
-// import bootstrap from "../styles/bootstrap.min.css";
+import animate from "../styles/animate.css";
+import style from "../styles/style.css";
+import bootstrap from "../styles/bootstrap.min.css";
 export default {
     name: "HomeView",
     components: {
@@ -494,9 +494,9 @@ export default {
         // Section_One,
     },
     methods: {
-        // $style() {
-        //     return animate, style, bootstrap.min;
-        // },
+        $style() {
+            return animate, style, bootstrap.min;
+        },
         //     toggleMobileMenu() {
         //         var navbarCollapse = document.getElementById("navbarCollapse");
         //         navbarCollapse.classList.toggle("open");
@@ -555,10 +555,10 @@ export default {
 //font-size: 25px;
 // }
 //}
-* {
-    padding: 0;
-    margin: 0;
-}
+//   * {
+//     padding: 0;
+//     margin: 0;
+//   }
 .body,
 p,
 h1,

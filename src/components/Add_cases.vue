@@ -145,7 +145,9 @@
                                         style="width: 100%"
                                     >
                                         <v-textarea
-                                            v-model="personal_info_1.theAddress"
+                                            v-model="
+                                                personal_info_1.detailed_address
+                                            "
                                             class="mt-2"
                                             style="width: 100%"
                                             label=" العنوان"
@@ -157,7 +159,7 @@
                                                     v$.personal_info_1.$errors.find(
                                                         (err) =>
                                                             err.$property ==
-                                                            'theAddress'
+                                                            'detailed_address'
                                                     )
                                                         ? 'danger'
                                                         : ''
@@ -176,7 +178,7 @@
                                             <span
                                                 v-if="
                                                     err.$property ==
-                                                    'theAddress'
+                                                    'detailed_address'
                                                 "
                                                 >{{ err.$message }}</span
                                             >
@@ -374,6 +376,10 @@
                                             style="
                                                 width: 100%;
                                                 pointer-events: none;
+                                            "
+                                            :value="
+                                                financial_info_2.required -
+                                                financial_info_2.incom
                                             "
                                             variant="outlined"
                                             placeholder="العجز "
@@ -1715,13 +1721,14 @@ export default {
                 governorate: "القاهرة",
                 house_number: "33",
                 floor_number: "4",
+                detailed_address: "المقطم - شارع 9",
                 marital_status: "متزوج",
                 phone: "01099877833",
             },
             financial_info_2: {
-                required: "",
-                incom: "",
-                deficit: "",
+                required: null,
+                incom: null,
+                deficit: null,
             },
 
             diseases_3: [
@@ -1864,6 +1871,9 @@ export default {
                         "  يجب ان تكون ارقام فقط",
                         numeric
                     ),
+                },
+                detailed_address: {
+                    required: helpers.withMessage("ادخل عنوان", required),
                 },
                 marital_status: {
                     required: helpers.withMessage("ادخل الحالة ", required),
@@ -2013,6 +2023,7 @@ export default {
                 this.personal_info_1.governorate == "" &&
                 this.personal_info_1.house_number == "" &&
                 this.personal_info_1.floor_number == "" &&
+                this.personal_info_1.detailed_address == "" &&
                 this.personal_info_1.marital_status == ""
             );
         },
@@ -2050,16 +2061,23 @@ export default {
                     governorate: this.personal_info_1.governorate,
                     house_number: this.personal_info_1.house_number,
                     floor_number: this.personal_info_1.floor_number,
-                    detailed_address: "detailed_address",
+                    detailed_address: this.personal_info_1.detailed_address,
                     marital_status: this.personal_info_1.marital_status,
                     phone: this.personal_info_1.phone,
                 },
                 financial_info: {
                     required: this.financial_info_2.required,
                     incom: this.financial_info_2.incom,
-                    deficit: this.financial_info_2.deficit,
+                    deficit:
+                        this.financial_info_2.required -
+                        this.financial_info_2.incom,
                 },
-                diseases: this.diseases_3,
+                diseases: {
+                    patien_name: this.diseases_3.patien_name,
+                    disease: this.diseases_3.disease,
+                    get_treatment: this.diseases_3.get_treatment,
+                    not_available: this.diseases_3.not_available,
+                },
                 housing_condition: {
                     number_rooms: this.housing_condition_4.number_rooms,
                     house_type: this.housing_condition_4.house_type,
@@ -2090,7 +2108,7 @@ export default {
                     { governorate: this.personal_info_1.governorate },
                     { house_number: this.personal_info_1.house_number },
                     { floor_number: this.personal_info_1.floor_number },
-                    { theAddress: this.personal_info_1.theAddress },
+                    { detailed_address: this.personal_info_1.detailed_address },
                     { marital_status: this.personal_info_1.marital_status },
                     { phone: this.personal_info_1.phone }
                 );
@@ -2119,7 +2137,7 @@ export default {
                     {
                         deficit:
                             this.financial_info_2.required -
-                            this.financial_info_2.deficit,
+                            this.financial_info_2.incom,
                     }
                 );
                 this.e1++;
