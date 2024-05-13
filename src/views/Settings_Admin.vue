@@ -100,28 +100,6 @@
                             style="width: 100%; margin-right: 40px"
                         >
                             <v-window-item value="option-1" style="width: 100%">
-                                <div
-                                    class="btn-dufult"
-                                    style="
-                                        display: flex;
-                                        justify-content: end;
-                                        margin: 14px;
-                                    "
-                                >
-                                    <v-btn
-                                        class="text-end"
-                                        icon
-                                        @click="isEditing = !isEditing"
-                                    >
-                                        <v-fade-transition leave-absolute>
-                                            <v-icon v-if="isEditing"
-                                                >mdi-close</v-icon
-                                            >
-
-                                            <v-icon v-else>mdi-pencil</v-icon>
-                                        </v-fade-transition>
-                                    </v-btn>
-                                </div>
                                 <v-sheet class="mx-auto" style="width: 100%">
                                     <form @submit.prevent="validateForm1">
                                         <div class="form">
@@ -136,38 +114,7 @@
                                                         variant="outlined"
                                                         style="width: 100%"
                                                         placeholder="الاسم "
-                                                        :disabled="!isEditing"
-                                                        :class="[
-                                                            `${
-                                                                v$.form1.$errors.find(
-                                                                    (err) =>
-                                                                        err.$property ==
-                                                                        'name'
-                                                                )
-                                                                    ? 'danger'
-                                                                    : ''
-                                                            }`,
-                                                        ]"
                                                     ></v-text-field>
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'name'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
                                                 </div>
                                                 <div
                                                     class="mt-2 d-flex flex-column"
@@ -177,41 +124,10 @@
                                                         v-model="form1.email"
                                                         label="الايميل"
                                                         variant="outlined"
-                                                        :disabled="!isEditing"
                                                         style="width: 100%"
                                                         placeholder=" الايميل"
-                                                        :class="[
-                                                            `${
-                                                                v$.form1.$errors.find(
-                                                                    (err) =>
-                                                                        err.$property ==
-                                                                        'email'
-                                                                )
-                                                                    ? 'danger'
-                                                                    : ''
-                                                            }`,
-                                                        ]"
                                                     >
                                                     </v-text-field>
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'email'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
                                                 </div>
                                             </div>
                                             <div>
@@ -226,40 +142,9 @@
                                                         label="التليفون "
                                                         variant="outlined"
                                                         class="mt-2"
-                                                        :disabled="!isEditing"
                                                         style="width: 100%"
                                                         placeholder=" التليفون"
-                                                        :class="[
-                                                            `${
-                                                                v$.form1.$errors.find(
-                                                                    (err) =>
-                                                                        err.$property ==
-                                                                        'phoneNumber'
-                                                                )
-                                                                    ? 'danger'
-                                                                    : ''
-                                                            }`,
-                                                        ]"
                                                     ></v-text-field>
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'phoneNumber'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
                                                 </div>
                                             </div>
                                             <div>
@@ -272,41 +157,10 @@
                                                             form1.cardNumber
                                                         "
                                                         style="width: 100%"
-                                                        :disabled="!isEditing"
                                                         label="الرقم القومي"
                                                         variant="outlined"
                                                         placeholder="الرقم القومي"
-                                                        :class="[
-                                                            `${
-                                                                v$.form1.$errors.find(
-                                                                    (err) =>
-                                                                        err.$property ==
-                                                                        'cardNumber'
-                                                                )
-                                                                    ? 'danger'
-                                                                    : ''
-                                                            }`,
-                                                        ]"
                                                     ></v-text-field>
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'cardNumber'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
                                                 </div>
                                             </div>
                                             <div
@@ -314,7 +168,6 @@
                                                 style="margin-right: auto"
                                             >
                                                 <v-btn
-                                                    :disabled="!isEditing"
                                                     append-icon="mdi-arrow-left"
                                                     variant="outlined"
                                                     type="submit"
@@ -325,7 +178,7 @@
                                                     "
                                                     block
                                                 >
-                                                    التالي
+                                                    حفظ
                                                 </v-btn>
                                             </div>
                                         </div>
@@ -334,28 +187,6 @@
                             </v-window-item>
 
                             <v-window-item value="option-2" style="width: 100%">
-                                <div
-                                    class="btn-dufult"
-                                    style="
-                                        display: flex;
-                                        justify-content: end;
-                                        margin: 14px;
-                                    "
-                                >
-                                    <v-btn
-                                        class="text-end"
-                                        icon
-                                        @click="isEditing2 = !isEditing2"
-                                    >
-                                        <v-fade-transition leave-absolute>
-                                            <v-icon v-if="isEditing2"
-                                                >mdi-close</v-icon
-                                            >
-
-                                            <v-icon v-else>mdi-pencil</v-icon>
-                                        </v-fade-transition>
-                                    </v-btn>
-                                </div>
                                 <v-sheet class="mx-auto" style="width: 100%">
                                     <form @submit.prevent="validateForm2">
                                         <div class="form">
@@ -365,7 +196,6 @@
                                                     style="width: 100%"
                                                 >
                                                     <v-text-field
-                                                        :disabled="!isEditing2"
                                                         :append-inner-icon="
                                                             showPassword
                                                                 ? 'mdi-eye'
@@ -386,28 +216,7 @@
                                                         placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                                                         counter
                                                     ></v-text-field>
-
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'password'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
                                                     <v-text-field
-                                                        :disabled="!isEditing2"
                                                         :append-inner-icon="
                                                             showPassword2
                                                                 ? 'mdi-eye'
@@ -430,36 +239,7 @@
                                                         placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                                                         counter
                                                     ></v-text-field>
-                                                    <span
-                                                        v-if="
-                                                            passwordsMatchError
-                                                        "
-                                                        style="color: red"
-                                                        >كلمة المرور الجديدة
-                                                        مشابهة لكلمة المرور
-                                                        القديمة.</span
-                                                    >
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'Newpassword'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
                                                     <v-text-field
-                                                        :disabled="!isEditing2"
                                                         :append-inner-icon="
                                                             showPassword3
                                                                 ? 'mdi-eye'
@@ -482,42 +262,16 @@
                                                         placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                                                         counter
                                                     ></v-text-field>
-
-                                                    <span
-                                                        v-for="err in v$.$errors"
-                                                        :key="err.$uid"
-                                                        style="
-                                                            display: block;
-                                                            width: 100%;
-                                                            color: red;
-                                                        "
-                                                    >
-                                                        <span
-                                                            v-if="
-                                                                err.$property ==
-                                                                'Newpassword2'
-                                                            "
-                                                            >{{
-                                                                err.$message
-                                                            }}</span
-                                                        >
-                                                    </span>
-                                                    <span
-                                                        v-if="
-                                                            passwordsMatchError2
-                                                        "
-                                                        style="
-                                                            color: red;
-                                                            margin-bottom: 5px;
-                                                        "
-                                                        >كلمتا المرور غير
-                                                        متطابقتين</span
-                                                    >
                                                 </div>
                                                 <div
                                                     class="mt-2 d-flex flex-column"
                                                     style="width: 100%"
                                                 >
+                                                    <h2
+                                                        class="mt-0 mb-5 text-primary"
+                                                    >
+                                                        الاجهزه
+                                                    </h2>
                                                     <h2 class="text-disabled">
                                                         07952572059 : id
                                                     </h2>
@@ -537,9 +291,8 @@
                                                         padding: 34px;
                                                     "
                                                     block
-                                                    :disabled="!isEditing2"
                                                 >
-                                                    التالي
+                                                    حفظ
                                                 </v-btn>
                                             </div>
                                         </div>
@@ -547,28 +300,6 @@
                                 </v-sheet>
                             </v-window-item>
                             <v-window-item value="option-3" style="width: 100%">
-                                <div
-                                    class="btn-dufult"
-                                    style="
-                                        display: flex;
-                                        justify-content: end;
-                                        margin: 14px;
-                                    "
-                                >
-                                    <v-btn
-                                        class="text-end"
-                                        icon
-                                        @click="isEditing3 = !isEditing3"
-                                    >
-                                        <v-fade-transition leave-absolute>
-                                            <v-icon v-if="isEditing3"
-                                                >mdi-close</v-icon
-                                            >
-
-                                            <v-icon v-else>mdi-pencil</v-icon>
-                                        </v-fade-transition>
-                                    </v-btn>
-                                </div>
                                 <v-sheet class="mx-auto" style="width: 100%">
                                     <form @submit.prevent="validateForm3">
                                         <div class="form">
@@ -584,63 +315,41 @@
                                                             >
                                                                 معلومات الجمعيه
                                                             </h2>
-
-                                                            <!--phone input-->
-                                                            <!-- <v-text-field
-                                                                v-model="
-                                                                    form3.title
-                                                                "
-                                                                label="اسم الجمعية"
-                                                                placeholder="اسم الجمعيه"
-                                                                type="tel"
-                                                                variant="outlined"
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
-                                                            ></v-text-field> -->
                                                             <v-text-field
                                                                 v-model="
                                                                     form3.title
                                                                 "
                                                                 label=" اسم الجمعيه"
+                                                                placeholder=" اسم الجمعيه"
                                                                 type="tel"
                                                                 variant="outlined"
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
                                                             ></v-text-field>
                                                             <v-text-field
                                                                 v-model="
                                                                     form3.phone
                                                                 "
+                                                                placeholder="تليفون الجمعية"
                                                                 label="تليفون الجمعية"
                                                                 type="tel"
                                                                 variant="outlined"
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
                                                             ></v-text-field>
                                                             <!--describetion input-->
                                                             <v-textarea
                                                                 row-height="25"
                                                                 auto-grow
                                                                 rows="4"
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
                                                                 variant="outlined"
                                                                 v-model="
                                                                     form3.descripetion
                                                                 "
+                                                                placeholder="وصف قصير للجمعية"
                                                                 label="وصف قصير للجمعية"
                                                             ></v-textarea>
                                                             <!--address input-->
                                                             <v-text-field
                                                                 variant="outlined"
                                                                 label="العنوان"
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
+                                                                placeholder="العنوان"
                                                                 v-model="
                                                                     form3.address
                                                                 "
@@ -654,15 +363,14 @@
                                                                     v-model="
                                                                         form3.Fame_number
                                                                     "
+                                                                    placeholder="رقم الشهره"
                                                                     label="رقم الشهره"
-                                                                    :disabled="
-                                                                        !isEditing3
-                                                                    "
                                                                 ></v-text-field>
                                                                 <!--year input-->
 
                                                                 <v-select
                                                                     variant="outlined"
+                                                                    value="2024"
                                                                     name="year"
                                                                     style="
                                                                         margin-right: 20px;
@@ -697,10 +405,8 @@
                                                                         '2023',
                                                                         '2024',
                                                                     ]"
-                                                                    :disabled="
-                                                                        !isEditing3
-                                                                    "
-                                                                    label="لسنة"
+                                                                    placeholder="السنه"
+                                                                    label="السنه"
                                                                 ></v-select>
                                                             </div>
                                                             <div style="d-flex">
@@ -711,13 +417,13 @@
                                                                     الجمعيه
                                                                 </h2>
                                                                 <v-chip-group
-                                                                    :disabled="
-                                                                        !isEditing3
-                                                                    "
                                                                     selected-class="bg-grey-lighten-1"
                                                                     multiple
                                                                     mandatory
                                                                     class="text-right"
+                                                                    v-model="
+                                                                        form3.Charities_specialty
+                                                                    "
                                                                 >
                                                                     <v-chip
                                                                         elevation="2"
@@ -742,159 +448,7 @@
                                                                 </v-chip-group>
                                                             </div>
                                                         </div>
-                                                        <!-- <v-text-field
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
-                                                                v-model="
-                                                                    form3.nameassociation
-                                                                "
-                                                                label="اسم الجمعيه"
-                                                                variant="outlined"
-                                                                style="
-                                                                    width: 100%;
-                                                                "
-                                                                placeholder="الاسم "
-                                                                :class="[
-                                                                    `${
-                                                                        v$.form1.$errors.find(
-                                                                            (
-                                                                                err
-                                                                            ) =>
-                                                                                err.$property ==
-                                                                                'nameassociation'
-                                                                        )
-                                                                            ? 'danger'
-                                                                            : ''
-                                                                    }`,
-                                                                ]"
-                                                            ></v-text-field>
-                                                            <span
-                                                                v-for="err in v$.$errors"
-                                                                :key="err.$uid"
-                                                                style="
-                                                                    display: block;
-                                                                    width: 100%;
-                                                                    color: red;
-                                                                "
-                                                            >
-                                                                <span
-                                                                    v-if="
-                                                                        err.$property ==
-                                                                        'nameassociation'
-                                                                    "
-                                                                    >{{
-                                                                        err.$message
-                                                                    }}</span
-                                                                >
-                                                            </span>
-                                                        </div>
-                                                        <div
-                                                            class="d-flex flex-column"
-                                                            style="width: 100%"
-                                                        >
-                                                            <v-text-field
-                                                                v-model="
-                                                                    form3.theaddress
-                                                                "
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
-                                                                label="العنوان"
-                                                                variant="outlined"
-                                                                style="
-                                                                    width: 100%;
-                                                                "
-                                                                placeholder=" العنوان"
-                                                                :class="[
-                                                                    `${
-                                                                        v$.form1.$errors.find(
-                                                                            (
-                                                                                err
-                                                                            ) =>
-                                                                                err.$property ==
-                                                                                'theaddress'
-                                                                        )
-                                                                            ? 'danger'
-                                                                            : ''
-                                                                    }`,
-                                                                ]"
-                                                            >
-                                                            </v-text-field>
-                                                            <span
-                                                                v-for="err in v$.$errors"
-                                                                :key="err.$uid"
-                                                                style="
-                                                                    display: block;
-                                                                    width: 100%;
-                                                                    color: red;
-                                                                "
-                                                            >
-                                                                <span
-                                                                    v-if="
-                                                                        err.$property ==
-                                                                        'theaddress'
-                                                                    "
-                                                                    >{{
-                                                                        err.$message
-                                                                    }}</span
-                                                                >
-                                                            </span>
-                                                        </div> -->
                                                     </div>
-                                                    <!-- <div>
-                                                        <div
-                                                            class="d-flex flex-column"
-                                                            style="width: 100%"
-                                                        >
-                                                            <v-text-field
-                                                                v-model="
-                                                                    form3.Associationnumber
-                                                                "
-                                                                label="رقم الجمعيه "
-                                                                variant="outlined"
-                                                                :disabled="
-                                                                    !isEditing3
-                                                                "
-                                                                style="
-                                                                    width: 100%;
-                                                                "
-                                                                placeholder=" رقم الجمعيه"
-                                                                :class="[
-                                                                    `${
-                                                                        v$.form1.$errors.find(
-                                                                            (
-                                                                                err
-                                                                            ) =>
-                                                                                err.$property ==
-                                                                                'Associationnumber'
-                                                                        )
-                                                                            ? 'danger'
-                                                                            : ''
-                                                                    }`,
-                                                                ]"
-                                                            ></v-text-field>
-                                                            <span
-                                                                v-for="err in v$.$errors"
-                                                                :key="err.$uid"
-                                                                style="
-                                                                    display: block;
-                                                                    width: 100%;
-                                                                    color: red;
-                                                                "
-                                                            >
-                                                                <span
-                                                                    v-if="
-                                                                        err.$property ==
-                                                                        'Associationnumber'
-                                                                    "
-                                                                    >{{
-                                                                        err.$message
-                                                                    }}</span
-                                                                >
-                                                            </span>
-                                                        </div>
-                                                    </div> -->
                                                 </v-col>
                                                 <v-col>
                                                     <div>
@@ -919,9 +473,6 @@
                                                                         v-model="
                                                                             form3.Facebook
                                                                         "
-                                                                        :disabled="
-                                                                            !isEditing3
-                                                                        "
                                                                         style="
                                                                             width: 100%;
                                                                         "
@@ -931,27 +482,7 @@
                                                                         placeholder="Facebook Username"
                                                                     ></v-text-field>
                                                                 </div>
-                                                                <span
-                                                                    v-for="err in v$.$errors"
-                                                                    :key="
-                                                                        err.$uid
-                                                                    "
-                                                                    style="
-                                                                        display: block;
-                                                                        width: 100%;
-                                                                        color: red;
-                                                                    "
-                                                                >
-                                                                    <span
-                                                                        v-if="
-                                                                            err.$property ==
-                                                                            'Facebook'
-                                                                        "
-                                                                        >{{
-                                                                            err.$message
-                                                                        }}</span
-                                                                    >
-                                                                </span>
+
                                                                 <div
                                                                     class="d-flex align-center"
                                                                 >
@@ -962,58 +493,19 @@
                                                                         style="
                                                                             width: 100%;
                                                                         "
-                                                                        :disabled="
-                                                                            !isEditing3
-                                                                        "
                                                                         label="Twitter Username"
                                                                         variant="outlined"
                                                                         append-inner-icon="mdi-twitter"
                                                                         placeholder="Twitter Username"
-                                                                        :class="[
-                                                                            `${
-                                                                                v$.form1.$errors.find(
-                                                                                    (
-                                                                                        err
-                                                                                    ) =>
-                                                                                        err.$property ==
-                                                                                        'Twitter'
-                                                                                )
-                                                                                    ? 'danger'
-                                                                                    : ''
-                                                                            }`,
-                                                                        ]"
                                                                     ></v-text-field>
                                                                 </div>
-                                                                <span
-                                                                    v-for="err in v$.$errors"
-                                                                    :key="
-                                                                        err.$uid
-                                                                    "
-                                                                    style="
-                                                                        display: block;
-                                                                        width: 100%;
-                                                                        color: red;
-                                                                    "
-                                                                >
-                                                                    <span
-                                                                        v-if="
-                                                                            err.$property ==
-                                                                            'Twitter'
-                                                                        "
-                                                                        >{{
-                                                                            err.$message
-                                                                        }}</span
-                                                                    >
-                                                                </span>
+
                                                                 <div
                                                                     class="d-flex align-center"
                                                                 >
                                                                     <v-text-field
                                                                         v-model="
                                                                             form3.whatsapp
-                                                                        "
-                                                                        :disabled="
-                                                                            !isEditing3
                                                                         "
                                                                         style="
                                                                             width: 100%;
@@ -1022,49 +514,13 @@
                                                                         variant="outlined"
                                                                         append-inner-icon="mdi-whatsapp"
                                                                         placeholder="whatsapp Username"
-                                                                        :class="[
-                                                                            `${
-                                                                                v$.form1.$errors.find(
-                                                                                    (
-                                                                                        err
-                                                                                    ) =>
-                                                                                        err.$property ==
-                                                                                        'whatsapp'
-                                                                                )
-                                                                                    ? 'danger'
-                                                                                    : ''
-                                                                            }`,
-                                                                        ]"
                                                                     ></v-text-field>
                                                                 </div>
-                                                                <span
-                                                                    v-for="err in v$.$errors"
-                                                                    :key="
-                                                                        err.$uid
-                                                                    "
-                                                                    style="
-                                                                        display: block;
-                                                                        width: 100%;
-                                                                        color: red;
-                                                                    "
-                                                                >
-                                                                    <span
-                                                                        v-if="
-                                                                            err.$property ==
-                                                                            'whatsapp'
-                                                                        "
-                                                                        >{{
-                                                                            err.$message
-                                                                        }}</span
-                                                                    >
-                                                                </span>
+
                                                                 <div
                                                                     class="d-flex align-center"
                                                                 >
                                                                     <v-text-field
-                                                                        :disabled="
-                                                                            !isEditing3
-                                                                        "
                                                                         v-model="
                                                                             form3.Youtube
                                                                         "
@@ -1075,42 +531,8 @@
                                                                         variant="outlined"
                                                                         append-inner-icon="mdi-youtube"
                                                                         placeholder="Youtube Username"
-                                                                        :class="[
-                                                                            `${
-                                                                                v$.form1.$errors.find(
-                                                                                    (
-                                                                                        err
-                                                                                    ) =>
-                                                                                        err.$property ==
-                                                                                        'Youtube'
-                                                                                )
-                                                                                    ? 'danger'
-                                                                                    : ''
-                                                                            }`,
-                                                                        ]"
                                                                     ></v-text-field>
                                                                 </div>
-                                                                <span
-                                                                    v-for="err in v$.$errors"
-                                                                    :key="
-                                                                        err.$uid
-                                                                    "
-                                                                    style="
-                                                                        display: block;
-                                                                        width: 100%;
-                                                                        color: red;
-                                                                    "
-                                                                >
-                                                                    <span
-                                                                        v-if="
-                                                                            err.$property ==
-                                                                            'Youtube'
-                                                                        "
-                                                                        >{{
-                                                                            err.$message
-                                                                        }}</span
-                                                                    >
-                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1130,9 +552,8 @@
                                                         padding: 34px;
                                                     "
                                                     block
-                                                    :disabled="!isEditing3"
                                                 >
-                                                    التالي
+                                                    حفظ
                                                 </v-btn>
                                             </div>
                                         </div>
@@ -1148,19 +569,6 @@
                                         margin: 14px;
                                     "
                                 >
-                                    <v-btn
-                                        class="text-end"
-                                        icon
-                                        @click="isEditing4 = !isEditing4"
-                                    >
-                                        <v-fade-transition leave-absolute>
-                                            <v-icon v-if="isEditing4"
-                                                >mdi-close</v-icon
-                                            >
-
-                                            <v-icon v-else>mdi-pencil</v-icon>
-                                        </v-fade-transition>
-                                    </v-btn>
                                     <v-dialog max-width="500">
                                         <template
                                             v-slot:activator="{
@@ -1413,7 +821,6 @@
                                         style="margin-right: auto"
                                     >
                                         <v-btn
-                                            :disabled="!isEditing4"
                                             append-icon="mdi-arrow-left"
                                             variant="outlined"
                                             type="submit"
@@ -1424,7 +831,7 @@
                                             "
                                             block
                                         >
-                                            التالي
+                                            حفظ
                                         </v-btn>
                                     </div>
                                 </form>
@@ -1470,12 +877,7 @@ export default {
         isEditing6: true,
         form: false,
         storedArray: [],
-        namemosed1: null,
         namemosed2: null,
-        namemosed3: null,
-        namemosed4: null,
-        namemosed5: null,
-        namemosed6: null,
         formmosed2: [],
         AssistantName: null,
         AssistantEmail: null,
@@ -1509,7 +911,7 @@ export default {
             address: "",
             Fame_number: "",
             Charities_specialty: [],
-            Package_type: "     ",
+            Package_type: "",
             Fame_year: "",
             Facebook: "",
             Twitter: "",
@@ -1589,20 +991,8 @@ export default {
             },
             form2: {
                 password: {},
-                Newpassword: {
-                    // required: helpers.withMessage("حقل مطلوب", required),
-                    // numeric: helpers.withMessage(
-                    //     "  يجب ان تكون ارقام فقط",
-                    //     numeric
-                    // ),
-                },
-                Newpassword2: {
-                    // required: helpers.withMessage("حقل مطلوب", required),
-                    // numeric: helpers.withMessage(
-                    //     "  يجب ان تكون ارقام فقط",
-                    //     numeric
-                    // ),
-                },
+                Newpassword: {},
+                Newpassword2: {},
             },
             form3: {
                 title: {},
@@ -1612,20 +1002,11 @@ export default {
                 Fame_number: {},
                 Charities_specialty: {},
                 Fame_year: {},
-                Facebook: {
-                    // required: helpers.withMessage("حقل مطلوب", required),
-                },
-
-                Twitter: {
-                    // required: helpers.withMessage("حقل مطلوب", required),
-                },
-                whatsapp: {
-                    // required: helpers.withMessage("حقل مطلوب", required),
-                    // numeric: helpers.withMessage("ارقام فقط", numeric),
-                },
-                Youtube: {
-                    // required: helpers.withMessage("حقل مطلوب", required),
-                },
+                activitiesc_chertes: {},
+                Facebook: {},
+                Twitter: {},
+                whatsapp: {},
+                Youtube: {},
             },
             form4: {
                 FirstPerson: {},
@@ -1636,7 +1017,6 @@ export default {
         };
     },
     computed: {
-        // Define a computed property to determine the input type based on showPassword
         inputType() {
             return this.showPassword ? "text" : "password";
         },
@@ -1753,6 +1133,7 @@ export default {
                     ".v-slide-group__content .v-btn"
                 )[3];
                 arr.click();
+                console.log(this.testform3);
 
                 this.v$.$reset();
                 this.form3.title = "";
@@ -1763,6 +1144,7 @@ export default {
                 this.form3.Charities_specialty = "";
                 this.form3.Package_type = "";
                 this.form3.Fame_year = "";
+                this.form3.activitiesc_chertes = "";
                 this.form3.Facebook = "";
                 this.form3.Twitter = "";
                 this.form3.whatsapp = "";
@@ -1834,8 +1216,6 @@ export default {
             this.AssistantPhoneNumber = "";
             this.randomPassword = this.generateRandomPassword();
             console.log(this.s1);
-
-            // window.location.reload();
         },
         required(v) {
             return !!v || "الحقل مطلوب";
