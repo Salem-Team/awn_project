@@ -484,9 +484,9 @@
 <script>
 // import Home_Nav from "@/components/Home_Nav.vue";
 // import Section_One from "@/components/Section_One.vue";
-import animate from "../styles/animate.css";
-import style from "../styles/style.css";
-import bootstrap from "../styles/bootstrap.min.css";
+// import animate from "../styles/animate.css";
+// import style from "../styles/style.css";
+// import bootstrap from "../styles/bootstrap.min.css";
 export default {
     name: "HomeView",
     components: {
@@ -494,9 +494,9 @@ export default {
         // Section_One,
     },
     methods: {
-        $style() {
-            return animate, style, bootstrap.min;
-        },
+        // $style() {
+        //     return animate, style, bootstrap.min;
+        // },
         //     toggleMobileMenu() {
         //         var navbarCollapse = document.getElementById("navbarCollapse");
         //         navbarCollapse.classList.toggle("open");

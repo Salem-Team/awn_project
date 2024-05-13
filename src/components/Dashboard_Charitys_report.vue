@@ -40,27 +40,40 @@
                             </div>
                         </v-col>
                         <v-col lg="4" md="6" sm="12" class="col_chys">
-                            <div class="Financial_details">
-                                <div class="required">
-                                    <span
-                                        >{{ Case.financial_info.required }}
-                                    </span>
-                                    <div>مطلوب</div>
-                                </div>
-                                <div class="incom">
-                                    <span
-                                        >{{ Case.financial_info.incom }}
-                                    </span>
-                                    <div>دخل</div>
-                                </div>
-                                <div class="deficit">
-                                    <span
-                                        >{{ Case.financial_info.deficit }}
-                                    </span>
-                                    <div>عجز</div>
-                                </div>
-                            </div></v-col
-                        >
+                            <div class="mx-auto" max-width="900">
+                                <v-sheet
+                                    class="v-sheet--offset mx-auto border"
+                                    color="white"
+                                    max-width="900"
+                                    rounded="lg"
+                                >
+                                    <v-sparkline
+                                        :labels="[
+                                            ' المطلوب' +
+                                                ' ' +
+                                                Case.financial_info.required,
+                                            ' الدخل' +
+                                                ' ' +
+                                                Case.financial_info.incom,
+
+                                            ' العجز' +
+                                                ' ' +
+                                                Case.financial_info.deficit,
+                                        ]"
+                                        :model-value="[
+                                            Case.financial_info.required,
+                                            Case.financial_info.incom,
+                                            Case.financial_info.deficit,
+                                        ]"
+                                        color="primary"
+                                        line-width="3"
+                                        padding="25"
+                                        stroke-linecap="round"
+                                        smooth
+                                    ></v-sparkline>
+                                </v-sheet>
+                            </div>
+                        </v-col>
                         <v-col
                             lg="4"
                             md="12"
@@ -368,7 +381,7 @@
         </div>
     </div>
 </template>
-<script>
+<script scoped>
 import { ref } from "vue";
 // Get  data
 import { getFirestore, getDocs, collection } from "@firebase/firestore";
@@ -400,593 +413,9 @@ export default {
         isGridView: false,
         search: "",
         newVegetables: [],
-        family_needs: ref(["كفالة", "إطعام"]),
+        family_needs: ref(["كفالة"]),
         Byasc: [],
         props: ["filteredVegetables"],
-        headers: [
-            { title: "الترتيب", key: "id" },
-            { title: "الاسم", key: "name" },
-            { title: "مطلوب", key: "calories" },
-            { title: "داخل", key: "fat" },
-            { title: "عجز", key: "carbs" },
-            { title: "التفاصيل", key: "protein" },
-        ],
-
-        vegetables: [
-            {
-                id: 1,
-                name: "اسلام ابوسيف",
-                calories: 5000,
-                fat: 3000,
-                carbs: 2000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "اسلام ابوسيف" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "البحيره" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "صفر" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 2,
-                name: "بهاء احمد",
-                calories: 3,
-                fat: 300,
-                carbs: 2000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: " محمد احمد " },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "صفر" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 3,
-                name: "جمال علي",
-                calories: 23,
-                fat: 400,
-                carbs: 3000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "خالد علي" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "خالد علي" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "صفر" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 4,
-                name: "على ابراهيم",
-                calories: 32,
-                fat: 500,
-                carbs: 4000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "محمد ابراهيم " },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "صفر" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 5,
-                name: "كريم محمود",
-                calories: 50,
-                fat: 600,
-                carbs: 5000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "خالد محمود" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 6,
-                name: "سعيد محمود",
-                calories: 20,
-                fat: 700,
-                carbs: 6000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: " سعيد محمود" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 7,
-                name: "عبد الرحمن شاهين",
-                calories: 8,
-                fat: 700,
-                carbs: 7000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "محمد شاهين" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 8,
-                name: "يزيد سمير",
-                calories: 40,
-                fat: 800,
-                carbs: 8000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "محمد سمير" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 9,
-                name: "انس علي",
-                calories: 30,
-                fat: 900,
-                carbs: 2000,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "محمد علي " },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "66" },
-                ],
-            },
-
-            {
-                id: 10,
-                name: "محمد سمير",
-                calories: 28,
-                fat: 500,
-                carbs: 900,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "محمد سمير" },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "صفر" },
-                ],
-            },
-            {
-                id: 11,
-                name: "   اكرم علي",
-                calories: 33,
-                fat: 300,
-                carbs: 300,
-                protein: 2.9,
-                iron: "15%",
-                personalInformation: [
-                    { namea: "محمد علي " },
-                    { nameb: "اسلام ابوسيف" },
-                    { cardNumber: 124445788987 },
-                    { Region: "Albuhayra" },
-                    { HouseNumber: 4 },
-                    { FloorNumber: 2 },
-                    { theAddress: "دوله مصر - محافظه البحيره - مركز ابوحمص" },
-                    { SocialStatus: "اعزب" },
-                    { phoneNumber: "01201253897" },
-                ],
-                FinancialInformation: [
-                    { Required: 2000 },
-                    { Inside: 1000 },
-                    { Impotence: 500 },
-                    { TreatmentExpenses: 200 },
-                ],
-                SickCases: [
-                    { PatientName: "اسلام علاء" },
-                    { theDisease: "السكري" },
-                    { treatment: "المستشفي" },
-                    { Reasontreatment: "عدم القدره الماليه" },
-                ],
-                HousingCondition: [
-                    { numberRooms: 3 },
-                    { ApartmentType: "ايجار" },
-                    { BathroomType: "مشترك" },
-                    { FloorType: "بلاط" },
-                    { Descriptionkitchen: "صغير" },
-                    { DescriptionRoom1: "صغر" },
-                    { DescriptionRoom2: "صغر" },
-                    { DescriptionRoom3: "صفر" },
-                ],
-                FamilyNeeds: [
-                    { medical: "صفر" },
-                    { Husband: "صفر" },
-                    { clothes: "صفر" },
-                    { salaries: "صفر" },
-                    { Blankets: "1" },
-                    { FoodBag: "صفر" },
-                    { MonthlyWarranty: "صفر" },
-                    { Appliances: "66" },
-                ],
-            },
-        ],
     }),
     // Search Fun
     computed: {
@@ -1016,6 +445,12 @@ export default {
             );
         },
     },
+    mounted() {
+        // change view
+        this.Emitter.on("change_view", () => {
+            this.change_view();
+        });
+    },
     methods: {
         // Method to handle pagination input change
         paginate(page) {
@@ -1031,9 +466,7 @@ export default {
             querySnapshot.forEach((doc) => {
                 this.Cases.push(doc.data());
             });
-            console.log("this.Cases", this.Cases);
             this.Cases_length = this.Cases.length;
-            this.$emit("child-result", this.Cases_length);
         },
         // change view
         change_view() {
@@ -1048,62 +481,13 @@ export default {
             this.vegetables = filteredData;
         },
     },
-    mounted() {
-        // change view
-        this.Emitter.on("change_view", () => {
-            this.change_view();
-        });
-
-        // -----------------------------------------------------------------------------
-
-        // Firts Function ordered By >>>> Swap BT Latest && Oldest
-        // this.Emitter.on("FunLatest", () => {
-        //     this.vegetables.sort((a, b) => (b[name] > a[name] ? 1 : -1));
-        // });
-        // / Seconed  Function ordered By >>>> A To Z
-        this.Emitter.on("FunATZ", () => {
-            this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
-        });
-        // / Third  Function ordered By >>>> Z To A
-        this.Emitter.on("FunZTA", () => {
-            this.vegetables.sort((a, b) => (b.name > a.name ? 1 : -1));
-        });
-
-        // ---------------------------------------------------------------------------
-        // / Fourth  Function ordered By Cards >>>> S T L
-        this.Emitter.on("CardsAscending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => a.carbs - b.carbs
-            );
-        });
-        // / Fivth  Function ordered By Cards >>>> L T S
-        this.Emitter.on("CardsDesaending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => b.carbs - a.carbs
-            );
-        });
-        // / Sixth  Function ordered Fat >>>> S T L
-        this.Emitter.on("FatAscending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
-        });
-        // / seventh  Function ordered Fat >>>> L T Z
-        this.Emitter.on("fatDesaending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => b.fat - a.fat);
-        });
-        // / Eight  Function ordered calories >>>>S T L
-        this.Emitter.on("caloriesAscending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
-        });
-        // / nine  Function ordered calories >>>>S T L
-        this.Emitter.on("caloriesDesaending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => b.calories - a.calories
-            );
-        });
-    },
 };
 </script>
 <style lang="scss" scoped>
+svg {
+    font-family: sans-serif;
+    font-size: 10px;
+}
 .Table {
     display: table;
     width: 100%;

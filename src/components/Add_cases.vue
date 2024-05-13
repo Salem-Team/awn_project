@@ -1342,7 +1342,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.medical"
+                                            v-model="family_needs_Array"
                                             label="طبي"
                                             value="طبي"
                                         ></v-checkbox>
@@ -1370,7 +1370,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.Husband"
+                                            v-model="family_needs_Array"
                                             label="زوج"
                                             value="زوج"
                                         ></v-checkbox>
@@ -1397,7 +1397,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.clothes"
+                                            v-model="family_needs_Array"
                                             label="ملابس"
                                             value="ملابس"
                                         ></v-checkbox>
@@ -1426,7 +1426,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.salaries"
+                                            v-model="family_needs_Array"
                                             label="مرتبات"
                                             value="مرتبات"
                                         ></v-checkbox>
@@ -1455,7 +1455,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.Blankets"
+                                            v-model="family_needs_Array"
                                             label="بطاطين"
                                             value="بطاطين"
                                         ></v-checkbox>
@@ -1482,7 +1482,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.FoodBag"
+                                            v-model="family_needs_Array"
                                             label="شنطه غذائيه"
                                             value="شنطه غذائيه"
                                         ></v-checkbox>
@@ -1511,9 +1511,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="
-                                                family_needs_5.MonthlyWarranty
-                                            "
+                                            v-model="family_needs_Array"
                                             label="كفاله شهريه"
                                             value="كفاله شهريه"
                                         ></v-checkbox>
@@ -1543,7 +1541,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="family_needs_5.Appliances"
+                                            v-model="family_needs_Array"
                                             label="اجهزه منزليه"
                                             value="اجهزه منزليه"
                                         ></v-checkbox>
@@ -1572,9 +1570,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
-                                            v-model="
-                                                family_needs_5.MonthlyWarranty2
-                                            "
+                                            v-model="family_needs_Array"
                                             label="كفاله "
                                             value="كفاله "
                                         ></v-checkbox>
@@ -1651,7 +1647,7 @@ export default {
             regex2: true,
             regex1: true,
             close: null,
-            family_needs_Array: ["غرف"],
+            family_needs_Array: [],
             personal_info_1_State: null,
             formError: false,
             formError2: false,

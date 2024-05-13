@@ -10,7 +10,11 @@
                 >
                 </v-list-item>
 
-                <v-list-item link prepend-icon="mdi-chart-pie-outline">
+                <v-list-item
+                    link
+                    @click="$router.push('/Report_DashBoard')"
+                    prepend-icon="mdi-chart-pie-outline"
+                >
                 </v-list-item>
                 <v-list-item
                     link
