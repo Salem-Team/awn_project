@@ -2,7 +2,7 @@
     <nav>
         <TheHeader />
     </nav>
-    <router-view />
+    <router-view style="margin-top: 100px !important" />
 </template>
 
 <script>

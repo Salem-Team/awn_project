@@ -95,7 +95,7 @@
                                     إدارة الموقع
                                 </v-list-item>
                                 <v-list-item link v-if="User.type === 'owner'">
-                                    إدارة المساعديين
+                                    التقارير
                                 </v-list-item>
                                 <v-list-item
                                     link
@@ -162,15 +162,14 @@ export default {
         Sign_Out() {
             localStorage.removeItem("id");
             this.User.User_State = true;
+            this.$router.push("/");
         },
         async Check_User() {
-            console.log("Check_User");
             if (localStorage.getItem("id")) {
                 const docRef = doc(db, "Users", localStorage.getItem("id"));
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    console.log("Document data:", docSnap.data());
                     this.User.User_State = false;
                     let name = docSnap.data().name;
                     this.User_FullName = docSnap.data().name;
@@ -186,7 +185,6 @@ export default {
                             return name.charAt(0);
                         })
                         .join(" ");
-                    console.log("this.User.User_name", this.User.User_name);
                 } else {
                     // docSnap.data() will be undefined in this case
                     console.log("No such document!");
@@ -198,6 +196,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 0 10px #ddd;
+    z-index: 10;
     .container {
         display: flex;
         align-items: center;
