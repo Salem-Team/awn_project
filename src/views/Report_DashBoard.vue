@@ -1,42 +1,46 @@
 <template>
-    <Side_Bar />
-    <v-container class="d-flex align-center justify-space-evenly mt-4">
-        <v-card class="card text-center">
-            <v-card-title>العجز</v-card-title>
-            <v-card-body class="text-center">{{ value }}</v-card-body>
-        </v-card>
-        <v-card class="card text-center">
-            <v-card-title>عدد الحالات</v-card-title>
-            <v-card-body class="text-center">{{ Cases_length }}</v-card-body>
-        </v-card>
-        <v-card class="card text-center">
-            <v-card-title>الحالات المشتركة</v-card-title>
-            <v-card-body class="text-center">{{ value }}</v-card-body>
-        </v-card>
-    </v-container>
-    <v-container class="d-flex align-center justify-space-around">
-        <div class="">
-            <p class="text-center mb-10">نسبة إكمال العجز</p>
-            <v-progress-circular
-                class="mt-0"
-                bg-color="orange"
-                :model-value="value"
-                :rotate="360"
-                :size="270"
-                :width="45"
-                color="primary"
-                style="font-size: 32px"
-            >
-                <template v-slot:default="{ value }">
-                    <strong>{{ value }}%</strong>
-                </template>
-            </v-progress-circular>
-        </div>
-        <div style="width: 30%">
-            <canvas id="myChart" width="2px" height="2px"></canvas>
-        </div>
-    </v-container>
-    <v-container><DashboardCharitys ref="childComponentRef" /></v-container>
+    <div>
+        <Side_Bar />
+        <v-container class="d-flex align-center justify-space-evenly mt-4">
+            <v-card class="card text-center">
+                <v-card-title>العجز</v-card-title>
+                <v-card-body class="text-center">{{ value }}</v-card-body>
+            </v-card>
+            <v-card class="card text-center">
+                <v-card-title>عدد الحالات</v-card-title>
+                <v-card-body class="text-center">{{
+                    Cases_length
+                }}</v-card-body>
+            </v-card>
+            <v-card class="card text-center">
+                <v-card-title>الحالات المشتركة</v-card-title>
+                <v-card-body class="text-center">{{ value }}</v-card-body>
+            </v-card>
+        </v-container>
+        <v-container class="d-flex align-center justify-space-around">
+            <div class="">
+                <p class="text-center mb-10">نسبة إكمال العجز</p>
+                <v-progress-circular
+                    class="mt-0"
+                    bg-color="orange"
+                    :model-value="value"
+                    :rotate="360"
+                    :size="270"
+                    :width="45"
+                    color="primary"
+                    style="font-size: 32px"
+                >
+                    <template v-slot:default="{ value }">
+                        <strong>{{ value }}%</strong>
+                    </template>
+                </v-progress-circular>
+            </div>
+            <div style="width: 30%">
+                <canvas id="myChart" width="2px" height="2px"></canvas>
+            </div>
+        </v-container>
+        <v-container><DashboardCharitys ref="childComponentRef" /></v-container>
+    </div>
 </template>
 
 <script scoped>
