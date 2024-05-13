@@ -177,6 +177,7 @@
                                                         padding: 34px;
                                                     "
                                                     block
+                                                    :disabled="isFormEmpty1"
                                                 >
                                                     حفظ
                                                 </v-btn>
@@ -291,6 +292,7 @@
                                                         padding: 34px;
                                                     "
                                                     block
+                                                    :disabled="isFormEmpty2"
                                                 >
                                                     حفظ
                                                 </v-btn>
@@ -552,6 +554,7 @@
                                                         padding: 34px;
                                                     "
                                                     block
+                                                    :disabled="isFormEmpty3"
                                                 >
                                                     حفظ
                                                 </v-btn>
@@ -902,7 +905,11 @@ export default {
             Newpassword: "",
             Newpassword2: "",
         },
-
+        isFormEmpty1: true,
+        isFormEmpty2: true,
+        isFormEmpty3: true,
+        isFormEmpty4: true,
+        isFormEmpty5: true,
         form3: {
             title: "",
             Social_media: [],
@@ -1027,7 +1034,104 @@ export default {
             return this.showPassword3 ? "text" : "password";
         },
     },
+    watch: {
+        "form1.name": function () {
+            this.updateFormEmpty1();
+        },
+        "form1.email": function () {
+            this.updateFormEmpty1();
+        },
+        "form1.cardNumber": function () {
+            this.updateFormEmpty1();
+        },
+        "form1.phoneNumber": function () {
+            this.updateFormEmpty1();
+        },
+
+        "form2.password": function () {
+            this.updateFormEmpty2();
+        },
+        "form2.Newpassword": function () {
+            this.updateFormEmpty2();
+        },
+        "form2.Newpassword2": function () {
+            this.updateFormEmpty2();
+        },
+
+        "form3.title": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.phone": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.address": function () {
+            this.updateFormEmpty3();
+        },
+
+        "form3.descripetion": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.Fame_number": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.Charities_specialty": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.Fame_year": function () {
+            this.updateFormEmpty3();
+        },
+
+        "form3.activitiesc_chertes": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.Facebook": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.Twitter": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.whatsapp": function () {
+            this.updateFormEmpty3();
+        },
+        "form3.Youtube": function () {
+            this.updateFormEmpty3();
+        },
+    },
     methods: {
+        updateFormEmpty1() {
+            // تحقق من إذا كان أي حقل فارغ
+            this.isFormEmpty1 = !(
+                this.form1.name ||
+                this.form1.email ||
+                this.form1.cardNumber ||
+                this.form1.phoneNumber
+            );
+        },
+        updateFormEmpty2() {
+            // تحقق من إذا كان أي حقل فارغ
+            this.isFormEmpty2 = !(
+                this.form2.password ||
+                this.form2.Newpassword ||
+                this.form2.Newpassword2
+            );
+        },
+        updateFormEmpty3() {
+            this.isFormEmpty3 = !(
+                this.form3.title ||
+                this.form3.phone ||
+                this.form3.password ||
+                this.form3.address ||
+                this.form3.descripetion ||
+                this.form3.Fame_number ||
+                this.form3.Charities_specialty ||
+                this.form3.Fame_year ||
+                this.form3.activitiesc_chertes ||
+                this.form3.Facebook ||
+                this.form3.Twitter ||
+                this.form3.whatsapp ||
+                this.form3.Youtube
+            );
+        },
         toggleTheme() {
             if (this.modtheme) {
                 this.theme = "dark";
