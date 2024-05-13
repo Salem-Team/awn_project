@@ -377,6 +377,10 @@
                                                 width: 100%;
                                                 pointer-events: none;
                                             "
+                                            :value="
+                                                financial_info_2.required -
+                                                financial_info_2.incom
+                                            "
                                             variant="outlined"
                                             placeholder="العجز "
                                             :class="[
@@ -1722,9 +1726,9 @@ export default {
                 phone: "01099877833",
             },
             financial_info_2: {
-                required: "",
-                incom: "",
-                deficit: "",
+                required: null,
+                incom: null,
+                deficit: null,
             },
 
             diseases_3: [
@@ -2064,9 +2068,16 @@ export default {
                 financial_info: {
                     required: this.financial_info_2.required,
                     incom: this.financial_info_2.incom,
-                    deficit: this.financial_info_2.deficit,
+                    deficit:
+                        this.financial_info_2.required -
+                        this.financial_info_2.incom,
                 },
-                diseases: this.diseases_3,
+                diseases: {
+                    patien_name: this.diseases_3.patien_name,
+                    disease: this.diseases_3.disease,
+                    get_treatment: this.diseases_3.get_treatment,
+                    not_available: this.diseases_3.not_available,
+                },
                 housing_condition: {
                     number_rooms: this.housing_condition_4.number_rooms,
                     house_type: this.housing_condition_4.house_type,
@@ -2126,7 +2137,7 @@ export default {
                     {
                         deficit:
                             this.financial_info_2.required -
-                            this.financial_info_2.deficit,
+                            this.financial_info_2.incom,
                     }
                 );
                 this.e1++;

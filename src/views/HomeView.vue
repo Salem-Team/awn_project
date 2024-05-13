@@ -6,7 +6,6 @@
         data-bs-spy="scroll"
         data-bs-target=".navbar"
         class="body"
-        style="margin-top: 100px"
     >
         <!--Navbar Start-->
         <!-- <v-app-bar app color="primary" fixed dark>

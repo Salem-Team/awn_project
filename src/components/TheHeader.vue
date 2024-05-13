@@ -165,13 +165,11 @@ export default {
             this.$router.push("/");
         },
         async Check_User() {
-            console.log("Check_User");
             if (localStorage.getItem("id")) {
                 const docRef = doc(db, "Users", localStorage.getItem("id"));
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    console.log("Document data:", docSnap.data());
                     this.User.User_State = false;
                     let name = docSnap.data().name;
                     this.User_FullName = docSnap.data().name;
@@ -187,7 +185,6 @@ export default {
                             return name.charAt(0);
                         })
                         .join(" ");
-                    console.log("this.User.User_name", this.User.User_name);
                 } else {
                     // docSnap.data() will be undefined in this case
                     console.log("No such document!");
