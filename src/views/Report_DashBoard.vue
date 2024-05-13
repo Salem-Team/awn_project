@@ -3,24 +3,37 @@
     <v-container class="d-flex justify-space-evenly mt-16">
         <v-card
             class="card text-center mt-16 bg-primary"
-            prepend-icon="mdi-currency-usd"
+            prepend-icon="mdi-cash"
         >
-            <v-card-title>العجز</v-card-title>
-            <v-card-body class="text-center">{{ value }}</v-card-body>
+            <v-card-title>المطلوب</v-card-title>
+            <v-card-body class="text-center">{{ this.required }}</v-card-body>
+        </v-card>
+        <v-card
+            class="card text-center mt-16 bg-orange-lighten-2"
+            prepend-icon="mdi-cash-plus"
+        >
+            <v-card-title>الدخل</v-card-title>
+            <v-card-body class="text-center">{{ this.incom }}</v-card-body>
         </v-card>
         <v-card
             class="card text-center mt-16 bg-cyan-lighten-2"
-            prepend-icon="mdi-account"
+            prepend-icon="mdi-cash-minus"
         >
+            <v-card-title>العجز</v-card-title>
+            <v-card-body class="text-center">{{
+                this.required - this.incom
+            }}</v-card-body>
+        </v-card>
+        <v-card class="card text-center mt-16" prepend-icon="mdi-account">
             <v-card-title>عدد الحالات</v-card-title>
             <v-card-body class="text-center">{{ Cases_length }}</v-card-body>
         </v-card>
         <v-card
-            class="card text-center mt-16 bg-orange-lighten-2"
+            class="card text-center mt-16"
             prepend-icon="mdi-account-multiple"
         >
             <v-card-title>الحالات المشتركة</v-card-title>
-            <v-card-body class="text-center">{{ value }}</v-card-body>
+            <v-card-body class="text-center">80</v-card-body>
         </v-card>
     </v-container>
     <v-container class="d-flex align-center justify-space-around">
@@ -28,12 +41,12 @@
             <p class="text-center mb-10">نسبة إكمال العجز</p>
             <v-progress-circular
                 class="mt-0"
-                bg-color="orange"
+                bg-color="#00CCCC"
                 :model-value="value"
                 :rotate="360"
                 :size="270"
                 :width="45"
-                color="primary"
+                color="orange"
                 style="font-size: 32px"
             >
                 <template v-slot:default="{ value }">
@@ -46,8 +59,13 @@
         </div>
     </v-container>
     <v-container><v-divider></v-divider></v-container>
-    <v-container style="width: 70%">
-        <canvas id="barChart" width="2px" height="2px"></canvas>
+    <v-container style="width: 70%; overflow: auto">
+        <canvas
+            id="barChart"
+            width="2px"
+            height="2px"
+            style="overflow: auto"
+        ></canvas>
     </v-container>
 </template>
 
@@ -99,19 +117,30 @@ export default {
                 this.Cases.push(doc.data());
             });
             this.Cases_length = this.Cases.length;
-            this.sumFinancialData();
             // Render both charts after getting data
             this.renderChart();
             this.renderBarChart();
+            this.sumFinancialData();
         },
 
         sumFinancialData() {
+            this.deficit = 0;
+            this.required = 0;
+            this.incom = 0;
             this.Cases.forEach((Case) => {
-                this.deficit += Case.financial_info.deficit;
-                this.required += Case.financial_info.required;
-                this.incom += Case.financial_info.incom;
+                if (!isNaN(parseInt(Case.financial_info.deficit))) {
+                    this.deficit += parseInt(Case.financial_info.deficit);
+                }
+                if (!isNaN(parseInt(Case.financial_info.required))) {
+                    this.required += parseInt(Case.financial_info.required);
+                }
+                if (!isNaN(parseInt(Case.financial_info.incom))) {
+                    this.incom += parseInt(Case.financial_info.incom);
+                }
             });
+            this.value = Math.round((this.incom / this.required) * 100);
         },
+
         renderChart() {
             const ctx = document.getElementById("myChart");
             new Chart(ctx, {
@@ -145,56 +174,46 @@ export default {
             // Initialize chart data arrays
             const labels = [];
             const data = [];
-
+            const data1 = [];
+            const data2 = [];
             // Loop through each case to extract financial_info
             this.Cases.forEach((Case, index) => {
-                labels.push(`${Case.personal_info.name} (${index + 1})`);
-
-                // Push three values for each case
-                data.push(
-                    Case.financial_info.required,
-                    -Case.financial_info.incom,
-                    Case.financial_info.deficit
+                labels.push(`${Case.personal_info.name} (${index + 1} )`);
+                data.push(Case.financial_info.required);
+                data1.push(Case.financial_info.incom);
+                data2.push(
+                    Case.financial_info.required - Case.financial_info.incom
                 );
             });
-
-            // Create datasets array with three datasets
-            const datasets = [
-                {
-                    label: "المطلوب",
-                    backgroundColor: "#0066CC",
-                    borderWidth: 1,
-                    data: [],
-                },
-                {
-                    label: "الدخل",
-                    backgroundColor: "orange",
-                    borderWidth: 1,
-                    data: [],
-                },
-                {
-                    label: "العجز",
-                    backgroundColor: "#00CCCC",
-                    borderWidth: 1,
-                    data: [],
-                },
-            ];
-
-            // Populate datasets with data
-            data.forEach((value, index) => {
-                const datasetIndex = index % 3; // Cycle through the three datasets
-                datasets[datasetIndex].data.push(value);
-            });
-
-            // Render the chart
             new Chart(ctx, {
                 type: "bar",
                 data: {
                     labels: labels,
-                    datasets: datasets,
+                    datasets: [
+                        {
+                            label: "المطلوب",
+                            data: data,
+                            backgroundColor: "#0066CC",
+                            borderColor: "transparent",
+                            borderWidth: 1,
+                        },
+                        {
+                            label: "الدخل",
+                            data: data1,
+                            backgroundColor: "orange",
+                            borderColor: "transparent",
+                            borderWidth: 1,
+                        },
+                        {
+                            label: "العجز",
+                            data: data2,
+                            backgroundColor: "#00CCCC",
+                            borderColor: "transparent",
+                            borderWidth: 1,
+                        },
+                    ],
                 },
                 options: {
-                    responsive: true,
                     plugins: {
                         legend: {
                             position: "top",
@@ -209,7 +228,7 @@ export default {
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: "Value",
+                                text: "المعلومات المالية",
                             },
                         },
                     },
