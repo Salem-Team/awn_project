@@ -778,8 +778,8 @@
                                                                 class="card d-flex"
                                                             >
                                                                 <v-checkbox
-                                                                    :v-model="
-                                                                        this.s1
+                                                                    v-model="
+                                                                        item.AssistantPowers
                                                                     "
                                                                     label="اضافه الحالات من الفورم"
                                                                     value="اضافه الحالات من الفورم"
@@ -791,8 +791,8 @@
                                                                 class="card d-flex"
                                                             >
                                                                 <v-checkbox
-                                                                    :v-model="
-                                                                        this.s2
+                                                                    v-model="
+                                                                        item.AssistantPowers
                                                                     "
                                                                     label="اضافه الحالات من الاكسيل"
                                                                     value="اضافه الحالات من الاكسيل"
@@ -804,8 +804,8 @@
                                                                 class="card d-flex"
                                                             >
                                                                 <v-checkbox
-                                                                    :v-model="
-                                                                        this.s3
+                                                                    v-model="
+                                                                        item.AssistantPowers
                                                                     "
                                                                     label="الاطلاع علي تقارير"
                                                                     value="الاطلاع علي تقارير"
@@ -861,9 +861,6 @@ import useVuelidate from "@vuelidate/core";
 // } from "@vuelidate/validators";
 export default {
     data: () => ({
-        s1: null,
-        s2: null,
-        s3: null,
         randomPassword: "",
         passwordsMatchError: false,
         passwordsMatchError2: false,
@@ -925,14 +922,11 @@ export default {
             whatsapp: "",
             Youtube: "",
         },
-
-        form4: {
-            AssistantPowers: {
-                select1: "",
-                select2: "",
-                select3: "",
-            },
+        www: {
+            selected0: [],
         },
+        form4: {},
+
         form5: {
             toggle5000: 500,
             cardnumber: "",
@@ -1302,11 +1296,7 @@ export default {
                           nationalNumberAssistant: this.nationalNumberAssistant,
                           AssistantPhoneNumber: this.AssistantPhoneNumber,
                           randomPassword: this.randomPassword,
-                          AssistantPowers: {
-                              select1: this.s1,
-                              select2: this.s2,
-                              select3: this.s3,
-                          },
+                          AssistantPowers: [],
                       }
                     : ""
             );
