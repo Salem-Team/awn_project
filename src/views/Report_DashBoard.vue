@@ -1,43 +1,48 @@
 <template>
-    <Side_Bar />
+    <div><Side_Bar /></div>
     <v-container class="d-flex justify-space-evenly mt-16">
         <v-card
             class="card text-center mt-16 bg-primary"
             prepend-icon="mdi-cash"
         >
             <v-card-title>المطلوب</v-card-title>
-            <v-card-body class="text-center">{{ this.required }}</v-card-body>
+            <v-card-text class="text-center">{{ this.required }}</v-card-text>
         </v-card>
         <v-card
             class="card text-center mt-16 bg-orange-lighten-2"
             prepend-icon="mdi-cash-plus"
         >
             <v-card-title>الدخل</v-card-title>
-            <v-card-body class="text-center">{{ this.incom }}</v-card-body>
+            <v-card-text class="text-center">{{ this.incom }}</v-card-text>
         </v-card>
         <v-card
             class="card text-center mt-16 bg-cyan-lighten-2"
             prepend-icon="mdi-cash-minus"
         >
             <v-card-title>العجز</v-card-title>
-            <v-card-body class="text-center">{{
+            <v-card-text class="text-center">{{
                 this.required - this.incom
-            }}</v-card-body>
+            }}</v-card-text>
         </v-card>
-        <v-card class="card text-center mt-16" prepend-icon="mdi-account">
+    </v-container>
+    <v-container class="d-flex justify-space-evenly mb-4">
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-account"
+        >
             <v-card-title>عدد الحالات</v-card-title>
-            <v-card-body class="text-center">{{ Cases_length }}</v-card-body>
+            <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
         </v-card>
         <v-card
-            class="card text-center mt-16"
+            class="card text-center mt-3 bg-grey-lighten-3"
             prepend-icon="mdi-account-multiple"
         >
             <v-card-title>الحالات المشتركة</v-card-title>
-            <v-card-body class="text-center">80</v-card-body>
+            <v-card-text class="text-center">80</v-card-text>
         </v-card>
     </v-container>
     <v-container class="d-flex align-center justify-space-around">
-        <div class="">
+        <div>
             <p class="text-center mb-10">نسبة إكمال العجز</p>
             <v-progress-circular
                 class="mt-0"
@@ -72,6 +77,7 @@
 <script scoped>
 import { ref } from "vue";
 import Chart from "chart.js/auto";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import Side_Bar from "@/components/Side_Bar.vue";
 // Get  data
 import { getFirestore, getDocs, collection } from "@firebase/firestore";
@@ -117,10 +123,10 @@ export default {
                 this.Cases.push(doc.data());
             });
             this.Cases_length = this.Cases.length;
+            this.sumFinancialData();
             // Render both charts after getting data
             this.renderChart();
             this.renderBarChart();
-            this.sumFinancialData();
         },
 
         sumFinancialData() {
@@ -149,7 +155,11 @@ export default {
                     labels: ["العجز", "المطلوب", "الدخل"],
                     datasets: [
                         {
-                            data: [30, 50, 20],
+                            data: [
+                                this.required - this.incom,
+                                this.required,
+                                this.incom,
+                            ],
                             backgroundColor: ["#00CCCC", "#0066CC", "orange"],
                             borderWidth: 1,
                         },
@@ -175,15 +185,21 @@ export default {
             const labels = [];
             const data = [];
             const data1 = [];
-            const data2 = [];
+            const value1 = [];
             // Loop through each case to extract financial_info
             this.Cases.forEach((Case, index) => {
                 labels.push(`${Case.personal_info.name} (${index + 1} )`);
-                data.push(Case.financial_info.required);
-                data1.push(Case.financial_info.incom);
-                data2.push(
+                data.push(
                     Case.financial_info.required - Case.financial_info.incom
                 );
+                data1.push(Case.financial_info.incom);
+                const incomRatio =
+                    Case.financial_info.required !== 0
+                        ? (Case.financial_info.incom /
+                              Case.financial_info.required) *
+                          100
+                        : NaN;
+                value1.push(isNaN(incomRatio) ? null : Math.round(incomRatio));
             });
             new Chart(ctx, {
                 type: "bar",
@@ -191,30 +207,40 @@ export default {
                     labels: labels,
                     datasets: [
                         {
-                            label: "المطلوب",
+                            label: "العجز",
                             data: data,
-                            backgroundColor: "#0066CC",
-                            borderColor: "transparent",
-                            borderWidth: 1,
+                            backgroundColor: "#00CCCC",
+                            stack: 0,
+                            order: 2, // Set the order to 2 to place it behind
                         },
                         {
                             label: "الدخل",
                             data: data1,
                             backgroundColor: "orange",
-                            borderColor: "transparent",
-                            borderWidth: 1,
-                        },
-                        {
-                            label: "العجز",
-                            data: data2,
-                            backgroundColor: "#00CCCC",
-                            borderColor: "transparent",
-                            borderWidth: 1,
+                            stack: 0,
+                            order: 1, // Set the order to 1 to place it in front
                         },
                     ],
                 },
                 options: {
                     plugins: {
+                        datalabels: {
+                            color: "#0066CC", // Set the color of data labels
+                            anchor: "end", // Position the data labels at the end of the bars
+                            align: "top", // Align the data labels to the top of the bars
+                            formatter: function (value, context) {
+                                if (
+                                    value1[context.dataIndex] !== null &&
+                                    context.datasetIndex === 0
+                                ) {
+                                    // Print the value for the second dataset only if it's not null
+                                    return value1[context.dataIndex] + "%";
+                                } else {
+                                    return "";
+                                }
+                            },
+                        },
+
                         legend: {
                             position: "top",
                         },
@@ -226,13 +252,15 @@ export default {
                     scales: {
                         y: {
                             beginAtZero: true,
+                            stack: true,
                             title: {
                                 display: true,
-                                text: "المعلومات المالية",
+                                text: "المطلوب",
                             },
                         },
                     },
                 },
+                plugins: [ChartDataLabels], // Enable the datalabels plugin
             });
         },
     },
