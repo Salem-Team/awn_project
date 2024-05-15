@@ -1,43 +1,72 @@
 <template>
-    <div class="Dash_board">
+    <div class="Dash_board mt-16">
         <!-- NavBar  -->
         <Side_Bar />
-        <v-container fluid>
-            <v-row>
-                <v-col cols="12">
-                    <div
-                        class="d-flex justify-space-between align-end flex-wrap px-12"
-                        style="
-                            position: relative;
-                            padding: 1px 16px 1px 0px;
-                            margin-left: 50px;
-                            border-radius: 7px 0px 0px 0px;
-                            border-radius: 20px;
-                            height: 115px;
-                            border: 1px solid #ddd;
-                        "
-                    >
+        <v-container class="mt-16">
+            <v-container>
+                <v-row
+                    style="
+                        padding: 40px;
+                        border-radius: 7px 0px 0px 0px;
+                        border-radius: 20px;
+                        border: 1px solid #ddd;
+                    "
+                >
+                    <v-col lg="5" md="7" sm="12">
                         <!-- Info Status -->
                         <div
-                            class="info_stat d-flex justify-space-between align-center ga-12"
+                            class="info_stat d-flex justify-space-between align-center ga-4"
                         >
-                            <div class="info">
-                                <div class="num">{{ childResult }}</div>
-                                <span>الحاله</span>
-                            </div>
-                            <div class="info">
-                                <div class="num">30000</div>
-                                <span>عجز</span>
-                            </div>
-                            <div class="info">
-                                <div class="num">50</div>
-                                <span>حالات مشتركه</span>
-                            </div>
+                            <v-chip
+                                style="padding: 46px; height: 10px"
+                                class="text-center chip_info"
+                            >
+                                <div class="info">
+                                    <div class="num">{{ childResult }}</div>
+                                    <span class="text-primary">الحاله</span>
+                                </div>
+                            </v-chip>
+                            <v-chip
+                                style="padding: 46px; height: 10px"
+                                class="text-center chip_info"
+                            >
+                                <div class="info">
+                                    <div class="num">30000</div>
+                                    <span class="text-primary">عجز</span>
+                                </div>
+                            </v-chip>
+                            <v-chip
+                                style="padding: 46px; height: 10px"
+                                class="text-center chip_info"
+                            >
+                                <div class="info">
+                                    <div class="num">50</div>
+                                    <span class="text-primary"
+                                        >حالات مشتركه</span
+                                    >
+                                </div>
+                            </v-chip>
                         </div>
+                    </v-col>
+                    <v-col
+                        lg="7"
+                        md="5"
+                        sm="12"
+                        style="
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                        "
+                        class="info_col2"
+                    >
                         <div class="d-flex ga-3 mb-3">
                             <v-menu>
                                 <template v-slot:activator="{ props }">
-                                    <v-btn color="primary" v-bind="props">
+                                    <v-btn
+                                        class="btn_menu"
+                                        color="primary"
+                                        v-bind="props"
+                                    >
                                         ترتيب حسب
                                         <v-icon>mdi-filter-variant</v-icon>
                                     </v-btn>
@@ -176,18 +205,18 @@
                                     <!-- المطلوب نهايه ------------------------------------------------ -->
                                 </v-list>
                             </v-menu>
-                            <v-btn @click="dialog = true">
+                            <v-btn @click="dialog = true" class="btn_menu">
                                 <v-icon style="font-size: 20px !important"
                                     >mdi-plus</v-icon
                                 >
                             </v-btn>
-                            <v-btn @click="Swap">
+                            <v-btn @click="Swap" class="btn_menu">
                                 <v-icon>mdi-view-grid-outline</v-icon>
                             </v-btn>
                         </div>
-                    </div>
-                </v-col>
-            </v-row>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-container>
         <v-container>
             <v-dialog v-model="dialog" width="90%">
@@ -358,13 +387,12 @@
                 </div>
             </v-dialog>
         </v-container>
-        <v-container fluid>
+        <v-container>
             <div class="Charites d-flex justify-center">
                 <DashboardCharitys
                     ref="childComponentRef"
                     @child-result="handleChildResult"
                 />
-                <StatusInformation />
             </div>
         </v-container>
         <Add_cases v-if="Show_Add" :close_function="close_function" />
@@ -378,7 +406,6 @@ import FileSaver from "file-saver"; // Import FileSaver for download
 
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
-import StatusInformation from "@/components/StatusInformation.vue";
 import Add_cases from "@/components/Add_cases.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
 
@@ -387,7 +414,6 @@ export default {
     name: "Dash_board",
     components: {
         DashboardCharitys,
-        StatusInformation,
         Side_Bar,
         Add_cases,
     },
@@ -429,6 +455,12 @@ export default {
     },
 
     methods: {
+        // close function
+        close_function() {
+            this.Show_Add = !this.Show_Add;
+            this.dialog = false;
+            this.$refs.childComponentRef.Get_data();
+        },
         toggleActive(direction) {
             if (direction === "up") {
                 this.isActive = this.isActive === "up" ? null : "up";
@@ -440,12 +472,6 @@ export default {
         handleChildResult(result) {
             this.childResult = result;
             console.log("Received result from child:", this.childResult);
-        },
-        // close function
-        close_function() {
-            this.Show_Add = !this.Show_Add;
-            this.dialog = false;
-            this.$refs.childComponentRef.Get_data();
         },
         // change view
         Swap() {
@@ -573,12 +599,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.info_stat .info {
-    font-size: 20px;
-    span {
-        font-size: 25px;
-    }
-}
+// .info_stat .info {
+//     font-size: 20px;
+//     span {
+//         font-size: 25px;
+//     }
+// }
 .Dash_board {
     width: calc(100% - 56px);
     margin-right: auto;
@@ -660,5 +686,57 @@ label span:active {
 }
 .v-btn-group--density-default.v-btn-group {
     padding-bottom: 0 !important;
+}
+.chip_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1000px) {
+    .info_col2 {
+        justify-content: center !important;
+        font-size: 20px !important;
+    }
+}
+@media (min-width: 400px) {
+    .chip_info {
+        padding: 42px !important;
+        font-size: 14px !important;
+    }
+}
+@media (max-width: 400px) {
+    .chip_info {
+        padding: 34px !important;
+        font-size: 16px !important;
+    }
+}
+@media (max-width: 400px) {
+    .btn_menu {
+        font-size: 7px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .chip_info {
+        padding: 40px !important;
+        font-size: 18px !important;
+    }
+}
+@media (min-width: 1200px) {
+    .chip_info {
+        padding: 50px !important;
+        font-size: 23px !important;
+    }
+}
+@media (max-width: 400px) {
+    .info_stat {
+        gap: 2px !important;
+    }
+}
+@media (max-width: 400px) {
+    .chip_info[data-v-d1ccef3e] {
+        font-size: 9px !important;
+    }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <header class="header" :theme="triggerToggleTheme">
         <div class="container">
             <div class="logo">
                 <svg
@@ -10,7 +10,6 @@
                 >
                     <g
                         transform="translate(0.000000,1024.000000) scale(0.100000,-0.100000)"
-                        fill="#000000"
                         stroke="none"
                     >
                         <path
@@ -37,6 +36,15 @@
                     </g>
                 </svg>
             </div>
+            <div class="div" style="display: flex; justify-content: end">
+                <v-fade-transition @click="triggerToggleTheme" leave-absolute>
+                    <v-icon v-if="this.themesun"
+                        >mdi-moon-waning-crescent</v-icon
+                    >
+
+                    <v-icon v-else>mdi-weather-sunny</v-icon>
+                </v-fade-transition>
+            </div>
             <nav>
                 <ul>
                     <li>
@@ -53,51 +61,11 @@
             <div class="Login_Register">
                 <div class="login" v-if="User.User_State">
                     تسجيل دخول
-                    <v-dialog activator="parent" max-width="900">
-                        <template v-slot:default="{ isActive }">
-                            <v-card rounded="lg">
-                                <v-card-title
-                                    class="d-flex justify-space-between align-center"
-                                >
-                                    <div
-                                        class="text-h5 text-medium-emphasis ps-2"
-                                    >
-                                        تسجيل دخول
-                                    </div>
-                                    <v-btn
-                                        icon="mdi-close"
-                                        variant="text"
-                                        @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-title>
-                                <TheSignin :Check_User="Check_User" />
-                            </v-card>
-                        </template>
-                    </v-dialog>
+                    <TheSignin :Check_User="Check_User" />
                 </div>
                 <div class="register" v-if="User.User_State">
                     حساب جديد
-                    <v-dialog activator="parent" max-width="900">
-                        <template v-slot:default="{ isActive }">
-                            <v-card rounded="lg">
-                                <v-card-title
-                                    class="d-flex justify-space-between align-center"
-                                >
-                                    <div
-                                        class="text-h5 text-medium-emphasis ps-2"
-                                    >
-                                        حساب جديد
-                                    </div>
-                                    <v-btn
-                                        icon="mdi-close"
-                                        variant="text"
-                                        @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-title>
-                                <TheRegister />
-                            </v-card>
-                        </template>
-                    </v-dialog>
+                    <TheRegister />
                 </div>
                 <div
                     class="User_box"
@@ -135,7 +103,14 @@
                                     إدارة الموقع
                                 </v-list-item>
                                 <v-list-item link v-if="User.type === 'owner'">
-                                    إدارة المساعديين
+                                    التقارير
+                                </v-list-item>
+                                <v-list-item
+                                    link
+                                    @click="$router.push('/Settings_Admin')"
+                                    v-if="User.type === 'owner'"
+                                >
+                                    الاعدادات
                                 </v-list-item>
                                 <v-list-item @click="Sign_Out"
                                     ><v-icon>mdi-export</v-icon> تسجيل
@@ -147,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 </template>
 <script>
 import TheRegister from "@/components/The_Register.vue";
@@ -176,6 +151,7 @@ const db = getFirestore(app);
 export default {
     name: "TheHeader",
     components: { TheRegister, TheSignin },
+    inject: ["Emitter"],
     mounted() {
         this.Check_User();
     },
@@ -189,21 +165,25 @@ export default {
                 User_FullName: "",
                 type: "",
             },
+            themesun: true,
         };
     },
     methods: {
+        triggerToggleTheme() {
+            this.$emit("execute-toggle-theme");
+            this.themesun = !this.themesun; // إرسال حدث لتنفيذ دالة toggleTheme
+        },
         Sign_Out() {
             localStorage.removeItem("id");
             this.User.User_State = true;
+            this.$router.push("/");
         },
         async Check_User() {
-            console.log("Check_User");
             if (localStorage.getItem("id")) {
                 const docRef = doc(db, "Users", localStorage.getItem("id"));
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    console.log("Document data:", docSnap.data());
                     this.User.User_State = false;
                     let name = docSnap.data().name;
                     this.User_FullName = docSnap.data().name;
@@ -219,7 +199,6 @@ export default {
                             return name.charAt(0);
                         })
                         .join(" ");
-                    console.log("this.User.User_name", this.User.User_name);
                 } else {
                     // docSnap.data() will be undefined in this case
                     console.log("No such document!");
@@ -231,6 +210,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    // background: white;
+    box-shadow: 0 0 10px white;
+    z-index: 10;
     .container {
         display: flex;
         align-items: center;
@@ -255,7 +241,7 @@ export default {
             gap: 10px;
             align-items: center;
             & > div {
-                background: #eee;
+                // background: white;
                 padding: 10px;
                 border-radius: 5px;
                 cursor: pointer;

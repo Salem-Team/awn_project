@@ -1,17 +1,42 @@
 <template>
-    <nav>
-        <TheHeader />
-    </nav>
-    <router-view />
+    <v-app>
+        <v-theme-provider class="pa-10" :theme="this.theme" with-background>
+            <nav>
+                <TheHeader @execute-toggle-theme="toggleTheme" />
+            </nav>
+            <router-view
+                style="margin-top: 100px !important"
+                @execute-toggle-theme="toggleTheme"
+            />
+        </v-theme-provider>
+    </v-app>
 </template>
 
 <script>
-// @ is an alias to /src
 import TheHeader from "@/components/TheHeader.vue";
+import "bootstrap/dist/css/bootstrap.css";
+// import { ref } from "vue";
 
 export default {
+    data() {
+        return {
+            theme: "",
+            modtheme: true,
+        };
+    },
     components: {
         TheHeader,
+    },
+    methods: {
+        toggleTheme() {
+            if (this.modtheme) {
+                this.theme = "dark";
+                this.modtheme = false;
+            } else {
+                this.theme = "Light";
+                this.modtheme = true;
+            }
+        },
     },
 };
 </script>
@@ -23,7 +48,8 @@ export default {
 
 body {
     direction: rtl;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Cairo", sans-serif;
+    font-variation-settings: "slnt" 0;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -39,5 +65,16 @@ a {
 .container {
     width: 90%;
     margin: auto;
+}
+/* أنماط CSS للثيم المظلم */
+.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+/* أنماط CSS للثيم الفاتح */
+.light-theme {
+    background-color: #fff;
+    color: #333;
 }
 </style>

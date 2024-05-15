@@ -1,274 +1,314 @@
 <template>
-    <div class="The_Register">
-        <v-container class="form_container mt-4">
-            <!--get the data from the Charities using v-model-->
-            <form
-                ref="form"
-                @submit.prevent="validateForm"
-                class="ma-auto"
-                action="post"
-            >
-                <!--title input-->
-                <v-text-field
-                    v-model="Charities.title"
-                    variant="outlined"
-                    label="اسم الجمعية"
-                    class="mt-2"
-                    :error-messages="
-                        v$.Charities.title.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
-                <!--phone input-->
-                <v-text-field
-                    v-model="Charities.phone"
-                    label="تليفون الجمعية"
-                    type="tel"
-                    variant="outlined"
-                    :error-messages="
-                        v$.Charities.phone.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
-                <!--describetion input-->
-                <v-textarea
-                    row-height="15"
-                    auto-grow
-                    rows="3"
-                    variant="outlined"
-                    v-model="Charities.descripetion"
-                    :error-messages="
-                        v$.Charities.descripetion.$errors.map((e) => e.$message)
-                    "
-                    label="وصف قصير للجمعية"
-                ></v-textarea>
-                <!--address input-->
-                <v-text-field
-                    variant="outlined"
-                    label="العنوان"
-                    v-model="Charities.address"
-                    :error-messages="
-                        v$.Charities.address.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
-                <div class="d-flex align-center flex-wrap !w-full">
-                    <!--Fame_number input-->
-                    <v-text-field
-                        variant="outlined"
-                        v-model="Charities.Fame_number"
-                        :error-messages="
-                            v$.Charities.Fame_number.$errors.map(
-                                (e) => e.$message
-                            )
-                        "
-                        label="رقم الشهره"
-                    ></v-text-field>
-                    <!--year input-->
-                    <v-text-field
-                        variant="outlined"
-                        name="year"
-                        v-model="Charities.Fame_year"
-                        :error-messages="
-                            v$.Charities.Fame_year.$errors.map(
-                                (e) => e.$message
-                            )
-                        "
-                        label="لسنة"
-                    ></v-text-field>
-                </div>
-                <!--the Charities can add another email box if needed by clicking the plus button-->
-                <div class="d-flex align-center flex-wrap mb-2">
-                    <label for="link">لينكات منصات التواصل</label>
-                    <v-spacer></v-spacer>
+    <v-dialog activator="parent" max-width="900">
+        <template v-slot:default="{ isActive }">
+            <v-card rounded="lg">
+                <v-card-title class="d-flex justify-space-between align-center">
+                    <div class="text-h5 text-medium-emphasis ps-2">
+                        حساب جديد
+                    </div>
                     <v-btn
-                        icon="mdi-plus"
+                        icon="mdi-close"
                         variant="text"
-                        @click="social++"
-                        class="bg-grey-lighten-3"
-                        size="small"
+                        @click="isActive.value = false"
                     ></v-btn>
-                </div>
-                <!--Social_media input-->
-                <v-text-field
-                    id="link"
-                    v-for="(social, index) in social"
-                    :key="index"
-                    v-model="Charities.Social_media[index]"
-                    label="منصات التواصل"
-                    type="text"
-                    variant="outlined"
-                ></v-text-field>
-                <p class="mb-2 text-right">أنشطة الجمعية ( حدد خيار أو أكثر)</p>
-                <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
-                <v-chip-group
-                    selected-class="bg-grey-lighten-1"
-                    multiple
-                    mandatory
-                    class="text-right"
-                    v-model="Charities.Charities_specialty"
-                    :error-messages="
-                        v$.Charities.Charities_specialty.$errors.map(
-                            (e) => e.$message
-                        )
-                    "
-                >
-                    <v-chip
-                        elevation="2"
-                        v-for="(activity, index) in activities"
-                        :key="index"
-                        class="ma-2"
-                        rounded="lg"
-                        size="x-large"
-                        :value="activity"
-                        filter
-                        >{{ activity }}</v-chip
-                    >
-                </v-chip-group>
-                <p class="mb-4 text-right">
-                    {{ Charities.Charities_specialty }}
-                </p>
-                <p class="mb-2 text-right">أنواع الباقات</p>
-                <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
-                <v-chip-group
-                    selected-class="bg-grey-lighten-1"
-                    mandatory
-                    class="text-right d-flex"
-                    v-model="Charities.Package_type"
-                >
-                    <v-chip
-                        elevation="2"
-                        v-for="(Packages, index) in Packages"
-                        :key="index"
-                        class="ma-2"
-                        rounded="lg"
-                        size="x-large"
-                        :value="Packages"
-                        filter
-                        >{{ Packages }}</v-chip
-                    >
-                </v-chip-group>
-                <p class="mb-4 text-right">{{ Charities.Package_type }}</p>
+                </v-card-title>
+                <div class="The_Register">
+                    <v-container class="form_container mt-4">
+                        <!--get the data from the Charities using v-model-->
+                        <form
+                            ref="form"
+                            @submit.prevent="validateForm"
+                            class="ma-auto"
+                            action="post"
+                        >
+                            <!--title input-->
+                            <v-text-field
+                                v-model="Charities.title"
+                                variant="outlined"
+                                label="اسم الجمعية"
+                                class="mt-2"
+                                :error-messages="
+                                    v$.Charities.title.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            ></v-text-field>
+                            <!--phone input-->
+                            <v-text-field
+                                v-model="Charities.phone"
+                                label="تليفون الجمعية"
+                                type="tel"
+                                variant="outlined"
+                                :error-messages="
+                                    v$.Charities.phone.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            ></v-text-field>
+                            <!--describetion input-->
+                            <v-textarea
+                                row-height="15"
+                                auto-grow
+                                rows="3"
+                                variant="outlined"
+                                v-model="Charities.descripetion"
+                                :error-messages="
+                                    v$.Charities.descripetion.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                                label="وصف قصير للجمعية"
+                            ></v-textarea>
+                            <!--address input-->
+                            <v-text-field
+                                variant="outlined"
+                                label="العنوان"
+                                v-model="Charities.address"
+                                :error-messages="
+                                    v$.Charities.address.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            ></v-text-field>
+                            <div class="d-flex align-center flex-wrap !w-full">
+                                <!--Fame_number input-->
+                                <v-text-field
+                                    variant="outlined"
+                                    v-model="Charities.Fame_number"
+                                    :error-messages="
+                                        v$.Charities.Fame_number.$errors.map(
+                                            (e) => e.$message
+                                        )
+                                    "
+                                    label="رقم الشهره"
+                                ></v-text-field>
+                                <!--year input-->
+                                <v-text-field
+                                    variant="outlined"
+                                    name="year"
+                                    v-model="Charities.Fame_year"
+                                    :error-messages="
+                                        v$.Charities.Fame_year.$errors.map(
+                                            (e) => e.$message
+                                        )
+                                    "
+                                    label="لسنة"
+                                ></v-text-field>
+                            </div>
+                            <!--the Charities can add another email box if needed by clicking the plus button-->
+                            <div class="d-flex align-center flex-wrap mb-2">
+                                <label for="link">لينكات منصات التواصل</label>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    icon="mdi-plus"
+                                    variant="text"
+                                    @click="social++"
+                                    class="bg-grey-lighten-3"
+                                    size="small"
+                                ></v-btn>
+                            </div>
+                            <!--Social_media input-->
+                            <v-text-field
+                                id="link"
+                                v-for="(social, index) in social"
+                                :key="index"
+                                v-model="Charities.Social_media[index]"
+                                label="منصات التواصل"
+                                type="text"
+                                variant="outlined"
+                            ></v-text-field>
+                            <p class="mb-2 text-right">
+                                أنشطة الجمعية ( حدد خيار أو أكثر)
+                            </p>
+                            <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
+                            <v-chip-group
+                                selected-class="bg-grey-lighten-1"
+                                multiple
+                                mandatory
+                                class="text-right"
+                                v-model="Charities.Charities_specialty"
+                                :error-messages="
+                                    v$.Charities.Charities_specialty.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            >
+                                <v-chip
+                                    elevation="2"
+                                    v-for="(activity, index) in activities"
+                                    :key="index"
+                                    class="ma-2"
+                                    rounded="lg"
+                                    size="x-large"
+                                    :value="activity"
+                                    filter
+                                    >{{ activity }}</v-chip
+                                >
+                            </v-chip-group>
+                            <p class="mb-4 text-right">
+                                {{ Charities.Charities_specialty }}
+                            </p>
+                            <p class="mb-2 text-right">أنواع الباقات</p>
+                            <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
+                            <v-chip-group
+                                selected-class="bg-grey-lighten-1"
+                                mandatory
+                                class="text-right d-flex"
+                                v-model="Charities.Package_type"
+                            >
+                                <v-chip
+                                    elevation="2"
+                                    v-for="(Packages, index) in Packages"
+                                    :key="index"
+                                    class="ma-2"
+                                    rounded="lg"
+                                    size="x-large"
+                                    :value="Packages"
+                                    filter
+                                    >{{ Packages }}</v-chip
+                                >
+                            </v-chip-group>
+                            <p class="mb-4 text-right">
+                                {{ Charities.Package_type }}
+                            </p>
 
-                <p class="mb-2 text-right">إضافة مشرف</p>
-                <!--title input-->
-                <v-text-field
-                    v-model="user.name"
-                    variant="outlined"
-                    label="اسم"
-                    class="mt-2"
-                    :error-messages="
-                        v$.user.name.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
-                <v-chip-group
-                    selected-class="bg-grey-lighten-1"
-                    mandatory
-                    class="text-right d-flex"
-                    v-model="user.gender"
-                >
-                    <p class="mt-5 text-right">الجنس :</p>
-                    <v-chip
-                        elevation="2"
-                        class="ma-2"
-                        rounded="lg"
-                        size="x-large"
-                        filter
-                        value="ذكر"
-                        >ذكر</v-chip
-                    >
-                    <v-chip
-                        elevation="2"
-                        class="ma-2"
-                        rounded="lg"
-                        filter
-                        size="x-large"
-                        value="أنثى"
-                        >أنثى</v-chip
-                    >
-                </v-chip-group>
-                <!--phone input-->
-                <div class="d-flex align-center flex-wrap mb-2">
-                    <label for="phone">تليفون</label>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        icon="mdi-plus"
-                        variant="text"
-                        @click="tel++"
-                        class="bg-grey-lighten-3"
-                        size="small"
-                    ></v-btn>
-                </div>
-                <!--Phone input-->
-                <v-text-field
-                    id="phone"
-                    v-for="(tel, index) in tel"
-                    :key="index"
-                    v-model="user.phones[index]"
-                    label="تليفون"
-                    type="tel"
-                    variant="outlined"
-                    :error-messages="
-                        v$.user.phones.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
+                            <p class="mb-2 text-right">إضافة مشرف</p>
+                            <!--title input-->
+                            <v-text-field
+                                v-model="user.name"
+                                variant="outlined"
+                                label="اسم"
+                                class="mt-2"
+                                :error-messages="
+                                    v$.user.name.$errors.map((e) => e.$message)
+                                "
+                            ></v-text-field>
+                            <v-chip-group
+                                selected-class="bg-grey-lighten-1"
+                                mandatory
+                                class="text-right d-flex"
+                                v-model="user.gender"
+                            >
+                                <p class="mt-5 text-right">الجنس :</p>
+                                <v-chip
+                                    elevation="2"
+                                    class="ma-2"
+                                    rounded="lg"
+                                    size="x-large"
+                                    filter
+                                    value="ذكر"
+                                    >ذكر</v-chip
+                                >
+                                <v-chip
+                                    elevation="2"
+                                    class="ma-2"
+                                    rounded="lg"
+                                    filter
+                                    size="x-large"
+                                    value="أنثى"
+                                    >أنثى</v-chip
+                                >
+                            </v-chip-group>
+                            <!--phone input-->
+                            <div class="d-flex align-center flex-wrap mb-2">
+                                <label for="phone">تليفون</label>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    icon="mdi-plus"
+                                    variant="text"
+                                    @click="tel++"
+                                    class="bg-grey-lighten-3"
+                                    size="small"
+                                ></v-btn>
+                            </div>
+                            <!--Phone input-->
+                            <v-text-field
+                                id="phone"
+                                v-for="(tel, index) in tel"
+                                :key="index"
+                                v-model="user.phones[index]"
+                                label="تليفون"
+                                type="tel"
+                                variant="outlined"
+                                :error-messages="
+                                    v$.user.phones.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            ></v-text-field>
 
-                <v-text-field
-                    v-model="user.birthday"
-                    type="date"
-                    variant="outlined"
-                    label="تاريخ الميلاد"
-                    class="mt-2"
-                    :error-messages="
-                        v$.user.birthday.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
-                <v-text-field
-                    v-model="user.email"
-                    type="email"
-                    placeholder="example@gmail.com"
-                    variant="outlined"
-                    label="الايميل"
-                    class="mt-2"
-                    :error-messages="
-                        v$.user.email.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
+                            <v-text-field
+                                v-model="user.birthday"
+                                type="date"
+                                variant="outlined"
+                                label="تاريخ الميلاد"
+                                class="mt-2"
+                                :error-messages="
+                                    v$.user.birthday.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            ></v-text-field>
+                            <v-text-field
+                                v-model="user.email"
+                                type="email"
+                                placeholder="example@gmail.com"
+                                variant="outlined"
+                                label="الايميل"
+                                class="mt-2"
+                                :error-messages="
+                                    v$.user.email.$errors.map((e) => e.$message)
+                                "
+                            ></v-text-field>
 
-                <v-text-field
-                    v-model="user.nationalID"
-                    variant="outlined"
-                    label="الرقم القومي"
-                    class="mt-2"
-                    :error-messages="
-                        v$.user.nationalID.$errors.map((e) => e.$message)
-                    "
-                ></v-text-field>
-                <v-text-field
-                    v-model="user.password"
-                    :type="inputType"
-                    variant="outlined"
-                    label="الباسورد"
-                    placeholder="ادخل كلمة
+                            <v-text-field
+                                v-model="user.nationalID"
+                                variant="outlined"
+                                label="الرقم القومي"
+                                class="mt-2"
+                                :error-messages="
+                                    v$.user.nationalID.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                            ></v-text-field>
+                            <v-text-field
+                                v-model="user.password"
+                                :type="inputType"
+                                variant="outlined"
+                                label="الباسورد"
+                                placeholder="ادخل كلمة
                     سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
-                    class="mt-2"
-                    :error-messages="
-                        v$.user.password.$errors.map((e) => e.$message)
-                    "
-                    :append-inner-icon="
-                        showPassword ? 'mdi-eye-off' : 'mdi-eye'
-                    "
-                    @click:append-inner="toggleShowPassword"
-                >
-                </v-text-field>
+                                class="mt-2"
+                                :error-messages="
+                                    v$.user.password.$errors.map(
+                                        (e) => e.$message
+                                    )
+                                "
+                                :append-inner-icon="
+                                    showPassword ? 'mdi-eye' : 'mdi-eye-off'
+                                "
+                                @click:append-inner="toggleShowPassword"
+                            >
+                            </v-text-field>
 
-                <v-btn
-                    class="mt-4"
-                    type="submit"
-                    style="width: 100%; font-size: 25px"
-                >
-                    تم
-                </v-btn>
-            </form>
-        </v-container>
-    </div>
+                            <v-btn
+                                class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
+                                type="submit"
+                                style="
+                                    width: 100%;
+                                    font-size: 25px;
+                                    margin: auto;
+                                "
+                            >
+                                تم
+                            </v-btn>
+                        </form>
+                    </v-container>
+                </div>
+            </v-card>
+        </template>
+    </v-dialog>
 </template>
 
 <script scoped>
@@ -306,7 +346,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
-    props: { IsActive: Object },
     setup() {
         return {
             v$: useVuelidate(),
@@ -315,7 +354,7 @@ export default {
     data() {
         return {
             showPassword: false, // define showPassword
-            Active: this.IsActive,
+            IsActive: true,
             tel: ref(1),
             //ref to add another email box
             social: ref(1),
@@ -571,7 +610,7 @@ export default {
                     console.log("User", this.user);
                     this.Add_Charities();
                     // close The_Register
-                    this.Active = false;
+                    this.IsActive = false;
                     this.v$.$reset();
                 } else {
                     // If there are validation errors, handle them accordingly
