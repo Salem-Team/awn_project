@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <header class="header" :theme="triggerToggleTheme">
         <div class="container">
             <div class="logo">
                 <svg
@@ -10,7 +10,6 @@
                 >
                     <g
                         transform="translate(0.000000,1024.000000) scale(0.100000,-0.100000)"
-                        fill="#000000"
                         stroke="none"
                     >
                         <path
@@ -36,6 +35,15 @@
                         />
                     </g>
                 </svg>
+            </div>
+            <div class="div" style="display: flex; justify-content: end">
+                <v-fade-transition @click="triggerToggleTheme" leave-absolute>
+                    <v-icon v-if="this.themesun"
+                        >mdi-moon-waning-crescent</v-icon
+                    >
+
+                    <v-icon v-else>mdi-weather-sunny</v-icon>
+                </v-fade-transition>
             </div>
             <nav>
                 <ul>
@@ -114,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 </template>
 <script>
 import TheRegister from "@/components/The_Register.vue";
@@ -143,6 +151,7 @@ const db = getFirestore(app);
 export default {
     name: "TheHeader",
     components: { TheRegister, TheSignin },
+    inject: ["Emitter"],
     mounted() {
         this.Check_User();
     },
@@ -156,9 +165,14 @@ export default {
                 User_FullName: "",
                 type: "",
             },
+            themesun: true,
         };
     },
     methods: {
+        triggerToggleTheme() {
+            this.$emit("execute-toggle-theme");
+            this.themesun = !this.themesun; // إرسال حدث لتنفيذ دالة toggleTheme
+        },
         Sign_Out() {
             localStorage.removeItem("id");
             this.User.User_State = true;
@@ -200,8 +214,8 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    background: #fff;
-    box-shadow: 0 0 10px #ddd;
+    // background: white;
+    box-shadow: 0 0 10px white;
     z-index: 10;
     .container {
         display: flex;
@@ -227,7 +241,7 @@ export default {
             gap: 10px;
             align-items: center;
             & > div {
-                background: #eee;
+                // background: white;
                 padding: 10px;
                 border-radius: 5px;
                 cursor: pointer;
