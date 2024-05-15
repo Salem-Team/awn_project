@@ -214,7 +214,8 @@
                                         <v-card
                                             rounded="lg"
                                             class="mx-16"
-                                            height="400"
+                                            height="600"
+                                            width="500"
                                         >
                                             <v-card-title
                                                 class="d-flex justify-space-between align-center"
@@ -237,7 +238,7 @@
                                             <v-divider class="mb-4"></v-divider>
 
                                             <v-card-text
-                                                class="d-flex justify-end"
+                                                class="d-flex flex-column align-center"
                                             >
                                                 <div class="mb-4">
                                                     <v-btn
@@ -249,7 +250,29 @@
                                                                 sans-serif !important;
                                                             font-size: 20px;
                                                         "
+                                                        @click="
+                                                            downloadExcelFile
+                                                        "
                                                         >تحميل الملف</v-btn
+                                                    >
+                                                </div>
+                                                <div>
+                                                    <v-btn
+                                                        color="success"
+                                                        class="mt-16"
+                                                        v-if="jsonData"
+                                                        @click="convertToJSON"
+                                                    >
+                                                        <a
+                                                            :href="downloadURL"
+                                                            download="converted_data.json"
+                                                            >تحميل ملف JSON</a
+                                                        ></v-btn
+                                                    >
+                                                    <span
+                                                        v-if="error"
+                                                        style="color: red"
+                                                        >{{ error }}</span
                                                     >
                                                 </div>
                                             </v-card-text>
@@ -288,6 +311,10 @@
                                                         <input
                                                             type="file"
                                                             id="myinput"
+                                                            ref="fileInput"
+                                                            @change="
+                                                                handleFileChange
+                                                            "
                                                         />
 
                                                         <span
@@ -316,14 +343,15 @@
                                                     text="تم"
                                                     variant="flat"
                                                     @click="
-                                                        To_Json(),
-                                                            (isActive.value = false)
+                                                        isActive.value = false
                                                     "
                                                 ></v-btn>
                                             </v-card-actions>
                                         </v-card>
+                                        <div id="js"></div>
                                     </template>
                                 </v-dialog>
+                                <div id="js"></div>
                             </div>
                         </div>
                     </div>
@@ -345,7 +373,9 @@
 
 <script>
 // import Xlsx File
-import readXlsxFile from "read-excel-file";
+import * as XLSX from "xlsx";
+import FileSaver from "file-saver"; // Import FileSaver for download
+
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import StatusInformation from "@/components/StatusInformation.vue";
@@ -363,6 +393,12 @@ export default {
     },
     data() {
         return {
+            // start vars belong Exel & json files
+            jsonData: null,
+            downloadURL: null,
+            excelFile: null,
+            error: null,
+            //end vars belong Exel & json files
             dialog: false,
             dialog1: false,
             items: [],
@@ -374,6 +410,18 @@ export default {
             Show_Add: null,
             Cases: [],
             childResult: 0,
+            case: {
+                personal_info_1: {
+                    name: "",
+                    nick_name: "",
+                    national_id: "",
+                    governorate: "",
+                    house_number: "",
+                    floor_number: "",
+                    marital_status: "",
+                    phone: "",
+                },
+            },
         };
     },
     mounted() {
@@ -438,32 +486,88 @@ export default {
         funCalories_LTS() {
             this.Emitter.emit("caloriesDesaending");
         },
-        To_Json() {
-            const input = document.getElementById("myinput");
-            // readXlsxFile(input.files[0]).then((rows) => {
-            //     const headers = rows[1];
-            //     const data = rows.slice(3);
+        // Start Convert & Download Excel File
+        handleFileChange(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                console.error("اضف ملف اكسل اولا");
+                return;
+            }
 
-            //     const objByColumn = {};
+            this.jsonData = null; // Reset data and download URL on new file selection
+            this.excelFile = file; // Store the uploaded Excel file for download
 
-            //     headers.forEach((header, index) => {
-            //         const columnData = data.map((row) => row[index]);
-            //         const adjacentColumnData = data.map((row) => row[index]);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const arrayBuffer = e.target.result;
+                const workbook = XLSX.read(arrayBuffer, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+                    header: 1,
+                });
 
-            //         const columnObj = {};
-            //         columnData.forEach((value, i) => {
-            //             columnObj[value] = adjacentColumnData[i];
-            //         });
+                // Check for empty cells
+                let emptyCellFound = false;
+                jsonData.forEach((row) => {
+                    row.forEach((cell) => {
+                        if (
+                            cell === "" ||
+                            cell === undefined ||
+                            cell === null
+                        ) {
+                            emptyCellFound = true;
+                        }
+                    });
+                });
 
-            //         objByColumn[header] = columnObj;
-            //     });
+                if (emptyCellFound) {
+                    alert(
+                        "عذراً، يحتوي ملف الإكسل على خلايا فارغة. الرجاء ملء جميع الخلايا بالبيانات قبل تحميل الملف."
+                    );
+                    return;
+                }
+                const groupedData = [];
+                for (let i = 0; i < jsonData.length; i += 11) {
+                    const chunk = jsonData.slice(i, i + 11);
+                    groupedData.push(chunk);
+                }
+                const titledGroupedData = groupedData.map((group) => {
+                    return {
+                        Date: group[0][0],
+                        data: group.slice(2),
+                    };
+                });
 
-            //     console.log(objByColumn);
-            // });
-            readXlsxFile(input.files[0]).then((rows) => {
-                rows.splice(2, 1);
-                console.log(rows);
-            });
+                console.log("Titled Grouped Data:", titledGroupedData);
+                if (jsonData.length < 110) {
+                    alert("عذرا لا نقبل أقل من 10 حالات");
+                    return;
+                }
+
+                this.jsonData = titledGroupedData;
+            };
+            reader.readAsArrayBuffer(file);
+        },
+        convertToJSON() {
+            if (!this.jsonData) {
+                console.error("اضف ملف اكسل اولا");
+                return;
+            }
+
+            const jsonString = JSON.stringify(this.jsonData, null, 2); // Stringify with indentation
+
+            //  download using FileSaver
+            const blob = new Blob([jsonString], { type: "application/json" });
+            this.downloadURL = URL.createObjectURL(blob);
+        },
+        downloadExcelFile() {
+            if (!this.excelFile) {
+                alert("اضف ملف اكسل اولا");
+                return;
+            }
+
+            FileSaver.saveAs(this.excelFile, "uploaded_excel_file.xlsx"); // Download the uploaded Excel file
         },
     },
 };
