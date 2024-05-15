@@ -2,25 +2,11 @@
     <v-container style="direction: rtl">
         <v-row>
             <v-col>
-                <v-card style="padding: 50px" :theme="this.theme">
+                <v-card style="padding: 50px">
                     <h1 class="mx-auto w-100 text-center mb-5 text-primary">
                         الاعدادات
                     </h1>
 
-                    <div
-                        class="div w-100"
-                        style="display: flex; justify-content: end"
-                    >
-                        <v-switch
-                            label="تغير الثيم"
-                            inset
-                            @click="toggleTheme"
-                            size="x-large"
-                            :model-value="true"
-                            color="primary"
-                            class="mx-4"
-                        ></v-switch>
-                    </div>
                     <div
                         class="d-flex flex-row"
                         style="
@@ -164,11 +150,10 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="card w-25 text-start p-4"
+                                                class="w-25 text-start p-4"
                                                 style="margin-right: auto"
                                             >
                                                 <v-btn
-                                                    append-icon="mdi-arrow-left"
                                                     variant="outlined"
                                                     type="submit"
                                                     color="primary"
@@ -279,11 +264,10 @@
                                                 </div>
                                             </div>
                                             <div
-                                                class="card text-start w-25 p-4"
+                                                class="text-start w-25 p-4"
                                                 style="margin-right: auto"
                                             >
                                                 <v-btn
-                                                    append-icon="mdi-arrow-left"
                                                     variant="outlined"
                                                     type="submit"
                                                     color="primary"
@@ -368,48 +352,18 @@
                                                                     placeholder="رقم الشهره"
                                                                     label="رقم الشهره"
                                                                 ></v-text-field>
-                                                                <!--year input-->
-
-                                                                <v-select
+                                                                <v-text-field
                                                                     variant="outlined"
-                                                                    value="2024"
-                                                                    name="year"
                                                                     style="
                                                                         margin-right: 20px;
                                                                     "
                                                                     v-model="
                                                                         form3.Fame_year
                                                                     "
-                                                                    :items="[
-                                                                        '2000',
-                                                                        '2001',
-                                                                        '2002',
-                                                                        '2003',
-                                                                        '2004',
-                                                                        '2005',
-                                                                        '2006',
-                                                                        '2007',
-                                                                        '2008',
-                                                                        '2009',
-                                                                        '2010',
-                                                                        '2011',
-                                                                        '2012',
-                                                                        '2013',
-                                                                        '2014',
-                                                                        '2015',
-                                                                        '2016',
-                                                                        '2017',
-                                                                        '2018',
-                                                                        '2019',
-                                                                        '2020',
-                                                                        '2021',
-                                                                        '2022',
-                                                                        '2023',
-                                                                        '2024',
-                                                                    ]"
                                                                     placeholder="السنه"
                                                                     label="السنه"
-                                                                ></v-select>
+                                                                ></v-text-field>
+                                                                <!--year input-->
                                                             </div>
                                                             <div style="d-flex">
                                                                 <h2
@@ -541,11 +495,10 @@
                                                 </v-col>
                                             </v-row>
                                             <div
-                                                class="card w-25 text-start p-4"
+                                                class="w-25 text-start p-4"
                                                 style="margin-right: auto"
                                             >
                                                 <v-btn
-                                                    append-icon="mdi-arrow-left"
                                                     variant="outlined"
                                                     type="submit"
                                                     color="primary"
@@ -661,6 +614,19 @@
                                                                 placeholder="الرقم القومي"
                                                                 clearable
                                                             ></v-text-field>
+                                                            <v-select
+                                                                chips
+                                                                v-model="
+                                                                    AssistantPowerss
+                                                                "
+                                                                label="الصلاحيات"
+                                                                :items="[
+                                                                    'اضافه الحالات من الفورم',
+                                                                    'اضافه الحالات من الاكسيل',
+                                                                    'الاطلاع علي تقارير',
+                                                                ]"
+                                                                variant="solo-filled"
+                                                            ></v-select>
                                                             <v-text-field
                                                                 v-model="
                                                                     AssistantPhoneNumber
@@ -734,7 +700,6 @@
                                                 ) in storedArray"
                                                 :key="index"
                                                 cols="6"
-                                                dot-color="indigo-lighten-2"
                                                 icon="mdi-star"
                                                 style="padding: 22px"
                                             >
@@ -742,11 +707,6 @@
                                                     <v-card-title
                                                         style="
                                                             justify-content: space-between;
-                                                            background: rgb(
-                                                                121,
-                                                                134,
-                                                                203
-                                                            );
                                                         "
                                                         class="text-h6 w-100 bg-indigo-lighten-2 d-flex"
                                                     >
@@ -763,11 +723,11 @@
                                                                     index
                                                                 )
                                                             "
-                                                            >mdi-close-circle</v-icon
+                                                            >mdi-delete</v-icon
                                                         >
                                                     </v-card-title>
                                                     <v-card-text
-                                                        class="bg-white text--primary text-center"
+                                                        class="bg-white text--primary"
                                                         style="
                                                             margin-right: 0px !important;
                                                             padding-top: 17px;
@@ -775,42 +735,77 @@
                                                     >
                                                         <div>
                                                             <div
-                                                                class="card d-flex"
+                                                                style="
+                                                                    display: flex;
+                                                                    justify-content: space-between;
+                                                                    align-items: center;
+                                                                "
                                                             >
-                                                                <v-checkbox
-                                                                    v-model="
-                                                                        item.AssistantPowers
-                                                                    "
-                                                                    label="اضافه الحالات من الفورم"
-                                                                    value="اضافه الحالات من الفورم"
-                                                                    color="indigo-lighten-2"
-                                                                ></v-checkbox>
+                                                                <h5
+                                                                    class="mb-5 text-primary"
+                                                                >
+                                                                    الايميل
+                                                                </h5>
+                                                                <p>
+                                                                    {{
+                                                                        item.AssistantEmail
+                                                                    }}
+                                                                </p>
+                                                            </div>
+                                                            <div
+                                                                style="
+                                                                    display: flex;
+                                                                    justify-content: space-between;
+                                                                    align-items: center;
+                                                                "
+                                                            >
+                                                                <h5
+                                                                    class="mb-5 text-primary"
+                                                                >
+                                                                    الرقم القومي
+                                                                </h5>
+                                                                <p>
+                                                                    {{
+                                                                        item.nationalNumberAssistant
+                                                                    }}
+                                                                </p>
                                                             </div>
 
                                                             <div
-                                                                class="card d-flex"
+                                                                style="
+                                                                    display: flex;
+                                                                    justify-content: space-between;
+                                                                    align-items: center;
+                                                                "
                                                             >
-                                                                <v-checkbox
-                                                                    v-model="
-                                                                        item.AssistantPowers
-                                                                    "
-                                                                    label="اضافه الحالات من الاكسيل"
-                                                                    value="اضافه الحالات من الاكسيل"
-                                                                    color="indigo-lighten-2"
-                                                                ></v-checkbox>
+                                                                <h5
+                                                                    class="mb-5 text-primary"
+                                                                >
+                                                                    رقم التليفون
+                                                                </h5>
+                                                                <p>
+                                                                    {{
+                                                                        item.AssistantPhoneNumber
+                                                                    }}
+                                                                </p>
                                                             </div>
-
                                                             <div
-                                                                class="card d-flex"
+                                                                style="
+                                                                    display: flex;
+                                                                    justify-content: space-between;
+                                                                    align-items: center;
+                                                                "
                                                             >
-                                                                <v-checkbox
-                                                                    v-model="
+                                                                <h5
+                                                                    class="mb-5 text-primary"
+                                                                >
+                                                                    الصلاحيات
+                                                                </h5>
+                                                                <p>
+                                                                    {{
                                                                         item.AssistantPowers
-                                                                    "
-                                                                    label="الاطلاع علي تقارير"
-                                                                    value="الاطلاع علي تقارير"
-                                                                    color="indigo-lighten-2"
-                                                                ></v-checkbox>
+                                                                    }}
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </v-card-text>
@@ -820,11 +815,10 @@
                                     </div>
 
                                     <div
-                                        class="card w-25 text-start p-4"
+                                        class="w-25 text-start p-4"
                                         style="margin-right: auto"
                                     >
                                         <v-btn
-                                            append-icon="mdi-arrow-left"
                                             variant="outlined"
                                             type="submit"
                                             color="primary"
@@ -884,6 +878,7 @@ export default {
         nationalNumberAssistant: null,
         AssistantPhoneNumber: null,
         numbercardmosed: null,
+        AssistantPowerss: null,
         loading: false,
         tab: "option-1",
         rules: {
@@ -922,9 +917,7 @@ export default {
             whatsapp: "",
             Youtube: "",
         },
-        www: {
-            selected0: [],
-        },
+
         form4: {},
 
         form5: {
@@ -946,35 +939,15 @@ export default {
         items: [
             {
                 color: "red-lighten-2",
-                icon: "mdi-star",
-                name: "اسلام ابوسيف",
-                select1: "",
-                select2: "",
-                select3: "",
             },
             {
                 color: "purple-lighten-2",
-                icon: "mdi-book-variant",
-                name: "محمد محمود",
-                select1: "",
-                select2: "",
-                select3: "",
             },
             {
                 color: "green-lighten-1",
-                icon: "mdi-airballoon",
-                name: "خالد ابراهيم",
-                select1: "",
-                select2: "",
-                select3: "",
             },
             {
                 color: "indigo-lighten-2",
-                icon: "mdi-layers-triple",
-                name: "سمير خالد ",
-                select1: "",
-                select2: "",
-                select3: "",
             },
         ],
         Charities: {},
@@ -1092,6 +1065,9 @@ export default {
         },
     },
     methods: {
+        triggerToggleTheme() {
+            this.$emit("execute-toggle-theme"); // إرسال حدث لتنفيذ دالة toggleTheme
+        },
         updateFormEmpty1() {
             // تحقق من إذا كان أي حقل فارغ
             this.isFormEmpty1 = !(
@@ -1294,9 +1270,9 @@ export default {
                           Assistantname: this.AssistantName,
                           AssistantEmail: this.AssistantEmail,
                           nationalNumberAssistant: this.nationalNumberAssistant,
+                          AssistantPowers: this.AssistantPowerss,
                           AssistantPhoneNumber: this.AssistantPhoneNumber,
                           randomPassword: this.randomPassword,
-                          AssistantPowers: [],
                       }
                     : ""
             );
@@ -1308,6 +1284,7 @@ export default {
             this.AssistantEmail = "";
             this.nationalNumberAssistant = "";
             this.AssistantPhoneNumber = "";
+            this.AssistantPowerss = "";
             this.randomPassword = this.generateRandomPassword();
             console.log(this.s1);
         },
