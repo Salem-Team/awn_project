@@ -148,8 +148,8 @@
                             <p class="mb-4 text-right">
                                 {{ Charities.Charities_specialty }}
                             </p>
+                            <!--
                             <p class="mb-2 text-right">أنواع الباقات</p>
-                            <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
                             <v-chip-group
                                 selected-class="bg-grey-lighten-1"
                                 mandatory
@@ -171,7 +171,7 @@
                             <p class="mb-4 text-right">
                                 {{ Charities.Package_type }}
                             </p>
-
+                            -->
                             <p class="mb-2 text-right">إضافة مشرف</p>
                             <!--title input-->
                             <v-text-field

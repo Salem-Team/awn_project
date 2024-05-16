@@ -31,7 +31,9 @@
                                 class="text-center chip_info"
                             >
                                 <div class="info">
-                                    <div class="num">30000</div>
+                                    <div class="num">
+                                        {{ childResult1 }}
+                                    </div>
                                     <span class="text-primary">عجز</span>
                                 </div>
                             </v-chip>
@@ -364,6 +366,7 @@
                 <DashboardCharitys
                     ref="childComponentRef"
                     @child-result="handleChildResult"
+                    @child-result1="handleChildResult1"
                 />
             </div>
         </v-container>
@@ -389,6 +392,9 @@ export default {
     },
     data() {
         return {
+            deficit: 0,
+            required: 0,
+            incom: 0,
             dialog: false,
             dialog1: false,
             items: [],
@@ -400,6 +406,7 @@ export default {
             Show_Add: null,
             Cases: [],
             childResult: 0,
+            childResult1: 0,
         };
     },
     mounted() {
@@ -424,6 +431,11 @@ export default {
         handleChildResult(result) {
             this.childResult = result;
             console.log("Received result from child:", this.childResult);
+        },
+        // change viw
+        handleChildResult1(result) {
+            this.childResult1 = result;
+            console.log("Received result from child:", this.childResult1);
         },
         // change view
         Swap() {
