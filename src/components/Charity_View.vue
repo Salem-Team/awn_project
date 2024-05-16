@@ -5,7 +5,11 @@
         :key="charity.id"
     >
         <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
-        <v-lazy>
+        <v-lazy
+            :min-height="200"
+            :options="{ threshold: 0.7 }"
+            transition="fade-transition"
+        >
             <div class="Charities">
                 <v-container class="Charities_container mt-4">
                     <!--get the Charities data from the database-->
@@ -49,12 +53,12 @@
                         <p>{{ charity.descripetion }}</p>
                     </div>
                     <br />
-                    <!--the Charities_Package_type-->
+                    <!--the Charities_Package_type
                     <div class="d-flex align-center flex-wrap justify-around">
                         <h3>نوع الإشتراك :</h3>
                         <p>{{ charity.Package_type }}</p>
                     </div>
-                    <br />
+                    <br />-->
                     <!--the Charities_Social_media-->
                     <h3>منصات التواصل :</h3>
                     <br />
@@ -91,6 +95,13 @@
             </div>
         </v-lazy>
     </div>
+    <div>
+        <v-progress-linear
+            color="primary"
+            indeterminate
+            v-if="loading"
+        ></v-progress-linear>
+    </div>
     <div class="text-center">
         <v-pagination
             v-model="currentPage"
@@ -126,6 +137,7 @@ export default {
     data() {
         return {
             currentPage: 1,
+            loading: false, // Loading state
             activities: ref(["كفالة", "إطعام"]),
             // ref to store the Charities data
             Charities: {}, // Initialize as an empty object
@@ -146,6 +158,7 @@ export default {
     methods: {
         // Get Data
         async Get_Data() {
+            this.loading = true; // Set loading to true before fetching data
             const querySnapshot = await getDocs(collection(db, "Charities"));
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
@@ -153,6 +166,7 @@ export default {
                 this.detectSocialMediaType(charityData);
                 this.CharitiesDB.push(charityData);
             });
+            this.loading = false; // Set loading to false after data is loaded
         },
         //fuction to detect the Social_media link type
         detectSocialMediaType(charity) {
