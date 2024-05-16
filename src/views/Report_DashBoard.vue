@@ -59,7 +59,7 @@
                 </template>
             </v-progress-circular>
         </div>
-        <div style="width: 30%">
+        <div class="chart-container" style="width: 30%">
             <canvas id="myChart" width="2px" height="2px"></canvas>
         </div>
     </v-container>
@@ -223,6 +223,7 @@ export default {
                     ],
                 },
                 options: {
+                    responsive: true,
                     plugins: {
                         datalabels: {
                             color: "#0066CC", // Set the color of data labels
@@ -270,5 +271,8 @@ export default {
 <style scoped>
 .card {
     width: 190px !important;
+}
+.chart-container {
+    overflow: auto;
 }
 </style>
