@@ -1087,7 +1087,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="طبي"
                                                                                 value="طبي"
@@ -1101,7 +1101,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="زوج"
                                                                                 value="زوج"
@@ -1115,7 +1115,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="ملابس"
                                                                                 value="ملابس"
@@ -1133,7 +1133,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="مرتبات"
                                                                                 value="مرتبات"
@@ -1148,7 +1148,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="بطاطين"
                                                                                 value="بطاطين"
@@ -1162,7 +1162,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="شنطه غذائيه"
                                                                                 value="شنطه غذائيه"
@@ -1180,7 +1180,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="كفاله شهريه"
                                                                                 value="كفاله شهريه"
@@ -1195,7 +1195,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="اجهزه منزليه"
                                                                                 value="اجهزه منزليه"
@@ -1209,7 +1209,7 @@
                                                                         >
                                                                             <v-checkbox
                                                                                 v-model="
-                                                                                    Case.family_needs_Array
+                                                                                    Case.family_needs
                                                                                 "
                                                                                 label="كفاله "
                                                                                 value="كفاله "
