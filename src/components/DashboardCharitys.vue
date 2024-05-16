@@ -84,7 +84,7 @@
                                     <!--this a dialog to show the case's data-->
                                     <v-dialog
                                         activator="parent"
-                                        width="auto"
+                                        width="100%"
                                         scrollable
                                     >
                                         <template v-slot:default="{ isActive }">
@@ -106,8 +106,1138 @@
                                                         "
                                                     ></v-btn>
                                                 </v-card-title>
-                                                <!--tabs to toggle between the windows-->
-                                                <v-tabs
+                                                <v-stepper
+                                                    v-model="e1"
+                                                    alt-labels
+                                                    style="
+                                                        padding: 20px;
+                                                        overflow: auto;
+                                                    "
+                                                >
+                                                    <template
+                                                        v-slot:default="{
+                                                            prev,
+                                                            next,
+                                                        }"
+                                                    >
+                                                        <v-stepper-header>
+                                                            <template
+                                                                v-for="n in steps"
+                                                                :key="`${n}-step`"
+                                                            >
+                                                                <v-stepper-item
+                                                                    :title="
+                                                                        title[n]
+                                                                    "
+                                                                    :complete="
+                                                                        e1 > n
+                                                                    "
+                                                                    :step="`Step {{ n }}`"
+                                                                    :value="n"
+                                                                ></v-stepper-item>
+
+                                                                <v-divider
+                                                                    v-if="
+                                                                        n !==
+                                                                        steps
+                                                                    "
+                                                                    :key="n"
+                                                                ></v-divider>
+                                                            </template>
+                                                        </v-stepper-header>
+
+                                                        <v-stepper-window>
+                                                            <div
+                                                                v-if="e1 === 1"
+                                                            >
+                                                                <div
+                                                                    class="form"
+                                                                >
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .name
+                                                                                "
+                                                                                label="الاسم ثلاثي"
+                                                                                variant="outlined"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="الاسم ثلاثي"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .nick_name
+                                                                                "
+                                                                                label="اسم الشهره"
+                                                                                variant="outlined"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="اسم الشهره"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .national_id
+                                                                                "
+                                                                                label="رقم البطاقه"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="رقم البطاقه"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-select
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .governorate
+                                                                                "
+                                                                                label="المحافظه"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="المحافظه"
+                                                                                :items="
+                                                                                    Governorates
+                                                                                "
+                                                                            ></v-select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-textarea
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .detailed_address
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label=" العنوان"
+                                                                                variant="outlined"
+                                                                                placeholder=" العنوان"
+                                                                                auto-grow
+                                                                            ></v-textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .house_number
+                                                                                "
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label="رقم المنزل"
+                                                                                variant="outlined"
+                                                                                placeholder="رقم المنزل"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .floor_number
+                                                                                "
+                                                                                label="رقم الدور"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="رقم الدور"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-select
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .marital_status
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                :items="
+                                                                                    SocialStatuss
+                                                                                "
+                                                                                label="الحاله الجتماعيه  "
+                                                                            ></v-select>
+                                                                        </div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .personal_info
+                                                                                        .phone
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label="رقم التليفون"
+                                                                                variant="outlined"
+                                                                                placeholder="رقم التليفون"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                v-if="e1 === 2"
+                                                            >
+                                                                <div
+                                                                    class="form"
+                                                                >
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .financial_info
+                                                                                        .required
+                                                                                "
+                                                                                label="المطلوب "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="المطلوب "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .financial_info
+                                                                                        .incom
+                                                                                "
+                                                                                label="الداخل "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="الداخل "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .financial_info
+                                                                                        .deficit
+                                                                                "
+                                                                                label="العجز "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                    pointer-events: none;
+                                                                                "
+                                                                                :value="
+                                                                                    Case
+                                                                                        .financial_info
+                                                                                        .required -
+                                                                                    Case
+                                                                                        .financial_info
+                                                                                        .incom
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="العجز "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                v-if="e1 === 3"
+                                                            >
+                                                                <div
+                                                                    class="form form_pashent"
+                                                                >
+                                                                    <div
+                                                                        class="bg-[#eee]"
+                                                                    >
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .patien_name
+                                                                                "
+                                                                                label=" اسم المريض "
+                                                                                variant="outlined"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="اسم المريض"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .disease
+                                                                                "
+                                                                                label="  المرض "
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder=" المرض"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .get_treatment
+                                                                                "
+                                                                                label="كيفيه الحصول علي العلاج"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="كيفيه الحصول علي العلاج "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .not_available
+                                                                                "
+                                                                                label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- <div>
+                                                                        <div
+                                                                            class="card w-25"
+                                                                        >
+                                                                            <v-btn
+                                                                                style="
+                                                                                    display: block;
+                                                                                    margin-bottom: 20px;
+                                                                                    margin-right: 20px;
+                                                                                "
+                                                                                v-if="
+                                                                                    !this
+                                                                                        .showDiv1
+                                                                                "
+                                                                                @click="
+                                                                                    toggleDiv1
+                                                                                "
+                                                                                icon="mdi-plus"
+                                                                                size="small"
+                                                                            >
+                                                                            </v-btn>
+                                                                        </div>
+                                                                    </div> -->
+                                                                </div>
+                                                                <!-- <v-divider
+                                                                    :thickness="
+                                                                        8
+                                                                    "
+                                                                    v-if="
+                                                                        this
+                                                                            .showDiv1
+                                                                    "
+                                                                    class="my-5"
+                                                                ></v-divider>
+                                                                <div
+                                                                    class="form"
+                                                                    v-if="
+                                                                        this
+                                                                            .showDiv1
+                                                                    "
+                                                                >
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .patien_name
+                                                                                "
+                                                                                label=" اسم المريض "
+                                                                                variant="outlined"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="اسم المريض"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .disease
+                                                                                "
+                                                                                label="  المرض "
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder=" المرض"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .get_treatment
+                                                                                "
+                                                                                label="كيفيه الحصول علي العلاج"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="كيفيه الحصول علي العلاج "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .not_available
+                                                                                "
+                                                                                label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <div
+                                                                            class="card w-25"
+                                                                        >
+                                                                            <v-btn
+                                                                                style="
+                                                                                    display: block;
+                                                                                    margin-bottom: 20px;
+                                                                                    margin-right: 20px;
+                                                                                "
+                                                                                v-if="
+                                                                                    !this
+                                                                                        .showDiv2
+                                                                                "
+                                                                                @click="
+                                                                                    toggleDiv2
+                                                                                "
+                                                                                icon="mdi-plus"
+                                                                                size="small"
+                                                                            >
+                                                                            </v-btn>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <v-divider
+                                                                    :thickness="
+                                                                        8
+                                                                    "
+                                                                    v-if="
+                                                                        this
+                                                                            .showDiv2
+                                                                    "
+                                                                    class="my-5"
+                                                                ></v-divider>
+                                                                <div
+                                                                    class="form"
+                                                                    v-if="
+                                                                        this
+                                                                            .showDiv2
+                                                                    "
+                                                                >
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .patien_name
+                                                                                "
+                                                                                label=" اسم المريض "
+                                                                                variant="outlined"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="اسم المريض"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .disease
+                                                                                "
+                                                                                label="  المرض "
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder=" المرض"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .get_treatment
+                                                                                "
+                                                                                label="كيفيه الحصول علي العلاج"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="كيفيه الحصول علي العلاج "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="mt-2 d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .diseases
+                                                                                        .not_available
+                                                                                "
+                                                                                label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <div
+                                                                            class="card w-25"
+                                                                        >
+                                                                            <v-btn
+                                                                                style="
+                                                                                    display: block;
+                                                                                    margin-bottom: 20px;
+                                                                                    margin-right: 20px;
+                                                                                "
+                                                                                v-if="
+                                                                                    !this
+                                                                                        .showDiv2
+                                                                                "
+                                                                                @click="
+                                                                                    toggleDiv2
+                                                                                "
+                                                                                icon="mdi-plus"
+                                                                                size="small"
+                                                                            >
+                                                                            </v-btn>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                            <div
+                                                                v-if="e1 === 4"
+                                                            >
+                                                                <div
+                                                                    class="form"
+                                                                >
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-select
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .number_rooms
+                                                                                "
+                                                                                :items="
+                                                                                    number_rooms
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label=" عدد الغرف"
+                                                                            ></v-select>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-select
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .house_type
+                                                                                "
+                                                                                :items="
+                                                                                    items
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label="الشقه ملك ام ايجار"
+                                                                            ></v-select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-select
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .bathroom_type
+                                                                                "
+                                                                                :items="
+                                                                                    amam
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label="الحمام خاص ام مشترك"
+                                                                            ></v-select>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-select
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .floor_type
+                                                                                "
+                                                                                :items="
+                                                                                    kitchen
+                                                                                "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                label="  نوع الارضيه "
+                                                                            ></v-select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .description_kitchen
+                                                                                "
+                                                                                label="  وصف شامل للمطبخ "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="وصف شامل للمطبخ"
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .DescriptionRoom1
+                                                                                "
+                                                                                label="  وصف سريع للغرفه رقم 1 "
+                                                                                variant="outlined"
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                placeholder="وصف سريع للغرفه رقم 1 "
+                                                                            ></v-text-field>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .DescriptionRoom2
+                                                                                "
+                                                                                v-show="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .number_rooms >
+                                                                                    1
+                                                                                "
+                                                                                label="  وصف سريع للغرفه رقم 2 "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="وصف سريع للغرفه رقم 2 "
+                                                                            ></v-text-field>
+                                                                        </div>
+
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                Case
+                                                                                    .housing_condition
+                                                                                    .DescriptionRoom3
+                                                                            "
+                                                                            label="  وصف سريع للغرفه رقم 3 "
+                                                                            v-show="
+                                                                                Case
+                                                                                    .housing_condition
+                                                                                    .number_rooms >
+                                                                                2
+                                                                            "
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            variant="outlined"
+                                                                            placeholder="وصف سريع للغرفه رقم 3 "
+                                                                        ></v-text-field>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-text-field
+                                                                                v-model="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .DescriptionRoom2
+                                                                                "
+                                                                                v-show="
+                                                                                    Case
+                                                                                        .housing_condition
+                                                                                        .number_rooms >
+                                                                                    3
+                                                                                "
+                                                                                label="  وصف سريع للغرفه رقم 4 "
+                                                                                class="mt-2"
+                                                                                style="
+                                                                                    width: 100%;
+                                                                                "
+                                                                                variant="outlined"
+                                                                                placeholder="وصف سريع للغرفه رقم 4 "
+                                                                            ></v-text-field>
+                                                                        </div>
+
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                Case
+                                                                                    .housing_condition
+                                                                                    .DescriptionRoom3
+                                                                            "
+                                                                            label="  وصف سريع للغرفه رقم 5 "
+                                                                            v-show="
+                                                                                Case
+                                                                                    .housing_condition
+                                                                                    .number_rooms >
+                                                                                4
+                                                                            "
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            variant="outlined"
+                                                                            placeholder="وصف سريع للغرفه رقم 5 "
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                v-if="e1 === 5"
+                                                            >
+                                                                <div
+                                                                    class="form"
+                                                                >
+                                                                    <div
+                                                                        class="d-flex"
+                                                                    >
+                                                                        <div
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="طبي"
+                                                                                value="طبي"
+                                                                            ></v-checkbox>
+                                                                        </div>
+
+                                                                        <div
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="زوج"
+                                                                                value="زوج"
+                                                                            ></v-checkbox>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="ملابس"
+                                                                                value="ملابس"
+                                                                            ></v-checkbox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex"
+                                                                    >
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="مرتبات"
+                                                                                value="مرتبات"
+                                                                            ></v-checkbox>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="بطاطين"
+                                                                                value="بطاطين"
+                                                                            ></v-checkbox>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="شنطه غذائيه"
+                                                                                value="شنطه غذائيه"
+                                                                            ></v-checkbox>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex"
+                                                                    >
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="كفاله شهريه"
+                                                                                value="كفاله شهريه"
+                                                                            ></v-checkbox>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="اجهزه منزليه"
+                                                                                value="اجهزه منزليه"
+                                                                            ></v-checkbox>
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex flex-column"
+                                                                            style="
+                                                                                width: 50%;
+                                                                            "
+                                                                        >
+                                                                            <v-checkbox
+                                                                                v-model="
+                                                                                    Case.family_needs_Array
+                                                                                "
+                                                                                label="كفاله "
+                                                                                value="كفاله "
+                                                                            ></v-checkbox>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="btn"
+                                                                    @click="
+                                                                        Add_Cases
+                                                                    "
+                                                                >
+                                                                    أضف الحالة
+                                                                </div>
+                                                            </div>
+                                                        </v-stepper-window>
+
+                                                        <v-stepper-actions
+                                                            :disabled="disabled"
+                                                            @click:next="next"
+                                                            @click:prev="prev"
+                                                            type="submit"
+                                                        ></v-stepper-actions>
+                                                    </template>
+                                                </v-stepper>
+
+                                                <!-- <v-tabs
                                                     v-model="tab"
                                                     bg-color="primary"
                                                 >
@@ -141,7 +1271,6 @@
                                                         padding-right: 20px;
                                                     "
                                                 >
-                                                    <!--window to show the personal_info-->
                                                     <v-window-item
                                                         style="
                                                             height: 400px !important;
@@ -351,7 +1480,7 @@
                                                             </div>
                                                         </div>
                                                     </v-window-item>
-                                                    <!--window to show the financial_info-->
+
                                                     <v-window-item
                                                         value="المعلومات المالية"
                                                         style="
@@ -437,7 +1566,7 @@
                                                             </div>
                                                         </div>
                                                     </v-window-item>
-                                                    <!--window to show the diseases-->
+
                                                     <v-window-item
                                                         value="الأمراض"
                                                         style="
@@ -540,7 +1669,7 @@
                                                             </div>
                                                         </div>
                                                     </v-window-item>
-                                                    <!--window to show the housing_condition-->
+
                                                     <v-window-item
                                                         value="حالة المسكن"
                                                         style="
@@ -779,7 +1908,7 @@
                                                             </div>
                                                         </div>
                                                     </v-window-item>
-                                                    <!--window to show the family_needs-->
+
                                                     <v-window-item
                                                         value="إحتياجات الأسرة"
                                                         style="
@@ -812,7 +1941,7 @@
                                                             </v-card></v-container
                                                         >
                                                     </v-window-item>
-                                                </v-window>
+                                                </v-window> -->
                                             </v-card>
                                         </template>
                                     </v-dialog>
@@ -823,7 +1952,7 @@
                 </div>
             </v-container>
         </v-lazy>
-        <div class="text-center">
+        <!-- <div class="text-center">
             <v-pagination
                 v-model="currentPage"
                 next-icon="mdi-menu-left"
@@ -831,7 +1960,7 @@
                 :length="Math.ceil(Cases.length / 5)"
                 :total-visible="5"
             ></v-pagination>
-        </div>
+        </div> -->
     </div>
 </template>
 <script scoped>
@@ -1453,9 +2582,32 @@ export default {
                 ],
             },
         ],
+        currentStep: 1,
+        e1: 1,
+        steps: 5,
+        title: [
+            "",
+            "المعلومات الشخصية",
+            "المعلومات المالية",
+            "الأمراض",
+            "حالة المسكن",
+            "إحتياجات الأسرة",
+        ],
+        SocialStatuss: [
+            "متزوج",
+            "مطلق",
+            "أعزب",
+            "أرمل",
+            "مطلقة",
+            "عزباء",
+            "أرملة",
+        ],
     }),
     // Search Fun
     computed: {
+        disabled() {
+            return this.e1 === 1 ? "prev" : this.e1 === 5 ? "next" : undefined;
+        },
         // Calculate total number of pages based on number of cases and page size
         totalPages() {
             return Math.ceil(this.filteredCases.length / this.pageSize);
