@@ -1660,8 +1660,7 @@ export default {
             formError3: false,
             formError4: false,
             formError5: false,
-            currentStep: 1, // الخطوة الحالية
-
+            currentStep: 1,
             e1: 1,
             steps: 5,
             number_rooms: [1, 2, 3, 4, 5],
