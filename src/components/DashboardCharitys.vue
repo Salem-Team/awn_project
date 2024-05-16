@@ -1938,7 +1938,7 @@
                 v-if="loading"
             ></v-progress-linear>
         </div>
-        <!-- <div class="text-center">
+        <div class="text-center">
             <v-pagination
                 v-model="currentPage"
                 next-icon="mdi-menu-left"
@@ -1946,7 +1946,7 @@
                 :length="Math.ceil(Cases.length / 5)"
                 :total-visible="5"
             ></v-pagination>
-        </div> -->
+        </div>
     </div>
 </template>
 <script scoped>
