@@ -1,15 +1,10 @@
 <template>
-    <v-app>
-        <v-theme-provider class="pa-10" :theme="this.theme" with-background>
-            <nav>
-                <TheHeader @execute-toggle-theme="toggleTheme" />
-            </nav>
-            <router-view
-                style="margin-top: 100px !important"
-                @execute-toggle-theme="toggleTheme"
-            />
-        </v-theme-provider>
-    </v-app>
+    <v-theme-provider class="pa-10" :theme="this.theme" with-background>
+        <nav>
+            <TheHeader @execute-toggle-theme="toggleTheme" />
+        </nav>
+        <router-view style="margin-top: 100px !important" />
+    </v-theme-provider>
 </template>
 
 <script>
