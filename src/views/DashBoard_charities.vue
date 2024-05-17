@@ -31,9 +31,7 @@
                                 class="text-center chip_info"
                             >
                                 <div class="info">
-                                    <div class="num">
-                                        {{ childResult1 }}
-                                    </div>
+                                    <div class="num">30000</div>
                                     <span class="text-primary">عجز</span>
                                 </div>
                             </v-chip>
@@ -245,7 +243,8 @@
                                         <v-card
                                             rounded="lg"
                                             class="mx-16"
-                                            height="400"
+                                            height="600"
+                                            width="500"
                                         >
                                             <v-card-title
                                                 class="d-flex justify-space-between align-center"
@@ -268,19 +267,27 @@
                                             <v-divider class="mb-4"></v-divider>
 
                                             <v-card-text
-                                                class="d-flex justify-end"
+                                                class="d-flex flex-column align-center"
                                             >
                                                 <div class="mb-4">
+                                                    <button
+                                                        @click="downloadFile()"
+                                                    >
+                                                        تحميل ملف Excel
+                                                    </button>
+                                                </div>
+                                                <div>
                                                     <v-btn
-                                                        rounded="xl"
-                                                        size="x-large"
-                                                        block
-                                                        style="
-                                                            font-family: 'Roboto',
-                                                                sans-serif !important;
-                                                            font-size: 20px;
-                                                        "
-                                                        >تحميل الملف</v-btn
+                                                        color="success"
+                                                        class="mt-16"
+                                                        v-if="jsonData"
+                                                        @click="convertToJSON"
+                                                    >
+                                                        <a
+                                                            :href="downloadURL"
+                                                            download="converted_data.json"
+                                                            >تحميل ملف JSON</a
+                                                        ></v-btn
                                                     >
                                                 </div>
                                             </v-card-text>
@@ -319,6 +326,10 @@
                                                         <input
                                                             type="file"
                                                             id="myinput"
+                                                            ref="fileInput"
+                                                            @change="
+                                                                handleFileChange
+                                                            "
                                                         />
 
                                                         <span
@@ -347,14 +358,15 @@
                                                     text="تم"
                                                     variant="flat"
                                                     @click="
-                                                        To_Json(),
-                                                            (isActive.value = false)
+                                                        isActive.value = false
                                                     "
                                                 ></v-btn>
                                             </v-card-actions>
                                         </v-card>
+                                        <div id="js"></div>
                                     </template>
                                 </v-dialog>
+                                <div id="js"></div>
                             </div>
                         </div>
                     </div>
@@ -366,7 +378,6 @@
                 <DashboardCharitys
                     ref="childComponentRef"
                     @child-result="handleChildResult"
-                    @child-result1="handleChildResult1"
                 />
             </div>
         </v-container>
@@ -376,7 +387,10 @@
 
 <script>
 // import Xlsx File
-import readXlsxFile from "read-excel-file";
+import * as XLSX from "xlsx";
+// import { saveAs } from "file-saver";
+// import FileSaver from "file-saver"; // Import FileSaver for download
+
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import Add_cases from "@/components/Add_cases.vue";
@@ -392,9 +406,12 @@ export default {
     },
     data() {
         return {
-            deficit: 0,
-            required: 0,
-            incom: 0,
+            // start vars belong Exel & json files
+            jsonData: null,
+            downloadURL: null,
+            excelFile: null,
+            error: null,
+            //end vars belong Exel & json files
             dialog: false,
             dialog1: false,
             items: [],
@@ -406,7 +423,18 @@ export default {
             Show_Add: null,
             Cases: [],
             childResult: 0,
-            childResult1: 0,
+            case: {
+                personal_info_1: {
+                    name: "",
+                    nick_name: "",
+                    national_id: "",
+                    governorate: "",
+                    house_number: "",
+                    floor_number: "",
+                    marital_status: "",
+                    phone: "",
+                },
+            },
         };
     },
     mounted() {
@@ -414,6 +442,8 @@ export default {
     },
 
     methods: {
+        // start download exsel
+
         // close function
         close_function() {
             this.Show_Add = !this.Show_Add;
@@ -431,11 +461,6 @@ export default {
         handleChildResult(result) {
             this.childResult = result;
             console.log("Received result from child:", this.childResult);
-        },
-        // change viw
-        handleChildResult1(result) {
-            this.childResult1 = result;
-            console.log("Received result from child:", this.childResult1);
         },
         // change view
         Swap() {
@@ -476,32 +501,128 @@ export default {
         funCalories_LTS() {
             this.Emitter.emit("caloriesDesaending");
         },
-        To_Json() {
-            const input = document.getElementById("myinput");
-            // readXlsxFile(input.files[0]).then((rows) => {
-            //     const headers = rows[1];
-            //     const data = rows.slice(3);
+        // Start Convert & Download Excel File
+        handleFileChange(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                console.error("اضف ملف اكسل اولا");
+                return;
+            }
 
-            //     const objByColumn = {};
+            this.jsonData = null; // Reset data and download URL on new file selection
+            this.excelFile = file; // Store the uploaded Excel file for download
 
-            //     headers.forEach((header, index) => {
-            //         const columnData = data.map((row) => row[index]);
-            //         const adjacentColumnData = data.map((row) => row[index]);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const arrayBuffer = e.target.result;
+                const workbook = XLSX.read(arrayBuffer, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+                    header: 1,
+                });
 
-            //         const columnObj = {};
-            //         columnData.forEach((value, i) => {
-            //             columnObj[value] = adjacentColumnData[i];
-            //         });
+                // Check for empty cells
+                let emptyCellFound = false;
+                jsonData.forEach((row) => {
+                    row.forEach((cell) => {
+                        if (
+                            cell === "" ||
+                            cell === undefined ||
+                            cell === null
+                        ) {
+                            emptyCellFound = true;
+                        }
+                    });
+                });
 
-            //         objByColumn[header] = columnObj;
-            //     });
+                if (emptyCellFound) {
+                    alert(
+                        "عذراً، يحتوي ملف الإكسل على خلايا فارغة. الرجاء ملء جميع الخلايا بالبيانات قبل تحميل الملف."
+                    );
+                    return;
+                }
 
-            //     console.log(objByColumn);
-            // });
-            readXlsxFile(input.files[0]).then((rows) => {
-                rows.splice(2, 1);
-                console.log(rows);
-            });
+                const groupedDataObjects = [];
+                for (let i = 0; i < jsonData.length; i += 11) {
+                    const chunk = jsonData.slice(i, i + 11);
+                    const obj = {
+                        Date: chunk[0][0],
+                        data: chunk.slice(2),
+                    };
+                    groupedDataObjects.push(obj);
+                }
+
+                const titledGroupedData = groupedDataObjects.reduce(
+                    (acc, group) => {
+                        if (group && group.data) {
+                            const data = group.data;
+                            // Check if specific properties are strings
+                            if (
+                                typeof data[0][1] !== "string" ||
+                                typeof data[1][1] !== "string" ||
+                                typeof data[3][1] !== "string" ||
+                                typeof data[7][1] !== "string" ||
+                                typeof data[6][1] !== "string" ||
+                                typeof data[4][1] !== "number" ||
+                                typeof data[5][1] !== "number" ||
+                                // Check national ID length and type
+                                typeof data[2][1] !== "string" ||
+                                data[2][1].length !== 14 ||
+                                // Check phone number and type
+                                typeof data[8][1] !== "string" ||
+                                data[8][1].length !== 11
+                            ) {
+                                alert(
+                                    "الملف مرفوض ! من فضلك املئ جميع الحقول بطريقه صحيحه"
+                                );
+                                console.error(
+                                    "الملف مرفوض ! من فضلك املئ جميع الحقول بطريقه صحيحه"
+                                );
+                                return acc;
+                            }
+
+                            const obj = {
+                                name: data[0][1],
+                                nick_name: data[1][1],
+                                national_id: data[2][1],
+                                governorate: data[3][1],
+                                house_number: data[4][1],
+                                floor_number: data[5][1],
+                                address: data[6][1],
+                                marital_status: data[7][1],
+                                phone: data[8][1],
+                            };
+                            acc[group.Date] = obj; // Using Date as key
+                        } else {
+                            console.error("خطأ: المصفوفة group غير متكاملة");
+                        }
+                        return acc;
+                    },
+                    {}
+                );
+
+                console.log("Titled Grouped Data:", titledGroupedData);
+                if (jsonData.length < 110 || jsonData.length > 110) {
+                    alert("عذرا لا نقبل أقل او اكثر من 10 حالات");
+                    return;
+                }
+
+                this.jsonData = titledGroupedData;
+            };
+            reader.readAsArrayBuffer(file);
+        },
+        convertToJSON() {
+            if (!this.jsonData) {
+                console.error("اضف ملف اكسل اولا");
+                return;
+            }
+
+            const jsonString = JSON.stringify(this.jsonData, null, 2); // Stringify with indentation
+
+            //  download using FileSaver
+            const blob = new Blob([jsonString], { type: "application/json" });
+            this.downloadURL = URL.createObjectURL(blob);
         },
     },
 };
