@@ -64,13 +64,10 @@
         </div>
     </v-container>
     <v-container><v-divider></v-divider></v-container>
-    <v-container style="width: 70%; overflow: auto">
-        <canvas
-            id="barChart"
-            width="2px"
-            height="2px"
-            style="overflow: auto"
-        ></canvas>
+    <v-container
+        style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
+    >
+        <canvas id="barChart"></canvas>
     </v-container>
 </template>
 
@@ -271,6 +268,11 @@ export default {
 <style scoped>
 .card {
     width: 190px !important;
+}
+#barChart {
+    margin: auto;
+    width: 1000px !important;
+    height: 600px !important;
 }
 .chart-container {
     overflow: auto;
