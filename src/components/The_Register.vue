@@ -334,10 +334,9 @@
                                         @click:append-inner="toggleShowPassword"
                                     >
                                     </v-text-field>
-
-                                    <v-btn
-                                        class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
-                                        type="submit"
+                                    <div
+                                        class="btn mt-4 bg-blue-lighten-1 mb-10"
+                                        @click="validateForm"
                                         style="
                                             width: 100%;
                                             font-size: 25px;
@@ -345,15 +344,15 @@
                                         "
                                     >
                                         تم
-                                    </v-btn>
+                                    </div>
                                 </form>
                             </div>
                         </v-stepper-window>
                         <v-stepper-actions
+                            type="submit"
                             :disabled="disabled"
                             @click:next="next"
                             @click:prev="prev"
-                            type="submit"
                         ></v-stepper-actions>
                     </template>
                 </v-stepper>
@@ -407,9 +406,9 @@ export default {
             currentStep: 1,
             e1: 1,
             steps: 2,
+            isActive: { value: true },
             title: ["", "اضافة جمعية", "اضافة مشرف"],
             showPassword: false, // define showPassword
-            IsActive: true,
             tel: ref(1),
             //ref to add another email box
             social: ref(1),
@@ -571,7 +570,7 @@ export default {
     },
     computed: {
         disabled() {
-            return this.e1 === 1 ? "prev" : this.e1 === 5 ? "next" : undefined;
+            return this.e1 === 1 ? "prev" : this.e1 === 2 ? "next" : undefined;
         },
         // Define a computed property to determine the input type based on showPassword
         inputType() {
@@ -628,6 +627,7 @@ export default {
                 // Add  Add_Users
                 if (this.user.charity_ID) {
                     this.Add_Users();
+                    this.isActive = false;
                 }
             } catch (error) {
                 console.error("Error adding document: ", error);
@@ -668,11 +668,14 @@ export default {
                     console.log("User", this.user);
                     this.Add_Charities();
                     // close The_Register
-                    this.IsActive = false;
+                    console.log("Closing dialog...");
+                    this.isActive.value = false; // Close the dialog
+                    console.log("Dialog closed.");
                     this.v$.$reset();
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled Validation errors found");
+                    this.e1 = 1;
                 }
             } else {
                 console.log("Data required");
