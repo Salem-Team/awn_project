@@ -128,6 +128,7 @@
                                                                 :title="
                                                                     title[n]
                                                                 "
+                                                                editable
                                                                 :complete="
                                                                     e1 > n
                                                                 "
