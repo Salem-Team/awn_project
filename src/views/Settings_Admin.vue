@@ -619,7 +619,7 @@
                                                                         loading
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required1,
                                                                     ]"
                                                                     class="mb-2"
                                                                     label="الاسم"
@@ -631,7 +631,7 @@
                                                                         AssistantEmail
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required3,
                                                                     ]"
                                                                     type="email"
                                                                     placeholder="example@gmail.com"
@@ -647,7 +647,7 @@
                                                                         loading
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required4,
                                                                     ]"
                                                                     label="الرقم القومي"
                                                                     placeholder="الرقم القومي"
@@ -655,6 +655,9 @@
                                                                 ></v-text-field>
                                                                 <v-select
                                                                     chips
+                                                                    :rules="[
+                                                                        required,
+                                                                    ]"
                                                                     v-model="
                                                                         AssistantPowerss
                                                                     "
@@ -674,7 +677,7 @@
                                                                         loading
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required2,
                                                                     ]"
                                                                     label="رقم التليفون"
                                                                     placeholder="رقم التليفون"
@@ -892,7 +895,7 @@ import useVuelidate from "@vuelidate/core";
 // import {
 //     required,
 //     minLength,
-//     maxLength,
+//     // maxLength,
 //     // alpha,
 //     numeric,
 //     // regex,
@@ -1337,6 +1340,30 @@ export default {
         },
         required(v) {
             return !!v || "الحقل مطلوب";
+        },
+        required1(v) {
+            return (
+                (!!v && /^[\u0600-\u06FF\s]+$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على حروف عربية فقط"
+            );
+        },
+        required2(v) {
+            return (
+                (!!v && /^\d+$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على أرقام فقط"
+            );
+        },
+        required3(v) {
+            return (
+                (!!v && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على بريد إلكتروني صالح"
+            );
+        },
+        required4(v) {
+            return (
+                (!!v && /^\d{14,}$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على أرقام فقط ولا يقل عن 14 رقمًا"
+            );
         },
         removeItem(index) {
             this.storedArray.splice(index, 1);

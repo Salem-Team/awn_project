@@ -14,7 +14,7 @@
                 </v-card-title>
                 <div class="The_Signin">
                     <v-container class="form_container mt-4">
-                        <span class="pr-8">{{ selectedRole }}</span>
+                        <span class="pr-8">{{ radio }}</span>
                         <!--get the data from the Charities using v-model-->
                         <form
                             ref="form"
@@ -22,14 +22,22 @@
                             class="ma-auto"
                             action="post"
                         >
-                            <v-select
-                                v-model="selectedRole"
-                                :items="roles"
+                            <v-radio-group
+                                inline
                                 label="أختر صلاحية الدخول "
-                                variant="outlined"
-                                @change="handleroles"
-                                @click="handleroles"
-                            ></v-select>
+                                v-model="radio"
+                            >
+                                <v-radio
+                                    label="مشرف"
+                                    value="مشرف"
+                                    @click="handleRadioInput('مشرف')"
+                                ></v-radio>
+                                <v-radio
+                                    label="مالك"
+                                    value="مالك"
+                                    @click="handleRadioInput('مالك')"
+                                ></v-radio>
+                            </v-radio-group>
                             <v-text-field
                                 v-model="user.nationalID"
                                 variant="outlined"
@@ -140,11 +148,8 @@ export default {
     data() {
         return {
             showPassword: false,
-            selectedRole: null,
-            active: this.IsActive,
-            roles: ["مشرف", "مالك", "مساعد"],
-            isActive: { value: true }, // Assuming this controls visibility of something else
-            showRegistrationDialog: false,
+            radio: "",
+            showRegisterDialog: false,
             user: {
                 nationalID: "",
                 password: "Mo-on-1000",
@@ -183,26 +188,21 @@ export default {
         },
     },
     methods: {
-        handleroles() {
-            if (this.selectedRole === "مشرف") {
-                this.user.nationalID = "12345678901111";
-            } else if (this.selectedRole === "مالك") {
-                this.user.nationalID = "876898746783876";
-            } else {
-                this.user.nationalID = "";
-            }
-        },
         openRegistrationDialog() {
-            this.showRegistrationDialog = true;
-        },
-        closeRegistrationDialog() {
-            this.showRegistrationDialog = false;
+            // Close the signin dialog
+            this.$emit("update:isActive", false);
+            // Open the registration dialog
+            this.showRegisterDialog = true;
         },
         handleForgotPasswordClick() {
             // Close the signin dialog
             this.$emit("update:isActive", false);
             // Navigate to the reset password page
             this.$router.push("/Reset_Password");
+        },
+        closeDialogs() {
+            this.showRegisterDialog = false;
+            this.$emit("update:isActive", false);
         },
         toggleShowPassword() {
             this.showPassword = !this.showPassword;
@@ -226,6 +226,13 @@ export default {
                 }
             } else {
                 console.log("Data required");
+            }
+        },
+        handleRadioInput(value) {
+            if (value === "مشرف") {
+                this.user.nationalID = "12345678901111";
+            } else if (value === "مالك") {
+                this.user.nationalID = "876898746783876";
             }
         },
         async Sing_In() {
