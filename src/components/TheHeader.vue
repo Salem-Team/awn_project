@@ -214,7 +214,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    // background: white;
+    background: white;
     box-shadow: 0 0 10px white;
     z-index: 10;
     .container {
@@ -241,7 +241,7 @@ export default {
             gap: 10px;
             align-items: center;
             & > div {
-                // background: white;
+                background: white;
                 padding: 10px;
                 border-radius: 5px;
                 cursor: pointer;
