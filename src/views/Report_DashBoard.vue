@@ -59,18 +59,15 @@
                 </template>
             </v-progress-circular>
         </div>
-        <div style="width: 30%">
+        <div class="chart-container" style="width: 30%">
             <canvas id="myChart" width="2px" height="2px"></canvas>
         </div>
     </v-container>
     <v-container><v-divider></v-divider></v-container>
-    <v-container style="width: 70%; overflow: auto">
-        <canvas
-            id="barChart"
-            width="2px"
-            height="2px"
-            style="overflow: auto"
-        ></canvas>
+    <v-container
+        style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
+    >
+        <canvas id="barChart"></canvas>
     </v-container>
 </template>
 
@@ -223,6 +220,7 @@ export default {
                     ],
                 },
                 options: {
+                    responsive: true,
                     plugins: {
                         datalabels: {
                             color: "#0066CC", // Set the color of data labels
@@ -270,5 +268,13 @@ export default {
 <style scoped>
 .card {
     width: 190px !important;
+}
+#barChart {
+    margin: auto;
+    width: 1000px !important;
+    height: 600px !important;
+}
+.chart-container {
+    overflow: auto;
 }
 </style>
