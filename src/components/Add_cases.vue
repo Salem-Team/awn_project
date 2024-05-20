@@ -1727,17 +1727,15 @@ export default {
             financial_info_2: {
                 required: null,
                 incom: null,
-                deficit: null,
+                deficit: this.required - this.incom,
             },
 
-            diseases_3: [
-                {
-                    patient_name: "",
-                    disease: "",
-                    get_treatment: "",
-                    not_available: "",
-                },
-            ],
+            diseases_3: {
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            },
 
             housing_condition_4: {
                 number_rooms: 1,
@@ -1911,28 +1909,24 @@ export default {
             },
             diseases_3: {
                 patien_name: {
-                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 disease: {
-                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 get_treatment: {
-                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
                     ),
                 },
                 not_available: {
-                    required: helpers.withMessage("حقل مطلوب", required),
                     regex: helpers.withMessage(
                         "يجب أن تحتوي على حروف عربية فقط",
                         /[\u0600-\u06FF\s]+/
@@ -2026,6 +2020,15 @@ export default {
                 this.personal_info_1.marital_status == ""
             );
         },
+        checkDataExists1() {
+            // Perform comparison with existing data
+            // Return true if data exists, false otherwise
+            return !(
+                this.financial_info_2.required == null &&
+                this.financial_info_2.incom == null &&
+                this.financial_info_2.deficit == null
+            );
+        },
         async validateForm() {
             const dataExists = this.checkDataExists();
             this.v$.personal_info_1.$validate();
@@ -2036,6 +2039,7 @@ export default {
                     // If no errors, proceed with further processing
                     console.log("Data filled and Form submitted successfully");
                     console.log("personal_info_1", this.personal_info_1);
+                    this.validateForm2();
                     this.v$.$reset();
                 } else {
                     // If there are validation errors, handle them accordingly
@@ -2047,11 +2051,38 @@ export default {
                 this.e1 = 1;
             }
         },
+        async validateForm2() {
+            const dataExists = this.checkDataExists1();
+            this.v$.financial_info_2.$validate();
+            if (dataExists) {
+                this.v$.financial_info_2.$validate();
+                await this.$nextTick();
+                if (!this.v$.$error) {
+                    // If no errors, proceed with further processing
+                    this.testform2.push({
+                        required: this.financial_info_2.required,
+                        incom: this.financial_info_2.incom,
+                        deficit:
+                            this.financial_info_2.required -
+                            this.financial_info_2.incom,
+                    });
+                    console.log("Data filled and Form submitted successfully");
+                    console.log("financial_info_2", this.testform2);
+                    this.v$.$reset();
+                } else {
+                    // If there are validation errors, handle them accordingly
+                    console.log("Data not all filled Validation errors found");
+                    this.e1 = 2;
+                }
+            } else {
+                console.log("Data required");
+                this.e1 = 2;
+            }
+        },
         async Add_Cases() {
-            this.validateForm();
-
+            // Wait for both form validations to complete
+            await this.validateForm();
             // Add a new document with a generated id.
-
             const docRef = await addDoc(collection(db, "Cases"), {
                 personal_info: {
                     name: this.personal_info_1.name,
@@ -2095,9 +2126,9 @@ export default {
             console.log("Document written with ID: ", docRef.id);
             console.log("validations");
             this.close_function();
-            // }
         },
-        async validateForm1() {
+
+        /*async validateForm1() {
             const res = await this.v$.personal_info_1.$validate();
             if (res) {
                 this.testform1.push(
@@ -2149,7 +2180,7 @@ export default {
 
                 this.testform2 = [];
             }
-        },
+        },*/
         async validateForm3() {
             const res = await this.v$.diseases_3.$validate();
             if (res) {
