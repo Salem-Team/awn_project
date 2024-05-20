@@ -1,6 +1,6 @@
 <template>
     <v-theme-provider class="pa-10" :theme="triggerToggleTheme" with-background>
-        <div class="reset_password mt-16">
+        <div class="reset_password mt-16" style="height: 100vh !important">
             <v-container class="mt-16">
                 <form
                     ref="form"
@@ -28,13 +28,15 @@
                         label="الايميل"
                         class="mt-2"
                         @input="v$.user.email.$touch()"
+                        @focus="isEmailFocused = true"
+                        @blur="isEmailFocused = false"
                         :error-messages="
                             v$.user.email.$errors.map((e) => e.$message)
                         "
                     ></v-text-field>
 
                     <span
-                        v-if="!isValidEmail1"
+                        v-if="!isValidEmail1 && isEmailFocused"
                         style="
                             display: block;
                             margin-right: 15px;
@@ -57,7 +59,7 @@
     </v-theme-provider>
 </template>
 
-<script scoped>
+<script>
 import axios from "axios";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, numeric, helpers } from "@vuelidate/validators";
@@ -75,6 +77,7 @@ export default {
                 email: "",
             },
             message: "",
+            isEmailFocused: false, // Track focus state of email input
         };
     },
     //form validation
