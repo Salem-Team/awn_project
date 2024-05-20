@@ -14,7 +14,7 @@
                 </v-card-title>
                 <div class="The_Signin">
                     <v-container class="form_container mt-4">
-                        <span class="pr-8">{{ radio }}</span>
+                        <span class="pr-8">{{ selectedRole }}</span>
                         <!--get the data from the Charities using v-model-->
                         <form
                             ref="form"
@@ -22,22 +22,14 @@
                             class="ma-auto"
                             action="post"
                         >
-                            <v-radio-group
-                                inline
+                            <v-select
+                                v-model="selectedRole"
+                                :items="roles"
                                 label="أختر صلاحية الدخول "
-                                v-model="radio"
-                            >
-                                <v-radio
-                                    label="مشرف"
-                                    value="مشرف"
-                                    @click="handleRadioInput('مشرف')"
-                                ></v-radio>
-                                <v-radio
-                                    label="مالك"
-                                    value="مالك"
-                                    @click="handleRadioInput('مالك')"
-                                ></v-radio>
-                            </v-radio-group>
+                                variant="outlined"
+                                @change="handleroles"
+                                @click="handleroles"
+                            ></v-select>
                             <v-text-field
                                 v-model="user.nationalID"
                                 variant="outlined"
@@ -139,7 +131,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
     components: { TheRegister },
-    props: ["Check_User", "IsActive"],
+    props: ["Check_User"],
     setup() {
         return {
             v$: useVuelidate(),
@@ -148,8 +140,11 @@ export default {
     data() {
         return {
             showPassword: false,
-            radio: "",
-            showRegisterDialog: false,
+            selectedRole: null,
+            active: this.IsActive,
+            roles: ["مشرف", "مالك", "مساعد"],
+            isActive: { value: true }, // Assuming this controls visibility of something else
+            showRegistrationDialog: false,
             user: {
                 nationalID: "",
                 password: "Mo-on-1000",
@@ -175,7 +170,7 @@ export default {
                     required: helpers.withMessage("ادخل باسورد", required),
                     isValidPassword(value) {
                         const regexPattern =
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+                            /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/;
                         return regexPattern.test(value);
                     },
                 },
@@ -188,21 +183,26 @@ export default {
         },
     },
     methods: {
+        handleroles() {
+            if (this.selectedRole === "مشرف") {
+                this.user.nationalID = "12345678901111";
+            } else if (this.selectedRole === "مالك") {
+                this.user.nationalID = "876898746783876";
+            } else {
+                this.user.nationalID = "";
+            }
+        },
         openRegistrationDialog() {
-            // Close the signin dialog
-            this.$emit("update:isActive", false);
-            // Open the registration dialog
-            this.showRegisterDialog = true;
+            this.showRegistrationDialog = true;
+        },
+        closeRegistrationDialog() {
+            this.showRegistrationDialog = false;
         },
         handleForgotPasswordClick() {
             // Close the signin dialog
             this.$emit("update:isActive", false);
             // Navigate to the reset password page
             this.$router.push("/Reset_Password");
-        },
-        closeDialogs() {
-            this.showRegisterDialog = false;
-            this.$emit("update:isActive", false);
         },
         toggleShowPassword() {
             this.showPassword = !this.showPassword;
@@ -219,20 +219,13 @@ export default {
                 if (!this.v$.$error) {
                     console.log("Data filled and Form submitted successfully");
                     console.log("User", this.user);
-                    this.$emit("update:isActive", false);
+                    this.isActive = false; // Close the dialog
                     this.v$.$reset();
                 } else {
                     console.log("Data not all filled Validation errors found");
                 }
             } else {
                 console.log("Data required");
-            }
-        },
-        handleRadioInput(value) {
-            if (value === "مشرف") {
-                this.user.nationalID = "12345678901111";
-            } else if (value === "مالك") {
-                this.user.nationalID = "876898746783876";
             }
         },
         async Sing_In() {
@@ -247,7 +240,7 @@ export default {
                     setTimeout(() => {
                         this.Check_User();
                     }, 100);
-                    this.$emit("update:isActive", false);
+                    this.isActive = false; // Close the dialog
                     this.v$.$reset();
                 }
             });

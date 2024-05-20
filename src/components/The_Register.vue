@@ -1,5 +1,5 @@
 <template>
-    <v-dialog activator="parent" max-width="900">
+    <v-dialog activator="parent" max-width="900" v-if="isActive">
         <template v-slot:default="{ isActive }">
             <v-card rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
@@ -34,7 +34,6 @@
                             <div v-if="e1 === 1">
                                 <!--get the data from the Charities using v-model-->
                                 <form
-                                    ref="form"
                                     @submit.prevent="validateForm"
                                     class="ma-auto"
                                     action="post"
@@ -202,7 +201,6 @@
                             </div>
                             <div v-if="e1 === 2">
                                 <form
-                                    ref="form"
                                     @submit.prevent="validateForm"
                                     class="ma-auto"
                                     action="post"
@@ -666,10 +664,10 @@ export default {
                     console.log("Data filled and Form submitted successfully");
                     console.log("Charities", this.Charities);
                     console.log("User", this.user);
-                    this.Add_Charities();
+                    //this.Add_Charities();
                     // close The_Register
                     console.log("Closing dialog...");
-                    this.isActive.value = false; // Close the dialog
+                    this.isActive = false; // Close the dialog
                     console.log("Dialog closed.");
                     this.v$.$reset();
                 } else {
