@@ -435,6 +435,11 @@
                                                         <div v-if="e1 === 3">
                                                             <div
                                                                 class="form form_pashent"
+                                                                v-for="(
+                                                                    form,
+                                                                    formIndex
+                                                                ) in form"
+                                                                :key="formIndex"
                                                             >
                                                                 <div
                                                                     class="bg-[#eee]"
@@ -527,30 +532,25 @@
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
-
-                                                                <!-- <div>
-                                                                        <div
-                                                                            class="card w-25"
-                                                                        >
-                                                                            <v-btn
-                                                                                style="
-                                                                                    display: block;
-                                                                                    margin-bottom: 20px;
-                                                                                    margin-right: 20px;
-                                                                                "
-                                                                                v-if="
-                                                                                    !this
-                                                                                        .showDiv1
-                                                                                "
-                                                                                @click="
-                                                                                    toggleDiv1
-                                                                                "
-                                                                                icon="mdi-plus"
-                                                                                size="small"
-                                                                            >
-                                                                            </v-btn>
-                                                                        </div>
-                                                                    </div> -->
+                                                            </div>
+                                                            <div>
+                                                                <div
+                                                                    class="w-25"
+                                                                >
+                                                                    <v-btn
+                                                                        style="
+                                                                            display: block;
+                                                                            margin-bottom: 20px;
+                                                                            margin-right: 20px;
+                                                                        "
+                                                                        @click="
+                                                                            form++
+                                                                        "
+                                                                        icon="mdi-plus"
+                                                                        size="small"
+                                                                    >
+                                                                    </v-btn>
+                                                                </div>
                                                             </div>
                                                             <!-- <v-divider
                                                                     :thickness="
@@ -1980,6 +1980,7 @@ export default {
         pageSize: 5, // Number of cases per page
         Cases_length: 0,
         Cases: [],
+        form: 1,
         isGridView: false,
         search: "",
         newVegetables: [],
@@ -2598,6 +2599,7 @@ export default {
             "البحر الأحمر",
             "جنوب سيناء",
         ],
+
         items: ["ملك", "ايجار"],
         amam: ["مشترك", "خاص"],
         SocialStatuss: [
@@ -2655,6 +2657,14 @@ export default {
         },
     },
     methods: {
+        // addForm(caseIndex) {
+        //     this.paginatedCases[caseIndex].forms.push({
+        //         patien_name: "",
+        //         disease: "",
+        //         get_treatment: "",
+        //         not_available: "",
+        //     });
+        // },
         // Method to handle pagination input change
         paginate(page) {
             this.currentPage = page;
