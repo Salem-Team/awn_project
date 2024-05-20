@@ -664,7 +664,7 @@ export default {
                     console.log("Data filled and Form submitted successfully");
                     console.log("Charities", this.Charities);
                     console.log("User", this.user);
-                    //this.Add_Charities();
+                    this.Add_Charities();
                     // close The_Register
                     console.log("Closing dialog...");
                     this.isActive = false; // Close the dialog
