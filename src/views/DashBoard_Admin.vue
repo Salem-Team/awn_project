@@ -1,7 +1,7 @@
 <template>
     <div class="Dash_board mt-16">
         <!-- NavBar  -->
-        <div><Side_Bar /></div>
+        <Side_Bar />
         <v-container fluid>
             <v-row>
                 <v-col cols="12">
@@ -48,7 +48,7 @@
     </div>
 </template>
 
-<script scoped>
+<script>
 // import Xlsx File
 import readXlsxFile from "read-excel-file";
 // import Components
