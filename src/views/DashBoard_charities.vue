@@ -434,7 +434,6 @@ export default {
             Show_Add: null,
             Cases: [],
             childResult: 0,
-            childResult1: 0,
             case: {
                 personal_info_1: {
                     name: "",
