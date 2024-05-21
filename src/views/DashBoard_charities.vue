@@ -2,6 +2,7 @@
     <div class="Dash_board mt-16">
         <!-- NavBar  -->
         <Side_Bar />
+
         <v-container class="mt-16">
             <v-container>
                 <v-row
@@ -237,13 +238,12 @@
                             <font-awesome-icon :icon="['fas', 'file-excel']" />
                             <div>
                                 <div @click="dialog1 = true">اكسل</div>
-
                                 <v-dialog v-model="dialog1" max-width="600">
                                     <template v-slot:default="{ isActive }">
                                         <v-card
                                             rounded="lg"
                                             class="mx-16"
-                                            height="600"
+                                            height="700"
                                             width="500"
                                         >
                                             <v-card-title
@@ -270,11 +270,13 @@
                                                 class="d-flex flex-column align-center"
                                             >
                                                 <div class="mb-4">
-                                                    <button
-                                                        @click="downloadFile()"
+                                                    <a
+                                                        href="https://docs.google.com/spreadsheets/d/1Bc5NWH74Qis6Z-Jz06fSk2Ec8CC8Vnsv/edit?usp=sharing&ouid=103544609659766512054&rtpof=true&sd=true"
+                                                        download
+                                                        target="_blank"
                                                     >
-                                                        تحميل ملف Excel
-                                                    </button>
+                                                        تحميل ملف Excel</a
+                                                    >
                                                 </div>
                                                 <div>
                                                     <v-btn
@@ -343,7 +345,18 @@
                                                     </label>
                                                 </div>
                                             </div>
-
+                                            <div class="alert">
+                                                <v-alert
+                                                    v-if="validationError"
+                                                    type="error"
+                                                    color="red"
+                                                    closable
+                                                    dismissible
+                                                >
+                                                    الملف مرفوض! من فضلك املئ
+                                                    جميع الحقول بطريقة صحيحة.
+                                                </v-alert>
+                                            </div>
                                             <v-card-actions
                                                 class="my-2 d-flex justify-end"
                                             >
@@ -388,9 +401,6 @@
 <script>
 // import Xlsx File
 import * as XLSX from "xlsx";
-// import { saveAs } from "file-saver";
-// import FileSaver from "file-saver"; // Import FileSaver for download
-
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import Add_cases from "@/components/Add_cases.vue";
@@ -406,6 +416,7 @@ export default {
     },
     data() {
         return {
+            validationError: false,
             // start vars belong Exel & json files
             jsonData: null,
             downloadURL: null,
@@ -439,6 +450,15 @@ export default {
     },
     mounted() {
         this.$refs.childComponentRef.Get_data();
+        this.funLatestClicked(),
+            this.funAtZClicked(),
+            this.funZtAClicked(),
+            this.funCards_STL(),
+            this.funCards_LTS(),
+            this.funFat_STL(),
+            this.funFat_LTS(),
+            this.funCalories_STL(),
+            this.funCalories_LTS();
     },
 
     methods: {
@@ -557,6 +577,7 @@ export default {
                     (acc, group) => {
                         if (group && group.data) {
                             const data = group.data;
+                            let invalid = false; // for Alert comp
                             // Check if specific properties are strings
                             if (
                                 typeof data[0][1] !== "string" ||
@@ -573,26 +594,50 @@ export default {
                                 typeof data[8][1] !== "string" ||
                                 data[8][1].length !== 11
                             ) {
-                                alert(
-                                    "الملف مرفوض ! من فضلك املئ جميع الحقول بطريقه صحيحه"
-                                );
-                                console.error(
-                                    "الملف مرفوض ! من فضلك املئ جميع الحقول بطريقه صحيحه"
-                                );
+                                invalid = true;
+                            }
+                            if (invalid) {
+                                this.validationError = true;
                                 return acc;
                             }
-
                             const obj = {
-                                name: data[0][1],
-                                nick_name: data[1][1],
-                                national_id: data[2][1],
-                                governorate: data[3][1],
-                                house_number: data[4][1],
-                                floor_number: data[5][1],
-                                address: data[6][1],
-                                marital_status: data[7][1],
-                                phone: data[8][1],
+                                personal_info: {
+                                    name: data[0][1],
+                                    nick_name: data[1][1],
+                                    national_id: data[2][1],
+                                    governorate: data[3][1],
+                                    house_number: data[4][1],
+                                    floor_number: data[5][1],
+                                    address: data[6][1],
+                                    marital_status: data[7][1],
+                                    phone: data[8][1],
+                                },
+                                financial_info: {
+                                    required: "",
+                                    income: "",
+                                    deficit: "",
+                                },
+                                diseases: {
+                                    patient_name: "",
+                                    disease: "",
+                                    get_treatment: "",
+                                    not_available: "",
+                                },
+                                housing_condition: {
+                                    number_rooms: "",
+                                    house_type: "",
+                                    bathroom_type: "",
+                                    floor_type: "",
+                                    description_kitchen: "",
+                                    DescriptionRoom1: "",
+                                    DescriptionRoom2: "",
+                                    DescriptionRoom3: "",
+                                    DescriptionRoom4: "",
+                                    DescriptionRoom5: "",
+                                },
+                                family_needs: "",
                             };
+
                             acc[group.Date] = obj; // Using Date as key
                         } else {
                             console.error("خطأ: المصفوفة group غير متكاملة");

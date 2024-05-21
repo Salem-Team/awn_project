@@ -43,19 +43,19 @@
                             <div class="Financial_details">
                                 <div class="required">
                                     <span
-                                        >{{ Case.financial_info.required }}
+                                        >{{ Case.financial_info.required || 0 }}
                                     </span>
                                     <div>مطلوب</div>
                                 </div>
                                 <div class="incom">
                                     <span
-                                        >{{ Case.financial_info.incom }}
+                                        >{{ Case.financial_info.incom || 0 }}
                                     </span>
                                     <div>دخل</div>
                                 </div>
                                 <div class="deficit">
                                     <span
-                                        >{{ Case.financial_info.deficit }}
+                                        >{{ Case.financial_info.deficit || 0 }}
                                     </span>
                                     <div>عجز</div>
                                 </div>
@@ -2642,6 +2642,17 @@ export default {
             this.sumFinancialData();
             this.$emit("child-result", this.Cases_length);
             this.loading = false; // Set loading to false after data is loaded
+            // ////////////////////////////
+            // Call all emitters after fetching data
+            this.Emitter.emit("change_view");
+            this.Emitter.emit("FunATZ");
+            this.Emitter.emit("FunZTA");
+            this.Emitter.emit("CardsAscending");
+            this.Emitter.emit("CardsDesaending");
+            this.Emitter.emit("FatAscending");
+            this.Emitter.emit("fatDesaending");
+            this.Emitter.emit("caloriesAscending");
+            this.Emitter.emit("caloriesDesaending");
         },
         sumFinancialData() {
             this.deficit = 0;
@@ -2689,43 +2700,138 @@ export default {
         // });
         // / Seconed  Function ordered By >>>> A To Z
         this.Emitter.on("FunATZ", () => {
-            this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
+            // this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
+            var allboxname = document.querySelectorAll(".boxes .box .name");
+            var namesArray = [];
+
+            for (let i = 0; i < allboxname.length; i++) {
+                let name = allboxname[i].textContent.trim();
+                namesArray.push(name);
+            }
+
+            namesArray.sort(function (a, b) {
+                return a.localeCompare(b);
+            });
+
+            for (let i = 0; i < allboxname.length; i++) {
+                allboxname[i].textContent = namesArray[i];
+            }
         });
         // / Third  Function ordered By >>>> Z To A
         this.Emitter.on("FunZTA", () => {
-            this.vegetables.sort((a, b) => (b.name > a.name ? 1 : -1));
+            var allboxname = document.querySelectorAll(".boxes .box .name");
+            var namesArray = [];
+
+            for (let i = 0; i < allboxname.length; i++) {
+                let name = allboxname[i].textContent.trim();
+                namesArray.push(name);
+            }
+
+            namesArray.sort(function (a, b) {
+                return b.localeCompare(a);
+            });
+
+            for (let i = 0; i < allboxname.length; i++) {
+                allboxname[i].textContent = namesArray[i];
+            }
         });
 
         // ---------------------------------------------------------------------------
-        // / Fourth  Function ordered By Cards >>>> S T L
+        // / Fourth  Function ordered By deficit >>>> S T L
         this.Emitter.on("CardsAscending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => a.carbs - b.carbs
+            var allboxdeficit = document.querySelectorAll(
+                ".boxes .box .deficit"
             );
+            var deficitsArray = [];
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                let deficit = parseFloat(allboxdeficit[i].textContent.trim());
+                deficitsArray.push(deficit);
+                console.log(deficit);
+            }
+
+            deficitsArray.sort(function (a, b) {
+                return a - b;
+            });
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                allboxdeficit[i].textContent = deficitsArray[i];
+            }
         });
         // / Fivth  Function ordered By Cards >>>> L T S
         this.Emitter.on("CardsDesaending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => b.carbs - a.carbs
+            var allboxdeficit = document.querySelectorAll(
+                ".boxes .box .deficit"
             );
+            var deficitsArray = [];
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                let deficit = parseFloat(allboxdeficit[i].textContent.trim());
+                deficitsArray.push(deficit);
+            }
+
+            deficitsArray.sort(function (a, b) {
+                return b - a;
+            });
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                allboxdeficit[i].textContent = deficitsArray[i];
+            }
         });
-        // / Sixth  Function ordered Fat >>>> S T L
+        // / Sixth  Function ordered incom >>>> S T L
+
         this.Emitter.on("FatAscending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
+            var allBoxIncom = document.querySelectorAll(".boxes .box .incom");
+            const incomValues = Array.from(allBoxIncom).map((box) =>
+                parseFloat(box.textContent.trim())
+            );
+
+            incomValues.sort((a, b) => b - a);
+
+            for (let i = 0; i < incomValues.length; i++) {
+                allBoxIncom[i].textContent = incomValues[i].toString();
+            }
         });
-        // / seventh  Function ordered Fat >>>> L T Z
         this.Emitter.on("fatDesaending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => b.fat - a.fat);
+            var allBoxIncom = document.querySelectorAll(".boxes .box .incom");
+            const incomValues = Array.from(allBoxIncom).map((box) =>
+                parseFloat(box.textContent.trim())
+            );
+
+            incomValues.sort((a, b) => b - a);
+
+            for (let i = 0; i < incomValues.length; i++) {
+                allBoxIncom[i].textContent = incomValues[i].toString();
+            }
         });
-        // / Eight  Function ordered calories >>>>S T L
+
+        // / Eight  Function ordered required >>>>S T L
         this.Emitter.on("caloriesAscending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
+            var allBoxreq = document.querySelectorAll(".boxes .box .required");
+            const requiredValues = Array.from(allBoxreq).map((box) =>
+                parseFloat(box.textContent.trim())
+            );
+            requiredValues.sort((a, b) => a - b);
+            for (let i = 0; i < requiredValues.length; i++) {
+                allBoxreq[i].textContent = requiredValues[i].toString();
+                console.log(
+                    (allBoxreq[i].textContent = requiredValues[i].toString())
+                );
+            }
         });
         // / nine  Function ordered calories >>>>S T L
         this.Emitter.on("caloriesDesaending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => b.calories - a.calories
+            var allBoxreq = document.querySelectorAll(".boxes .box .required");
+            const requiredValues = Array.from(allBoxreq).map((box) =>
+                parseFloat(box.textContent.trim())
             );
+            requiredValues.sort((a, b) => b - a);
+            for (let i = 0; i < requiredValues.length; i++) {
+                allBoxreq[i].textContent = requiredValues[i].toString();
+                console.log(
+                    (allBoxreq[i].textContent = requiredValues[i].toString())
+                );
+            }
         });
     },
 };
