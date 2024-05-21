@@ -532,6 +532,12 @@
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
+                                                                <v-divider
+                                                                    :thickness="
+                                                                        8
+                                                                    "
+                                                                    class="my-5 mb-5"
+                                                                ></v-divider>
                                                             </div>
                                                             <div>
                                                                 <div
