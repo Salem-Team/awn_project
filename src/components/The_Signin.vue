@@ -131,7 +131,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
     components: { TheRegister },
-    props: ["Check_User", "IsActive"],
+    props: ["Check_User"],
     setup() {
         return {
             v$: useVuelidate(),
@@ -170,7 +170,7 @@ export default {
                     required: helpers.withMessage("ادخل باسورد", required),
                     isValidPassword(value) {
                         const regexPattern =
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+                            /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/;
                         return regexPattern.test(value);
                     },
                 },
@@ -219,7 +219,7 @@ export default {
                 if (!this.v$.$error) {
                     console.log("Data filled and Form submitted successfully");
                     console.log("User", this.user);
-                    this.$emit("update:isActive", false);
+                    this.isActive = false; // Close the dialog
                     this.v$.$reset();
                 } else {
                     console.log("Data not all filled Validation errors found");
@@ -240,7 +240,7 @@ export default {
                     setTimeout(() => {
                         this.Check_User();
                     }, 100);
-                    this.$emit("update:isActive", false);
+                    this.isActive = false; // Close the dialog
                     this.v$.$reset();
                 }
             });

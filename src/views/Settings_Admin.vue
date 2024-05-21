@@ -438,90 +438,114 @@
                                                         </div>
                                                     </v-col>
                                                     <v-col>
-                                                        <div>
+                                                        <div
+                                                            class="mt-2 d-flex flex-column"
+                                                            style="width: 100%"
+                                                        >
                                                             <div
-                                                                class="mt-2 d-flex flex-column"
-                                                                style="
-                                                                    width: 100%;
-                                                                "
+                                                                class="social-boxes p-20 rad-10"
                                                             >
-                                                                <div
-                                                                    class="social-boxes p-20 rad-10"
+                                                                <h2
+                                                                    class="mt-0 mb-10 text-primary"
                                                                 >
-                                                                    <h2
-                                                                        class="mt-0 mb-10 text-primary"
-                                                                    >
-                                                                        لينكات
-                                                                        التواصل
-                                                                    </h2>
+                                                                    لينكات
+                                                                    التواصل
+                                                                </h2>
 
-                                                                    <div
-                                                                        class="d-flex align-center"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                form3.Facebook
-                                                                            "
-                                                                            style="
-                                                                                width: 100%;
-                                                                            "
-                                                                            label="Facebook Username"
-                                                                            variant="outlined"
-                                                                            append-inner-icon="mdi-facebook"
-                                                                            placeholder="Facebook Username"
-                                                                        ></v-text-field>
-                                                                    </div>
+                                                                <!-- Facebook Field -->
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-if="
+                                                                            form3.Facebook
+                                                                        "
+                                                                        v-model="
+                                                                            form3.Facebook
+                                                                        "
+                                                                        :rules="
+                                                                            validationRules.facebookRule
+                                                                        "
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                        label="Facebook Link"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-facebook"
+                                                                        placeholder="Enter Facebook Link"
+                                                                    ></v-text-field>
+                                                                </div>
 
-                                                                    <div
-                                                                        class="d-flex align-center"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                form3.Twitter
-                                                                            "
-                                                                            style="
-                                                                                width: 100%;
-                                                                            "
-                                                                            label="Twitter Username"
-                                                                            variant="outlined"
-                                                                            append-inner-icon="mdi-twitter"
-                                                                            placeholder="Twitter Username"
-                                                                        ></v-text-field>
-                                                                    </div>
+                                                                <!-- Twitter Field -->
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-if="
+                                                                            form3.Twitter
+                                                                        "
+                                                                        v-model="
+                                                                            form3.Twitter
+                                                                        "
+                                                                        :rules="
+                                                                            validationRules.twitterRule
+                                                                        "
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                        label="Twitter Link"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-twitter"
+                                                                        placeholder="Enter Twitter Link"
+                                                                    ></v-text-field>
+                                                                </div>
 
-                                                                    <div
-                                                                        class="d-flex align-center"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                form3.whatsapp
-                                                                            "
-                                                                            style="
-                                                                                width: 100%;
-                                                                            "
-                                                                            label="whatsapp Username"
-                                                                            variant="outlined"
-                                                                            append-inner-icon="mdi-whatsapp"
-                                                                            placeholder="whatsapp Username"
-                                                                        ></v-text-field>
-                                                                    </div>
+                                                                <!-- WhatsApp Field -->
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-if="
+                                                                            form3.whatsapp
+                                                                        "
+                                                                        v-model="
+                                                                            form3.whatsapp
+                                                                        "
+                                                                        :rules="
+                                                                            validationRules.whatsappRule
+                                                                        "
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                        label="WhatsApp Link"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-whatsapp"
+                                                                        placeholder="Enter WhatsApp Link"
+                                                                    ></v-text-field>
+                                                                </div>
 
-                                                                    <div
-                                                                        class="d-flex align-center"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="
-                                                                                form3.Youtube
-                                                                            "
-                                                                            style="
-                                                                                width: 50%;
-                                                                            "
-                                                                            label="Youtube Username"
-                                                                            variant="outlined"
-                                                                            append-inner-icon="mdi-youtube"
-                                                                            placeholder="Youtube Username"
-                                                                        ></v-text-field>
-                                                                    </div>
+                                                                <!-- YouTube Field -->
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-if="
+                                                                            form3.Youtube
+                                                                        "
+                                                                        v-model="
+                                                                            form3.Youtube
+                                                                        "
+                                                                        :rules="
+                                                                            validationRules.youtubeRule
+                                                                        "
+                                                                        style="
+                                                                            width: 50%;
+                                                                        "
+                                                                        label="YouTube Link"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-youtube"
+                                                                        placeholder="Enter YouTube Link"
+                                                                    ></v-text-field>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -619,7 +643,7 @@
                                                                         loading
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required1,
                                                                     ]"
                                                                     class="mb-2"
                                                                     label="الاسم"
@@ -631,7 +655,7 @@
                                                                         AssistantEmail
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required3,
                                                                     ]"
                                                                     type="email"
                                                                     placeholder="example@gmail.com"
@@ -647,7 +671,7 @@
                                                                         loading
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required4,
                                                                     ]"
                                                                     label="الرقم القومي"
                                                                     placeholder="الرقم القومي"
@@ -655,6 +679,9 @@
                                                                 ></v-text-field>
                                                                 <v-select
                                                                     chips
+                                                                    :rules="[
+                                                                        required,
+                                                                    ]"
                                                                     v-model="
                                                                         AssistantPowerss
                                                                     "
@@ -674,7 +701,7 @@
                                                                         loading
                                                                     "
                                                                     :rules="[
-                                                                        required,
+                                                                        required2,
                                                                     ]"
                                                                     label="رقم التليفون"
                                                                     placeholder="رقم التليفون"
@@ -892,13 +919,29 @@ import useVuelidate from "@vuelidate/core";
 // import {
 //     required,
 //     minLength,
-//     maxLength,
+//     // maxLength,
 //     // alpha,
 //     numeric,
 //     // regex,
 //     // between,
 //     helpers,
 // } from "@vuelidate/validators";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "@firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
+    authDomain: "awn--project.firebaseapp.com",
+    projectId: "awn--project",
+    storageBucket: "awn--project.appspot.com",
+    messagingSenderId: "477381368618",
+    appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
+};
+import { getDocs, getFirestore, collection } from "@firebase/firestore";
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default {
     data: () => ({
         randomPassword: "",
@@ -963,7 +1006,28 @@ export default {
             whatsapp: "",
             Youtube: "",
         },
-
+        validationRules: {
+            facebookRule: [
+                (v) =>
+                    /^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i.test(v) ||
+                    "Enter a valid Facebook link",
+            ],
+            twitterRule: [
+                (v) =>
+                    /^(https?:\/\/)?((w{3}\.)?)twitter.com\/.*/i.test(v) ||
+                    "Enter a valid Twitter link",
+            ],
+            whatsappRule: [
+                (v) =>
+                    /^(https?:\/\/)?((w{3}\.)?)wa.me\/.*/i.test(v) ||
+                    "Enter a valid WhatsApp link",
+            ],
+            youtubeRule: [
+                (v) =>
+                    /^(https?:\/\/)?((w{3}\.)?)youtube.com\/.*/i.test(v) ||
+                    "Enter a valid YouTube link",
+            ],
+        },
         form4: {},
 
         form5: {
@@ -997,6 +1061,8 @@ export default {
             },
         ],
         Charities: {},
+        Cases: [],
+        Cases_length: 0,
     }),
     setup() {
         return { v$: useVuelidate() };
@@ -1112,6 +1178,32 @@ export default {
         },
     },
     methods: {
+        async Get_data() {
+            this.loading = true; // Set loading to true before fetching data
+            this.Cases = [];
+            const querySnapshot = await getDocs(collection(db, "Cases"));
+            querySnapshot.forEach((doc) => {
+                this.Cases.push(doc.data());
+            });
+            console.log("this.Cases", this.Cases);
+
+            // Assuming you have a way to determine which case to use for form3
+            if (this.Cases.length > 0) {
+                // Example: Using the first case to update form3
+                const firstCase = this.Cases[0];
+                this.form3 = {
+                    Facebook: firstCase.Facebook || "",
+                    Twitter: firstCase.Twitter || "",
+                    whatsapp: firstCase.whatsapp || "",
+                    Youtube: firstCase.Youtube || "",
+                };
+            }
+
+            this.Cases_length = this.Cases.length;
+            // this.sumFinancialData();
+            this.$emit("child-result", this.Cases_length);
+            this.loading = false; // Set loading to false after data is loaded
+        },
         triggerToggleTheme() {
             this.$emit("execute-toggle-theme"); // إرسال حدث لتنفيذ دالة toggleTheme
         },
@@ -1338,6 +1430,30 @@ export default {
         required(v) {
             return !!v || "الحقل مطلوب";
         },
+        required1(v) {
+            return (
+                (!!v && /^[\u0600-\u06FF\s]+$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على حروف عربية فقط"
+            );
+        },
+        required2(v) {
+            return (
+                (!!v && /^\d+$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على أرقام فقط"
+            );
+        },
+        required3(v) {
+            return (
+                (!!v && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على بريد إلكتروني صالح"
+            );
+        },
+        required4(v) {
+            return (
+                (!!v && /^\d{14,}$/.test(v)) ||
+                "الحقل مطلوب ويجب أن يحتوي على أرقام فقط ولا يقل عن 14 رقمًا"
+            );
+        },
         removeItem(index) {
             this.storedArray.splice(index, 1);
             localStorage.setItem(
@@ -1365,6 +1481,7 @@ export default {
         localStorage.setItem("formmosed2", JSON.stringify(oldData));
         this.storedArray = oldData;
         this.generateRandomPassword();
+        this.Get_data();
     },
 };
 </script>

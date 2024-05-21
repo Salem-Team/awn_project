@@ -64,13 +64,10 @@
         </div>
     </v-container>
     <v-container><v-divider></v-divider></v-container>
-    <v-container style="width: 70%; overflow: auto">
-        <canvas
-            id="barChart"
-            width="2px"
-            height="2px"
-            style="overflow: auto"
-        ></canvas>
+    <v-container
+        style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
+    >
+        <canvas id="barChart"></canvas>
     </v-container>
 </template>
 
@@ -135,13 +132,15 @@ export default {
             this.incom = 0;
             this.Cases.forEach((Case) => {
                 if (!isNaN(parseInt(Case.financial_info.deficit))) {
-                    this.deficit += parseInt(Case.financial_info.deficit);
+                    this.deficit += parseInt(Case.financial_info.deficit || 0);
                 }
                 if (!isNaN(parseInt(Case.financial_info.required))) {
-                    this.required += parseInt(Case.financial_info.required);
+                    this.required += parseInt(
+                        Case.financial_info.required || 0
+                    );
                 }
                 if (!isNaN(parseInt(Case.financial_info.incom))) {
-                    this.incom += parseInt(Case.financial_info.incom);
+                    this.incom += parseInt(Case.financial_info.incom || 0);
                 }
             });
             this.value = Math.round((this.incom / this.required) * 100);
@@ -227,15 +226,17 @@ export default {
                     plugins: {
                         datalabels: {
                             color: "#0066CC", // Set the color of data labels
-                            anchor: "end", // Position the data labels at the end of the bars
-                            align: "top", // Align the data labels to the top of the bars
+                            anchor: "top", // Position the data labels at the end of the bars
+                            align: "right", // Align the data labels to the top of the bars
                             formatter: function (value, context) {
                                 if (
                                     value1[context.dataIndex] !== null &&
                                     context.datasetIndex === 0
                                 ) {
                                     // Print the value for the second dataset only if it's not null
-                                    return value1[context.dataIndex] + "%";
+                                    return (
+                                        value1[context.dataIndex] + "%" + " "
+                                    );
                                 } else {
                                     return "";
                                 }
@@ -271,6 +272,11 @@ export default {
 <style scoped>
 .card {
     width: 190px !important;
+}
+#barChart {
+    margin: auto;
+    width: 1000px !important;
+    height: 600px !important;
 }
 .chart-container {
     overflow: auto;
