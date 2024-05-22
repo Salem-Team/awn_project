@@ -32,7 +32,7 @@
                                 class="text-center chip_info"
                             >
                                 <div class="info">
-                                    <div class="num">30000</div>
+                                    <div class="num">{{ childResult1 }}</div>
                                     <span class="text-primary">عجز</span>
                                 </div>
                             </v-chip>
@@ -391,6 +391,7 @@
                 <DashboardCharitys
                     ref="childComponentRef"
                     @child-result="handleChildResult"
+                    @child-result1="handleChildResult1"
                 />
             </div>
         </v-container>
@@ -434,6 +435,7 @@ export default {
             Show_Add: null,
             Cases: [],
             childResult: 0,
+            childResult1: 0,
             case: {
                 personal_info_1: {
                     name: "",
