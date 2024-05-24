@@ -356,6 +356,17 @@
                                                     الملف مرفوض! من فضلك املئ
                                                     جميع الحقول بطريقة صحيحة.
                                                 </v-alert>
+                                                <v-alert
+                                                    v-if="ExcelFile"
+                                                    type="error"
+                                                    color="red"
+                                                    closable
+                                                    dismissible
+                                                >
+                                                    عذراً، يجب تحميل ملف إكسل
+                                                    فقط. الرجاء التأكد من امتداد
+                                                    الملف.
+                                                </v-alert>
                                             </div>
                                             <v-card-actions
                                                 class="my-2 d-flex justify-end"
@@ -419,6 +430,7 @@ export default {
         return {
             validationError: false,
             // start vars belong Exel & json files
+            ExcelFile: false,
             jsonData: null,
             downloadURL: null,
             excelFile: null,
@@ -534,6 +546,18 @@ export default {
             if (!file) {
                 console.error("اضف ملف اكسل اولا");
                 return;
+            }
+            const fileName = file.name.toLowerCase();
+            if (
+                fileName.indexOf(".xlsx") === -1 &&
+                fileName.indexOf(".xlsm") === -1 &&
+                fileName.indexOf(".xls") === -1
+            ) {
+                let valid = true;
+                if (valid) {
+                    this.ExcelFile = true;
+                    return;
+                }
             }
 
             this.jsonData = null; // Reset data and download URL on new file selection
