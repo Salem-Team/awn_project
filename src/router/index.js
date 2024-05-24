@@ -5,6 +5,7 @@ import DashBoard_Admin from "@/views/DashBoard_Admin.vue";
 import Settings_Admin from "@/views/Settings_Admin.vue";
 import Reset_Password from "@/views/Reset_Password.vue";
 import Report_DashBoard from "@/views/Report_DashBoard.vue";
+import Report_DashBoard1 from "@/views/Report_DashBoard1.vue";
 const routes = [
     {
         path: "/",
@@ -36,6 +37,11 @@ const routes = [
         path: "/Report_DashBoard",
         name: "Report_DashBoard",
         component: Report_DashBoard,
+    },
+    {
+        path: "/Report_DashBoard1",
+        name: "Report_DashBoard1",
+        component: Report_DashBoard1,
     },
 ];
 

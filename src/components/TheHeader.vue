@@ -104,6 +104,13 @@
                                 </v-list-item>
                                 <v-list-item
                                     link
+                                    v-if="User.type === 'admin'"
+                                    @click="$router.push('/Report_DashBoard1')"
+                                >
+                                    التقارير
+                                </v-list-item>
+                                <v-list-item
+                                    link
                                     @click="$router.push('/Report_DashBoard')"
                                     v-if="User.type === 'owner'"
                                 >
@@ -196,6 +203,8 @@ export default {
                         console.log(this.User.type);
                     } else if (docSnap.data().type === "admin") {
                         this.User.type = "admin";
+                    } else if (docSnap.data().type === "assistant") {
+                        this.User.type = "assistant";
                     }
                     this.User.User_name = name
                         .split(" ")
