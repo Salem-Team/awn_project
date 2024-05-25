@@ -31,7 +31,9 @@
             prepend-icon="mdi-account"
         >
             <v-card-title>عدد الحالات</v-card-title>
-            <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
+            <v-card-text class="text-center">{{
+                CharitiesDB_length
+            }}</v-card-text>
         </v-card>
         <v-card
             class="card text-center mt-3 bg-grey-lighten-3"
@@ -101,36 +103,30 @@ export default {
     },
     data() {
         return {
-            deficit: 0,
-            required: 0,
-            incom: 0,
-            Cases_length: 0,
-            Cases: [],
+            CharitiesDB_length: 0,
+            CharitiesDB: [],
             value: ref(80),
         };
     },
     mounted() {
-        this.Get_data();
+        this.Get_Data();
     },
     methods: {
-        async Get_data() {
-            this.Cases = [];
-            const querySnapshot = await getDocs(collection(db, "Cases"));
+        // Get Data
+        async Get_Data() {
+            const querySnapshot = await getDocs(collection(db, "Charities"));
             querySnapshot.forEach((doc) => {
-                this.Cases.push(doc.data());
+                // doc.data() is never undefined for query doc snapshots
+                const charityData = doc.data();
+                this.CharitiesDB.push(charityData);
             });
-            this.Cases_length = this.Cases.length;
-            this.sumFinancialData();
-            // Render both charts after getting data
-            this.renderChart();
-            this.renderBarChart();
+            console.log(this.CharitiesDB);
         },
-
         sumFinancialData() {
             this.deficit = 0;
             this.required = 0;
             this.incom = 0;
-            this.Cases.forEach((Case) => {
+            this.CharitiesDB.forEach((Case) => {
                 if (!isNaN(parseInt(Case.financial_info.deficit))) {
                     this.deficit += parseInt(Case.financial_info.deficit || 0);
                 }
@@ -186,7 +182,7 @@ export default {
             const data1 = [];
             const value1 = [];
             // Loop through each case to extract financial_info
-            this.Cases.forEach((Case, index) => {
+            this.CharitiesDB.forEach((Case, index) => {
                 labels.push(`${Case.personal_info.name} (${index + 1} )`);
                 data.push(
                     Case.financial_info.required - Case.financial_info.incom

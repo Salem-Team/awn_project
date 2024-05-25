@@ -1717,6 +1717,7 @@ export default {
                     detailed_address: this.personal_info_1.detailed_address,
                     marital_status: this.personal_info_1.marital_status,
                     phone: this.personal_info_1.phone,
+                    charity_id: localStorage.getItem("charity_ID"),
                 },
                 financial_info: {
                     required: this.financial_info_2.required,

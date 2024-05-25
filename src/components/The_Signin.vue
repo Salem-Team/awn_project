@@ -242,8 +242,9 @@ export default {
                     doc.data().nationalID === this.user.nationalID &&
                     doc.data().password === this.user.password
                 ) {
-                    console.log(doc.id, " => ", doc.data().nationalID);
+                    console.log(doc.id, " => ", doc.data().charity_ID);
                     localStorage.setItem("id", doc.id);
+                    localStorage.setItem("charity_ID", doc.data().charity_ID);
                     setTimeout(() => {
                         this.Check_User();
                     }, 100);

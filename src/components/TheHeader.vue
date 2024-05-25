@@ -186,6 +186,7 @@ export default {
         },
         Sign_Out() {
             localStorage.removeItem("id");
+            localStorage.removeItem("charity_ID");
             this.User.User_State = true;
             this.$router.push("/");
         },
