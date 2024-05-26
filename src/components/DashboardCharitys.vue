@@ -82,8 +82,6 @@
                                 <div>التفاصيل</div>
                                 <!--this a dialog to show the case's data-->
                                 <v-dialog
-                                    id="dialog"
-                                    v-model="dialog"
                                     activator="parent"
                                     width="100%"
                                     scrollable
@@ -1989,8 +1987,6 @@ export default {
         Cases_length: 0,
         Cases: [],
         form: 1,
-        dialog: false, // Dialog state
-        dialogActivator: null, // Dynamically bind activator based on clicked box
         isGridView: false,
         search: "",
         newVegetables: [],
@@ -2716,12 +2712,6 @@ export default {
                 var class_name = this.Case.personal_info.name;
                 box.classList.add(class_name);
             });
-        },
-        openDialog(activator) {
-            // Set the activator to open the dialog
-            this.dialogActivator = activator;
-            // Open the dialog
-            this.dialog = true;
         },
         sumFinancialData() {
             this.deficit = 0;
