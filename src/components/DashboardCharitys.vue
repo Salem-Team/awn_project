@@ -14,7 +14,7 @@
             ></v-text-field>
             <div class="boxes">
                 <div
-                    class="box"
+                    :class="'box ' + Case.personal_info.national_id"
                     v-for="(Case, index) in paginatedCases"
                     :key="Case"
                 >
@@ -82,7 +82,9 @@
                                 <div>التفاصيل</div>
                                 <!--this a dialog to show the case's data-->
                                 <v-dialog
-                                    activator="parent"
+                                    id="dialog"
+                                    v-model="dialog"
+                                    :activator="dialogActivator"
                                     width="100%"
                                     scrollable
                                 >
@@ -1987,6 +1989,8 @@ export default {
         Cases_length: 0,
         Cases: [],
         form: 1,
+        dialog: false, // Dialog state
+        dialogActivator: null, // Dynamically bind activator based on clicked box
         isGridView: false,
         search: "",
         newVegetables: [],
@@ -2691,9 +2695,9 @@ export default {
             this.sumFinancialData();
             this.$emit("child-result", this.Cases_length);
             this.loading = false; // Set loading to false after data is loaded
+            this.addClass();
             // ////////////////////////////
             // Call all emitters after fetching data
-            this.Emitter.emit("change_view");
             this.Emitter.emit("FunATZ");
             this.Emitter.emit("FunZTA");
             this.Emitter.emit("CardsAscending");
@@ -2702,6 +2706,22 @@ export default {
             this.Emitter.emit("fatDesaending");
             this.Emitter.emit("caloriesAscending");
             this.Emitter.emit("caloriesDesaending");
+            this.Emitter.emit("change_view");
+        },
+        addClass() {
+            var boxes = document.querySelectorAll(".box ");
+            // Iterate over each box element
+            boxes.forEach((box) => {
+                // Add the class of the corresponding Case to the box element
+                var class_name = this.Case.personal_info.name;
+                box.classList.add(class_name);
+            });
+        },
+        openDialog(activator) {
+            // Set the activator to open the dialog
+            this.dialogActivator = activator;
+            // Open the dialog
+            this.dialog = true;
         },
         sumFinancialData() {
             this.deficit = 0;
@@ -3046,6 +3066,7 @@ export default {
     }
 }
 @media (max-width: 800px) {
+    /* Apply styles for screens up to 800px wide */
     .boxes.Change_View .box {
         width: 100% !important;
     }
