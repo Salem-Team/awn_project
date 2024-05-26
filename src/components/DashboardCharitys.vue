@@ -84,7 +84,7 @@
                                 <v-dialog
                                     id="dialog"
                                     v-model="dialog"
-                                    :activator="dialogActivator"
+                                    activator="parent"
                                     width="100%"
                                     scrollable
                                 >
