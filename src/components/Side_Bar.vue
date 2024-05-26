@@ -19,7 +19,7 @@
                 <v-list-item
                     v-if="User.type === 'admin'"
                     link
-                    @click="$router.push('/Report_DashBoard1')"
+                    @click="$router.push('/Report_DashBoard_Charities')"
                     prepend-icon="mdi-chart-pie-outline"
                 >
                 </v-list-item>
