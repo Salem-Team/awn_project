@@ -211,7 +211,7 @@
                                     >mdi-plus</v-icon
                                 >
                             </v-btn>
-                            <v-btn @click="Swap" class="btn_menu">
+                            <v-btn @click="Swap" class="btn_menu" id="Swap">
                                 <v-icon>mdi-view-grid-outline</v-icon>
                             </v-btn>
                         </div>
@@ -842,6 +842,12 @@ label span:active {
 @media (max-width: 400px) {
     .chip_info[data-v-d1ccef3e] {
         font-size: 9px !important;
+    }
+}
+@media (max-width: 801px) {
+    /* Apply styles for screens wider than 800px */
+    #Swap {
+        display: none;
     }
 }
 </style>

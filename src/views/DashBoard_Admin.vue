@@ -14,7 +14,7 @@
                         </h1>
                         <!-- Info Status -->
                         <div v-if="tab === 'المحتاجين'">
-                            <v-btn @click="Swap">
+                            <v-btn @click="Swap" id="Swap">
                                 <v-icon>mdi-view-grid-outline</v-icon>
                             </v-btn>
                         </div>
@@ -186,5 +186,11 @@ label span:hover {
 }
 label span:active {
     box-shadow: 1px 1px 0 #012;
+}
+@media (max-width: 801px) {
+    /* Apply styles for screens wider than 800px */
+    #Swap {
+        display: none;
+    }
 }
 </style>
