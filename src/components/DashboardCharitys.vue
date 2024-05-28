@@ -436,9 +436,9 @@
                                                             <div
                                                                 class="form form_pashent"
                                                                 v-for="(
-                                                                    form,
+                                                                    formData,
                                                                     formIndex
-                                                                ) in form"
+                                                                ) in formDataArray"
                                                                 :key="formIndex"
                                                             >
                                                                 <div
@@ -452,11 +452,9 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Case
-                                                                                    .diseases
-                                                                                    .patien_name
+                                                                                formData.patien_name
                                                                             "
-                                                                            label=" اسم المريض "
+                                                                            label="اسم المريض"
                                                                             variant="outlined"
                                                                             style="
                                                                                 width: 100%;
@@ -472,17 +470,15 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Case
-                                                                                    .diseases
-                                                                                    .disease
+                                                                                formData.disease
                                                                             "
-                                                                            label="  المرض "
+                                                                            label="المرض"
                                                                             variant="outlined"
                                                                             class="mt-2"
                                                                             style="
                                                                                 width: 100%;
                                                                             "
-                                                                            placeholder=" المرض"
+                                                                            placeholder="المرض"
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
@@ -495,9 +491,7 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Case
-                                                                                    .diseases
-                                                                                    .get_treatment
+                                                                                formData.get_treatment
                                                                             "
                                                                             label="كيفيه الحصول علي العلاج"
                                                                             variant="outlined"
@@ -505,7 +499,7 @@
                                                                             style="
                                                                                 width: 100%;
                                                                             "
-                                                                            placeholder="كيفيه الحصول علي العلاج "
+                                                                            placeholder="كيفيه الحصول علي العلاج"
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
@@ -518,11 +512,9 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Case
-                                                                                    .diseases
-                                                                                    .not_available
+                                                                                formData.not_available
                                                                             "
-                                                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                            label="السبب في عدم العلاج علي نفقه الدولة"
                                                                             variant="outlined"
                                                                             class="mt-2"
                                                                             style="
@@ -550,12 +542,11 @@
                                                                             margin-right: 20px;
                                                                         "
                                                                         @click="
-                                                                            form++
+                                                                            addForm
                                                                         "
                                                                         icon="mdi-plus"
                                                                         size="small"
-                                                                    >
-                                                                    </v-btn>
+                                                                    ></v-btn>
                                                                 </div>
                                                             </div>
                                                             <!-- <v-divider
@@ -1985,7 +1976,9 @@ export default {
         currentPage: 1, // Current page
         pageSize: 5, // Number of cases per page
         Cases_length: 0,
+        formDataArray: [],
         Cases: [],
+        dencs: [],
         form: 1,
         isGridView: false,
         search: "",
@@ -2663,13 +2656,15 @@ export default {
         },
     },
     methods: {
-        // addForm(caseIndex) {
-        //     this.paginatedCases[caseIndex].forms.push({
+        // addForm() {
+        //     this.form++;
+        //     this.dencs.push({
         //         patien_name: "",
         //         disease: "",
         //         get_treatment: "",
         //         not_available: "",
         //     });
+        //     console.log(this.dencs);
         // },
         // Method to handle pagination input change
         paginate(page) {
@@ -2691,17 +2686,6 @@ export default {
             this.sumFinancialData();
             this.$emit("child-result", this.Cases_length);
             this.loading = false; // Set loading to false after data is loaded
-            // ////////////////////////////
-            // Call all emitters after fetching data
-            this.Emitter.emit("change_view");
-            this.Emitter.emit("FunATZ");
-            this.Emitter.emit("FunZTA");
-            this.Emitter.emit("CardsAscending");
-            this.Emitter.emit("CardsDesaending");
-            this.Emitter.emit("FatAscending");
-            this.Emitter.emit("fatDesaending");
-            this.Emitter.emit("caloriesAscending");
-            this.Emitter.emit("caloriesDesaending");
         },
         sumFinancialData() {
             this.deficit = 0;
@@ -2734,13 +2718,22 @@ export default {
 
             this.vegetables = filteredData;
         },
+        addForm() {
+            this.form++;
+            this.formDataArray.push({
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            });
+            console.log(this.formDataArray);
+        },
     },
     mounted() {
         // change view
         this.Emitter.on("change_view", () => {
             this.change_view();
         });
-
         // -----------------------------------------------------------------------------
 
         // Firts Function ordered By >>>> Swap BT Latest && Oldest
@@ -2749,138 +2742,43 @@ export default {
         // });
         // / Seconed  Function ordered By >>>> A To Z
         this.Emitter.on("FunATZ", () => {
-            // this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
-            var allboxname = document.querySelectorAll(".boxes .box .name");
-            var namesArray = [];
-
-            for (let i = 0; i < allboxname.length; i++) {
-                let name = allboxname[i].textContent.trim();
-                namesArray.push(name);
-            }
-
-            namesArray.sort(function (a, b) {
-                return a.localeCompare(b);
-            });
-
-            for (let i = 0; i < allboxname.length; i++) {
-                allboxname[i].textContent = namesArray[i];
-            }
+            this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
         });
         // / Third  Function ordered By >>>> Z To A
         this.Emitter.on("FunZTA", () => {
-            var allboxname = document.querySelectorAll(".boxes .box .name");
-            var namesArray = [];
-
-            for (let i = 0; i < allboxname.length; i++) {
-                let name = allboxname[i].textContent.trim();
-                namesArray.push(name);
-            }
-
-            namesArray.sort(function (a, b) {
-                return b.localeCompare(a);
-            });
-
-            for (let i = 0; i < allboxname.length; i++) {
-                allboxname[i].textContent = namesArray[i];
-            }
+            this.vegetables.sort((a, b) => (b.name > a.name ? 1 : -1));
         });
 
         // ---------------------------------------------------------------------------
-        // / Fourth  Function ordered By deficit >>>> S T L
+        // / Fourth  Function ordered By Cards >>>> S T L
         this.Emitter.on("CardsAscending", () => {
-            var allboxdeficit = document.querySelectorAll(
-                ".boxes .box .deficit"
+            this.newVegetables = this.vegetables.sort(
+                (a, b) => a.carbs - b.carbs
             );
-            var deficitsArray = [];
-
-            for (let i = 0; i < allboxdeficit.length; i++) {
-                let deficit = parseFloat(allboxdeficit[i].textContent.trim());
-                deficitsArray.push(deficit);
-                console.log(deficit);
-            }
-
-            deficitsArray.sort(function (a, b) {
-                return a - b;
-            });
-
-            for (let i = 0; i < allboxdeficit.length; i++) {
-                allboxdeficit[i].textContent = deficitsArray[i];
-            }
         });
         // / Fivth  Function ordered By Cards >>>> L T S
         this.Emitter.on("CardsDesaending", () => {
-            var allboxdeficit = document.querySelectorAll(
-                ".boxes .box .deficit"
+            this.newVegetables = this.vegetables.sort(
+                (a, b) => b.carbs - a.carbs
             );
-            var deficitsArray = [];
-
-            for (let i = 0; i < allboxdeficit.length; i++) {
-                let deficit = parseFloat(allboxdeficit[i].textContent.trim());
-                deficitsArray.push(deficit);
-            }
-
-            deficitsArray.sort(function (a, b) {
-                return b - a;
-            });
-
-            for (let i = 0; i < allboxdeficit.length; i++) {
-                allboxdeficit[i].textContent = deficitsArray[i];
-            }
         });
-        // / Sixth  Function ordered incom >>>> S T L
-
+        // / Sixth  Function ordered Fat >>>> S T L
         this.Emitter.on("FatAscending", () => {
-            var allBoxIncom = document.querySelectorAll(".boxes .box .incom");
-            const incomValues = Array.from(allBoxIncom).map((box) =>
-                parseFloat(box.textContent.trim())
-            );
-
-            incomValues.sort((a, b) => b - a);
-
-            for (let i = 0; i < incomValues.length; i++) {
-                allBoxIncom[i].textContent = incomValues[i].toString();
-            }
+            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
         });
+        // / seventh  Function ordered Fat >>>> L T Z
         this.Emitter.on("fatDesaending", () => {
-            var allBoxIncom = document.querySelectorAll(".boxes .box .incom");
-            const incomValues = Array.from(allBoxIncom).map((box) =>
-                parseFloat(box.textContent.trim())
-            );
-
-            incomValues.sort((a, b) => b - a);
-
-            for (let i = 0; i < incomValues.length; i++) {
-                allBoxIncom[i].textContent = incomValues[i].toString();
-            }
+            this.newVegetables = this.vegetables.sort((a, b) => b.fat - a.fat);
         });
-
-        // / Eight  Function ordered required >>>>S T L
+        // / Eight  Function ordered calories >>>>S T L
         this.Emitter.on("caloriesAscending", () => {
-            var allBoxreq = document.querySelectorAll(".boxes .box .required");
-            const requiredValues = Array.from(allBoxreq).map((box) =>
-                parseFloat(box.textContent.trim())
-            );
-            requiredValues.sort((a, b) => a - b);
-            for (let i = 0; i < requiredValues.length; i++) {
-                allBoxreq[i].textContent = requiredValues[i].toString();
-                console.log(
-                    (allBoxreq[i].textContent = requiredValues[i].toString())
-                );
-            }
+            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
         });
         // / nine  Function ordered calories >>>>S T L
         this.Emitter.on("caloriesDesaending", () => {
-            var allBoxreq = document.querySelectorAll(".boxes .box .required");
-            const requiredValues = Array.from(allBoxreq).map((box) =>
-                parseFloat(box.textContent.trim())
+            this.newVegetables = this.vegetables.sort(
+                (a, b) => b.calories - a.calories
             );
-            requiredValues.sort((a, b) => b - a);
-            for (let i = 0; i < requiredValues.length; i++) {
-                allBoxreq[i].textContent = requiredValues[i].toString();
-                console.log(
-                    (allBoxreq[i].textContent = requiredValues[i].toString())
-                );
-            }
         });
     },
 };
