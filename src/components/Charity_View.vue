@@ -47,10 +47,10 @@
                         >
                     </v-container>
                     <br />
-                    <!--the Charities_descripetion-->
+                    <!--the Charities_description-->
                     <div class="d-flex align-center flex-wrap justify-around">
                         <h3>وصف قصير للجمعية :</h3>
-                        <p>{{ charity.descripetion }}</p>
+                        <p>{{ charity.description }}</p>
                     </div>
                     <br />
                     <!--the Charities_Package_type
