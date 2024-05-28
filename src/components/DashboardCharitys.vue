@@ -15,7 +15,6 @@
             <div class="boxes">
                 <div
                     :class="'box ' + Case.personal_info.national_id"
-                    :class="'box ' + Case.personal_info.national_id"
                     v-for="(Case, index) in paginatedCases"
                     :key="Case"
                 >
@@ -75,7 +74,6 @@
                         >
                             <div
                                 class="details"
-                                @click="Case_Information(Case)"
                                 @click="Case_Information(Case)"
                             >
                                 <font-awesome-icon
@@ -160,7 +158,6 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Personal_Information.name
-                                                                                Personal_Information.name
                                                                             "
                                                                             label="الاسم ثلاثي"
                                                                             variant="outlined"
@@ -178,7 +175,6 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Personal_Information.nick_name
                                                                                 Personal_Information.nick_name
                                                                             "
                                                                             label="اسم الشهره"
@@ -200,7 +196,6 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Personal_Information.national_id
-                                                                                Personal_Information.national_id
                                                                             "
                                                                             label="رقم البطاقه"
                                                                             variant="outlined"
@@ -219,7 +214,6 @@
                                                                     >
                                                                         <v-select
                                                                             v-model="
-                                                                                Personal_Information.governorate
                                                                                 Personal_Information.governorate
                                                                             "
                                                                             label="المحافظه"
@@ -245,7 +239,6 @@
                                                                         <v-textarea
                                                                             v-model="
                                                                                 Personal_Information.detailed_address
-                                                                                Personal_Information.detailed_address
                                                                             "
                                                                             class="mt-2"
                                                                             style="
@@ -268,7 +261,6 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Personal_Information.house_number
-                                                                                Personal_Information.house_number
                                                                             "
                                                                             style="
                                                                                 width: 100%;
@@ -286,7 +278,6 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Personal_Information.floor_number
                                                                                 Personal_Information.floor_number
                                                                             "
                                                                             label="رقم الدور"
@@ -310,7 +301,6 @@
                                                                         <v-select
                                                                             v-model="
                                                                                 Personal_Information.marital_status
-                                                                                Personal_Information.marital_status
                                                                             "
                                                                             class="mt-2"
                                                                             style="
@@ -330,7 +320,6 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Personal_Information.phone
                                                                                 Personal_Information.phone
                                                                             "
                                                                             class="mt-2"
@@ -357,7 +346,6 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Financial_Information.required
-                                                                                Financial_Information.required
                                                                             "
                                                                             label="المطلوب "
                                                                             class="mt-2"
@@ -376,7 +364,6 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Financial_Information.incom
                                                                                 Financial_Information.incom
                                                                             "
                                                                             label="الداخل "
@@ -399,7 +386,6 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Financial_Information.deficit
-                                                                                Financial_Information.deficit
                                                                             "
                                                                             label="العجز "
                                                                             class="mt-2"
@@ -408,8 +394,6 @@
                                                                                 pointer-events: none;
                                                                             "
                                                                             :value="
-                                                                                Financial_Information.required -
-                                                                                Financial_Information.incom
                                                                                 Financial_Information.required -
                                                                                 Financial_Information.incom
                                                                             "
@@ -536,8 +520,7 @@
                                                                         size="small"
                                                                     ></v-btn>
                                                                 </div>
-                                                            </div>
-                                                            <!-- <v-divider
+                                                                <!-- <v-divider
                                                                     :thickness="
                                                                         8
                                                                     "
@@ -564,7 +547,6 @@
                                                                             <v-text-field
                                                                                 v-model="
                                                                                     Disease_Information
-                                                                                    Disease_Information
                                                                                         .patien_name
                                                                                 "
                                                                                 label=" اسم المريض "
@@ -583,7 +565,6 @@
                                                                         >
                                                                             <v-text-field
                                                                                 v-model="
-                                                                                    Disease_Information
                                                                                     Disease_Information
                                                                                         .disease
                                                                                 "
@@ -607,7 +588,6 @@
                                                                             <v-text-field
                                                                                 v-model="
                                                                                     Disease_Information
-                                                                                    Disease_Information
                                                                                         .get_treatment
                                                                                 "
                                                                                 label="كيفيه الحصول علي العلاج"
@@ -629,7 +609,6 @@
                                                                         >
                                                                             <v-text-field
                                                                                 v-model="
-                                                                                    Disease_Information
                                                                                     Disease_Information
                                                                                         .not_available
                                                                                 "
@@ -695,7 +674,6 @@
                                                                             <v-text-field
                                                                                 v-model="
                                                                                     Disease_Information
-                                                                                    Disease_Information
                                                                                         .patien_name
                                                                                 "
                                                                                 label=" اسم المريض "
@@ -714,7 +692,6 @@
                                                                         >
                                                                             <v-text-field
                                                                                 v-model="
-                                                                                    Disease_Information
                                                                                     Disease_Information
                                                                                         .disease
                                                                                 "
@@ -738,7 +715,6 @@
                                                                             <v-text-field
                                                                                 v-model="
                                                                                     Disease_Information
-                                                                                    Disease_Information
                                                                                         .get_treatment
                                                                                 "
                                                                                 label="كيفيه الحصول علي العلاج"
@@ -760,7 +736,6 @@
                                                                         >
                                                                             <v-text-field
                                                                                 v-model="
-                                                                                    Disease_Information
                                                                                     Disease_Information
                                                                                         .not_available
                                                                                 "
@@ -799,6 +774,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> -->
+                                                            </div>
                                                         </div>
                                                         <div v-if="e1 === 4">
                                                             <div class="form">
@@ -811,7 +787,6 @@
                                                                     >
                                                                         <v-select
                                                                             v-model="
-                                                                                Housing_Condition.number_rooms
                                                                                 Housing_Condition.number_rooms
                                                                             "
                                                                             :items="
@@ -832,7 +807,6 @@
                                                                     >
                                                                         <v-select
                                                                             v-model="
-                                                                                Housing_Condition.house_type
                                                                                 Housing_Condition.house_type
                                                                             "
                                                                             :items="
@@ -856,7 +830,6 @@
                                                                         <v-select
                                                                             v-model="
                                                                                 Housing_Condition.bathroom_type
-                                                                                Housing_Condition.bathroom_type
                                                                             "
                                                                             :items="
                                                                                 amam
@@ -876,7 +849,6 @@
                                                                     >
                                                                         <v-select
                                                                             v-model="
-                                                                                Housing_Condition.floor_type
                                                                                 Housing_Condition.floor_type
                                                                             "
                                                                             :items="
@@ -900,7 +872,6 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Housing_Condition.description_kitchen
-                                                                                Housing_Condition.description_kitchen
                                                                             "
                                                                             label="  وصف شامل للمطبخ "
                                                                             class="mt-2"
@@ -919,7 +890,6 @@
                                                                     >
                                                                         <v-text-field
                                                                             v-model="
-                                                                                Housing_Condition.DescriptionRoom1
                                                                                 Housing_Condition.DescriptionRoom1
                                                                             "
                                                                             label="  وصف سريع للغرفه رقم 1 "
@@ -942,10 +912,8 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Housing_Condition.DescriptionRoom2
-                                                                                Housing_Condition.DescriptionRoom2
                                                                             "
                                                                             v-show="
-                                                                                Housing_Condition.number_rooms >
                                                                                 Housing_Condition.number_rooms >
                                                                                 1
                                                                             "
@@ -962,11 +930,9 @@
                                                                     <v-text-field
                                                                         v-model="
                                                                             Housing_Condition.DescriptionRoom3
-                                                                            Housing_Condition.DescriptionRoom3
                                                                         "
                                                                         label="  وصف سريع للغرفه رقم 3 "
                                                                         v-show="
-                                                                            Housing_Condition.number_rooms >
                                                                             Housing_Condition.number_rooms >
                                                                             2
                                                                         "
@@ -989,10 +955,8 @@
                                                                         <v-text-field
                                                                             v-model="
                                                                                 Housing_Condition.DescriptionRoom2
-                                                                                Housing_Condition.DescriptionRoom2
                                                                             "
                                                                             v-show="
-                                                                                Housing_Condition.number_rooms >
                                                                                 Housing_Condition.number_rooms >
                                                                                 3
                                                                             "
@@ -1009,11 +973,9 @@
                                                                     <v-text-field
                                                                         v-model="
                                                                             Housing_Condition.DescriptionRoom3
-                                                                            Housing_Condition.DescriptionRoom3
                                                                         "
                                                                         label="  وصف سريع للغرفه رقم 5 "
                                                                         v-show="
-                                                                            Housing_Condition.number_rooms >
                                                                             Housing_Condition.number_rooms >
                                                                             4
                                                                         "
@@ -1040,7 +1002,6 @@
                                                                         <v-checkbox
                                                                             v-model="
                                                                                 Case_FamilyNeeds
-                                                                                Case_FamilyNeeds
                                                                             "
                                                                             label="طبي"
                                                                             value="طبي"
@@ -1055,7 +1016,6 @@
                                                                         <v-checkbox
                                                                             v-model="
                                                                                 Case_FamilyNeeds
-                                                                                Case_FamilyNeeds
                                                                             "
                                                                             label="زوج"
                                                                             value="زوج"
@@ -1069,7 +1029,6 @@
                                                                     >
                                                                         <v-checkbox
                                                                             v-model="
-                                                                                Case_FamilyNeeds
                                                                                 Case_FamilyNeeds
                                                                             "
                                                                             label="ملابس"
@@ -1089,7 +1048,6 @@
                                                                         <v-checkbox
                                                                             v-model="
                                                                                 Case_FamilyNeeds
-                                                                                Case_FamilyNeeds
                                                                             "
                                                                             label="مرتبات"
                                                                             value="مرتبات"
@@ -1105,7 +1063,6 @@
                                                                         <v-checkbox
                                                                             v-model="
                                                                                 Case_FamilyNeeds
-                                                                                Case_FamilyNeeds
                                                                             "
                                                                             label="بطاطين"
                                                                             value="بطاطين"
@@ -1119,7 +1076,6 @@
                                                                     >
                                                                         <v-checkbox
                                                                             v-model="
-                                                                                Case_FamilyNeeds
                                                                                 Case_FamilyNeeds
                                                                             "
                                                                             label="شنطه غذائيه"
@@ -1139,7 +1095,6 @@
                                                                         <v-checkbox
                                                                             v-model="
                                                                                 Case_FamilyNeeds
-                                                                                Case_FamilyNeeds
                                                                             "
                                                                             label="كفاله شهريه"
                                                                             value="كفاله شهريه"
@@ -1155,7 +1110,6 @@
                                                                         <v-checkbox
                                                                             v-model="
                                                                                 Case_FamilyNeeds
-                                                                                Case_FamilyNeeds
                                                                             "
                                                                             label="اجهزه منزليه"
                                                                             value="اجهزه منزليه"
@@ -1169,7 +1123,6 @@
                                                                     >
                                                                         <v-checkbox
                                                                             v-model="
-                                                                                Case_FamilyNeeds
                                                                                 Case_FamilyNeeds
                                                                             "
                                                                             label="كفاله "
@@ -1959,20 +1912,14 @@ export default {
         SickCases: "",
         HousingCondition: "",
         FamilyNeeds: "",
-        Personal_Information: "",
-        FinancialInformation: "",
-        SickCases: "",
-        HousingCondition: "",
-        FamilyNeeds: "",
         tab: null,
         loading: false, // Loading state
         currentPage: 1, // Current page
         pageSize: 5, // Number of cases per page
         Cases_length: 0,
-        formDataArray: [],
         Cases: [],
-        dencs: [],
         form: 1,
+        formDataArray: [],
         isGridView: false,
         search: "",
         newVegetables: [],
@@ -2649,16 +2596,16 @@ export default {
         },
     },
     methods: {
-        // addForm() {
-        //     this.form++;
-        //     this.dencs.push({
-        //         patien_name: "",
-        //         disease: "",
-        //         get_treatment: "",
-        //         not_available: "",
-        //     });
-        //     console.log(this.dencs);
-        // },
+        addForm() {
+            this.form++;
+            this.formDataArray.push({
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            });
+            console.log(this.formDataArray);
+        },
         // Method to handle pagination input change
         paginate(page) {
             this.currentPage = page;
@@ -2679,6 +2626,17 @@ export default {
             this.sumFinancialData();
             this.$emit("child-result", this.Cases_length);
             this.loading = false; // Set loading to false after data is loaded
+            // ////////////////////////////
+            // Call all emitters after fetching data
+            this.Emitter.emit("FunATZ");
+            this.Emitter.emit("FunZTA");
+            this.Emitter.emit("CardsAscending");
+            this.Emitter.emit("CardsDesaending");
+            this.Emitter.emit("FatAscending");
+            this.Emitter.emit("fatDesaending");
+            this.Emitter.emit("caloriesAscending");
+            this.Emitter.emit("caloriesDesaending");
+            this.Emitter.emit("change_view");
         },
         sumFinancialData() {
             this.deficit = 0;
@@ -2695,6 +2653,7 @@ export default {
                     this.incom += parseInt(Case.financial_info.incom);
                 }
             });
+
             // إرسال القيمة إلى الأب
             this.$emit("child-result1", this.required - this.incom);
         },
@@ -2709,29 +2668,11 @@ export default {
             this.Disease_Information = Case.diseases;
             this.Housing_Condition = Case.housing_condition;
             this.Case_FamilyNeeds = Case.family_needs;
-        Case_Information(Case) {
-            this.Personal_Information = Case.personal_info;
-            console.log(this.Personal_Information.national_id);
-            this.Financial_Information = Case.financial_info;
-            this.Disease_Information = Case.diseases;
-            this.Housing_Condition = Case.housing_condition;
-            this.Case_FamilyNeeds = Case.family_needs;
         },
         filterData() {
             const filteredData = this.Cases.filter();
-            const filteredData = this.Cases.filter();
 
-            this.vegetables = filteredData;
-        },
-        addForm() {
-            this.form++;
-            this.formDataArray.push({
-                patien_name: "",
-                disease: "",
-                get_treatment: "",
-                not_available: "",
-            });
-            console.log(this.formDataArray);
+            this.Cases = filteredData;
         },
     },
     mounted() {
@@ -2739,6 +2680,7 @@ export default {
         this.Emitter.on("change_view", () => {
             this.change_view();
         });
+
         // -----------------------------------------------------------------------------
 
         // Firts Function ordered By >>>> Swap BT Latest && Oldest
@@ -2747,43 +2689,146 @@ export default {
         // });
         // / Seconed  Function ordered By >>>> A To Z
         this.Emitter.on("FunATZ", () => {
-            this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
+            // this.vegetables.sort((a, b) => (a.name > b.name ? 1 : -1));
+            var allboxname = document.querySelectorAll(".boxes .box .name");
+            var namesArray = [];
+
+            for (let i = 0; i < allboxname.length; i++) {
+                let name = allboxname[i].textContent.trim();
+                namesArray.push(name);
+            }
+
+            namesArray.sort(function (a, b) {
+                return a.localeCompare(b);
+            });
+
+            for (let i = 0; i < allboxname.length; i++) {
+                allboxname[i].textContent = namesArray[i];
+            }
+            //this.Case_Information(namesArray);
         });
         // / Third  Function ordered By >>>> Z To A
         this.Emitter.on("FunZTA", () => {
-            this.vegetables.sort((a, b) => (b.name > a.name ? 1 : -1));
+            var allboxname = document.querySelectorAll(".boxes .box .name");
+            var namesArray = [];
+
+            for (let i = 0; i < allboxname.length; i++) {
+                let name = allboxname[i].textContent.trim();
+                namesArray.push(name);
+            }
+
+            namesArray.sort(function (a, b) {
+                return b.localeCompare(a);
+            });
+
+            for (let i = 0; i < allboxname.length; i++) {
+                allboxname[i].textContent = namesArray[i];
+            }
+            //this.Case_Information(namesArray);
         });
 
         // ---------------------------------------------------------------------------
-        // / Fourth  Function ordered By Cards >>>> S T L
+        // / Fourth  Function ordered By deficit >>>> S T L
         this.Emitter.on("CardsAscending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => a.carbs - b.carbs
+            var allboxdeficit = document.querySelectorAll(
+                ".boxes .box .deficit"
             );
+            var deficitsArray = [];
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                let deficit = parseFloat(allboxdeficit[i].textContent.trim());
+                deficitsArray.push(deficit);
+                console.log(deficit);
+            }
+
+            deficitsArray.sort(function (a, b) {
+                return a - b;
+            });
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                allboxdeficit[i].textContent = deficitsArray[i];
+            }
+            //this.Case_Information(deficitsArray);
         });
         // / Fivth  Function ordered By Cards >>>> L T S
         this.Emitter.on("CardsDesaending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => b.carbs - a.carbs
+            var allboxdeficit = document.querySelectorAll(
+                ".boxes .box .deficit"
             );
+            var deficitsArray = [];
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                let deficit = parseFloat(allboxdeficit[i].textContent.trim());
+                deficitsArray.push(deficit);
+            }
+
+            deficitsArray.sort(function (a, b) {
+                return b - a;
+            });
+
+            for (let i = 0; i < allboxdeficit.length; i++) {
+                allboxdeficit[i].textContent = deficitsArray[i];
+            }
+            //this.Case_Information(deficitsArray);
         });
-        // / Sixth  Function ordered Fat >>>> S T L
+        // / Sixth  Function ordered incom >>>> S T L
+
         this.Emitter.on("FatAscending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
+            var allBoxIncom = document.querySelectorAll(".boxes .box .incom");
+            const incomValues = Array.from(allBoxIncom).map((box) =>
+                parseFloat(box.textContent.trim())
+            );
+
+            incomValues.sort((a, b) => b - a);
+
+            for (let i = 0; i < incomValues.length; i++) {
+                allBoxIncom[i].textContent = incomValues[i].toString();
+            }
+            //this.Case_Information(incomValues);
         });
-        // / seventh  Function ordered Fat >>>> L T Z
         this.Emitter.on("fatDesaending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => b.fat - a.fat);
+            var allBoxIncom = document.querySelectorAll(".boxes .box .incom");
+            const incomValues = Array.from(allBoxIncom).map((box) =>
+                parseFloat(box.textContent.trim())
+            );
+
+            incomValues.sort((a, b) => b - a);
+
+            for (let i = 0; i < incomValues.length; i++) {
+                allBoxIncom[i].textContent = incomValues[i].toString();
+            }
+            //this.Case_Information(incomValues);
         });
-        // / Eight  Function ordered calories >>>>S T L
+
+        // / Eight  Function ordered required >>>>S T L
         this.Emitter.on("caloriesAscending", () => {
-            this.newVegetables = this.vegetables.sort((a, b) => a.fat - b.fat);
+            var allBoxreq = document.querySelectorAll(".boxes .box .required");
+            const requiredValues = Array.from(allBoxreq).map((box) =>
+                parseFloat(box.textContent.trim())
+            );
+            requiredValues.sort((a, b) => a - b);
+            for (let i = 0; i < requiredValues.length; i++) {
+                allBoxreq[i].textContent = requiredValues[i].toString();
+                console.log(
+                    (allBoxreq[i].textContent = requiredValues[i].toString())
+                );
+            }
+            //this.Case_Information(requiredValues);
         });
         // / nine  Function ordered calories >>>>S T L
         this.Emitter.on("caloriesDesaending", () => {
-            this.newVegetables = this.vegetables.sort(
-                (a, b) => b.calories - a.calories
+            var allBoxreq = document.querySelectorAll(".boxes .box .required");
+            const requiredValues = Array.from(allBoxreq).map((box) =>
+                parseFloat(box.textContent.trim())
             );
+            requiredValues.sort((a, b) => b - a);
+            for (let i = 0; i < requiredValues.length; i++) {
+                allBoxreq[i].textContent = requiredValues[i].toString();
+                console.log(
+                    (allBoxreq[i].textContent = requiredValues[i].toString())
+                );
+            }
+            //this.Case_Information(requiredValues);
         });
     },
 };
@@ -2949,7 +2994,6 @@ export default {
     }
 }
 @media (max-width: 800px) {
-    /* Apply styles for screens up to 800px wide */
     /* Apply styles for screens up to 800px wide */
     .boxes.Change_View .box {
         width: 100% !important;
