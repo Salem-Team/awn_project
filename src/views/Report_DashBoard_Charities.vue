@@ -21,11 +21,13 @@
     <v-container
         style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
     >
-        <canvas id="barChart"></canvas>
+        <Empty_error v-if="empty == true" />
+        <canvas id="barChart" v-else-if="empty !== true"></canvas>
     </v-container>
 </template>
 
 <script scoped>
+import Empty_error from "@/components/Empty_error.vue";
 import { ref } from "vue";
 import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -52,9 +54,11 @@ const db = getFirestore(app);
 export default {
     components: {
         Side_Bar,
+        Empty_error,
     },
     data() {
         return {
+            empty: false,
             CharitiesDB_length: 0,
             CharitiesDB: [],
             Cases_length: 0,
@@ -76,6 +80,11 @@ export default {
                 this.CharitiesDB.push(charityData);
             });
             this.CharitiesDB_length = this.CharitiesDB.length;
+            if (this.CharitiesDB.length === 0) {
+                this.empty = true;
+            } else {
+                this.empty = false;
+            }
             console.log(this.CharitiesDB);
         },
         async Get_Data() {
@@ -85,7 +94,12 @@ export default {
                 this.Cases.push(doc.data());
             });
             this.Cases_length = this.Cases.length;
-            this.renderBarChart();
+            if (this.Cases.length === 0) {
+                this.empty = true;
+            } else {
+                this.empty = false;
+                this.renderBarChart();
+            }
         },
 
         renderBarChart() {
