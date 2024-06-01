@@ -2020,7 +2020,6 @@ export default {
         Cases: [],
         originalCases: [], // Store the original cases
         formDataArray: [],
-        originalCases: [], // Store the original cases
         form: 1,
         isGridView: false,
         search: "",
