@@ -408,6 +408,105 @@
                                                             <div
                                                                 class="form form_pashent"
                                                                 v-for="(
+                                                                    form,
+                                                                    formIndex
+                                                                ) in form"
+                                                                :key="formIndex"
+                                                            >
+                                                                <div
+                                                                    class="bg-[#eee]"
+                                                                >
+                                                                    <div
+                                                                        class="mt-2 d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                Disease_Information.patien_name
+                                                                            "
+                                                                            label=" اسم المريض "
+                                                                            variant="outlined"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder="اسم المريض"
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                Disease_Information.disease
+                                                                            "
+                                                                            label="  المرض "
+                                                                            variant="outlined"
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder=" المرض"
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div
+                                                                        class="mt-2 d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                Disease_Information.get_treatment
+                                                                            "
+                                                                            label="كيفيه الحصول علي العلاج"
+                                                                            variant="outlined"
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder="كيفيه الحصول علي العلاج "
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div
+                                                                        class="mt-2 d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                Disease_Information.not_available
+                                                                            "
+                                                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                            variant="outlined"
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                                <v-divider
+                                                                    :thickness="
+                                                                        8
+                                                                    "
+                                                                    class="my-5 mb-5"
+                                                                ></v-divider>
+                                                            </div>
+
+                                                            <div
+                                                                class="form form_pashent"
+                                                                v-for="(
                                                                     formData,
                                                                     formIndex
                                                                 ) in formDataArray"
@@ -426,7 +525,7 @@
                                                                             v-model="
                                                                                 formData.patien_name
                                                                             "
-                                                                            label="اسم المريض"
+                                                                            label=" اسم المريض "
                                                                             variant="outlined"
                                                                             style="
                                                                                 width: 100%;
@@ -444,13 +543,13 @@
                                                                             v-model="
                                                                                 formData.disease
                                                                             "
-                                                                            label="المرض"
+                                                                            label="  المرض "
                                                                             variant="outlined"
                                                                             class="mt-2"
                                                                             style="
                                                                                 width: 100%;
                                                                             "
-                                                                            placeholder="المرض"
+                                                                            placeholder=" المرض"
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
@@ -471,7 +570,7 @@
                                                                             style="
                                                                                 width: 100%;
                                                                             "
-                                                                            placeholder="كيفيه الحصول علي العلاج"
+                                                                            placeholder="كيفيه الحصول علي العلاج "
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
@@ -486,7 +585,7 @@
                                                                             v-model="
                                                                                 formData.not_available
                                                                             "
-                                                                            label="السبب في عدم العلاج علي نفقه الدولة"
+                                                                            label=" السبب في عدم العلاج علي نفقه الدولة"
                                                                             variant="outlined"
                                                                             class="mt-2"
                                                                             style="
@@ -500,12 +599,12 @@
                                                                     :thickness="
                                                                         8
                                                                     "
-                                                                    class="my-5 mb-5"
+                                                                    class="my-5"
                                                                 ></v-divider>
                                                             </div>
                                                             <div>
                                                                 <div
-                                                                    class="w-25"
+                                                                    class="w-25 d-flex"
                                                                 >
                                                                     <v-btn
                                                                         style="
@@ -518,9 +617,11 @@
                                                                         "
                                                                         icon="mdi-plus"
                                                                         size="small"
-                                                                    ></v-btn>
+                                                                    >
+                                                                    </v-btn>
                                                                 </div>
-                                                                <!-- <v-divider
+                                                            </div>
+                                                            <!-- <v-divider
                                                                     :thickness="
                                                                         8
                                                                     "
@@ -774,7 +875,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> -->
-                                                            </div>
                                                         </div>
                                                         <div v-if="e1 === 4">
                                                             <div class="form">
@@ -1918,8 +2018,9 @@ export default {
         pageSize: 5, // Number of cases per page
         Cases_length: 0,
         Cases: [],
-        form: 1,
         formDataArray: [],
+        originalCases: [], // Store the original cases
+        form: 1,
         isGridView: false,
         search: "",
         newVegetables: [],
@@ -2580,12 +2681,20 @@ export default {
                     .includes(this.search.toLowerCase());
             });
         },
-        // Filtered cases based on search term
+        /*
         filteredCases() {
             return this.Cases.filter((Case) =>
                 Case.personal_info.name.includes(this.search)
             );
+        },*/
+        // Filtered cases based on search term
+        filteredCases() {
+            if (!this.search.trim()) return this.Cases; // If search term is empty, return original Cases
+            return this.Cases.filter((Case) =>
+                Case.personal_info.name.includes(this.search.trim())
+            );
         },
+
         // Paginated cases based on current page and page size
         paginatedCases() {
             const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -2597,7 +2706,6 @@ export default {
     },
     methods: {
         addForm() {
-            this.form++;
             this.formDataArray.push({
                 patien_name: "",
                 disease: "",
@@ -2620,6 +2728,7 @@ export default {
             const querySnapshot = await getDocs(collection(db, "Cases"));
             querySnapshot.forEach((doc) => {
                 this.Cases.push(doc.data());
+                this.originalCases = this.Cases;
             });
             console.log("this.Cases", this.Cases);
             this.Cases_length = this.Cases.length;
@@ -2628,6 +2737,8 @@ export default {
             this.loading = false; // Set loading to false after data is loaded
             // ////////////////////////////
             // Call all emitters after fetching data
+            /*
+            this.Emitter.emit("change_view");
             this.Emitter.emit("FunATZ");
             this.Emitter.emit("FunZTA");
             this.Emitter.emit("CardsAscending");
@@ -2635,8 +2746,7 @@ export default {
             this.Emitter.emit("FatAscending");
             this.Emitter.emit("fatDesaending");
             this.Emitter.emit("caloriesAscending");
-            this.Emitter.emit("caloriesDesaending");
-            this.Emitter.emit("change_view");
+            this.Emitter.emit("caloriesDesaending");*/
         },
         sumFinancialData() {
             this.deficit = 0;
@@ -2657,6 +2767,7 @@ export default {
             // إرسال القيمة إلى الأب
             this.$emit("child-result1", this.required - this.incom);
         },
+
         // change view
         change_view() {
             document.querySelector(".boxes ").classList.toggle("Change_View");
@@ -2675,15 +2786,78 @@ export default {
             this.Cases = filteredData;
         },
     },
+    created() {
+        // Initialize originalCases with a copy of Cases
+        this.originalCases = [...this.Cases];
+    },
     mounted() {
         // change view
         this.Emitter.on("change_view", () => {
             this.change_view();
         });
+        // / Seconed  Function ordered By >>>> A To Z
+        this.Emitter.on("FunATZ", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort((a, b) =>
+                a.personal_info.name.localeCompare(b.personal_info.name)
+            );
+        });
+        // / Third  Function ordered By >>>> Z To A
+        this.Emitter.on("FunZTA", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort((a, b) =>
+                b.personal_info.name.localeCompare(a.personal_info.name)
+            );
+        });
+
+        // ---------------------------------------------------------------------------
+        /// / Fourth  Function ordered By deficit >>>> S T L
+        this.Emitter.on("CardsAscending", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort(
+                (a, b) => a.financial_info.deficit - b.financial_info.deficit
+            );
+        });
+        // / Fivth  Function ordered By Cards >>>> L T S
+        this.Emitter.on("CardsDesaending", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort(
+                (a, b) => b.financial_info.deficit - a.financial_info.deficit
+            );
+        });
+        // / Sixth  Function ordered incom >>>> S T L
+
+        this.Emitter.on("FatAscending", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort(
+                (a, b) => a.financial_info.incom - b.financial_info.incom
+            );
+        });
+        this.Emitter.on("fatDesaending", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort(
+                (a, b) => b.financial_info.incom - a.financial_info.incom
+            );
+        });
+
+        // / Eight  Function ordered required >>>>S T L
+        this.Emitter.on("caloriesAscending", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort(
+                (a, b) => a.financial_info.required - b.financial_info.required
+            );
+        });
+        // / nine  Function ordered calories >>>>S T L
+        this.Emitter.on("caloriesDesaending", () => {
+            this.Cases = [...this.originalCases]; // Restore originalCases
+            this.Cases.sort(
+                (a, b) => b.financial_info.required - a.financial_info.required
+            );
+        });
 
         // -----------------------------------------------------------------------------
 
-        // Firts Function ordered By >>>> Swap BT Latest && Oldest
+        /*// Firts Function ordered By >>>> Swap BT Latest && Oldest
         // this.Emitter.on("FunLatest", () => {
         //     this.vegetables.sort((a, b) => (b[name] > a[name] ? 1 : -1));
         // });
@@ -2829,7 +3003,7 @@ export default {
                 );
             }
             //this.Case_Information(requiredValues);
-        });
+        });*/
     },
 };
 </script>

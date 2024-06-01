@@ -74,6 +74,25 @@
                                 </template>
                                 <v-list>
                                     <v-list-item>
+                                        الغاء الفلتر
+                                        <v-btn-toggle v-model="isActive0">
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('up'),
+                                                        this.$refs.childComponentRef.Get_data()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'up',
+                                                }"
+                                            >
+                                                <v-icon>mdi-close</v-icon>
+                                            </v-btn>
+                                        </v-btn-toggle>
+                                    </v-list-item>
+                                    <v-list-item>
                                         ابجدى
                                         <v-btn-toggle v-model="isActive1">
                                             <v-btn
@@ -440,6 +459,7 @@ export default {
             dialog1: false,
             items: [],
             isActive: false,
+            isActive0: null,
             isActive1: null,
             isActive2: null,
             isActive3: null,

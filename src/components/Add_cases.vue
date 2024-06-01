@@ -418,15 +418,11 @@
                     </div>
                     <div v-if="e1 === 3">
                         <form @submit.prevent="validateForm3">
-                            <div
-                                class="form form_pashent"
-                                v-for="(form, formIndex) in form"
-                                :key="formIndex"
-                            >
-                                <div class="bg-[#eee]">
+                            <div class="bg-[#eee]">
+                                <div style="width: 100%">
                                     <div
                                         class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
+                                        style="width: 100%"
                                     >
                                         <v-text-field
                                             v-model="diseases_3.patien_name"
@@ -466,7 +462,7 @@
                                     </div>
                                     <div
                                         class="d-flex flex-column"
-                                        style="width: 50%"
+                                        style="width: 100%"
                                     >
                                         <v-text-field
                                             v-model="diseases_3.disease"
@@ -596,15 +592,82 @@
                                     class="my-5"
                                 ></v-divider>
                             </div>
+                            <div
+                                class="form form_pashent"
+                                v-for="(formData, formIndex) in formDataArray"
+                                :key="formIndex"
+                            >
+                                <div class="bg-[#eee]">
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="formData.patien_name"
+                                            label=" اسم المريض "
+                                            variant="outlined"
+                                            style="width: 100%"
+                                            placeholder="اسم المريض"
+                                        ></v-text-field>
+                                    </div>
+                                    <div
+                                        class="d-flex flex-column"
+                                        style="width: 50%"
+                                    >
+                                        <v-text-field
+                                            v-model="formData.disease"
+                                            label="  المرض "
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder=" المرض"
+                                        ></v-text-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="formData.get_treatment"
+                                            label="كيفيه الحصول علي العلاج"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="كيفيه الحصول علي العلاج "
+                                        ></v-text-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        class="mt-2 d-flex flex-column"
+                                        style="width: 100%"
+                                    >
+                                        <v-text-field
+                                            v-model="formData.not_available"
+                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                            variant="outlined"
+                                            class="mt-2"
+                                            style="width: 100%"
+                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                        ></v-text-field>
+                                    </div>
+                                </div>
+                                <v-divider
+                                    :thickness="8"
+                                    class="my-5"
+                                ></v-divider>
+                            </div>
                             <div>
-                                <div class="w-25">
+                                <div class="w-25 d-flex">
                                     <v-btn
                                         style="
                                             display: block;
                                             margin-bottom: 20px;
                                             margin-right: 20px;
                                         "
-                                        @click="form++"
+                                        @click="addForm2"
                                         icon="mdi-plus"
                                         size="small"
                                     >
@@ -1277,6 +1340,7 @@ export default {
             close: null,
             family_needs_Array: [],
             personal_info_1_State: null,
+            formDataArray: [],
             form: 1,
             formError: false,
             formError2: false,
@@ -1626,6 +1690,24 @@ export default {
         };
     },
     methods: {
+        addForm() {
+            this.formDataArray.push({
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            });
+            console.log(this.formDataArray);
+        },
+        addForm2() {
+            this.formDataArray.push({
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            });
+            console.log(this.formDataArray);
+        },
         close_function_1() {
             this.close_function();
         },
@@ -1732,6 +1814,7 @@ export default {
                     get_treatment: this.diseases_3.get_treatment,
                     not_available: this.diseases_3.not_available,
                 },
+
                 housing_condition: {
                     number_rooms: this.housing_condition_4.number_rooms,
                     house_type: this.housing_condition_4.house_type,
