@@ -503,9 +503,108 @@
                                                                     class="my-5 mb-5"
                                                                 ></v-divider>
                                                             </div>
+
+                                                            <div
+                                                                class="form form_pashent"
+                                                                v-for="(
+                                                                    formData,
+                                                                    formIndex
+                                                                ) in formDataArray"
+                                                                :key="formIndex"
+                                                            >
+                                                                <div
+                                                                    class="bg-[#eee]"
+                                                                >
+                                                                    <div
+                                                                        class="mt-2 d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                formData.patien_name
+                                                                            "
+                                                                            label=" اسم المريض "
+                                                                            variant="outlined"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder="اسم المريض"
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                formData.disease
+                                                                            "
+                                                                            label="  المرض "
+                                                                            variant="outlined"
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder=" المرض"
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div
+                                                                        class="mt-2 d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                formData.get_treatment
+                                                                            "
+                                                                            label="كيفيه الحصول علي العلاج"
+                                                                            variant="outlined"
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder="كيفيه الحصول علي العلاج "
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <div
+                                                                        class="mt-2 d-flex flex-column"
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                    >
+                                                                        <v-text-field
+                                                                            v-model="
+                                                                                formData.not_available
+                                                                            "
+                                                                            label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                            variant="outlined"
+                                                                            class="mt-2"
+                                                                            style="
+                                                                                width: 100%;
+                                                                            "
+                                                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                        ></v-text-field>
+                                                                    </div>
+                                                                </div>
+                                                                <v-divider
+                                                                    :thickness="
+                                                                        8
+                                                                    "
+                                                                    class="my-5"
+                                                                ></v-divider>
+                                                            </div>
                                                             <div>
                                                                 <div
-                                                                    class="w-25"
+                                                                    class="w-25 d-flex"
                                                                 >
                                                                     <v-btn
                                                                         style="
@@ -514,7 +613,7 @@
                                                                             margin-right: 20px;
                                                                         "
                                                                         @click="
-                                                                            form++
+                                                                            addForm
                                                                         "
                                                                         icon="mdi-plus"
                                                                         size="small"
@@ -1920,6 +2019,7 @@ export default {
         Cases_length: 0,
         Cases: [],
         originalCases: [], // Store the original cases
+        formDataArray: [],
         form: 1,
         isGridView: false,
         search: "",
@@ -2605,14 +2705,15 @@ export default {
         },
     },
     methods: {
-        // addForm(caseIndex) {
-        //     this.paginatedCases[caseIndex].forms.push({
-        //         patien_name: "",
-        //         disease: "",
-        //         get_treatment: "",
-        //         not_available: "",
-        //     });
-        // },
+        addForm() {
+            this.formDataArray.push({
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            });
+            console.log(this.formDataArray);
+        },
         // Method to handle pagination input change
         paginate(page) {
             this.currentPage = page;
