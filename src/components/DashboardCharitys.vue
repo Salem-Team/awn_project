@@ -2018,6 +2018,7 @@ export default {
         pageSize: 5, // Number of cases per page
         Cases_length: 0,
         Cases: [],
+        originalCases: [], // Store the original cases
         formDataArray: [],
         originalCases: [], // Store the original cases
         form: 1,
