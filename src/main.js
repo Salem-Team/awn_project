@@ -10,7 +10,8 @@ import { createPinia } from "pinia";
 // Emitter configuration
 import mitt from "mitt";
 const Emitter = mitt();
-
+//VueDraggable
+import VueDraggable from "vue-draggable";
 // Vuetify
 
 import "@mdi/font/css/materialdesignicons.css";
@@ -69,6 +70,7 @@ createApp(App)
     //.use(store)
     .use(router)
     .use(vuetify)
+    .use(VueDraggable)
     .component("font-awesome-icon", FontAwesomeIcon)
     .provide("Emitter", Emitter)
     .use(createPinia())

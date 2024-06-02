@@ -27,6 +27,7 @@
         "nodemailer": "^6.9.13",
         "read-excel-file": "^5.8.0",
         "vue": "^3.4.26",
+        "vue-draggable": "^2.0.6",
         "vue-google-charts": "^1.1.0",
         "vue-router": "^4.0.3",
         "vuex": "^4.0.0",

@@ -308,6 +308,8 @@
                                                         align-content: center;
                                                         justify-content: space-around;
                                                     "
+                                                    @dragover.prevent
+                                                    @drop="handleDrop"
                                                 >
                                                     <label
                                                         style="
@@ -323,17 +325,19 @@
                                                                 bottom: 19px;
                                                             "
                                                         >
-                                                            mdi-cloud-upload</v-icon
-                                                        >
+                                                            mdi-cloud-upload
+                                                        </v-icon>
                                                         <input
                                                             type="file"
                                                             id="myinput"
                                                             ref="fileInput"
+                                                            style="
+                                                                display: none;
+                                                            "
                                                             @change="
                                                                 handleFileChange
                                                             "
                                                         />
-
                                                         <span
                                                             style="
                                                                 font-family: 'Roboto',
@@ -347,14 +351,54 @@
                                             </div>
                                             <div class="alert">
                                                 <v-alert
-                                                    v-if="validationError"
+                                                    v-if="
+                                                        validationErrors.length >
+                                                        0
+                                                    "
                                                     type="error"
                                                     color="red"
                                                     closable
                                                     dismissible
                                                 >
-                                                    الملف مرفوض! من فضلك املئ
-                                                    جميع الحقول بطريقة صحيحة.
+                                                    <v-alert
+                                                        v-for="(
+                                                            error, index
+                                                        ) in validationErrors"
+                                                        :key="index"
+                                                        class="mb-4"
+                                                    >
+                                                        {{ error }}
+                                                    </v-alert>
+                                                </v-alert>
+
+                                                <v-alert
+                                                    v-if="ExcelFile"
+                                                    type="error"
+                                                    color="red"
+                                                    closable
+                                                    dismissible
+                                                >
+                                                    عذراً، يجب تحميل ملف إكسل
+                                                    فقط. الرجاء التأكد من امتداد
+                                                    الملف.
+                                                </v-alert>
+                                                <v-alert
+                                                    v-if="notExcel"
+                                                    type="error"
+                                                    color="red"
+                                                    closable
+                                                    dismissible
+                                                >
+                                                    خطأ ! رجاء التأكد من صحه
+                                                    الملف وعدد الحالات
+                                                </v-alert>
+                                                <v-alert
+                                                    v-if="showSuccessAlert"
+                                                    type="success"
+                                                    closable
+                                                    dismissible
+                                                >
+                                                    تم اضافه جميع الحالات بنجاح
                                                 </v-alert>
                                             </div>
                                             <v-card-actions
@@ -376,10 +420,8 @@
                                                 ></v-btn>
                                             </v-card-actions>
                                         </v-card>
-                                        <div id="js"></div>
                                     </template>
                                 </v-dialog>
-                                <div id="js"></div>
                             </div>
                         </div>
                     </div>
@@ -417,11 +459,17 @@ export default {
     },
     data() {
         return {
+            showSuccessAlert: false,
+            validationErrors: [], // تخزين الأخطاء لعرضها في v-alert
+            nationalIDs: [],
+            duplicateNationalIDs: [],
             validationError: false,
             // start vars belong Exel & json files
+            ExcelFile: false,
+            notExcel: false,
             jsonData: null,
             downloadURL: null,
-            excelFile: null,
+            // excelFile: null,
             error: null,
             //end vars belong Exel & json files
             dialog: false,
@@ -528,11 +576,23 @@ export default {
         funCalories_LTS() {
             this.Emitter.emit("caloriesDesaending");
         },
+        ///
         // Start Convert & Download Excel File
         handleFileChange(event) {
             const file = event.target.files[0];
-            if (!file) {
-                console.error("اضف ملف اكسل اولا");
+            const fileName = file.name.toLowerCase();
+            if (
+                !fileName.endsWith(".xlsx") &&
+                !fileName.endsWith(".xlsm") &&
+                !fileName.endsWith(".xls")
+            ) {
+                this.ExcelFile = true;
+                setTimeout(() => {
+                    this.ExcelFile = true;
+                    setTimeout(() => {
+                        this.ExcelFile = false;
+                    }, 3000);
+                });
                 return;
             }
 
@@ -548,28 +608,7 @@ export default {
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, {
                     header: 1,
                 });
-
-                // Check for empty cells
-                let emptyCellFound = false;
-                jsonData.forEach((row) => {
-                    row.forEach((cell) => {
-                        if (
-                            cell === "" ||
-                            cell === undefined ||
-                            cell === null
-                        ) {
-                            emptyCellFound = true;
-                        }
-                    });
-                });
-
-                if (emptyCellFound) {
-                    alert(
-                        "عذراً، يحتوي ملف الإكسل على خلايا فارغة. الرجاء ملء جميع الخلايا بالبيانات قبل تحميل الملف."
-                    );
-                    return;
-                }
-
+                // if more than 10 states
                 const groupedDataObjects = [];
                 for (let i = 0; i < jsonData.length; i += 11) {
                     const chunk = jsonData.slice(i, i + 11);
@@ -582,31 +621,83 @@ export default {
 
                 const titledGroupedData = groupedDataObjects.reduce(
                     (acc, group) => {
-                        if (group && group.data) {
+                        if (group && group.data && group.data.length > 0) {
                             const data = group.data;
-                            let invalid = false; // for Alert comp
-                            // Check if specific properties are strings
+                            let invalid = false;
+                            let emptyCells = []; // مصفوفة لتخزين مؤشرات الخلايا الفارغة
+
+                            // التحقق من السلاسل الفارغة وجمع مؤشرات الخلايا الفارغة
+                            data.forEach((cell, index) => {
+                                if (!cell[1]) {
+                                    emptyCells.push(index);
+                                } else if (
+                                    typeof cell[1] !== "string" &&
+                                    (index === 2 || index === 8)
+                                ) {
+                                    invalid = true;
+                                }
+                            });
+
+                            // التحقق من أنواع البيانات المحددة وأطوالها
                             if (
-                                typeof data[0][1] !== "string" ||
-                                typeof data[1][1] !== "string" ||
-                                typeof data[3][1] !== "string" ||
-                                typeof data[7][1] !== "string" ||
-                                typeof data[6][1] !== "string" ||
                                 typeof data[4][1] !== "number" ||
                                 typeof data[5][1] !== "number" ||
-                                // Check national ID length and type
                                 typeof data[2][1] !== "string" ||
                                 data[2][1].length !== 14 ||
-                                // Check phone number and type
                                 typeof data[8][1] !== "string" ||
                                 data[8][1].length !== 11
                             ) {
                                 invalid = true;
                             }
-                            if (invalid) {
-                                this.validationError = true;
-                                return acc;
+
+                            // التحقق من تكرار الرقم القومي
+                            if (
+                                data[2][1] &&
+                                this.nationalIDs.includes(data[2][1])
+                            ) {
+                                this.duplicateNationalIDs.push(data[2][1]);
+                                this.showSuccessAlert = false;
+                                this.validationErrors.push(
+                                    `تم العثور على  رقم قومي مكرر: في ${group.Date}  :   ${data[2][1]} `
+                                );
+                            } else {
+                                this.nationalIDs.push(data[2][1]);
                             }
+                            if (data[2][1] && data[2][1].length < 14) {
+                                invalid = true;
+                                this.showSuccessAlert = false;
+                                this.validationErrors.push(
+                                    `تم العثور على رقم قومي أقل من 14 رقمًا : ${data[2][1]} في : ${group.Date}`
+                                );
+                            }
+
+                            // إذا كان هناك خطأ في التحقق أو وجود خلايا فارغة أو أرقام قومية مكررة
+                            if (
+                                invalid ||
+                                emptyCells.length > 0 ||
+                                this.duplicateNationalIDs.length > 0
+                            ) {
+                                this.validationError = true;
+
+                                // طباعة مؤشرات الخلايا الفارغة إذا لم تكن الـ array فارغة
+                                if (emptyCells.length > 0) {
+                                    invalid = true;
+                                    this.showSuccessAlert = false;
+                                    this.validationErrors.push(
+                                        `تم العثور على بيانات فارغه فى ${
+                                            group.Date
+                                        } وهى ${emptyCells
+                                            .map((index) => data[index][0])
+                                            .join(", ")}`
+                                    );
+                                }
+
+                                // طباعة مؤشرات الأرقام القومية المكررة إذا لم تكن الـ array فارغة
+                            } else {
+                                this.showSuccessAlert = true;
+                            }
+                            // بقية الكود...
+
                             const obj = {
                                 personal_info: {
                                     name: data[0][1],
@@ -644,8 +735,7 @@ export default {
                                 },
                                 family_needs: "",
                             };
-
-                            acc[group.Date] = obj; // Using Date as key
+                            acc[group.Date] = obj; // استخدام التاريخ كمفتاح
                         } else {
                             console.error("خطأ: المصفوفة group غير متكاملة");
                         }
@@ -653,16 +743,207 @@ export default {
                     },
                     {}
                 );
-
                 console.log("Titled Grouped Data:", titledGroupedData);
                 if (jsonData.length < 110 || jsonData.length > 110) {
-                    alert("عذرا لا نقبل أقل او اكثر من 10 حالات");
-                    return;
+                    let MsErros = true;
+                    this.validationErrors = [];
+                    if (MsErros) {
+                        this.notExcel = true;
+                        setTimeout(() => {
+                            this.notExcel = false;
+                        }, 3000);
+                        return;
+                    }
                 }
 
                 this.jsonData = titledGroupedData;
             };
             reader.readAsArrayBuffer(file);
+        },
+        handleDrop(event) {
+            event.preventDefault();
+            const fileList = event.dataTransfer.files;
+
+            // إعادة تعيين البيانات والأخطاء
+            this.jsonData = null;
+            this.validationErrors = [];
+            this.excelFile = null;
+
+            // تحويل قائمة الملفات إلى مصفوفة
+            const filesArray = Array.from(fileList);
+
+            // معالجة كل ملف
+            filesArray.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const arrayBuffer = e.target.result;
+                    const workbook = XLSX.read(arrayBuffer, { type: "array" });
+                    const sheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[sheetName];
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+                        header: 1,
+                    });
+
+                    // التحقق من البيانات وتحديث الحالة والتنبيهات
+                    // تنفيذ الاختبارات والتحققات هنا
+                    const groupedDataObjects = [];
+                    for (let i = 0; i < jsonData.length; i += 11) {
+                        const chunk = jsonData.slice(i, i + 11);
+                        const obj = {
+                            Date: chunk[0][0],
+                            data: chunk.slice(2),
+                        };
+                        groupedDataObjects.push(obj);
+                    }
+
+                    const titledGroupedData = groupedDataObjects.reduce(
+                        (acc, group) => {
+                            if (group && group.data && group.data.length > 0) {
+                                const data = group.data;
+                                let invalid = false;
+                                let emptyCells = []; // مصفوفة لتخزين مؤشرات الخلايا الفارغة
+
+                                // التحقق من السلاسل الفارغة وجمع مؤشرات الخلايا الفارغة
+                                data.forEach((cell, index) => {
+                                    if (!cell[1]) {
+                                        emptyCells.push(index);
+                                    } else if (
+                                        typeof cell[1] !== "string" &&
+                                        (index === 2 || index === 8)
+                                    ) {
+                                        invalid = true;
+                                    }
+                                });
+
+                                // التحقق من أنواع البيانات المحددة وأطوالها
+                                if (
+                                    typeof data[4][1] !== "number" ||
+                                    typeof data[5][1] !== "number" ||
+                                    typeof data[2][1] !== "string" ||
+                                    data[2][1].length !== 14 ||
+                                    typeof data[8][1] !== "string" ||
+                                    data[8][1].length !== 11
+                                ) {
+                                    invalid = true;
+                                }
+
+                                // التحقق من تكرار الرقم القومي
+                                if (
+                                    data[2][1] &&
+                                    this.nationalIDs.includes(data[2][1])
+                                ) {
+                                    this.duplicateNationalIDs.push(data[2][1]);
+                                    this.showSuccessAlert = false;
+                                    this.validationErrors.push(
+                                        `تم العثور على  رقم قومي مكرر: في ${group.Date}  :   ${data[2][1]} `
+                                    );
+                                } else {
+                                    this.nationalIDs.push(data[2][1]);
+                                }
+                                if (data[2][1] && data[2][1].length < 14) {
+                                    invalid = true;
+                                    this.showSuccessAlert = false;
+                                    this.validationErrors.push(
+                                        `تم العثور على رقم قومي أقل من 14 رقمًا : ${data[2][1]} في : ${group.Date}`
+                                    );
+                                }
+
+                                // إذا كان هناك خطأ في التحقق أو وجود خلايا فارغة أو أرقام قومية مكررة
+                                if (
+                                    invalid ||
+                                    emptyCells.length > 0 ||
+                                    this.duplicateNationalIDs.length > 0
+                                ) {
+                                    this.validationError = true;
+
+                                    // طباعة مؤشرات الخلايا الفارغة إذا لم تكن الـ array فارغة
+                                    if (emptyCells.length > 0) {
+                                        invalid = true;
+                                        this.showSuccessAlert = false;
+                                        this.validationErrors.push(
+                                            `تم العثور على بيانات فارغه فى ${
+                                                group.Date
+                                            } وهى ${emptyCells
+                                                .map((index) => data[index][0])
+                                                .join(", ")}`
+                                        );
+                                    }
+
+                                    // طباعة مؤشرات الأرقام القومية المكررة إذا لم تكن الـ array فارغة
+
+                                    setTimeout(() => {
+                                        this.validationErrors = [];
+                                    }, 300000);
+                                } else {
+                                    this.showSuccessAlert = true;
+                                }
+                                // بقية الكود...
+
+                                const obj = {
+                                    personal_info: {
+                                        name: data[0][1],
+                                        nick_name: data[1][1],
+                                        national_id: data[2][1],
+                                        governorate: data[3][1],
+                                        house_number: data[4][1],
+                                        floor_number: data[5][1],
+                                        address: data[6][1],
+                                        marital_status: data[7][1],
+                                        phone: data[8][1],
+                                    },
+                                    financial_info: {
+                                        required: "",
+                                        income: "",
+                                        deficit: "",
+                                    },
+                                    diseases: {
+                                        patient_name: "",
+                                        disease: "",
+                                        get_treatment: "",
+                                        not_available: "",
+                                    },
+                                    housing_condition: {
+                                        number_rooms: "",
+                                        house_type: "",
+                                        bathroom_type: "",
+                                        floor_type: "",
+                                        description_kitchen: "",
+                                        DescriptionRoom1: "",
+                                        DescriptionRoom2: "",
+                                        DescriptionRoom3: "",
+                                        DescriptionRoom4: "",
+                                        DescriptionRoom5: "",
+                                    },
+                                    family_needs: "",
+                                };
+                                acc[group.Date] = obj; // استخدام التاريخ كمفتاح
+                            } else {
+                                console.error(
+                                    "خطأ: المصفوفة group غير متكاملة"
+                                );
+                            }
+                            return acc;
+                        },
+                        {}
+                    );
+                    console.log("Titled Grouped Data:", titledGroupedData);
+                    if (jsonData.length < 110 || jsonData.length > 110) {
+                        let MsErros = true;
+                        this.validationErrors = [];
+                        if (MsErros) {
+                            this.notExcel = true;
+                            setTimeout(() => {
+                                this.notExcel = false;
+                            }, 3000);
+                            return;
+                        }
+                    }
+                    // مثال تحديث الحالة
+                    this.jsonData = jsonData;
+                    this.excelFile = file;
+                };
+                reader.readAsArrayBuffer(file);
+            });
         },
         convertToJSON() {
             if (!this.jsonData) {
