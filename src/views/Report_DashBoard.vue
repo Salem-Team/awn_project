@@ -41,8 +41,12 @@
             <v-card-text class="text-center">80</v-card-text>
         </v-card>
     </v-container>
-    <v-container class="d-flex align-center justify-space-around">
-        <div>
+    <Empty_error v-if="empty == true" />
+    <v-container
+        class="d-flex align-center justify-space-around"
+        v-else-if="empty !== true"
+    >
+        <div class="progress-circular">
             <p class="text-center mb-10">نسبة إكمال العجز</p>
             <v-progress-circular
                 class="mt-0"
@@ -73,6 +77,7 @@
 
 <script scoped>
 import { ref } from "vue";
+import Empty_error from "@/components/Empty_error.vue";
 import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import Side_Bar from "@/components/Side_Bar.vue";
@@ -98,9 +103,11 @@ const db = getFirestore(app);
 export default {
     components: {
         Side_Bar,
+        Empty_error,
     },
     data() {
         return {
+            empty: false,
             deficit: 0,
             required: 0,
             incom: 0,
@@ -121,9 +128,15 @@ export default {
             });
             this.Cases_length = this.Cases.length;
             this.sumFinancialData();
-            // Render both charts after getting data
-            this.renderChart();
-            this.renderBarChart();
+            if (this.Cases.length === 0) {
+                this.empty = true;
+            } else {
+                this.empty = false;
+
+                // Render both charts after getting data
+                this.renderChart();
+                this.renderBarChart();
+            }
         },
 
         sumFinancialData() {

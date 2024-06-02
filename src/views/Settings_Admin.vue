@@ -61,7 +61,7 @@
                                 <v-tab
                                     prepend-icon="mdi-access-point"
                                     text=" الجمعيه"
-                                    v-if="owneer"
+                                    v-if="User_Type === 'owner'"
                                     value="option-3"
                                     style="
                                         font-size: 20px;
@@ -76,7 +76,7 @@
                                 <v-tab
                                     prepend-icon="mdi-account-box"
                                     text=" اضافه مساعدين"
-                                    v-if="owneer"
+                                    v-if="User_Type === 'owner'"
                                     value="option-4"
                                     style="font-size: 20px"
                                     class="my-2"
@@ -103,7 +103,9 @@
                                                         style="width: 100%"
                                                     >
                                                         <v-text-field
-                                                            v-model="form1.name"
+                                                            v-model="
+                                                                User_Data.name
+                                                            "
                                                             label="الاسم "
                                                             variant="outlined"
                                                             style="width: 100%"
@@ -116,7 +118,7 @@
                                                     >
                                                         <v-text-field
                                                             v-model="
-                                                                form1.email
+                                                                User_Data.email
                                                             "
                                                             label="الايميل"
                                                             variant="outlined"
@@ -126,14 +128,22 @@
                                                         </v-text-field>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div
+                                                    v-for="(
+                                                        phone, index
+                                                    ) in User_Data.phones"
+                                                    :key="phone"
+                                                >
                                                     <div
                                                         class="mt-2 d-flex flex-column"
                                                         style="width: 100%"
                                                     >
                                                         <v-text-field
                                                             v-model="
-                                                                form1.phoneNumber
+                                                                User_Data
+                                                                    .phones[
+                                                                    index
+                                                                ]
                                                             "
                                                             label="التليفون "
                                                             variant="outlined"
@@ -150,7 +160,7 @@
                                                     >
                                                         <v-text-field
                                                             v-model="
-                                                                form1.cardNumber
+                                                                User_Data.nationalID
                                                             "
                                                             style="width: 100%"
                                                             label="الرقم القومي"
@@ -332,7 +342,7 @@
                                                                 </h2>
                                                                 <v-text-field
                                                                     v-model="
-                                                                        form3.title
+                                                                        User_Charity.title
                                                                     "
                                                                     label=" اسم الجمعيه"
                                                                     placeholder=" اسم الجمعيه"
@@ -341,7 +351,7 @@
                                                                 ></v-text-field>
                                                                 <v-text-field
                                                                     v-model="
-                                                                        form3.phone
+                                                                        User_Charity.phone
                                                                     "
                                                                     placeholder="تليفون الجمعية"
                                                                     label="تليفون الجمعية"
@@ -355,7 +365,7 @@
                                                                     rows="4"
                                                                     variant="outlined"
                                                                     v-model="
-                                                                        form3.descripetion
+                                                                        User_Charity.description
                                                                     "
                                                                     placeholder="وصف قصير للجمعية"
                                                                     label="وصف قصير للجمعية"
@@ -366,7 +376,7 @@
                                                                     label="العنوان"
                                                                     placeholder="العنوان"
                                                                     v-model="
-                                                                        form3.address
+                                                                        User_Charity.address
                                                                     "
                                                                 ></v-text-field>
                                                                 <div
@@ -376,7 +386,7 @@
                                                                     <v-text-field
                                                                         variant="outlined"
                                                                         v-model="
-                                                                            form3.Fame_number
+                                                                            User_Charity.Fame_number
                                                                         "
                                                                         placeholder="رقم الشهره"
                                                                         label="رقم الشهره"
@@ -387,7 +397,7 @@
                                                                             margin-right: 20px;
                                                                         "
                                                                         v-model="
-                                                                            form3.Fame_year
+                                                                            User_Charity.Fame_year
                                                                         "
                                                                         placeholder="السنه"
                                                                         label="السنه"
@@ -409,7 +419,7 @@
                                                                         mandatory
                                                                         class="text-right"
                                                                         v-model="
-                                                                            form3.Charities_specialty
+                                                                            User_Charity.Charities_specialty
                                                                         "
                                                                     >
                                                                         <v-chip
@@ -458,10 +468,10 @@
                                                                 >
                                                                     <v-text-field
                                                                         v-if="
-                                                                            form3.Facebook
+                                                                            User_Charity.Facebook
                                                                         "
                                                                         v-model="
-                                                                            form3.Facebook
+                                                                            User_Charity.Facebook
                                                                         "
                                                                         :rules="
                                                                             validationRules.facebookRule
@@ -482,10 +492,10 @@
                                                                 >
                                                                     <v-text-field
                                                                         v-if="
-                                                                            form3.Twitter
+                                                                            User_Charity.Twitter
                                                                         "
                                                                         v-model="
-                                                                            form3.Twitter
+                                                                            User_Charity.Twitter
                                                                         "
                                                                         :rules="
                                                                             validationRules.twitterRule
@@ -506,10 +516,10 @@
                                                                 >
                                                                     <v-text-field
                                                                         v-if="
-                                                                            form3.whatsapp
+                                                                            User_Charity.whatsapp
                                                                         "
                                                                         v-model="
-                                                                            form3.whatsapp
+                                                                            User_Charity.whatsapp
                                                                         "
                                                                         :rules="
                                                                             validationRules.whatsappRule
@@ -530,10 +540,10 @@
                                                                 >
                                                                     <v-text-field
                                                                         v-if="
-                                                                            form3.Youtube
+                                                                            User_Charity.Youtube
                                                                         "
                                                                         v-model="
-                                                                            form3.Youtube
+                                                                            User_Charity.Youtube
                                                                         "
                                                                         :rules="
                                                                             validationRules.youtubeRule
@@ -938,19 +948,27 @@ const firebaseConfig = {
     messagingSenderId: "477381368618",
     appId: "1:477381368618:web:8a62011671fc3a3eeb1c53",
 };
-import { getDocs, getFirestore, collection } from "@firebase/firestore";
+import {
+    getDocs,
+    getFirestore,
+    collection,
+    getDoc,
+    doc,
+} from "@firebase/firestore";
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default {
     data: () => ({
+        User_Charity: "",
+        User_Data: "",
         randomPassword: "",
         passwordsMatchError: false,
         passwordsMatchError2: false,
         showPassword: false,
         showPassword2: false,
         showPassword3: false,
-        owneer: true,
+        User_Type: null,
         owneerform: [],
         isEditing: null,
         isEditing2: null,
@@ -995,7 +1013,7 @@ export default {
             title: "",
             Social_media: [],
             phone: "",
-            descripetion: "",
+            description: "",
             address: "",
             Fame_number: "",
             Charities_specialty: [],
@@ -1085,7 +1103,7 @@ export default {
                 title: {},
                 phone: {},
                 address: {},
-                descripetion: {},
+                description: {},
                 Fame_number: {},
                 Charities_specialty: {},
                 Fame_year: {},
@@ -1148,7 +1166,7 @@ export default {
             this.updateFormEmpty3();
         },
 
-        "form3.descripetion": function () {
+        "form3.description": function () {
             this.updateFormEmpty3();
         },
         "form3.Fame_number": function () {
@@ -1164,20 +1182,51 @@ export default {
         "form3.activitiesc_chertes": function () {
             this.updateFormEmpty3();
         },
-        "form3.Facebook": function () {
+        "User_Charity.Facebook": function () {
             this.updateFormEmpty3();
         },
-        "form3.Twitter": function () {
+        "User_Charity.Twitter": function () {
             this.updateFormEmpty3();
         },
-        "form3.whatsapp": function () {
+        "User_Charity.whatsapp": function () {
             this.updateFormEmpty3();
         },
-        "form3.Youtube": function () {
+        "User_Charity.Youtube": function () {
             this.updateFormEmpty3();
         },
     },
     methods: {
+        async Check_User() {
+            if (localStorage.getItem("id")) {
+                const docRef = doc(db, "Users", localStorage.getItem("id"));
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    this.User_Data = docSnap.data();
+                    if (docSnap.data().type === "owner") {
+                        this.User_Type = "owner";
+                        const docRef_Charities = doc(
+                            db,
+                            "Charities",
+                            docSnap.data().charity_ID
+                        );
+                        const docSnap_Charities = await getDoc(
+                            docRef_Charities
+                        );
+                        console.log("Charitie =>  ", docSnap_Charities.data());
+                        console.log(this.User_Type);
+                        this.User_Charity = docSnap_Charities.data();
+                    } else if (docSnap.data().type === "admin") {
+                        this.User_Type = "admin";
+                    } else if (docSnap.data().type === "assistant") {
+                        this.User_Type = "assistant";
+                    }
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }
+        },
         async Get_data() {
             this.loading = true; // Set loading to true before fetching data
             this.Cases = [];
@@ -1191,7 +1240,7 @@ export default {
             if (this.Cases.length > 0) {
                 // Example: Using the first case to update form3
                 const firstCase = this.Cases[0];
-                this.form3 = {
+                this.User_Charity = {
                     Facebook: firstCase.Facebook || "",
                     Twitter: firstCase.Twitter || "",
                     whatsapp: firstCase.whatsapp || "",
@@ -1230,15 +1279,15 @@ export default {
                 this.form3.phone ||
                 this.form3.password ||
                 this.form3.address ||
-                this.form3.descripetion ||
+                this.form3.description ||
                 this.form3.Fame_number ||
                 this.form3.Charities_specialty ||
                 this.form3.Fame_year ||
                 this.form3.activitiesc_chertes ||
-                this.form3.Facebook ||
-                this.form3.Twitter ||
-                this.form3.whatsapp ||
-                this.form3.Youtube
+                this.User_Charity.Facebook ||
+                this.User_Charity.Twitter ||
+                this.User_Charity.whatsapp ||
+                this.User_Charity.Youtube
             );
         },
         toggleTheme() {
@@ -1315,9 +1364,9 @@ export default {
             if (res) {
                 this.testform3.push(
                     { Charities_title: this.form3.title },
-                    { Charities_Social_media: this.form3.Social_media },
+                    { Charities_Social_media: this.User_Charity.Social_media },
                     { Charities_phone: this.form3.phone },
-                    { Charities_descripetion: this.form3.descripetion },
+                    { Charities_descripetion: this.form3.description },
                     { Charities_address: this.form3.address },
                     {
                         Charities_Charities_specialty:
@@ -1326,16 +1375,16 @@ export default {
                     { Charities_Package_type: this.form3.Package_type },
                     { Charities_Fame_year: this.form3.Fame_year },
                     {
-                        Facebook: this.form3.Facebook,
+                        Facebook: this.User_Charity.Facebook,
                     },
                     {
-                        Twitter: this.form3.Twitter,
+                        Twitter: this.User_Charity.Twitter,
                     },
                     {
-                        whatsapp: this.form3.whatsapp,
+                        whatsapp: this.User_Charity.whatsapp,
                     },
                     {
-                        Youtube: this.form3.Youtube,
+                        Youtube: this.User_Charity.Youtube,
                     }
                 );
                 this.owneerform.push({
@@ -1350,18 +1399,18 @@ export default {
 
                 this.v$.$reset();
                 this.form3.title = "";
-                this.form3.Social_media = "";
+                this.User_Charity.Social_media = "";
                 this.form3.phone = "";
-                this.form3.descripetion = "";
+                this.form3.description = "";
                 this.form3.address = "";
                 this.form3.Charities_specialty = "";
                 this.form3.Package_type = "";
                 this.form3.Fame_year = "";
                 this.form3.activitiesc_chertes = "";
-                this.form3.Facebook = "";
-                this.form3.Twitter = "";
-                this.form3.whatsapp = "";
-                this.form3.Youtube = "";
+                this.User_Charity.Facebook = "";
+                this.User_Charity.Twitter = "";
+                this.User_Charity.whatsapp = "";
+                this.User_Charity.Youtube = "";
 
                 this.testform3 = [];
             }
@@ -1482,6 +1531,7 @@ export default {
         this.storedArray = oldData;
         this.generateRandomPassword();
         this.Get_data();
+        this.Check_User();
     },
 };
 </script>

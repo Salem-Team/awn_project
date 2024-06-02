@@ -74,6 +74,25 @@
                                 </template>
                                 <v-list>
                                     <v-list-item>
+                                        الغاء الفلتر
+                                        <v-btn-toggle v-model="isActive0">
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                small
+                                                v-model="isActive"
+                                                @click="
+                                                    toggleActive('up'),
+                                                        this.$refs.childComponentRef.Get_data()
+                                                "
+                                                :class="{
+                                                    active: isActive === 'up',
+                                                }"
+                                            >
+                                                <v-icon>mdi-close</v-icon>
+                                            </v-btn>
+                                        </v-btn-toggle>
+                                    </v-list-item>
+                                    <v-list-item>
                                         ابجدى
                                         <v-btn-toggle v-model="isActive1">
                                             <v-btn
@@ -211,7 +230,7 @@
                                     >mdi-plus</v-icon
                                 >
                             </v-btn>
-                            <v-btn @click="Swap" class="btn_menu">
+                            <v-btn @click="Swap" class="btn_menu" id="Swap">
                                 <v-icon>mdi-view-grid-outline</v-icon>
                             </v-btn>
                         </div>
@@ -400,6 +419,17 @@
                                                 >
                                                     تم اضافه جميع الحالات بنجاح
                                                 </v-alert>
+                                                <v-alert
+                                                    v-if="ExcelFile"
+                                                    type="error"
+                                                    color="red"
+                                                    closable
+                                                    dismissible
+                                                >
+                                                    عذراً، يجب تحميل ملف إكسل
+                                                    فقط. الرجاء التأكد من امتداد
+                                                    الملف.
+                                                </v-alert>
                                             </div>
                                             <v-card-actions
                                                 class="my-2 d-flex justify-end"
@@ -466,7 +496,6 @@ export default {
             validationError: false,
             // start vars belong Exel & json files
             ExcelFile: false,
-            notExcel: false,
             jsonData: null,
             downloadURL: null,
             // excelFile: null,
@@ -476,6 +505,7 @@ export default {
             dialog1: false,
             items: [],
             isActive: false,
+            isActive0: null,
             isActive1: null,
             isActive2: null,
             isActive3: null,
@@ -1099,6 +1129,12 @@ label span:active {
 @media (max-width: 400px) {
     .chip_info[data-v-d1ccef3e] {
         font-size: 9px !important;
+    }
+}
+@media (max-width: 801px) {
+    /* Apply styles for screens wider than 800px */
+    #Swap {
+        display: none;
     }
 }
 </style>

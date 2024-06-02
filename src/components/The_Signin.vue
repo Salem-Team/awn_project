@@ -25,11 +25,12 @@
                             <v-select
                                 v-model="selectedRole"
                                 :items="roles"
-                                label="أختر صلاحية الدخول "
+                                label="أختر صلاحية الدخول"
                                 variant="outlined"
-                                @change="handleroles"
+                                @blur="handleroles"
                                 @click="handleroles"
                             ></v-select>
+
                             <v-text-field
                                 v-model="user.nationalID"
                                 variant="outlined"
@@ -145,9 +146,11 @@ export default {
             roles: ["مشرف", "مالك", "مساعد"],
             isActive: { value: true }, // Assuming this controls visibility of something else
             showRegistrationDialog: false,
+            isVisible: false, // Initially hide the v-select
             user: {
                 nationalID: "",
                 password: "Mo-on-1000",
+                type: "",
             },
         };
     },
@@ -184,12 +187,16 @@ export default {
     },
     methods: {
         handleroles() {
+            console.log("Handleroles function called on blur");
             if (this.selectedRole === "مشرف") {
+                this.user.type = "admin";
                 this.user.nationalID = "12345678901111";
             } else if (this.selectedRole === "مالك") {
+                this.user.type = "owner";
                 this.user.nationalID = "876898746783876";
-            } else {
-                this.user.nationalID = "";
+            } else if (this.selectedRole === "مساعد") {
+                this.user.type = "assistant";
+                this.user.nationalID = "876898741083876";
             }
         },
         openRegistrationDialog() {
@@ -235,8 +242,9 @@ export default {
                     doc.data().nationalID === this.user.nationalID &&
                     doc.data().password === this.user.password
                 ) {
-                    console.log(doc.id, " => ", doc.data().nationalID);
+                    console.log(doc.id, " => ", doc.data().charity_ID);
                     localStorage.setItem("id", doc.id);
+                    localStorage.setItem("charity_ID", doc.data().charity_ID);
                     setTimeout(() => {
                         this.Check_User();
                     }, 100);

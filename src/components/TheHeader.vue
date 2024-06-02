@@ -104,6 +104,17 @@
                                 </v-list-item>
                                 <v-list-item
                                     link
+                                    v-if="User.type === 'admin'"
+                                    @click="
+                                        $router.push(
+                                            '/Report_DashBoard_Charities'
+                                        )
+                                    "
+                                >
+                                    التقارير
+                                </v-list-item>
+                                <v-list-item
+                                    link
                                     @click="$router.push('/Report_DashBoard')"
                                     v-if="User.type === 'owner'"
                                 >
@@ -112,7 +123,6 @@
                                 <v-list-item
                                     link
                                     @click="$router.push('/Settings_Admin')"
-                                    v-if="User.type === 'owner'"
                                 >
                                     الاعدادات
                                 </v-list-item>
@@ -179,6 +189,7 @@ export default {
         },
         Sign_Out() {
             localStorage.removeItem("id");
+            localStorage.removeItem("charity_ID");
             this.User.User_State = true;
             this.$router.push("/");
         },
@@ -196,6 +207,8 @@ export default {
                         console.log(this.User.type);
                     } else if (docSnap.data().type === "admin") {
                         this.User.type = "admin";
+                    } else if (docSnap.data().type === "assistant") {
+                        this.User.type = "assistant";
                     }
                     this.User.User_name = name
                         .split(" ")

@@ -1,5 +1,7 @@
 <template>
+    <Empty_error v-if="empty == true" />
     <div
+        v-else-if="empty !== true"
         class="box px-5 py-3 mt-5 border rounded"
         v-for="(charity, index) in paginatedCharities"
         :key="charity.id"
@@ -47,10 +49,10 @@
                         >
                     </v-container>
                     <br />
-                    <!--the Charities_descripetion-->
+                    <!--the Charities_description-->
                     <div class="d-flex align-center flex-wrap justify-around">
                         <h3>وصف قصير للجمعية :</h3>
-                        <p>{{ charity.descripetion }}</p>
+                        <p>{{ charity.description }}</p>
                     </div>
                     <br />
                     <!--the Charities_Package_type
@@ -115,6 +117,7 @@
 
 <script>
 import { ref } from "vue";
+import Empty_error from "@/components/Empty_error.vue";
 // Get Data
 import { getDocs, getFirestore, collection } from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
@@ -134,8 +137,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
+    components: { Empty_error },
     data() {
         return {
+            empty: false,
             currentPage: 1,
             loading: false, // Loading state
             activities: ref(["كفالة", "إطعام"]),
@@ -167,6 +172,11 @@ export default {
                 this.CharitiesDB.push(charityData);
             });
             this.loading = false; // Set loading to false after data is loaded
+            if (this.CharitiesDB.length === 0) {
+                this.empty = true;
+            } else {
+                this.empty = false;
+            }
         },
         //fuction to detect the Social_media link type
         detectSocialMediaType(charity) {
