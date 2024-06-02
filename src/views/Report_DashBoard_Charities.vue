@@ -98,8 +98,8 @@ export default {
                 this.empty = true;
             } else {
                 this.empty = false;
-                this.renderBarChart();
             }
+            this.renderBarChart();
         },
 
         renderBarChart() {

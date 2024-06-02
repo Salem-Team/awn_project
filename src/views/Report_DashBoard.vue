@@ -42,36 +42,40 @@
         </v-card>
     </v-container>
     <Empty_error v-if="empty == true" />
-    <v-container
-        class="d-flex align-center justify-space-around"
-        v-else-if="empty !== true"
-    >
-        <div class="progress-circular">
-            <p class="text-center mb-10">نسبة إكمال العجز</p>
-            <v-progress-circular
-                class="mt-0"
-                bg-color="#00CCCC"
-                :model-value="value"
-                :rotate="360"
-                :size="270"
-                :width="45"
-                color="orange"
-                style="font-size: 32px"
-            >
-                <template v-slot:default="{ value }">
-                    <strong>{{ value }}%</strong>
-                </template>
-            </v-progress-circular>
-        </div>
-        <div class="chart-container" style="width: 30%">
-            <canvas id="myChart" width="2px" height="2px"></canvas>
-        </div>
-    </v-container>
-    <v-container><v-divider></v-divider></v-container>
-    <v-container
-        style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
-    >
-        <canvas id="barChart"></canvas>
+    <v-container v-else-if="empty !== true">
+        <v-container class="d-flex align-center justify-space-around">
+            <div class="progress-circular">
+                <p class="text-center mb-10">نسبة إكمال العجز</p>
+                <v-progress-circular
+                    class="mt-0"
+                    bg-color="#00CCCC"
+                    :model-value="value"
+                    :rotate="360"
+                    :size="270"
+                    :width="45"
+                    color="orange"
+                    style="font-size: 32px"
+                >
+                    <template v-slot:default="{ value }">
+                        <strong>{{ value }}%</strong>
+                    </template>
+                </v-progress-circular>
+            </div>
+            <div class="chart-container" style="width: 30%">
+                <canvas id="myChart" width="2px" height="2px"></canvas>
+            </div>
+        </v-container>
+        <v-container><v-divider></v-divider></v-container>
+        <v-container
+            style="
+                width: 100%;
+                height: 100%;
+                overflow-y: auto;
+                overflow-x: auto;
+            "
+        >
+            <canvas id="barChart"></canvas>
+        </v-container>
     </v-container>
 </template>
 
@@ -132,11 +136,11 @@ export default {
                 this.empty = true;
             } else {
                 this.empty = false;
-
-                // Render both charts after getting data
-                this.renderChart();
-                this.renderBarChart();
             }
+
+            // Render both charts after getting data
+            this.renderChart();
+            this.renderBarChart();
         },
 
         sumFinancialData() {
