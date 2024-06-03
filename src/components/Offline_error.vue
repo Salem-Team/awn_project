@@ -33,15 +33,14 @@ export default {
     },
     methods: {
         startInternetChecker() {
-            const isConnected = window.navigator.offLine;
-            const connectionType = navigator.connection?.type;
+            // Check if the browser is online
+            this.isInternetAvailable = window.navigator.onLine;
 
-            if (isConnected === false || connectionType === "Wi-Fi") {
-                this.isInternetAvailable = true;
+            if (this.isInternetAvailable) {
                 this.snackbar = false;
                 console.log("Internet connected");
-            } else {
-                this.isInternetAvailable = false;
+                console.log(window.navigator.onLine);
+            } else if (!window.navigator.onLine) {
                 this.snackbar = true;
                 console.log("Internet disconnected");
             }
