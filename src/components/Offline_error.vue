@@ -1,7 +1,7 @@
 <template>
     <v-container class="p-5 mt-6" v-if="!isInternetAvailable">
         <v-skeleton-loader
-            type="image,image,image"
+            type="image,list-item-two-line,list-item-two-line"
             height="100%"
         ></v-skeleton-loader>
     </v-container>
@@ -20,6 +20,7 @@
 
 <script>
 export default {
+    inject: ["Emitter"],
     data() {
         return {
             snackbar: false,
@@ -32,6 +33,9 @@ export default {
         this.startInternetChecker();
     },
     methods: {
+        Send_To_Perant() {
+            this.$emit("Send_Function_To_Perant", this.startInternetChecker());
+        },
         startInternetChecker() {
             // Check if the browser is online
             this.isInternetAvailable = window.navigator.onLine;

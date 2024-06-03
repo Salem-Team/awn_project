@@ -1,54 +1,48 @@
 <template>
     <div><Side_Bar /></div>
-    <Offline_error>
+    <v-container class="d-flex justify-space-evenly mt-16">
+        <v-card
+            class="card text-center mt-16 bg-primary"
+            prepend-icon="mdi-cash"
+        >
+            <v-card-title>المطلوب</v-card-title>
+            <v-card-text class="text-center">{{ this.required }}</v-card-text>
+        </v-card>
+        <v-card
+            class="card text-center mt-16 bg-orange-lighten-2"
+            prepend-icon="mdi-cash-plus"
+        >
+            <v-card-title>الدخل</v-card-title>
+            <v-card-text class="text-center">{{ this.incom }}</v-card-text>
+        </v-card>
+        <v-card
+            class="card text-center mt-16 bg-cyan-lighten-2"
+            prepend-icon="mdi-cash-minus"
+        >
+            <v-card-title>العجز</v-card-title>
+            <v-card-text class="text-center">{{
+                this.required - this.incom
+            }}</v-card-text>
+        </v-card>
+    </v-container>
+    <v-container class="d-flex justify-space-evenly mb-4">
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-account"
+        >
+            <v-card-title>عدد الحالات</v-card-title>
+            <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
+        </v-card>
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-account-multiple"
+        >
+            <v-card-title>الحالات المشتركة</v-card-title>
+            <v-card-text class="text-center">80</v-card-text>
+        </v-card>
+    </v-container>
+    <Offline_error ref="childComponentRef">
         <template v-slot:default>
-            <v-container class="d-flex justify-space-evenly mt-16">
-                <v-card
-                    class="card text-center mt-16 bg-primary"
-                    prepend-icon="mdi-cash"
-                >
-                    <v-card-title>المطلوب</v-card-title>
-                    <v-card-text class="text-center">{{
-                        this.required
-                    }}</v-card-text>
-                </v-card>
-                <v-card
-                    class="card text-center mt-16 bg-orange-lighten-2"
-                    prepend-icon="mdi-cash-plus"
-                >
-                    <v-card-title>الدخل</v-card-title>
-                    <v-card-text class="text-center">{{
-                        this.incom
-                    }}</v-card-text>
-                </v-card>
-                <v-card
-                    class="card text-center mt-16 bg-cyan-lighten-2"
-                    prepend-icon="mdi-cash-minus"
-                >
-                    <v-card-title>العجز</v-card-title>
-                    <v-card-text class="text-center">{{
-                        this.required - this.incom
-                    }}</v-card-text>
-                </v-card>
-            </v-container>
-            <v-container class="d-flex justify-space-evenly mb-4">
-                <v-card
-                    class="card text-center mt-3 bg-grey-lighten-3"
-                    prepend-icon="mdi-account"
-                >
-                    <v-card-title>عدد الحالات</v-card-title>
-                    <v-card-text class="text-center">{{
-                        Cases_length
-                    }}</v-card-text>
-                </v-card>
-                <v-card
-                    class="card text-center mt-3 bg-grey-lighten-3"
-                    prepend-icon="mdi-account-multiple"
-                >
-                    <v-card-title>الحالات المشتركة</v-card-title>
-                    <v-card-text class="text-center">80</v-card-text>
-                </v-card>
-            </v-container>
             <Empty_error v-if="empty == true" />
             <v-container v-else-if="empty !== true">
                 <v-container class="d-flex align-center justify-space-around">
@@ -69,12 +63,13 @@
                             </template>
                         </v-progress-circular>
                     </div>
-                    <div class="chart-container" style="width: 30%">
+                    <div style="width: 30%">
                         <canvas id="myChart" width="2px" height="2px"></canvas>
                     </div>
                 </v-container>
                 <v-container><v-divider></v-divider></v-container>
                 <v-container
+                    class="chart-container"
                     style="
                         width: 100%;
                         height: 100%;
@@ -121,6 +116,7 @@ export default {
         Empty_error,
         Offline_error,
     },
+    inject: ["Emitter"],
     data() {
         return {
             empty: false,
@@ -137,22 +133,28 @@ export default {
     },
     methods: {
         async Get_data() {
-            this.Cases = [];
-            const querySnapshot = await getDocs(collection(db, "Cases"));
-            querySnapshot.forEach((doc) => {
-                this.Cases.push(doc.data());
-            });
-            this.Cases_length = this.Cases.length;
-            this.sumFinancialData();
-            if (this.Cases.length === 0) {
-                this.empty = true;
-            } else {
-                this.empty = false;
-            }
+            try {
+                this.Cases = [];
+                const querySnapshot = await getDocs(collection(db, "Cases"));
+                querySnapshot.forEach((doc) => {
+                    this.Cases.push(doc.data());
+                });
+                this.Cases_length = this.Cases.length;
+                this.sumFinancialData();
+                if (this.Cases.length === 0) {
+                    this.empty = true;
+                    this.$refs.childComponentRef.startInternetChecke();
+                } else {
+                    this.empty = false;
+                }
 
-            // Render both charts after getting data
-            this.renderChart();
-            this.renderBarChart();
+                // Render both charts after getting data
+                this.renderChart();
+                this.renderBarChart();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                this.$refs.childComponentRef.startInternetChecke();
+            }
         },
 
         sumFinancialData() {
@@ -304,8 +306,8 @@ export default {
 }
 #barChart {
     margin: auto;
-    width: 1000px !important;
-    height: 600px !important;
+    width: 1500px !important;
+    height: 800px !important;
 }
 .chart-container {
     overflow: auto;

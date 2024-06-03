@@ -1,122 +1,140 @@
 <template>
-    <Empty_error v-if="empty == true" />
-    <div
-        v-else-if="empty !== true"
-        class="box px-5 py-3 mt-5 border rounded"
-        v-for="(charity, index) in paginatedCharities"
-        :key="charity.id"
-    >
-        <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
-        <v-lazy
-            :min-height="200"
-            :options="{ threshold: 0.7 }"
-            transition="fade-transition"
-        >
-            <div class="Charities">
-                <v-container class="Charities_container mt-4">
-                    <!--get the Charities data from the database-->
-                    <div class="Charity">
-                        <div
-                            class="d-flex align-center flex-wrap justify-around"
-                        >
-                            <h3>اسم الجمعية :</h3>
-                            <p>{{ charity.title }}</p>
-                            <v-spacer></v-spacer>
-                            <h3>عدد الحالات :</h3>
-                            <p>{{ charity.cases_number || 0 }}</p>
-                        </div>
-                    </div>
-                    <!--the Charities_specialty-->
-                    <v-container
-                        class="text-right d-flex align-center flex-wrap justify-around"
-                        v-model="Charities.Charities_specialty"
-                    >
-                        <h3
-                            class="mb-2 text-right d-flex align-center flex-wrap justify-around"
-                        >
-                            تخصص الجمعية:
-                        </h3>
-                        <v-card
-                            elevation="2"
-                            v-for="(
-                                activity, index_1
-                            ) in charity.Charities_specialty"
-                            :key="index_1"
-                            class="ma-2 pa-3"
-                            rounded="lg"
-                            :value="activity"
-                            >{{ activity }}</v-card
-                        >
-                    </v-container>
-                    <br />
-                    <!--the Charities_description-->
-                    <div class="d-flex align-center flex-wrap justify-around">
-                        <h3>وصف قصير للجمعية :</h3>
-                        <p>{{ charity.description }}</p>
-                    </div>
-                    <br />
-                    <!--the Charities_Package_type
+    <Offline_error ref="childComponentRef">
+        <template v-slot:default>
+            <Empty_error v-if="empty == true" />
+            <div
+                v-else-if="empty !== true"
+                class="box px-5 py-3 mt-5 border rounded"
+                v-for="(charity, index) in paginatedCharities"
+                :key="charity.id"
+            >
+                <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
+                <v-lazy
+                    :min-height="200"
+                    :options="{ threshold: 0.7 }"
+                    transition="fade-transition"
+                >
+                    <div class="Charities">
+                        <v-container class="Charities_container mt-4">
+                            <!--get the Charities data from the database-->
+                            <div class="Charity">
+                                <div
+                                    class="d-flex align-center flex-wrap justify-around"
+                                >
+                                    <h3>اسم الجمعية :</h3>
+                                    <p>{{ charity.title }}</p>
+                                    <v-spacer></v-spacer>
+                                    <h3>عدد الحالات :</h3>
+                                    <p>{{ charity.cases_number || 0 }}</p>
+                                </div>
+                            </div>
+                            <!--the Charities_specialty-->
+                            <v-container
+                                class="text-right d-flex align-center flex-wrap justify-around"
+                                v-model="Charities.Charities_specialty"
+                            >
+                                <h3
+                                    class="mb-2 text-right d-flex align-center flex-wrap justify-around"
+                                >
+                                    تخصص الجمعية:
+                                </h3>
+                                <v-card
+                                    elevation="2"
+                                    v-for="(
+                                        activity, index_1
+                                    ) in charity.Charities_specialty"
+                                    :key="index_1"
+                                    class="ma-2 pa-3"
+                                    rounded="lg"
+                                    :value="activity"
+                                    >{{ activity }}</v-card
+                                >
+                            </v-container>
+                            <br />
+                            <!--the Charities_description-->
+                            <div
+                                class="d-flex align-center flex-wrap justify-around"
+                            >
+                                <h3>وصف قصير للجمعية :</h3>
+                                <p>{{ charity.description }}</p>
+                            </div>
+                            <br />
+                            <!--the Charities_Package_type
                     <div class="d-flex align-center flex-wrap justify-around">
                         <h3>نوع الإشتراك :</h3>
                         <p>{{ charity.Package_type }}</p>
                     </div>
                     <br />-->
-                    <!--the Charities_Social_media-->
-                    <h3>منصات التواصل :</h3>
-                    <br />
-                    <!-- return the icon according to the Charities_Social_media links-->
+                            <!--the Charities_Social_media-->
+                            <h3>منصات التواصل :</h3>
+                            <br />
+                            <!-- return the icon according to the Charities_Social_media links-->
 
-                    <div class="d-flex align-center justify-between">
-                        <a
-                            v-if="charity.facebook && charity.facebookLink"
-                            :href="charity.facebookLink"
-                            ><v-icon>mdi-facebook</v-icon></a
-                        >
-                        <a
-                            v-if="charity.youtube && charity.youtubeLink"
-                            :href="charity.youtubeLink"
-                            ><v-icon>mdi-youtube</v-icon></a
-                        >
-                        <a
-                            v-if="charity.linkedin && charity.linkedinLink"
-                            :href="charity.linkedinLink"
-                            ><v-icon>mdi-linkedin</v-icon></a
-                        >
-                        <a
-                            v-if="charity.whatsapp && charity.whatsappLink"
-                            :href="charity.whatsappLink"
-                            ><v-icon>mdi-whatsapp</v-icon></a
-                        >
-                        <a
-                            v-if="charity.instagram && charity.instagramLink"
-                            :href="charity.instagramLink"
-                            ><v-icon>mdi-instagram</v-icon></a
-                        >
+                            <div class="d-flex align-center justify-between">
+                                <a
+                                    v-if="
+                                        charity.facebook && charity.facebookLink
+                                    "
+                                    :href="charity.facebookLink"
+                                    ><v-icon>mdi-facebook</v-icon></a
+                                >
+                                <a
+                                    v-if="
+                                        charity.youtube && charity.youtubeLink
+                                    "
+                                    :href="charity.youtubeLink"
+                                    ><v-icon>mdi-youtube</v-icon></a
+                                >
+                                <a
+                                    v-if="
+                                        charity.linkedin && charity.linkedinLink
+                                    "
+                                    :href="charity.linkedinLink"
+                                    ><v-icon>mdi-linkedin</v-icon></a
+                                >
+                                <a
+                                    v-if="
+                                        charity.whatsapp && charity.whatsappLink
+                                    "
+                                    :href="charity.whatsappLink"
+                                    ><v-icon>mdi-whatsapp</v-icon></a
+                                >
+                                <a
+                                    v-if="
+                                        charity.instagram &&
+                                        charity.instagramLink
+                                    "
+                                    :href="charity.instagramLink"
+                                    ><v-icon>mdi-instagram</v-icon></a
+                                >
+                            </div>
+                        </v-container>
                     </div>
-                </v-container>
+                </v-lazy>
             </div>
-        </v-lazy>
-    </div>
-    <div>
-        <v-progress-linear
-            color="primary"
-            indeterminate
-            v-if="loading"
-        ></v-progress-linear>
-    </div>
-    <div class="text-center">
-        <v-pagination
-            v-model="currentPage"
-            next-icon="mdi-menu-left"
-            prev-icon="mdi-menu-right"
-            :length="Math.ceil(CharitiesDB.length / 5)"
-            :total-visible="5"
-        ></v-pagination>
-    </div>
+            <div>
+                <v-progress-linear
+                    color="primary"
+                    indeterminate
+                    v-if="loading"
+                ></v-progress-linear>
+            </div>
+            <div class="text-center">
+                <v-pagination
+                    v-model="currentPage"
+                    next-icon="mdi-menu-left"
+                    prev-icon="mdi-menu-right"
+                    :length="Math.ceil(CharitiesDB.length / 5)"
+                    :total-visible="5"
+                ></v-pagination>
+            </div>
+        </template>
+    </Offline_error>
 </template>
 
 <script>
 import { ref } from "vue";
+import Offline_error from "@/components/Offline_error.vue";
 import Empty_error from "@/components/Empty_error.vue";
 // Get Data
 import { getDocs, getFirestore, collection } from "@firebase/firestore";
@@ -137,7 +155,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
-    components: { Empty_error },
+    components: { Empty_error, Offline_error },
+    inject: ["Emitter"],
     data() {
         return {
             empty: false,
@@ -163,19 +182,26 @@ export default {
     methods: {
         // Get Data
         async Get_Data() {
-            this.loading = true; // Set loading to true before fetching data
-            const querySnapshot = await getDocs(collection(db, "Charities"));
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                const charityData = doc.data();
-                this.detectSocialMediaType(charityData);
-                this.CharitiesDB.push(charityData);
-            });
-            this.loading = false; // Set loading to false after data is loaded
-            if (this.CharitiesDB.length === 0) {
-                this.empty = true;
-            } else {
-                this.empty = false;
+            try {
+                this.loading = true; // Set loading to true before fetching data
+                const querySnapshot = await getDocs(
+                    collection(db, "Charities")
+                );
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    const charityData = doc.data();
+                    this.detectSocialMediaType(charityData);
+                    this.CharitiesDB.push(charityData);
+                });
+                this.loading = false; // Set loading to false after data is loaded
+                if (this.CharitiesDB.length === 0) {
+                    this.empty = true;
+                    this.$refs.childComponentRef.startInternetChecke();
+                } else {
+                    this.empty = false;
+                }
+            } catch (error) {
+                console.error("Error adding document: ", error);
             }
         },
         //fuction to detect the Social_media link type

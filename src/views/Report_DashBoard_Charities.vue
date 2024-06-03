@@ -1,28 +1,28 @@
 <template>
     <div><Side_Bar /></div>
-    <Offline_error>
+    <v-container class="d-flex justify-space-evenly mb-4 mt-16">
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-account"
+        >
+            <v-card-title>عدد الحالات</v-card-title>
+            <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
+        </v-card>
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-charity"
+        >
+            <v-card-title>عدد الجمعيات</v-card-title>
+            <v-card-text class="text-center">{{
+                CharitiesDB_length
+            }}</v-card-text>
+        </v-card>
+    </v-container>
+    <Offline_error ref="childComponentRef">
         <template v-slot:default>
-            <v-container class="d-flex justify-space-evenly mb-4 mt-16">
-                <v-card
-                    class="card text-center mt-3 bg-grey-lighten-3"
-                    prepend-icon="mdi-account"
-                >
-                    <v-card-title>عدد الحالات</v-card-title>
-                    <v-card-text class="text-center">{{
-                        Cases_length
-                    }}</v-card-text>
-                </v-card>
-                <v-card
-                    class="card text-center mt-3 bg-grey-lighten-3"
-                    prepend-icon="mdi-charity"
-                >
-                    <v-card-title>عدد الجمعيات</v-card-title>
-                    <v-card-text class="text-center">{{
-                        CharitiesDB_length
-                    }}</v-card-text>
-                </v-card>
-            </v-container>
+            <Empty_error v-if="empty == true" />
             <v-container
+                class="chart-container"
                 style="
                     width: 100%;
                     height: 100%;
@@ -30,8 +30,7 @@
                     overflow-x: auto;
                 "
             >
-                <Empty_error v-if="empty == true" />
-                <canvas id="barChart" v-else-if="empty !== true"></canvas>
+                <canvas id="barChart" v-if="empty !== true"></canvas>
             </v-container>
         </template>
     </Offline_error>
@@ -69,6 +68,7 @@ export default {
         Empty_error,
         Offline_error,
     },
+    inject: ["Emitter"],
     data() {
         return {
             empty: false,
@@ -86,33 +86,46 @@ export default {
     methods: {
         // Get Data
         async Get_Data1() {
-            const querySnapshot = await getDocs(collection(db, "Charities"));
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                const charityData = doc.data();
-                this.CharitiesDB.push(charityData);
-            });
-            this.CharitiesDB_length = this.CharitiesDB.length;
-            if (this.CharitiesDB.length === 0) {
-                this.empty = true;
-            } else {
-                this.empty = false;
+            try {
+                const querySnapshot = await getDocs(
+                    collection(db, "Charities")
+                );
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    const charityData = doc.data();
+                    this.CharitiesDB.push(charityData);
+                });
+                this.CharitiesDB_length = this.CharitiesDB.length;
+                if (this.CharitiesDB.length === 0) {
+                    this.empty = true;
+                    this.$refs.childComponentRef.startInternetChecke();
+                } else {
+                    this.empty = false;
+                }
+                console.log(this.CharitiesDB);
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                this.$refs.childComponentRef.startInternetChecke();
             }
-            console.log(this.CharitiesDB);
         },
         async Get_Data() {
-            this.Cases = [];
-            const querySnapshot = await getDocs(collection(db, "Cases"));
-            querySnapshot.forEach((doc) => {
-                this.Cases.push(doc.data());
-            });
-            this.Cases_length = this.Cases.length;
-            if (this.Cases.length === 0) {
-                this.empty = true;
-            } else {
-                this.empty = false;
+            try {
+                this.Cases = [];
+                const querySnapshot = await getDocs(collection(db, "Cases"));
+                querySnapshot.forEach((doc) => {
+                    this.Cases.push(doc.data());
+                });
+                this.Cases_length = this.Cases.length;
+                if (this.Cases.length === 0) {
+                    this.empty = true;
+                } else {
+                    this.empty = false;
+                }
+                this.renderBarChart();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                this.$refs.childComponentRef.startInternetChecke();
             }
-            this.renderBarChart();
         },
 
         renderBarChart() {
@@ -195,7 +208,7 @@ export default {
 }
 #barChart {
     margin: auto;
-    width: 1000px !important;
+    width: 1500px !important;
     height: 600px !important;
 }
 .chart-container {

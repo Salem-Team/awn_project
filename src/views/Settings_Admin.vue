@@ -738,7 +738,8 @@
                                                                         loading
                                                                     "
                                                                     @click="
-                                                                        isActive.value = false
+                                                                        (isActive.value = false),
+                                                                            (snackbar = true)
                                                                     "
                                                                     color="deep-purple"
                                                                     size="large"
@@ -920,6 +921,15 @@
             </v-row>
         </v-container>
     </div>
+
+    <v-snackbar v-model="snackbar" :timeout="timeout">
+        {{ text }}
+        <template v-slot:actions>
+            <v-btn color="blue" variant="text" @click="snackbar = false">
+                إغلاق
+            </v-btn>
+        </template>
+    </v-snackbar>
 </template>
 
 <script>
@@ -960,6 +970,9 @@ const db = getFirestore(app);
 
 export default {
     data: () => ({
+        snackbar: false,
+        text: "تم أضافة  ",
+        timeout: 4000,
         User_Charity: "",
         User_Data: "",
         randomPassword: "",
@@ -1464,9 +1477,9 @@ export default {
                       }
                     : ""
             );
-
-            // حفظ القيمة المحدثة في localStorage
-            localStorage.setItem("formmosed2", JSON.stringify(oldData));
+            (this.text = "تم أضافة " + this.AssistantName),
+                // حفظ القيمة المحدثة في localStorage
+                localStorage.setItem("formmosed2", JSON.stringify(oldData));
             this.storedArray = oldData;
             this.AssistantName = "";
             this.AssistantEmail = "";
