@@ -1,78 +1,98 @@
 <template>
     <div><Side_Bar /></div>
-    <v-container class="d-flex justify-space-evenly mt-16">
-        <v-card
-            class="card text-center mt-16 bg-primary"
-            prepend-icon="mdi-cash"
-        >
-            <v-card-title>المطلوب</v-card-title>
-            <v-card-text class="text-center">{{ this.required }}</v-card-text>
-        </v-card>
-        <v-card
-            class="card text-center mt-16 bg-orange-lighten-2"
-            prepend-icon="mdi-cash-plus"
-        >
-            <v-card-title>الدخل</v-card-title>
-            <v-card-text class="text-center">{{ this.incom }}</v-card-text>
-        </v-card>
-        <v-card
-            class="card text-center mt-16 bg-cyan-lighten-2"
-            prepend-icon="mdi-cash-minus"
-        >
-            <v-card-title>العجز</v-card-title>
-            <v-card-text class="text-center">{{
-                this.required - this.incom
-            }}</v-card-text>
-        </v-card>
-    </v-container>
-    <v-container class="d-flex justify-space-evenly mb-4">
-        <v-card
-            class="card text-center mt-3 bg-grey-lighten-3"
-            prepend-icon="mdi-account"
-        >
-            <v-card-title>عدد الحالات</v-card-title>
-            <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
-        </v-card>
-        <v-card
-            class="card text-center mt-3 bg-grey-lighten-3"
-            prepend-icon="mdi-account-multiple"
-        >
-            <v-card-title>الحالات المشتركة</v-card-title>
-            <v-card-text class="text-center">80</v-card-text>
-        </v-card>
-    </v-container>
-    <v-container class="d-flex align-center justify-space-around">
-        <div>
-            <p class="text-center mb-10">نسبة إكمال العجز</p>
-            <v-progress-circular
-                class="mt-0"
-                bg-color="#00CCCC"
-                :model-value="value"
-                :rotate="360"
-                :size="270"
-                :width="45"
-                color="orange"
-                style="font-size: 32px"
-            >
-                <template v-slot:default="{ value }">
-                    <strong>{{ value }}%</strong>
-                </template>
-            </v-progress-circular>
-        </div>
-        <div class="chart-container" style="width: 30%">
-            <canvas id="myChart" width="2px" height="2px"></canvas>
-        </div>
-    </v-container>
-    <v-container><v-divider></v-divider></v-container>
-    <v-container
-        style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
-    >
-        <canvas id="barChart"></canvas>
-    </v-container>
+    <Offline_error>
+        <template v-slot:default>
+            <v-container class="d-flex justify-space-evenly mt-16">
+                <v-card
+                    class="card text-center mt-16 bg-primary"
+                    prepend-icon="mdi-cash"
+                >
+                    <v-card-title>المطلوب</v-card-title>
+                    <v-card-text class="text-center">{{
+                        this.required
+                    }}</v-card-text>
+                </v-card>
+                <v-card
+                    class="card text-center mt-16 bg-orange-lighten-2"
+                    prepend-icon="mdi-cash-plus"
+                >
+                    <v-card-title>الدخل</v-card-title>
+                    <v-card-text class="text-center">{{
+                        this.incom
+                    }}</v-card-text>
+                </v-card>
+                <v-card
+                    class="card text-center mt-16 bg-cyan-lighten-2"
+                    prepend-icon="mdi-cash-minus"
+                >
+                    <v-card-title>العجز</v-card-title>
+                    <v-card-text class="text-center">{{
+                        this.required - this.incom
+                    }}</v-card-text>
+                </v-card>
+            </v-container>
+            <v-container class="d-flex justify-space-evenly mb-4">
+                <v-card
+                    class="card text-center mt-3 bg-grey-lighten-3"
+                    prepend-icon="mdi-account"
+                >
+                    <v-card-title>عدد الحالات</v-card-title>
+                    <v-card-text class="text-center">{{
+                        Cases_length
+                    }}</v-card-text>
+                </v-card>
+                <v-card
+                    class="card text-center mt-3 bg-grey-lighten-3"
+                    prepend-icon="mdi-account-multiple"
+                >
+                    <v-card-title>الحالات المشتركة</v-card-title>
+                    <v-card-text class="text-center">80</v-card-text>
+                </v-card>
+            </v-container>
+            <Empty_error v-if="empty == true" />
+            <v-container v-else-if="empty !== true">
+                <v-container class="d-flex align-center justify-space-around">
+                    <div class="progress-circular">
+                        <p class="text-center mb-10">نسبة إكمال العجز</p>
+                        <v-progress-circular
+                            class="mt-0"
+                            bg-color="#00CCCC"
+                            :model-value="value"
+                            :rotate="360"
+                            :size="270"
+                            :width="45"
+                            color="orange"
+                            style="font-size: 32px"
+                        >
+                            <template v-slot:default="{ value }">
+                                <strong>{{ value }}%</strong>
+                            </template>
+                        </v-progress-circular>
+                    </div>
+                    <div class="chart-container" style="width: 30%">
+                        <canvas id="myChart" width="2px" height="2px"></canvas>
+                    </div>
+                </v-container>
+                <v-container><v-divider></v-divider></v-container>
+                <v-container
+                    style="
+                        width: 100%;
+                        height: 100%;
+                        overflow-y: auto;
+                        overflow-x: auto;
+                    "
+                >
+                    <canvas id="barChart"></canvas>
+                </v-container>
+            </v-container>
+        </template>
+    </Offline_error>
 </template>
 
 <script scoped>
 import { ref } from "vue";
+import Offline_error from "@/components/Offline_error.vue";
+import Empty_error from "@/components/Empty_error.vue";
 import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import Side_Bar from "@/components/Side_Bar.vue";
@@ -98,9 +118,12 @@ const db = getFirestore(app);
 export default {
     components: {
         Side_Bar,
+        Empty_error,
+        Offline_error,
     },
     data() {
         return {
+            empty: false,
             deficit: 0,
             required: 0,
             incom: 0,
@@ -121,6 +144,12 @@ export default {
             });
             this.Cases_length = this.Cases.length;
             this.sumFinancialData();
+            if (this.Cases.length === 0) {
+                this.empty = true;
+            } else {
+                this.empty = false;
+            }
+
             // Render both charts after getting data
             this.renderChart();
             this.renderBarChart();

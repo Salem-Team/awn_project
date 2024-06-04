@@ -123,7 +123,6 @@
                                 <v-list-item
                                     link
                                     @click="$router.push('/Settings_Admin')"
-                                    v-if="User.type === 'owner'"
                                 >
                                     الاعدادات
                                 </v-list-item>

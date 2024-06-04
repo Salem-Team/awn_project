@@ -3,14 +3,17 @@ import App from "./App.vue";
 import router from "./router";
 import "tailwindcss/tailwind.css";
 import "bootstrap/dist/css/bootstrap.css";
-
+import "notyf/notyf.min.css";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 // pinia config
 import { createPinia } from "pinia";
 
 // Emitter configuration
 import mitt from "mitt";
 const Emitter = mitt();
-
+//VueDraggable
+import VueDraggable from "vue-draggable";
 // Vuetify
 
 import "@mdi/font/css/materialdesignicons.css";
@@ -69,7 +72,9 @@ createApp(App)
     //.use(store)
     .use(router)
     .use(vuetify)
+    .use(VueDraggable)
     .component("font-awesome-icon", FontAwesomeIcon)
     .provide("Emitter", Emitter)
     .use(createPinia())
+    .use(Toast, { position: "top-right", timeout: 1000 })
     .mount("#app");

@@ -1,51 +1,61 @@
 <template>
-    <div class="Dash_board mt-16">
-        <!-- NavBar  -->
-        <Side_Bar />
-        <v-container fluid>
-            <v-row>
-                <v-col cols="12">
-                    <div
-                        class="d-flex justify-space-between align-end flex-wrap px-12"
-                        style="padding: 1px 16px 1px 0px; height: 115px"
-                    >
-                        <h1>
-                            {{ tab }}
-                        </h1>
-                        <!-- Info Status -->
-                        <div v-if="tab === 'المحتاجين'">
-                            <v-btn @click="Swap" id="Swap">
-                                <v-icon>mdi-view-grid-outline</v-icon>
-                            </v-btn>
-                        </div>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
-        <v-container fluid>
-            <v-row>
-                <v-col cols="12">
-                    <div class="px-12">
-                        <v-card>
-                            <v-tabs v-model="tab" bg-color="grey-lighten-3">
-                                <v-tab value="المحتاجين">المحتاجين</v-tab>
-                                <v-tab value="الجمعيات">الجمعيات</v-tab>
-                            </v-tabs>
-                        </v-card>
-                        <v-window v-model="tab">
-                            <v-window-item value="المحتاجين">
-                                <DashboardCharitys ref="childComponentRef" />
-                            </v-window-item>
+    <Offline_error>
+        <template v-slot:default>
+            <div class="Dash_board">
+                <!-- NavBar  -->
+                <Side_Bar />
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols="12">
+                            <div
+                                class="d-flex justify-space-between align-end flex-wrap px-12"
+                                style="padding: 1px 16px 1px 0px; height: 115px"
+                            >
+                                <h1>
+                                    {{ tab }}
+                                </h1>
+                                <!-- Info Status -->
+                                <div v-if="tab === 'المحتاجين'">
+                                    <v-btn @click="Swap" id="Swap">
+                                        <v-icon>mdi-view-grid-outline</v-icon>
+                                    </v-btn>
+                                </div>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols="12">
+                            <div class="px-12">
+                                <v-card>
+                                    <v-tabs
+                                        v-model="tab"
+                                        bg-color="grey-lighten-3"
+                                    >
+                                        <v-tab value="المحتاجين"
+                                            >المحتاجين</v-tab
+                                        >
+                                        <v-tab value="الجمعيات">الجمعيات</v-tab>
+                                    </v-tabs>
+                                </v-card>
+                                <v-window v-model="tab">
+                                    <v-window-item value="المحتاجين">
+                                        <DashboardCharitys
+                                            ref="childComponentRef"
+                                        />
+                                    </v-window-item>
 
-                            <v-window-item value="الجمعيات">
-                                <CharityView />
-                            </v-window-item>
-                        </v-window>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
-    </div>
+                                    <v-window-item value="الجمعيات">
+                                        <CharityView />
+                                    </v-window-item>
+                                </v-window>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </v-container></div
+        ></template>
+    </Offline_error>
 </template>
 
 <script>
@@ -55,6 +65,7 @@ import readXlsxFile from "read-excel-file";
 import CharityView from "@/components/Charity_View.vue";
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
+import Offline_error from "@/components/Offline_error.vue";
 
 export default {
     inject: ["Emitter"],
@@ -63,6 +74,7 @@ export default {
         DashboardCharitys,
         Side_Bar,
         CharityView,
+        Offline_error,
     },
     data() {
         return {
