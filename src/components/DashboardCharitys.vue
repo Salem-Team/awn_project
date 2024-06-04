@@ -1,5 +1,6 @@
 <template>
-    <div style="width: 100%">
+    <Empty_error v-if="empty == true" />
+    <div style="width: 100%" v-else-if="empty !== true">
         <v-container>
             <v-text-field
                 v-model="search"
@@ -917,6 +918,7 @@
     </div>
 </template>
 <script scoped>
+import Empty_error from "@/components/Empty_error.vue";
 import { ref } from "vue";
 // Get  data
 import { getFirestore, getDocs, collection } from "@firebase/firestore";
@@ -938,18 +940,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default {
+    components: { Empty_error },
     inject: ["Emitter"],
     data: () => ({
-        dis_1: true,
-        dis_2: true,
-        dis_3: true,
-        dis_4: true,
-        dis_5: true,
-        dis_6: true,
-        dis_7: true,
-        dis_8: true,
-        dis_9: true,
-        dis_10: true,
         Personal_Information: "",
         FinancialInformation: "",
         SickCases: "",
@@ -1667,6 +1660,11 @@ export default {
             });
             console.log("this.Cases", this.Cases);
             this.Cases_length = this.Cases.length;
+            if (this.Cases.length === 0) {
+                this.empty = true;
+            } else {
+                this.empty = false;
+            }
             this.sumFinancialData();
             this.$emit("child-result", this.Cases_length);
             this.loading = false; // Set loading to false after data is loaded

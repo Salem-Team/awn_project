@@ -128,6 +128,7 @@
                                                         </v-text-field>
                                                     </div>
                                                 </div>
+
                                                 <div
                                                     v-for="(
                                                         phone, index
@@ -985,6 +986,7 @@ import {
     getDoc,
     doc,
 } from "@firebase/firestore";
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -1001,6 +1003,7 @@ export default {
         whatsappRules: false,
         youtubeRules: false,
         User_Data: "",
+
         randomPassword: "",
         passwordsMatchError: false,
         passwordsMatchError2: false,
@@ -1320,6 +1323,37 @@ export default {
                 }
             }
         },
+        // async Check_User() {
+        //     if (localStorage.getItem("id")) {
+        //         const docRef = doc(db, "Users", localStorage.getItem("id"));
+        //         const docSnap = await getDoc(docRef);
+
+        //         if (docSnap.exists()) {
+        //             this.User_Data = docSnap.data();
+        //             if (docSnap.data().type === "owner") {
+        //                 this.User_Type = "owner";
+        //                 const docRef_Charities = doc(
+        //                     db,
+        //                     "Charities",
+        //                     docSnap.data().charity_ID
+        //                 );
+        //                 const docSnap_Charities = await getDoc(
+        //                     docRef_Charities
+        //                 );
+        //                 console.log("Charitie =>  ", docSnap_Charities.data());
+        //                 console.log(this.User_Type);
+        //                 this.User_Charity = docSnap_Charities.data();
+        //             } else if (docSnap.data().type === "admin") {
+        //                 this.User_Type = "admin";
+        //             } else if (docSnap.data().type === "assistant") {
+        //                 this.User_Type = "assistant";
+        //             }
+        //         } else {
+        //             // docSnap.data() will be undefined in this case
+        //             console.log("No such document!");
+        //         }
+        //     }
+        // },
         async Get_data() {
             this.loading = true; // Set loading to true before fetching data
             this.Cases = [];
@@ -1372,6 +1406,7 @@ export default {
                 this.form3.phone ||
                 this.form3.password ||
                 this.form3.address ||
+                this.form3.description ||
                 this.form3.description ||
                 this.form3.Fame_number ||
                 this.form3.Charities_specialty ||
@@ -1458,7 +1493,9 @@ export default {
                 this.testform3.push(
                     { Charities_title: this.form3.title },
                     { Charities_Social_media: this.User_Charity.Social_media },
+                    { Charities_Social_media: this.User_Charity.Social_media },
                     { Charities_phone: this.form3.phone },
+                    { Charities_descripetion: this.form3.description },
                     { Charities_descripetion: this.form3.description },
                     { Charities_address: this.form3.address },
                     {
@@ -1493,13 +1530,19 @@ export default {
                 this.v$.$reset();
                 this.form3.title = "";
                 this.User_Charity.Social_media = "";
+                this.User_Charity.Social_media = "";
                 this.form3.phone = "";
+                this.form3.description = "";
                 this.form3.description = "";
                 this.form3.address = "";
                 this.form3.Charities_specialty = "";
                 this.form3.Package_type = "";
                 this.form3.Fame_year = "";
                 this.form3.activitiesc_chertes = "";
+                this.User_Charity.Facebook = "";
+                this.User_Charity.Twitter = "";
+                this.User_Charity.whatsapp = "";
+                this.User_Charity.Youtube = "";
                 this.User_Charity.Facebook = "";
                 this.User_Charity.Twitter = "";
                 this.User_Charity.whatsapp = "";
