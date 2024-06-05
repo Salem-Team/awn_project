@@ -824,7 +824,7 @@
                                                             >
                                                         </v-card-title>
                                                         <v-card-text
-                                                            class="bg-white text--primary"
+                                                            class="bg-white text-primary"
                                                             style="
                                                                 margin-right: 0px !important;
                                                                 padding-top: 17px;
@@ -834,64 +834,7 @@
                                                                 <div
                                                                     style="
                                                                         display: flex;
-                                                                        justify-content: space-between;
-                                                                        align-items: center;
-                                                                    "
-                                                                >
-                                                                    <h5
-                                                                        class="mb-5 text-primary"
-                                                                    >
-                                                                        الايميل
-                                                                    </h5>
-                                                                    <p>
-                                                                        {{
-                                                                            item.AssistantEmail
-                                                                        }}
-                                                                    </p>
-                                                                </div>
-                                                                <div
-                                                                    style="
-                                                                        display: flex;
-                                                                        justify-content: space-between;
-                                                                        align-items: center;
-                                                                    "
-                                                                >
-                                                                    <h5
-                                                                        class="mb-5 text-primary"
-                                                                    >
-                                                                        الرقم
-                                                                        القومي
-                                                                    </h5>
-                                                                    <p>
-                                                                        {{
-                                                                            item.nationalNumberAssistant
-                                                                        }}
-                                                                    </p>
-                                                                </div>
-
-                                                                <div
-                                                                    style="
-                                                                        display: flex;
-                                                                        justify-content: space-between;
-                                                                        align-items: center;
-                                                                    "
-                                                                >
-                                                                    <h5
-                                                                        class="mb-5 text-primary"
-                                                                    >
-                                                                        رقم
-                                                                        التليفون
-                                                                    </h5>
-                                                                    <p>
-                                                                        {{
-                                                                            item.AssistantPhoneNumber
-                                                                        }}
-                                                                    </p>
-                                                                </div>
-                                                                <div
-                                                                    style="
-                                                                        display: flex;
-                                                                        justify-content: space-between;
+                                                                        justify-content: center;
                                                                         align-items: center;
                                                                     "
                                                                 >
@@ -910,11 +853,7 @@
                                                                         'اضافه الحالات من الاكسيل',
                                                                         'الاطلاع علي تقارير',
                                                                     ]"
-                                                                    @change="
-                                                                        console.log(
-                                                                            'sofij'
-                                                                        )
-                                                                    "
+                                                                    color="primary"
                                                                     variant="solo"
                                                                 ></v-select>
                                                             </div>
@@ -1182,16 +1121,16 @@ export default {
                 localStorage.setItem("storedArray", JSON.stringify(newValue));
             },
         },
-        "form1.name": function () {
+        "User_Data.name": function () {
             this.updateFormEmpty1();
         },
-        "form1.email": function () {
+        "User_Data.email": function () {
             this.updateFormEmpty1();
         },
-        "form1.cardNumber": function () {
+        "User_Data.cardNumber": function () {
             this.updateFormEmpty1();
         },
-        "form1.phoneNumber": function () {
+        "User_Data.phoneNumber": function () {
             this.updateFormEmpty1();
         },
 
@@ -1205,30 +1144,30 @@ export default {
             this.updateFormEmpty2();
         },
 
-        "form3.title": function () {
+        "User_Charity.title": function () {
             this.updateFormEmpty3();
         },
-        "form3.phone": function () {
+        "User_Charity.phone": function () {
             this.updateFormEmpty3();
         },
-        "form3.address": function () {
-            this.updateFormEmpty3();
-        },
-
-        "form3.description": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.Fame_number": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.Charities_specialty": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.Fame_year": function () {
+        "User_Charity.address": function () {
             this.updateFormEmpty3();
         },
 
-        "form3.activitiesc_chertes": function () {
+        "User_Charity.description": function () {
+            this.updateFormEmpty3();
+        },
+        "User_Charity.Fame_number": function () {
+            this.updateFormEmpty3();
+        },
+        "User_Charity.Charities_specialty": function () {
+            this.updateFormEmpty3();
+        },
+        "User_Charity.Fame_year": function () {
+            this.updateFormEmpty3();
+        },
+
+        "User_Charity.activitiesc_chertes": function () {
             this.updateFormEmpty3();
         },
         "User_Charity.Facebook": function () {
@@ -1323,37 +1262,6 @@ export default {
                 }
             }
         },
-        // async Check_User() {
-        //     if (localStorage.getItem("id")) {
-        //         const docRef = doc(db, "Users", localStorage.getItem("id"));
-        //         const docSnap = await getDoc(docRef);
-
-        //         if (docSnap.exists()) {
-        //             this.User_Data = docSnap.data();
-        //             if (docSnap.data().type === "owner") {
-        //                 this.User_Type = "owner";
-        //                 const docRef_Charities = doc(
-        //                     db,
-        //                     "Charities",
-        //                     docSnap.data().charity_ID
-        //                 );
-        //                 const docSnap_Charities = await getDoc(
-        //                     docRef_Charities
-        //                 );
-        //                 console.log("Charitie =>  ", docSnap_Charities.data());
-        //                 console.log(this.User_Type);
-        //                 this.User_Charity = docSnap_Charities.data();
-        //             } else if (docSnap.data().type === "admin") {
-        //                 this.User_Type = "admin";
-        //             } else if (docSnap.data().type === "assistant") {
-        //                 this.User_Type = "assistant";
-        //             }
-        //         } else {
-        //             // docSnap.data() will be undefined in this case
-        //             console.log("No such document!");
-        //         }
-        //     }
-        // },
         async Get_data() {
             this.loading = true; // Set loading to true before fetching data
             this.Cases = [];
@@ -1386,10 +1294,10 @@ export default {
         updateFormEmpty1() {
             // تحقق من إذا كان أي حقل فارغ
             this.isFormEmpty1 = !(
-                this.form1.name ||
-                this.form1.email ||
-                this.form1.cardNumber ||
-                this.form1.phoneNumber
+                this.User_Data.name ||
+                this.User_Data.email ||
+                this.User_Data.cardNumber ||
+                this.User_Data.phoneNumber
             );
         },
         updateFormEmpty2() {
@@ -1402,16 +1310,16 @@ export default {
         },
         updateFormEmpty3() {
             this.isFormEmpty3 = !(
-                this.form3.title ||
-                this.form3.phone ||
-                this.form3.password ||
-                this.form3.address ||
-                this.form3.description ||
-                this.form3.description ||
-                this.form3.Fame_number ||
-                this.form3.Charities_specialty ||
-                this.form3.Fame_year ||
-                this.form3.activitiesc_chertes ||
+                this.User_Charity.title ||
+                this.User_Charity.phone ||
+                this.User_Charity.password ||
+                this.User_Charity.address ||
+                this.User_Charity.description ||
+                this.User_Charity.description ||
+                this.User_Charity.Fame_number ||
+                this.User_Charity.Charities_specialty ||
+                this.User_Charity.Fame_year ||
+                this.User_Charity.activitiesc_chertes ||
                 this.User_Charity.Facebook ||
                 this.User_Charity.Twitter ||
                 this.User_Charity.whatsapp ||
@@ -1738,5 +1646,6 @@ export default {
 .v-input__control {
     color: black !important;
 }
+
 /* End Friends Page */
 </style>
