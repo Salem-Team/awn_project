@@ -1,6 +1,9 @@
 <template>
+    <!-- Sidebar component -->
     <div><Side_Bar /></div>
+    <!-- Display statistics -->
     <v-container class="d-flex justify-space-evenly mb-4 mt-16">
+        <!-- Card for number of cases -->
         <v-card
             class="card text-center mt-3 bg-grey-lighten-3"
             prepend-icon="mdi-account"
@@ -8,6 +11,7 @@
             <v-card-title>عدد الحالات</v-card-title>
             <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
         </v-card>
+        <!-- Card for number of charities -->
         <v-card
             class="card text-center mt-3 bg-grey-lighten-3"
             prepend-icon="mdi-charity"
@@ -18,9 +22,11 @@
             }}</v-card-text>
         </v-card>
     </v-container>
-    <Offline_error ref="childComponentRef">
+    <!-- Offline and empty data handling -->
+    <Offline_error>
         <template v-slot:default>
             <Empty_error v-if="empty == true" />
+            <!-- Container for chart -->
             <v-container
                 class="chart-container"
                 style="
@@ -80,11 +86,18 @@ export default {
         };
     },
     mounted() {
+        // Method to check internet connection status
+        this.startInternetCheckerUse();
+        // Fetch data when component is mounted
         this.Get_Data1();
         this.Get_Data();
     },
     methods: {
-        // Get Data
+        // Method to check internet connection status
+        startInternetCheckerUse() {
+            this.Emitter.emit("startInternetChecker");
+        },
+        // Get data for charities
         async Get_Data1() {
             try {
                 const querySnapshot = await getDocs(
@@ -98,16 +111,17 @@ export default {
                 this.CharitiesDB_length = this.CharitiesDB.length;
                 if (this.CharitiesDB.length === 0) {
                     this.empty = true;
-                    this.$refs.childComponentRef.startInternetChecke();
+                    // Method to check internet connection status
+                    this.startInternetCheckerUse();
                 } else {
                     this.empty = false;
                 }
                 console.log(this.CharitiesDB);
             } catch (error) {
                 console.error("Error adding document: ", error);
-                this.$refs.childComponentRef.startInternetChecke();
             }
         },
+        // Get data for cases
         async Get_Data() {
             try {
                 this.Cases = [];
@@ -118,23 +132,24 @@ export default {
                 this.Cases_length = this.Cases.length;
                 if (this.Cases.length === 0) {
                     this.empty = true;
+                    // Method to check internet connection status
+                    this.startInternetCheckerUse();
                 } else {
                     this.empty = false;
                 }
                 this.renderBarChart();
             } catch (error) {
                 console.error("Error adding document: ", error);
-                this.$refs.childComponentRef.startInternetChecke();
             }
         },
-
+        // Render bar chart using Chart.js
         renderBarChart() {
             const ctx = document.getElementById("barChart");
             // Initialize chart data arrays
             const labels = [];
             const data = [];
             const value1 = [];
-            // Loop through each charity to extract info
+            // Loop through each charity to extract info for chart
             this.CharitiesDB.forEach((charity, index) => {
                 labels.push(`${charity.title} (${index + 1} )`);
                 data.push(charity.cases_number || 0);
@@ -153,6 +168,7 @@ export default {
                         },
                     ],
                 },
+                // Chart options
                 options: {
                     responsive: true,
                     plugins: {

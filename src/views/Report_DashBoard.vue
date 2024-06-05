@@ -1,6 +1,9 @@
 <template>
+    <!-- Sidebar component -->
     <div><Side_Bar /></div>
+    <!-- Cards for financial data -->
     <v-container class="d-flex justify-space-evenly mt-16">
+        <!-- Card for required amount -->
         <v-card
             class="card text-center mt-16 bg-primary"
             prepend-icon="mdi-cash"
@@ -8,6 +11,7 @@
             <v-card-title>المطلوب</v-card-title>
             <v-card-text class="text-center">{{ this.required }}</v-card-text>
         </v-card>
+        <!-- Card for income -->
         <v-card
             class="card text-center mt-16 bg-orange-lighten-2"
             prepend-icon="mdi-cash-plus"
@@ -15,6 +19,7 @@
             <v-card-title>الدخل</v-card-title>
             <v-card-text class="text-center">{{ this.incom }}</v-card-text>
         </v-card>
+        <!-- Card for deficit -->
         <v-card
             class="card text-center mt-16 bg-cyan-lighten-2"
             prepend-icon="mdi-cash-minus"
@@ -25,7 +30,9 @@
             }}</v-card-text>
         </v-card>
     </v-container>
+    <!-- Cards for case data -->
     <v-container class="d-flex justify-space-evenly mb-4">
+        <!-- Card for number of cases -->
         <v-card
             class="card text-center mt-3 bg-grey-lighten-3"
             prepend-icon="mdi-account"
@@ -33,6 +40,7 @@
             <v-card-title>عدد الحالات</v-card-title>
             <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
         </v-card>
+        <!-- Card for common cases -->
         <v-card
             class="card text-center mt-3 bg-grey-lighten-3"
             prepend-icon="mdi-account-multiple"
@@ -41,13 +49,18 @@
             <v-card-text class="text-center">80</v-card-text>
         </v-card>
     </v-container>
-    <Offline_error ref="childComponentRef">
+    <!-- Offline and empty data handling -->
+    <Offline_error>
         <template v-slot:default>
+            <!-- Show empty error if no data -->
             <Empty_error v-if="empty == true" />
             <v-container v-else-if="empty !== true">
+                <!-- Container for progress circular and chart -->
                 <v-container class="d-flex align-center justify-space-around">
+                    <!-- Progress circular -->
                     <div class="progress-circular">
                         <p class="text-center mb-10">نسبة إكمال العجز</p>
+                        <!-- Progress circular component -->
                         <v-progress-circular
                             class="mt-0"
                             bg-color="#00CCCC"
@@ -63,6 +76,7 @@
                             </template>
                         </v-progress-circular>
                     </div>
+                    <!-- Chart -->
                     <div style="width: 30%">
                         <canvas id="myChart" width="2px" height="2px"></canvas>
                     </div>
@@ -129,9 +143,17 @@ export default {
         };
     },
     mounted() {
+        // Method to check internet connection status
+        this.startInternetCheckerUse();
+        // Fetch data when component is mounted
         this.Get_data();
     },
     methods: {
+        // Method to check internet connection status
+        startInternetCheckerUse() {
+            this.Emitter.emit("startInternetChecker");
+        },
+        // Get data for cases
         async Get_data() {
             try {
                 this.Cases = [];
@@ -143,7 +165,8 @@ export default {
                 this.sumFinancialData();
                 if (this.Cases.length === 0) {
                     this.empty = true;
-                    this.$refs.childComponentRef.startInternetChecke();
+                    // Method to check internet connection status
+                    this.startInternetCheckerUse();
                 } else {
                     this.empty = false;
                 }
@@ -156,7 +179,7 @@ export default {
                 this.$refs.childComponentRef.startInternetChecke();
             }
         },
-
+        // Loop through each case to extract financial_info
         sumFinancialData() {
             this.deficit = 0;
             this.required = 0;
@@ -176,7 +199,7 @@ export default {
             });
             this.value = Math.round((this.incom / this.required) * 100);
         },
-
+        // Render doughnut chart using Chart.js
         renderChart() {
             const ctx = document.getElementById("myChart");
             new Chart(ctx, {
@@ -195,6 +218,7 @@ export default {
                         },
                     ],
                 },
+                // Chart options
                 options: {
                     responsive: true,
                     plugins: {
@@ -209,6 +233,7 @@ export default {
                 },
             });
         },
+        // Render bar chart using Chart.js
         renderBarChart() {
             const ctx = document.getElementById("barChart");
             // Initialize chart data arrays
@@ -252,6 +277,7 @@ export default {
                         },
                     ],
                 },
+                // Chart options
                 options: {
                     responsive: true,
                     plugins: {

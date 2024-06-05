@@ -951,7 +951,7 @@
             </v-row>
         </v-container>
     </div>
-
+    <!--message to inform the user that the assistant has been added-->
     <v-snackbar v-model="snackbar" :timeout="timeout">
         {{ text }}
         <template v-slot:actions>
@@ -1016,7 +1016,6 @@ export default {
         whatsappRules: false,
         youtubeRules: false,
         User_Data: "",
-
         randomPassword: "",
         passwordsMatchError: false,
         passwordsMatchError2: false,
@@ -1613,6 +1612,7 @@ export default {
                       }
                     : ""
             );
+            //add the AssistantName to the snackbar text
             (this.text = "تم أضافة " + this.AssistantName),
                 // حفظ القيمة المحدثة في localStorage
                 localStorage.setItem("formmosed2", JSON.stringify(oldData));

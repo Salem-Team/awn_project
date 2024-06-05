@@ -1,22 +1,28 @@
 <template>
-    <Offline_error ref="childComponentRef">
+    <!-- Handle offline error and empty data -->
+    <Offline_error>
         <template v-slot:default>
+            <!-- Show empty error if no data -->
             <Empty_error v-if="empty == true" />
+            <!-- Iterate over paginated charities -->
             <div
                 v-else-if="empty !== true"
                 class="box px-5 py-3 mt-5 border rounded"
                 v-for="(charity, index) in paginatedCharities"
                 :key="charity.id"
             >
+                <!-- Display serial number -->
                 <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
+                <!-- Lazy load content -->
                 <v-lazy
                     :min-height="200"
                     :options="{ threshold: 0.7 }"
                     transition="fade-transition"
                 >
+                    <!-- Charity information -->
                     <div class="Charities">
                         <v-container class="Charities_container mt-4">
-                            <!--get the Charities data from the database-->
+                            <!-- Display charity title and cases number -->
                             <div class="Charity">
                                 <div
                                     class="d-flex align-center flex-wrap justify-around"
@@ -28,7 +34,7 @@
                                     <p>{{ charity.cases_number || 0 }}</p>
                                 </div>
                             </div>
-                            <!--the Charities_specialty-->
+                            <!-- Display charity specialties -->
                             <v-container
                                 class="text-right d-flex align-center flex-wrap justify-around"
                                 v-model="Charities.Charities_specialty"
@@ -51,7 +57,7 @@
                                 >
                             </v-container>
                             <br />
-                            <!--the Charities_description-->
+                            <!-- Display charity description -->
                             <div
                                 class="d-flex align-center flex-wrap justify-around"
                             >
@@ -59,17 +65,10 @@
                                 <p>{{ charity.description }}</p>
                             </div>
                             <br />
-                            <!--the Charities_Package_type
-                    <div class="d-flex align-center flex-wrap justify-around">
-                        <h3>نوع الإشتراك :</h3>
-                        <p>{{ charity.Package_type }}</p>
-                    </div>
-                    <br />-->
-                            <!--the Charities_Social_media-->
+                            <!-- Display charity social media links -->
                             <h3>منصات التواصل :</h3>
                             <br />
-                            <!-- return the icon according to the Charities_Social_media links-->
-
+                            <!-- Return the icon according to the charity social media links -->
                             <div class="d-flex align-center justify-between">
                                 <a
                                     v-if="
@@ -112,6 +111,7 @@
                     </div>
                 </v-lazy>
             </div>
+            <!-- Display loading progress -->
             <div>
                 <v-progress-linear
                     color="primary"
@@ -119,6 +119,7 @@
                     v-if="loading"
                 ></v-progress-linear>
             </div>
+            <!-- Display pagination -->
             <div class="text-center">
                 <v-pagination
                     v-model="currentPage"
@@ -169,6 +170,8 @@ export default {
         };
     },
     mounted() {
+        // Method to check internet connection status
+        this.startInternetCheckerUse();
         //call the function
         this.Get_Data();
     },
@@ -180,6 +183,10 @@ export default {
         },
     },
     methods: {
+        // Method to check internet connection status
+        startInternetCheckerUse() {
+            this.Emitter.emit("startInternetChecker");
+        },
         // Get Data
         async Get_Data() {
             try {
@@ -196,7 +203,8 @@ export default {
                 this.loading = false; // Set loading to false after data is loaded
                 if (this.CharitiesDB.length === 0) {
                     this.empty = true;
-                    this.$refs.childComponentRef.startInternetChecke();
+                    // Method to check internet connection status
+                    this.startInternetCheckerUse();
                 } else {
                     this.empty = false;
                 }
