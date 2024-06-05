@@ -429,18 +429,6 @@
                                                         {{ error }}
                                                     </v-alert>
                                                 </v-alert>
-
-                                                <v-alert
-                                                    v-if="ExcelFile"
-                                                    type="error"
-                                                    color="red"
-                                                    closable
-                                                    dismissible
-                                                >
-                                                    عذراً، يجب تحميل ملف إكسل
-                                                    فقط. الرجاء التأكد من امتداد
-                                                    الملف.
-                                                </v-alert>
                                                 <v-alert
                                                     v-if="notExcel"
                                                     type="error"
@@ -678,6 +666,11 @@ export default {
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, {
                     header: 1,
                 });
+                this.validationError = false;
+                this.validationErrors = [];
+                this.duplicateNationalIDs = [];
+                this.showSuccessAlert = true;
+                this.notExcel = false;
                 // if more than 10 states
                 const groupedDataObjects = [];
                 for (let i = 0; i < jsonData.length; i += 11) {
@@ -844,6 +837,18 @@ export default {
 
             // معالجة كل ملف
             filesArray.forEach((file) => {
+                const fileName = file.name.toLowerCase();
+                if (
+                    !fileName.endsWith(".xlsx") &&
+                    !fileName.endsWith(".xlsm") &&
+                    !fileName.endsWith(".xls")
+                ) {
+                    this.ExcelFile = true;
+                    setTimeout(() => {
+                        this.ExcelFile = false;
+                    }, 3000);
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const arrayBuffer = e.target.result;
