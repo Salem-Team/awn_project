@@ -1,28 +1,34 @@
 <template>
+    <!-- Sidebar component -->
     <div><Side_Bar /></div>
+    <!-- Display statistics -->
+    <v-container class="d-flex justify-space-evenly mb-4 mt-16">
+        <!-- Card for number of cases -->
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-account"
+        >
+            <v-card-title>عدد الحالات</v-card-title>
+            <v-card-text class="text-center">{{ Cases_length }}</v-card-text>
+        </v-card>
+        <!-- Card for number of charities -->
+        <v-card
+            class="card text-center mt-3 bg-grey-lighten-3"
+            prepend-icon="mdi-charity"
+        >
+            <v-card-title>عدد الجمعيات</v-card-title>
+            <v-card-text class="text-center">{{
+                CharitiesDB_length
+            }}</v-card-text>
+        </v-card>
+    </v-container>
+    <!-- Offline and empty data handling -->
     <Offline_error>
         <template v-slot:default>
-            <v-container class="d-flex justify-space-evenly mb-4 mt-16">
-                <v-card
-                    class="card text-center mt-3 bg-grey-lighten-3"
-                    prepend-icon="mdi-account"
-                >
-                    <v-card-title>عدد الحالات</v-card-title>
-                    <v-card-text class="text-center">{{
-                        Cases_length
-                    }}</v-card-text>
-                </v-card>
-                <v-card
-                    class="card text-center mt-3 bg-grey-lighten-3"
-                    prepend-icon="mdi-charity"
-                >
-                    <v-card-title>عدد الجمعيات</v-card-title>
-                    <v-card-text class="text-center">{{
-                        CharitiesDB_length
-                    }}</v-card-text>
-                </v-card>
-            </v-container>
+            <Empty_error v-if="empty == true" />
+            <!-- Container for chart -->
             <v-container
+                class="chart-container"
                 style="
                     width: 100%;
                     height: 100%;
@@ -30,8 +36,7 @@
                     overflow-x: auto;
                 "
             >
-                <Empty_error v-if="empty == true" />
-                <canvas id="barChart" v-else-if="empty !== true"></canvas>
+                <canvas id="barChart" v-if="empty !== true"></canvas>
             </v-container>
         </template>
     </Offline_error>
@@ -69,6 +74,7 @@ export default {
         Empty_error,
         Offline_error,
     },
+    inject: ["Emitter"],
     data() {
         return {
             empty: false,
@@ -80,48 +86,70 @@ export default {
         };
     },
     mounted() {
+        // Method to check internet connection status
+        this.startInternetCheckerUse();
+        // Fetch data when component is mounted
         this.Get_Data1();
         this.Get_Data();
     },
     methods: {
-        // Get Data
+        // Method to check internet connection status
+        startInternetCheckerUse() {
+            this.Emitter.emit("startInternetChecker");
+        },
+        // Get data for charities
         async Get_Data1() {
-            const querySnapshot = await getDocs(collection(db, "Charities"));
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                const charityData = doc.data();
-                this.CharitiesDB.push(charityData);
-            });
-            this.CharitiesDB_length = this.CharitiesDB.length;
-            if (this.CharitiesDB.length === 0) {
-                this.empty = true;
-            } else {
-                this.empty = false;
+            try {
+                const querySnapshot = await getDocs(
+                    collection(db, "Charities")
+                );
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    const charityData = doc.data();
+                    this.CharitiesDB.push(charityData);
+                });
+                this.CharitiesDB_length = this.CharitiesDB.length;
+                if (this.CharitiesDB.length === 0) {
+                    this.empty = true;
+                    // Method to check internet connection status
+                    this.startInternetCheckerUse();
+                } else {
+                    this.empty = false;
+                }
+                console.log(this.CharitiesDB);
+            } catch (error) {
+                console.error("Error adding document: ", error);
             }
-            console.log(this.CharitiesDB);
         },
+        // Get data for cases
         async Get_Data() {
-            this.Cases = [];
-            const querySnapshot = await getDocs(collection(db, "Cases"));
-            querySnapshot.forEach((doc) => {
-                this.Cases.push(doc.data());
-            });
-            this.Cases_length = this.Cases.length;
-            if (this.Cases.length === 0) {
-                this.empty = true;
-            } else {
-                this.empty = false;
+            try {
+                this.Cases = [];
+                const querySnapshot = await getDocs(collection(db, "Cases"));
+                querySnapshot.forEach((doc) => {
+                    this.Cases.push(doc.data());
+                });
+                this.Cases_length = this.Cases.length;
+                if (this.Cases.length === 0) {
+                    this.empty = true;
+                    // Method to check internet connection status
+                    this.startInternetCheckerUse();
+                } else {
+                    this.empty = false;
+                }
+                this.renderBarChart();
+            } catch (error) {
+                console.error("Error adding document: ", error);
             }
-            this.renderBarChart();
         },
-
+        // Render bar chart using Chart.js
         renderBarChart() {
             const ctx = document.getElementById("barChart");
             // Initialize chart data arrays
             const labels = [];
             const data = [];
             const value1 = [];
-            // Loop through each charity to extract info
+            // Loop through each charity to extract info for chart
             this.CharitiesDB.forEach((charity, index) => {
                 labels.push(`${charity.title} (${index + 1} )`);
                 data.push(charity.cases_number || 0);
@@ -140,6 +168,7 @@ export default {
                         },
                     ],
                 },
+                // Chart options
                 options: {
                     responsive: true,
                     plugins: {
@@ -195,7 +224,7 @@ export default {
 }
 #barChart {
     margin: auto;
-    width: 1000px !important;
+    width: 1500px !important;
     height: 600px !important;
 }
 .chart-container {

@@ -1,4 +1,5 @@
 <template>
+    <!-- Display a row with a message when there is no data -->
     <v-row>
         <v-col>
             <v-container class="m-auto text-center pa-auto">
@@ -7,16 +8,3 @@
         </v-col>
     </v-row>
 </template>
-<script>
-export default {
-    name: "TheHeader",
-    components: {},
-    inject: ["Emitter"],
-    mounted() {},
-    data() {
-        return {};
-    },
-    methods: {},
-};
-</script>
-<style lang="scss" scoped></style>
