@@ -418,192 +418,18 @@
                     </div>
                     <div v-if="e1 === 3">
                         <form @submit.prevent="validateForm3">
-                            <div class="bg-[#eee]">
+                            <div
+                                class="bg-[#eee]"
+                                v-for="(dis, index) in form_dis"
+                                :key="index"
+                            >
                                 <div style="width: 100%">
                                     <div
                                         class="mt-2 d-flex flex-column"
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="diseases_3.patien_name"
-                                            label=" اسم المريض "
-                                            variant="outlined"
-                                            style="width: 100%"
-                                            placeholder="اسم المريض"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'patien_name'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'patien_name'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="diseases_3.disease"
-                                            label="  المرض "
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder=" المرض"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'disease'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'disease'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="diseases_3.get_treatment"
-                                            label="كيفيه الحصول علي العلاج"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="كيفيه الحصول علي العلاج "
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'get_treatment'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'get_treatment'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="diseases_3.not_available"
-                                            label=" السبب في عدم العلاج علي نفقه الدولة"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'not_available'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'not_available'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
-                                    </div>
-                                </div>
-                                <v-divider
-                                    :thickness="8"
-                                    class="my-5"
-                                ></v-divider>
-                            </div>
-                            <div
-                                class="form form_pashent"
-                                v-for="(formData, formIndex) in formDataArray"
-                                :key="formIndex"
-                            >
-                                <div class="bg-[#eee]">
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="formData.patien_name"
+                                            v-model="diseasesArray.patien_name"
                                             label=" اسم المريض "
                                             variant="outlined"
                                             style="width: 100%"
@@ -612,10 +438,10 @@
                                     </div>
                                     <div
                                         class="d-flex flex-column"
-                                        style="width: 50%"
+                                        style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="formData.disease"
+                                            v-model="diseasesArray.disease"
                                             label="  المرض "
                                             variant="outlined"
                                             class="mt-2"
@@ -630,7 +456,9 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="formData.get_treatment"
+                                            v-model="
+                                                diseasesArray.get_treatment
+                                            "
                                             label="كيفيه الحصول علي العلاج"
                                             variant="outlined"
                                             class="mt-2"
@@ -645,7 +473,9 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="formData.not_available"
+                                            v-model="
+                                                diseasesArray.not_available
+                                            "
                                             label=" السبب في عدم العلاج علي نفقه الدولة"
                                             variant="outlined"
                                             class="mt-2"
@@ -658,20 +488,20 @@
                                     :thickness="8"
                                     class="my-5"
                                 ></v-divider>
-                            </div>
-                            <div>
-                                <div class="w-25 d-flex">
-                                    <v-btn
-                                        style="
-                                            display: block;
-                                            margin-bottom: 20px;
-                                            margin-right: 20px;
-                                        "
-                                        @click="addForm2"
-                                        icon="mdi-plus"
-                                        size="small"
-                                    >
-                                    </v-btn>
+                                <div>
+                                    <div class="w-25 d-flex">
+                                        <v-btn
+                                            style="
+                                                display: block;
+                                                margin-bottom: 20px;
+                                                margin-right: 20px;
+                                            "
+                                            @click="form_dis++"
+                                            icon="mdi-plus"
+                                            size="small"
+                                        >
+                                        </v-btn>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -1338,10 +1168,11 @@ export default {
             regex2: true,
             regex1: true,
             close: null,
+            diseasesArray: [],
             family_needs_Array: [],
             personal_info_1_State: null,
             formDataArray: [],
-            form: 1,
+            form_dis: 1,
             formError: false,
             formError2: false,
             formError3: false,
@@ -1417,7 +1248,7 @@ export default {
                 deficit: this.required - this.incom,
             },
 
-            diseases_3: {
+            diseases_1: {
                 patien_name: "",
                 disease: "",
                 get_treatment: "",
@@ -1690,24 +1521,6 @@ export default {
         };
     },
     methods: {
-        addForm() {
-            this.formDataArray.push({
-                patien_name: "",
-                disease: "",
-                get_treatment: "",
-                not_available: "",
-            });
-            console.log(this.formDataArray);
-        },
-        addForm2() {
-            this.formDataArray.push({
-                patien_name: "",
-                disease: "",
-                get_treatment: "",
-                not_available: "",
-            });
-            console.log(this.formDataArray);
-        },
         close_function_1() {
             this.close_function();
         },
@@ -1788,6 +1601,19 @@ export default {
             // Wait for both form validations to complete
             await this.validateForm();
             // Add a new document with a generated id.
+            const diseasesArray = [];
+
+            // Loop through each disease object in the diseases_1 array
+            this.diseases_1.forEach((disease) => {
+                // Push each disease object to the diseasesArray
+                diseasesArray.push({
+                    patien_name: disease.patien_name,
+                    disease: disease.disease,
+                    get_treatment: disease.get_treatment,
+                    not_available: disease.not_available,
+                });
+                this.diseasesArray = diseasesArray;
+            });
             const docRef = await addDoc(collection(db, "Cases"), {
                 personal_info: {
                     name: this.personal_info_1.name,
@@ -1808,12 +1634,7 @@ export default {
                         this.financial_info_2.required -
                         this.financial_info_2.incom,
                 },
-                diseases: {
-                    patien_name: this.diseases_3.patien_name,
-                    disease: this.diseases_3.disease,
-                    get_treatment: this.diseases_3.get_treatment,
-                    not_available: this.diseases_3.not_available,
-                },
+                diseases: diseasesArray,
 
                 housing_condition: {
                     number_rooms: this.housing_condition_4.number_rooms,
@@ -1834,7 +1655,6 @@ export default {
             console.log("validations");
             this.close_function();
         },
-
         /*async validateForm1() {
             const res = await this.v$.personal_info_1.$validate();
             if (res) {

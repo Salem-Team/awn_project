@@ -128,6 +128,7 @@
                                                         </v-text-field>
                                                     </div>
                                                 </div>
+
                                                 <div
                                                     v-for="(
                                                         phone, index
@@ -467,11 +468,12 @@
                                                                     class="d-flex align-center"
                                                                 >
                                                                     <v-text-field
-                                                                        v-if="
-                                                                            User_Charity.Facebook
-                                                                        "
                                                                         v-model="
-                                                                            User_Charity.Facebook
+                                                                            facebookRule[0]
+                                                                        "
+                                                                        v-if="
+                                                                            this
+                                                                                .facebookRules
                                                                         "
                                                                         :rules="
                                                                             validationRules.facebookRule
@@ -491,11 +493,11 @@
                                                                     class="d-flex align-center"
                                                                 >
                                                                     <v-text-field
-                                                                        v-if="
-                                                                            User_Charity.Twitter
-                                                                        "
                                                                         v-model="
-                                                                            User_Charity.Twitter
+                                                                            twitterRule[0]
+                                                                        "
+                                                                        v-if="
+                                                                            twitterRules
                                                                         "
                                                                         :rules="
                                                                             validationRules.twitterRule
@@ -515,14 +517,14 @@
                                                                     class="d-flex align-center"
                                                                 >
                                                                     <v-text-field
-                                                                        v-if="
-                                                                            User_Charity.whatsapp
-                                                                        "
                                                                         v-model="
-                                                                            User_Charity.whatsapp
+                                                                            whatsappRule[0]
                                                                         "
                                                                         :rules="
                                                                             validationRules.whatsappRule
+                                                                        "
+                                                                        v-if="
+                                                                            whatsappRules
                                                                         "
                                                                         style="
                                                                             width: 100%;
@@ -539,14 +541,14 @@
                                                                     class="d-flex align-center"
                                                                 >
                                                                     <v-text-field
-                                                                        v-if="
-                                                                            User_Charity.Youtube
-                                                                        "
                                                                         v-model="
-                                                                            User_Charity.Youtube
+                                                                            youtubeRule[0]
                                                                         "
                                                                         :rules="
                                                                             validationRules.youtubeRule
+                                                                        "
+                                                                        v-if="
+                                                                            youtubeRules
                                                                         "
                                                                         style="
                                                                             width: 50%;
@@ -719,14 +721,31 @@
                                                                 ></v-text-field>
                                                                 <v-text-field
                                                                     v-model="
-                                                                        this
-                                                                            .randomPassword
+                                                                        randomPassword
                                                                     "
                                                                     label="باسورد"
                                                                     placeholder="باسورد"
-                                                                    clearable
-                                                                    disabled
-                                                                ></v-text-field>
+                                                                    :append-inner-icon="
+                                                                        visible
+                                                                            ? 'mdi-eye-off'
+                                                                            : 'mdi-eye'
+                                                                    "
+                                                                    :type="
+                                                                        visible
+                                                                            ? 'text'
+                                                                            : 'password'
+                                                                    "
+                                                                    density="compact"
+                                                                    prepend-inner-icon="mdi-content-copy"
+                                                                    variant="outlined"
+                                                                    @click:prepend-inner="
+                                                                        copyPassword
+                                                                    "
+                                                                    @click:append-inner="
+                                                                        toggleVisibility
+                                                                    "
+                                                                >
+                                                                </v-text-field>
 
                                                                 <br />
 
@@ -882,12 +901,23 @@
                                                                     >
                                                                         الصلاحيات
                                                                     </h5>
-                                                                    <p>
-                                                                        {{
-                                                                            item.AssistantPowers
-                                                                        }}
-                                                                    </p>
                                                                 </div>
+                                                                <v-select
+                                                                    v-model="
+                                                                        item.AssistantPowers
+                                                                    "
+                                                                    :items="[
+                                                                        'اضافه الحالات من الفورم',
+                                                                        'اضافه الحالات من الاكسيل',
+                                                                        'الاطلاع علي تقارير',
+                                                                    ]"
+                                                                    @change="
+                                                                        console.log(
+                                                                            'sofij'
+                                                                        )
+                                                                    "
+                                                                    variant="solo"
+                                                                ></v-select>
                                                             </div>
                                                         </v-card-text>
                                                     </v-card>
@@ -934,6 +964,7 @@
 
 <script>
 import Side_Bar from "@/components/Side_Bar.vue";
+import { useToast } from "vue-toastification";
 
 import useVuelidate from "@vuelidate/core";
 // import {
@@ -965,6 +996,7 @@ import {
     getDoc,
     doc,
 } from "@firebase/firestore";
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -973,8 +1005,18 @@ export default {
         snackbar: false,
         text: "تم أضافة  ",
         timeout: 4000,
+        visible: false,
         User_Charity: "",
+        facebookRule: [],
+        twitterRule: [],
+        whatsappRule: [],
+        youtubeRule: [],
+        facebookRules: false,
+        twitterRules: false,
+        whatsappRules: false,
+        youtubeRules: false,
         User_Data: "",
+
         randomPassword: "",
         passwordsMatchError: false,
         passwordsMatchError2: false,
@@ -990,6 +1032,7 @@ export default {
         isEditing5: null,
         isEditing6: true,
         form: false,
+        Social_media: [],
         storedArray: [],
         namemosed2: null,
         formmosed2: [],
@@ -1146,6 +1189,12 @@ export default {
         },
     },
     watch: {
+        storedArray: {
+            deep: true, // تتبع التغييرات في القيم داخل الكائن
+            handler(newValue) {
+                localStorage.setItem("storedArray", JSON.stringify(newValue));
+            },
+        },
         "form1.name": function () {
             this.updateFormEmpty1();
         },
@@ -1209,11 +1258,24 @@ export default {
         },
     },
     methods: {
+        toggleVisibility() {
+            this.visible = !this.visible;
+        },
+        async copyPassword() {
+            try {
+                await navigator.clipboard.writeText(this.randomPassword);
+                const toast = useToast();
+                toast.success("تم نسخ الباسورد!");
+            } catch (err) {
+                console.error("Failed to copy text: ", err);
+                const toast = useToast();
+                toast.error("فشل في نسخ الباسورد");
+            }
+        },
         async Check_User() {
             if (localStorage.getItem("id")) {
                 const docRef = doc(db, "Users", localStorage.getItem("id"));
                 const docSnap = await getDoc(docRef);
-
                 if (docSnap.exists()) {
                     this.User_Data = docSnap.data();
                     if (docSnap.data().type === "owner") {
@@ -1229,6 +1291,40 @@ export default {
                         console.log("Charitie =>  ", docSnap_Charities.data());
                         console.log(this.User_Type);
                         this.User_Charity = docSnap_Charities.data();
+                        this.Social_media =
+                            docSnap_Charities.data().Social_media;
+                        console.log(this.Social_media);
+                        this.Social_media.forEach((s) => {
+                            console.log(s);
+
+                            if (
+                                s.match(
+                                    /^(https?:\/\/)?((w{3}\.)?)facebook.com\/.*/i
+                                )
+                            ) {
+                                this.facebookRule.push(s);
+                                this.facebookRules = true;
+                            } else if (
+                                s.match(
+                                    /^(https?:\/\/)?((w{3}\.)?)twitter.com\/.*/i
+                                )
+                            ) {
+                                this.twitterRule.push(s);
+                                this.twitterRules = true;
+                            } else if (
+                                s.match(/^(https?:\/\/)?((w{3}\.)?)wa.me\/.*/i)
+                            ) {
+                                this.whatsappRule.push(s);
+                                this.whatsappRules = true;
+                            } else if (
+                                s.match(
+                                    /^(https?:\/\/)?((w{3}\.)?)youtube.com\/.*/i
+                                )
+                            ) {
+                                this.youtubeRule.push(s);
+                                this.youtubeRules = true;
+                            }
+                        });
                     } else if (docSnap.data().type === "admin") {
                         this.User_Type = "admin";
                     } else if (docSnap.data().type === "assistant") {
@@ -1240,6 +1336,37 @@ export default {
                 }
             }
         },
+        // async Check_User() {
+        //     if (localStorage.getItem("id")) {
+        //         const docRef = doc(db, "Users", localStorage.getItem("id"));
+        //         const docSnap = await getDoc(docRef);
+
+        //         if (docSnap.exists()) {
+        //             this.User_Data = docSnap.data();
+        //             if (docSnap.data().type === "owner") {
+        //                 this.User_Type = "owner";
+        //                 const docRef_Charities = doc(
+        //                     db,
+        //                     "Charities",
+        //                     docSnap.data().charity_ID
+        //                 );
+        //                 const docSnap_Charities = await getDoc(
+        //                     docRef_Charities
+        //                 );
+        //                 console.log("Charitie =>  ", docSnap_Charities.data());
+        //                 console.log(this.User_Type);
+        //                 this.User_Charity = docSnap_Charities.data();
+        //             } else if (docSnap.data().type === "admin") {
+        //                 this.User_Type = "admin";
+        //             } else if (docSnap.data().type === "assistant") {
+        //                 this.User_Type = "assistant";
+        //             }
+        //         } else {
+        //             // docSnap.data() will be undefined in this case
+        //             console.log("No such document!");
+        //         }
+        //     }
+        // },
         async Get_data() {
             this.loading = true; // Set loading to true before fetching data
             this.Cases = [];
@@ -1292,6 +1419,7 @@ export default {
                 this.form3.phone ||
                 this.form3.password ||
                 this.form3.address ||
+                this.form3.description ||
                 this.form3.description ||
                 this.form3.Fame_number ||
                 this.form3.Charities_specialty ||
@@ -1378,7 +1506,9 @@ export default {
                 this.testform3.push(
                     { Charities_title: this.form3.title },
                     { Charities_Social_media: this.User_Charity.Social_media },
+                    { Charities_Social_media: this.User_Charity.Social_media },
                     { Charities_phone: this.form3.phone },
+                    { Charities_descripetion: this.form3.description },
                     { Charities_descripetion: this.form3.description },
                     { Charities_address: this.form3.address },
                     {
@@ -1413,13 +1543,19 @@ export default {
                 this.v$.$reset();
                 this.form3.title = "";
                 this.User_Charity.Social_media = "";
+                this.User_Charity.Social_media = "";
                 this.form3.phone = "";
+                this.form3.description = "";
                 this.form3.description = "";
                 this.form3.address = "";
                 this.form3.Charities_specialty = "";
                 this.form3.Package_type = "";
                 this.form3.Fame_year = "";
                 this.form3.activitiesc_chertes = "";
+                this.User_Charity.Facebook = "";
+                this.User_Charity.Twitter = "";
+                this.User_Charity.whatsapp = "";
+                this.User_Charity.Youtube = "";
                 this.User_Charity.Facebook = "";
                 this.User_Charity.Twitter = "";
                 this.User_Charity.whatsapp = "";
@@ -1537,7 +1673,16 @@ export default {
             this.randomPassword = password;
             return this.randomPassword;
         },
+        saveToLocalStorage() {
+            // حفظ البيانات في localStorage عند التغيير
+            // localStorage.setItem(
+            //     "storedData",
+            //     JSON.stringify(this.storedArray)
+            // );
+            console.log("movosv");
+        },
     },
+
     mounted() {
         const oldData = JSON.parse(localStorage.getItem("formmosed2")) || [];
         localStorage.setItem("formmosed2", JSON.stringify(oldData));
@@ -1545,6 +1690,10 @@ export default {
         this.generateRandomPassword();
         this.Get_data();
         this.Check_User();
+        const savedData = JSON.parse(localStorage.getItem("storedArray"));
+        if (savedData) {
+            this.storedArray = savedData;
+        }
     },
 };
 </script>

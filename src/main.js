@@ -3,7 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import "tailwindcss/tailwind.css";
 import "bootstrap/dist/css/bootstrap.css";
-
+import "notyf/notyf.min.css";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 // pinia config
 import { createPinia } from "pinia";
 
@@ -74,4 +76,5 @@ createApp(App)
     .component("font-awesome-icon", FontAwesomeIcon)
     .provide("Emitter", Emitter)
     .use(createPinia())
+    .use(Toast, { position: "top-right", timeout: 1000 })
     .mount("#app");
