@@ -34,11 +34,54 @@
                         </v-card>
                         <v-window v-model="tab">
                             <v-window-item value="المحتاجين">
-                                <DashboardCharitys ref="childComponentRef" />
+                                <DashboardCharitys
+                                    ref="childComponentRef"
+                                    @child-result="handleChildResult"
+                                />
                             </v-window-item>
 
                             <v-window-item value="الجمعيات">
-                                <CharityView />
+                                <CharityView
+                                    @child-result1="handleChildResult1"
+                                >
+                                    <template v-slot:default>
+                                        <!-- Display statistics -->
+                                        <v-container
+                                            class="d-flex justify-space-evenly mb-4 mt-16"
+                                        >
+                                            <!-- Card for number of cases -->
+                                            <v-card
+                                                class="card text-center mt-3 bg-grey-lighten-3"
+                                                prepend-icon="mdi-account"
+                                            >
+                                                <v-card-title
+                                                    >عدد الحالات</v-card-title
+                                                >
+                                                <v-card-text
+                                                    class="text-center"
+                                                    >{{
+                                                        childResult
+                                                    }}</v-card-text
+                                                >
+                                            </v-card>
+                                            <!-- Card for number of charities -->
+                                            <v-card
+                                                class="card text-center mt-3 bg-grey-lighten-3"
+                                                prepend-icon="mdi-charity"
+                                            >
+                                                <v-card-title
+                                                    >عدد الجمعيات</v-card-title
+                                                >
+                                                <v-card-text
+                                                    class="text-center"
+                                                    >{{
+                                                        childResult1
+                                                    }}</v-card-text
+                                                >
+                                            </v-card>
+                                        </v-container>
+                                    </template>
+                                </CharityView>
                             </v-window-item>
                         </v-window>
                     </div>
@@ -48,9 +91,7 @@
     </div>
 </template>
 
-<script>
-// import Xlsx File
-import readXlsxFile from "read-excel-file";
+<script scoped>
 // import Components
 import CharityView from "@/components/Charity_View.vue";
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
@@ -66,6 +107,8 @@ export default {
     },
     data() {
         return {
+            childResult: null,
+            childResult1: null,
             items: [],
             isActive: false,
             Cases: [],
@@ -82,32 +125,19 @@ export default {
         });
     },
     methods: {
+        // Define handleChildResult method to handle events from child components
+        handleChildResult(result) {
+            this.childResult = result;
+            console.log("Received result from child:", this.childResult);
+        },
+        // Define handleChildResult1 method to handle events from another child component
+        handleChildResult1(result) {
+            this.childResult1 = result;
+            console.log("Received result from child:", this.childResult1);
+        },
         // change view
         Swap() {
             this.Emitter.emit("change_view");
-        },
-        To_Json() {
-            const input = document.getElementById("myinput");
-            readXlsxFile(input.files[0]).then((rows) => {
-                const headers = rows[1];
-                const data = rows.slice(3);
-
-                const objByColumn = {};
-
-                headers.forEach((header, index) => {
-                    const columnData = data.map((row) => row[index]);
-                    const adjacentColumnData = data.map((row) => row[index]);
-
-                    const columnObj = {};
-                    columnData.forEach((value, i) => {
-                        columnObj[value] = adjacentColumnData[i];
-                    });
-
-                    objByColumn[header] = columnObj;
-                });
-
-                console.log(objByColumn);
-            });
         },
     },
 };
