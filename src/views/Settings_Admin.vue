@@ -110,6 +110,9 @@
                                                             variant="outlined"
                                                             style="width: 100%"
                                                             placeholder="الاسم "
+                                                            @input="
+                                                                updateFormChanges
+                                                            "
                                                         ></v-text-field>
                                                     </div>
                                                     <div
@@ -119,6 +122,9 @@
                                                         <v-text-field
                                                             v-model="
                                                                 User_Data.email
+                                                            "
+                                                            @input="
+                                                                updateFormChanges
                                                             "
                                                             label="الايميل"
                                                             variant="outlined"
@@ -146,6 +152,9 @@
                                                                     index
                                                                 ]
                                                             "
+                                                            @input="
+                                                                updateFormChanges
+                                                            "
                                                             label="التليفون "
                                                             variant="outlined"
                                                             class="mt-2"
@@ -162,6 +171,9 @@
                                                         <v-text-field
                                                             v-model="
                                                                 User_Data.nationalID
+                                                            "
+                                                            @input="
+                                                                updateFormChanges
                                                             "
                                                             style="width: 100%"
                                                             label="الرقم القومي"
@@ -183,7 +195,9 @@
                                                             padding: 34px;
                                                         "
                                                         block
-                                                        :disabled="isFormEmpty1"
+                                                        :disabled="
+                                                            !isFormChanged
+                                                        "
                                                     >
                                                         حفظ
                                                     </v-btn>
@@ -345,6 +359,9 @@
                                                                     v-model="
                                                                         User_Charity.title
                                                                     "
+                                                                    @input="
+                                                                        updateFormChanges3
+                                                                    "
                                                                     label=" اسم الجمعيه"
                                                                     placeholder=" اسم الجمعيه"
                                                                     type="tel"
@@ -353,6 +370,9 @@
                                                                 <v-text-field
                                                                     v-model="
                                                                         User_Charity.phone
+                                                                    "
+                                                                    @input="
+                                                                        updateFormChanges3
                                                                     "
                                                                     placeholder="تليفون الجمعية"
                                                                     label="تليفون الجمعية"
@@ -368,6 +388,9 @@
                                                                     v-model="
                                                                         User_Charity.description
                                                                     "
+                                                                    @input="
+                                                                        updateFormChanges3
+                                                                    "
                                                                     placeholder="وصف قصير للجمعية"
                                                                     label="وصف قصير للجمعية"
                                                                 ></v-textarea>
@@ -379,6 +402,9 @@
                                                                     v-model="
                                                                         User_Charity.address
                                                                     "
+                                                                    @input="
+                                                                        updateFormChanges3
+                                                                    "
                                                                 ></v-text-field>
                                                                 <div
                                                                     class="d-flex align-center flex-wrap !w-full"
@@ -388,6 +414,9 @@
                                                                         variant="outlined"
                                                                         v-model="
                                                                             User_Charity.Fame_number
+                                                                        "
+                                                                        @input="
+                                                                            updateFormChanges3
                                                                         "
                                                                         placeholder="رقم الشهره"
                                                                         label="رقم الشهره"
@@ -399,6 +428,9 @@
                                                                         "
                                                                         v-model="
                                                                             User_Charity.Fame_year
+                                                                        "
+                                                                        @input="
+                                                                            updateFormChanges3
                                                                         "
                                                                         placeholder="السنه"
                                                                         label="السنه"
@@ -421,6 +453,9 @@
                                                                         class="text-right"
                                                                         v-model="
                                                                             User_Charity.Charities_specialty
+                                                                        "
+                                                                        @input="
+                                                                            updateFormChanges3
                                                                         "
                                                                     >
                                                                         <v-chip
@@ -471,6 +506,9 @@
                                                                         v-model="
                                                                             facebookRule[0]
                                                                         "
+                                                                        @input="
+                                                                            updateFormChanges3
+                                                                        "
                                                                         v-if="
                                                                             this
                                                                                 .facebookRules
@@ -496,6 +534,9 @@
                                                                         v-model="
                                                                             twitterRule[0]
                                                                         "
+                                                                        @input="
+                                                                            updateFormChanges3
+                                                                        "
                                                                         v-if="
                                                                             twitterRules
                                                                         "
@@ -520,6 +561,9 @@
                                                                         v-model="
                                                                             whatsappRule[0]
                                                                         "
+                                                                        @input="
+                                                                            updateFormChanges3
+                                                                        "
                                                                         :rules="
                                                                             validationRules.whatsappRule
                                                                         "
@@ -543,6 +587,9 @@
                                                                     <v-text-field
                                                                         v-model="
                                                                             youtubeRule[0]
+                                                                        "
+                                                                        @input="
+                                                                            updateFormChanges3
                                                                         "
                                                                         :rules="
                                                                             validationRules.youtubeRule
@@ -576,7 +623,9 @@
                                                             padding: 34px;
                                                         "
                                                         block
-                                                        :disabled="isFormEmpty3"
+                                                        :disabled="
+                                                            !isFormChanged3
+                                                        "
                                                     >
                                                         حفظ
                                                     </v-btn>
@@ -931,6 +980,10 @@ const db = getFirestore(app);
 
 export default {
     data: () => ({
+        originalData: {},
+        originalCharityData: {},
+        isFormChanged: false,
+        isFormChanged3: false,
         visible: false,
         User_Charity: "",
         facebookRule: [],
@@ -1184,6 +1237,52 @@ export default {
         },
     },
     methods: {
+        updateFormChanges() {
+            // تحقق من التغييرات في النموذج
+            this.isFormChanged = this.hasFormChanged();
+        },
+        updateFormChanges3() {
+            // تحقق من التغييرات في النموذج
+            this.isFormChanged3 = this.hasFormChanged3();
+        },
+        hasFormChanged() {
+            // قارن القيم الحالية بالقيم الأصلية
+            return (
+                this.User_Data.name !== this.originalData.name ||
+                this.User_Data.email !== this.originalData.email ||
+                JSON.stringify(this.User_Data.phones) !==
+                    JSON.stringify(this.originalData.phones) ||
+                this.User_Data.nationalID !== this.originalData.nationalID
+            );
+        },
+
+        hasFormChanged3() {
+            // قارن القيم الحالية بالقيم الأصلية
+            return (
+                this.User_Charity.title !== this.originalCharityData.title ||
+                this.User_Charity.phone !== this.originalCharityData.phone ||
+                this.User_Charity.description !==
+                    this.originalCharityData.description ||
+                this.User_Charity.address !==
+                    this.originalCharityData.address ||
+                this.User_Charity.Fame_number !==
+                    this.originalCharityData.Fame_number ||
+                this.User_Charity.Fame_year !==
+                    this.originalCharityData.Fame_year ||
+                JSON.stringify(this.User_Charity.Charities_specialty) !==
+                    JSON.stringify(
+                        this.originalCharityData.Charities_specialty
+                    ) ||
+                this.User_Charity.facebookLink !==
+                    this.originalCharityData.facebookLink ||
+                this.User_Charity.twitterLink !==
+                    this.originalCharityData.twitterLink ||
+                this.User_Charity.whatsappLink !==
+                    this.originalCharityData.whatsappLink ||
+                this.User_Charity.youtubeLink !==
+                    this.originalCharityData.youtubeLink
+            );
+        },
         toggleVisibility() {
             this.visible = !this.visible;
         },
@@ -1589,6 +1688,8 @@ export default {
         if (savedData) {
             this.storedArray = savedData;
         }
+        // تخزين القيم الأصلية عند تحميل النموذج
+        this.originalData = JSON.parse(JSON.stringify(this.User_Data));
     },
 };
 </script>
@@ -1646,6 +1747,5 @@ export default {
 .v-input__control {
     color: black !important;
 }
-
 /* End Friends Page */
 </style>
