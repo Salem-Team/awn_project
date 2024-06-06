@@ -1603,17 +1603,6 @@ export default {
             // Add a new document with a generated id.
             const diseasesArray = [];
 
-            // Loop through each disease object in the diseases_1 array
-            this.diseases_1.forEach((disease) => {
-                // Push each disease object to the diseasesArray
-                diseasesArray.push({
-                    patien_name: disease.patien_name,
-                    disease: disease.disease,
-                    get_treatment: disease.get_treatment,
-                    not_available: disease.not_available,
-                });
-                this.diseasesArray = diseasesArray;
-            });
             const docRef = await addDoc(collection(db, "Cases"), {
                 personal_info: {
                     name: this.personal_info_1.name,
