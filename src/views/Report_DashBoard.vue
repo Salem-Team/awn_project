@@ -53,7 +53,7 @@
     <Offline_error>
         <template v-slot:default>
             <!-- Show empty error if no data -->
-            <Empty_error v-if="empty == true" />
+            <Empty_error v-if="empty == true" :text="text" />
             <v-container v-else-if="empty !== true">
                 <!-- Container for progress circular and chart -->
                 <v-container class="d-flex align-center justify-space-around">
@@ -82,28 +82,23 @@
                     </div>
                 </v-container>
                 <v-container><v-divider></v-divider></v-container>
-                <v-container
-                    class="chart-container"
-                    style="
-                        width: 100%;
-                        height: 100%;
-                        overflow-y: auto;
-                        overflow-x: auto;
-                    "
-                >
-                    <canvas id="barChart"></canvas>
-                </v-container>
             </v-container>
         </template>
     </Offline_error>
+    <v-container
+        class="chart-container"
+        style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
+    >
+        <DashboardCharitys_report ref="childComponentRef" />
+    </v-container>
 </template>
 
 <script scoped>
 import { ref } from "vue";
 import Offline_error from "@/components/Offline_error.vue";
+import DashboardCharitys_report from "@/components/DashboardCharitys_report.vue";
 import Empty_error from "@/components/Empty_error.vue";
 import Chart from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 import Side_Bar from "@/components/Side_Bar.vue";
 // Get  data
 import { getFirestore, getDocs, collection } from "@firebase/firestore";
@@ -129,10 +124,12 @@ export default {
         Side_Bar,
         Empty_error,
         Offline_error,
+        DashboardCharitys_report,
     },
     inject: ["Emitter"],
     data() {
         return {
+            text: "لا توجد بيانات",
             empty: false,
             deficit: 0,
             required: 0,
@@ -143,10 +140,10 @@ export default {
         };
     },
     mounted() {
+        this.$refs.childComponentRef.Get_data();
+        this.Get_data();
         // Method to check internet connection status
         this.startInternetCheckerUse();
-        // Fetch data when component is mounted
-        this.Get_data();
     },
     methods: {
         // Method to check internet connection status
@@ -170,10 +167,8 @@ export default {
                 } else {
                     this.empty = false;
                 }
-
                 // Render both charts after getting data
                 this.renderChart();
-                this.renderBarChart();
             } catch (error) {
                 console.error("Error adding document: ", error);
                 this.$refs.childComponentRef.startInternetChecke();
@@ -231,95 +226,6 @@ export default {
                         },
                     },
                 },
-            });
-        },
-        // Render bar chart using Chart.js
-        renderBarChart() {
-            const ctx = document.getElementById("barChart");
-            // Initialize chart data arrays
-            const labels = [];
-            const data = [];
-            const data1 = [];
-            const value1 = [];
-            // Loop through each case to extract financial_info
-            this.Cases.forEach((Case, index) => {
-                labels.push(`${Case.personal_info.name} (${index + 1} )`);
-                data.push(
-                    Case.financial_info.required - Case.financial_info.incom
-                );
-                data1.push(Case.financial_info.incom);
-                const incomRatio =
-                    Case.financial_info.required !== 0
-                        ? (Case.financial_info.incom /
-                              Case.financial_info.required) *
-                          100
-                        : NaN;
-                value1.push(isNaN(incomRatio) ? null : Math.round(incomRatio));
-            });
-            new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "العجز",
-                            data: data,
-                            backgroundColor: "#00CCCC",
-                            stack: 0,
-                            order: 2, // Set the order to 2 to place it behind
-                        },
-                        {
-                            label: "الدخل",
-                            data: data1,
-                            backgroundColor: "orange",
-                            stack: 0,
-                            order: 1, // Set the order to 1 to place it in front
-                        },
-                    ],
-                },
-                // Chart options
-                options: {
-                    responsive: true,
-                    plugins: {
-                        datalabels: {
-                            color: "#0066CC", // Set the color of data labels
-                            anchor: "top", // Position the data labels at the end of the bars
-                            align: "right", // Align the data labels to the top of the bars
-                            formatter: function (value, context) {
-                                if (
-                                    value1[context.dataIndex] !== null &&
-                                    context.datasetIndex === 0
-                                ) {
-                                    // Print the value for the second dataset only if it's not null
-                                    return (
-                                        value1[context.dataIndex] + "%" + " "
-                                    );
-                                } else {
-                                    return "";
-                                }
-                            },
-                        },
-
-                        legend: {
-                            position: "top",
-                        },
-                        title: {
-                            display: true,
-                            text: "المعلومات المالية الخاصة بكل حالة",
-                        },
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            stack: true,
-                            title: {
-                                display: true,
-                                text: "المطلوب",
-                            },
-                        },
-                    },
-                },
-                plugins: [ChartDataLabels], // Enable the datalabels plugin
             });
         },
     },

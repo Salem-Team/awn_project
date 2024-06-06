@@ -104,17 +104,6 @@
                                 </v-list-item>
                                 <v-list-item
                                     link
-                                    v-if="User.type === 'admin'"
-                                    @click="
-                                        $router.push(
-                                            '/Report_DashBoard_Charities'
-                                        )
-                                    "
-                                >
-                                    التقارير
-                                </v-list-item>
-                                <v-list-item
-                                    link
                                     @click="$router.push('/Report_DashBoard')"
                                     v-if="User.type === 'owner'"
                                 >
