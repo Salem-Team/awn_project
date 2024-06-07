@@ -806,7 +806,8 @@
                                                                         loading
                                                                     "
                                                                     @click="
-                                                                        isActive.value = false
+                                                                        (isActive.value = false),
+                                                                            (snackbar = true)
                                                                     "
                                                                     color="deep-purple"
                                                                     size="large"
@@ -938,6 +939,15 @@
             </v-row>
         </v-container>
     </div>
+    <!--message to inform the user that the assistant has been added-->
+    <v-snackbar v-model="snackbar" :timeout="timeout">
+        {{ text }}
+        <template v-slot:actions>
+            <v-btn color="blue" variant="text" @click="snackbar = false">
+                إغلاق
+            </v-btn>
+        </template>
+    </v-snackbar>
 </template>
 
 <script>
@@ -995,7 +1005,6 @@ export default {
         whatsappRules: false,
         youtubeRules: false,
         User_Data: "",
-
         randomPassword: "",
         passwordsMatchError: false,
         passwordsMatchError2: false,
@@ -1607,9 +1616,10 @@ export default {
                       }
                     : ""
             );
-
-            // حفظ القيمة المحدثة في localStorage
-            localStorage.setItem("formmosed2", JSON.stringify(oldData));
+            //add the AssistantName to the snackbar text
+            (this.text = "تم أضافة " + this.AssistantName),
+                // حفظ القيمة المحدثة في localStorage
+                localStorage.setItem("formmosed2", JSON.stringify(oldData));
             this.storedArray = oldData;
             this.AssistantName = "";
             this.AssistantEmail = "";
