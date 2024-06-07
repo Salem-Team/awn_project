@@ -420,7 +420,7 @@
                         <form @submit.prevent="validateForm3">
                             <div
                                 class="bg-[#eee]"
-                                v-for="(dis, index) in form_dis"
+                                v-for="(dis, index) in diseases_1"
                                 :key="index"
                             >
                                 <div style="width: 100%">
@@ -429,7 +429,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="diseasesArray.patien_name"
+                                            v-model="dis.patien_name"
                                             label=" اسم المريض "
                                             variant="outlined"
                                             style="width: 100%"
@@ -441,7 +441,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="diseasesArray.disease"
+                                            v-model="dis.disease"
                                             label="  المرض "
                                             variant="outlined"
                                             class="mt-2"
@@ -456,9 +456,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="
-                                                diseasesArray.get_treatment
-                                            "
+                                            v-model="dis.get_treatment"
                                             label="كيفيه الحصول علي العلاج"
                                             variant="outlined"
                                             class="mt-2"
@@ -473,9 +471,7 @@
                                         style="width: 100%"
                                     >
                                         <v-text-field
-                                            v-model="
-                                                diseasesArray.not_available
-                                            "
+                                            v-model="dis.not_available"
                                             label=" السبب في عدم العلاج علي نفقه الدولة"
                                             variant="outlined"
                                             class="mt-2"
@@ -488,20 +484,20 @@
                                     :thickness="8"
                                     class="my-5"
                                 ></v-divider>
-                                <div>
-                                    <div class="w-25 d-flex">
-                                        <v-btn
-                                            style="
-                                                display: block;
-                                                margin-bottom: 20px;
-                                                margin-right: 20px;
-                                            "
-                                            @click="form_dis++"
-                                            icon="mdi-plus"
-                                            size="small"
-                                        >
-                                        </v-btn>
-                                    </div>
+                            </div>
+                            <div>
+                                <div class="w-25 d-flex">
+                                    <v-btn
+                                        style="
+                                            display: block;
+                                            margin-bottom: 20px;
+                                            margin-right: 20px;
+                                        "
+                                        @click="addform_dis"
+                                        icon="mdi-plus"
+                                        size="small"
+                                    >
+                                    </v-btn>
                                 </div>
                             </div>
                         </form>
@@ -1165,6 +1161,10 @@ export default {
     props: ["close_function"],
     data() {
         return {
+            dis_index: 0,
+            dis_1: true,
+            dis_2: true,
+            dis_3: true,
             regex2: true,
             regex1: true,
             close: null,
@@ -1247,13 +1247,32 @@ export default {
                 incom: null,
                 deficit: this.required - this.incom,
             },
-
-            diseases_1: {
-                patien_name: "",
-                disease: "",
-                get_treatment: "",
-                not_available: "",
-            },
+            diseases_1: [
+                {
+                    patien_name: "",
+                    disease: "",
+                    get_treatment: "",
+                    not_available: "",
+                },
+            ],
+            // diseases_1: {
+            //     patien_name: "",
+            //     disease: "",
+            //     get_treatment: "",
+            //     not_available: "",
+            // },
+            // diseases_2: {
+            //     patien_name: "",
+            //     disease: "",
+            //     get_treatment: "",
+            //     not_available: "",
+            // },
+            // diseases_3: {
+            //     patien_name: "",
+            //     disease: "",
+            //     get_treatment: "",
+            //     not_available: "",
+            // },
 
             housing_condition_4: {
                 number_rooms: 1,
@@ -1521,6 +1540,15 @@ export default {
         };
     },
     methods: {
+        addform_dis() {
+            this.dis_index++;
+            this.diseases_1.push({
+                patien_name: "",
+                disease: "",
+                get_treatment: "",
+                not_available: "",
+            });
+        },
         close_function_1() {
             this.close_function();
         },
@@ -1601,19 +1629,7 @@ export default {
             // Wait for both form validations to complete
             await this.validateForm();
             // Add a new document with a generated id.
-            const diseasesArray = [];
 
-            // Loop through each disease object in the diseases_1 array
-            this.diseases_1.forEach((disease) => {
-                // Push each disease object to the diseasesArray
-                diseasesArray.push({
-                    patien_name: disease.patien_name,
-                    disease: disease.disease,
-                    get_treatment: disease.get_treatment,
-                    not_available: disease.not_available,
-                });
-                this.diseasesArray = diseasesArray;
-            });
             const docRef = await addDoc(collection(db, "Cases"), {
                 personal_info: {
                     name: this.personal_info_1.name,
@@ -1634,7 +1650,20 @@ export default {
                         this.financial_info_2.required -
                         this.financial_info_2.incom,
                 },
-                diseases: diseasesArray,
+                diseases: [
+                    {
+                        patien_name: this.diseases_1[0].patien_name,
+                        disease: this.diseases_1[0].disease,
+                        get_treatment: this.diseases_1[0].get_treatment,
+                        not_available: this.diseases_1[0].not_available,
+                    },
+                    {
+                        patien_name: this.diseases_1[1].patien_name,
+                        disease: this.diseases_1[1].disease,
+                        get_treatment: this.diseases_1[1].get_treatment,
+                        not_available: this.diseases_1[1].not_available,
+                    },
+                ],
 
                 housing_condition: {
                     number_rooms: this.housing_condition_4.number_rooms,
@@ -1849,11 +1878,11 @@ export default {
             this.calculateDifference();
         },
     },
-    // mounted() {
-    //     console.log(
-    //         document.querySelector(".v-stepper-actions").children[1].click()
-    //     );
-    // },
+    mounted() {
+        // if (this.des_1) {
+        // }
+        // console.log(this.);
+    },
 };
 </script>
 <style lang="scss" scoped>
