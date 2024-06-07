@@ -3,8 +3,16 @@
     <v-row>
         <v-col>
             <v-container class="m-auto text-center pa-auto">
-                <p>لا توجد بيانات</p>
+                <p>{{ text }}</p>
             </v-container>
         </v-col>
     </v-row>
 </template>
+<script>
+export default {
+    props: ["text"],
+    data() {
+        return {};
+    },
+};
+</script>

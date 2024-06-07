@@ -2,8 +2,9 @@
     <!-- Handle offline error and empty data -->
     <Offline_error>
         <template v-slot:default>
+            <slot></slot>
             <!-- Show empty error if no data -->
-            <Empty_error v-if="empty == true" />
+            <Empty_error v-if="empty == true" :text="text" />
             <!-- Iterate over paginated charities -->
             <div
                 v-else-if="empty !== true"
@@ -158,15 +159,18 @@ const db = getFirestore(app);
 export default {
     components: { Empty_error, Offline_error },
     inject: ["Emitter"],
+    emits: ["child-result1"],
     data() {
         return {
             empty: false,
             currentPage: 1,
+            text: "لا توجد بيانات",
             loading: false, // Loading state
             activities: ref(["كفالة", "إطعام"]),
             // ref to store the Charities data
             Charities: {}, // Initialize as an empty object
             CharitiesDB: [],
+            CharitiesDB_length: 0,
         };
     },
     mounted() {
@@ -187,6 +191,9 @@ export default {
         startInternetCheckerUse() {
             this.Emitter.emit("startInternetChecker");
         },
+        Send_Function_To_Perant() {
+            this.$emit("Send_Function_To_Perant", this.Get_data());
+        },
         // Get Data
         async Get_Data() {
             try {
@@ -201,6 +208,8 @@ export default {
                     this.CharitiesDB.push(charityData);
                 });
                 this.loading = false; // Set loading to false after data is loaded
+                this.CharitiesDB_length = this.CharitiesDB.length;
+                this.$emit("child-result1", this.CharitiesDB_length);
                 if (this.CharitiesDB.length === 0) {
                     this.empty = true;
                     // Method to check internet connection status
