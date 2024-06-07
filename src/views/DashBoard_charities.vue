@@ -474,8 +474,9 @@
             </v-dialog>
         </v-container>
         <v-container>
+            <Report_DashBoard />
             <div class="Charites d-flex justify-center">
-                <DashboardCharitys
+                <DashboardCharitys_report
                     ref="childComponentRef"
                     @child-result="handleChildResult"
                     @child-result1="handleChildResult1"
@@ -491,17 +492,19 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 // import Components
-import DashboardCharitys from "@/components/DashboardCharitys.vue";
+import DashboardCharitys_report from "@/components/DashboardCharitys_report.vue";
 import Add_cases from "@/components/Add_cases.vue";
 import Side_Bar from "@/components/Side_Bar.vue";
+import Report_DashBoard from "@/components/Report_DashBoard.vue";
 
 export default {
     inject: ["Emitter"],
     name: "Dash_board",
     components: {
-        DashboardCharitys,
+        DashboardCharitys_report,
         Side_Bar,
         Add_cases,
+        Report_DashBoard,
     },
     data() {
         return {
