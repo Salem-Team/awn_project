@@ -297,13 +297,13 @@
                             <font-awesome-icon :icon="['fas', 'file-excel']" />
                             <div>
                                 <div @click="dialog1 = true">اكسل</div>
-                                <v-dialog v-model="dialog1" max-width="600">
+                                <v-dialog v-model="dialog1" max-width="90%">
                                     <template v-slot:default="{ isActive }">
                                         <v-card
                                             rounded="lg"
                                             class="mx-16"
                                             height="700"
-                                            width="500"
+                                            width="90%"
                                         >
                                             <v-card-title
                                                 class="d-flex justify-space-between align-center"
@@ -335,20 +335,6 @@
                                                         target="_blank"
                                                     >
                                                         تحميل ملف Excel</a
-                                                    >
-                                                </div>
-                                                <div>
-                                                    <v-btn
-                                                        color="success"
-                                                        class="mt-16"
-                                                        v-if="jsonData"
-                                                        @click="convertToJSON"
-                                                    >
-                                                        <a
-                                                            :href="downloadURL"
-                                                            download="converted_data.json"
-                                                            >تحميل ملف JSON</a
-                                                        ></v-btn
                                                     >
                                                 </div>
                                             </v-card-text>
@@ -464,9 +450,10 @@
                                             >
                                                 <v-btn
                                                     style="
-                                                        font-size: 27px;
-                                                        width: 50%;
-                                                        margin: 15px 113px;
+                                                        font-size: 21px;
+                                                        width: 16%;
+                                                        height: 50px;
+                                                        margin: 30px;
                                                     "
                                                     class="text-none"
                                                     color="primary"
@@ -502,6 +489,7 @@
 <script>
 // import Xlsx File
 import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 // import Components
 import DashboardCharitys from "@/components/DashboardCharitys.vue";
 import Add_cases from "@/components/Add_cases.vue";
@@ -666,163 +654,12 @@ export default {
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, {
                     header: 1,
                 });
-                this.validationError = false;
-                this.validationErrors = [];
-                this.duplicateNationalIDs = [];
-                this.showSuccessAlert = true;
-                this.notExcel = false;
-                // if more than 10 states
-                const groupedDataObjects = [];
-                for (let i = 0; i < jsonData.length; i += 11) {
-                    const chunk = jsonData.slice(i, i + 11);
-                    const obj = {
-                        Date: chunk[0][0],
-                        data: chunk.slice(2),
-                    };
-                    groupedDataObjects.push(obj);
-                }
 
-                const titledGroupedData = groupedDataObjects.reduce(
-                    (acc, group) => {
-                        if (group && group.data && group.data.length > 0) {
-                            const data = group.data;
-                            let invalid = false;
-                            let emptyCells = []; // مصفوفة لتخزين مؤشرات الخلايا الفارغة
-
-                            // التحقق من السلاسل الفارغة وجمع مؤشرات الخلايا الفارغة
-                            data.forEach((cell, index) => {
-                                if (!cell[1]) {
-                                    emptyCells.push(index);
-                                } else if (
-                                    typeof cell[1] !== "string" &&
-                                    (index === 2 || index === 8)
-                                ) {
-                                    invalid = true;
-                                }
-                            });
-
-                            // التحقق من أنواع البيانات المحددة وأطوالها
-                            if (
-                                typeof data[4][1] !== "number" ||
-                                typeof data[5][1] !== "number" ||
-                                typeof data[2][1] !== "string" ||
-                                data[2][1].length !== 14 ||
-                                typeof data[8][1] !== "string" ||
-                                data[8][1].length !== 11
-                            ) {
-                                invalid = true;
-                            }
-
-                            // التحقق من تكرار الرقم القومي
-                            if (
-                                data[2][1] &&
-                                this.nationalIDs.includes(data[2][1])
-                            ) {
-                                this.duplicateNationalIDs.push(data[2][1]);
-                                this.showSuccessAlert = false;
-                                this.validationErrors.push(
-                                    `تم العثور على  رقم قومي مكرر: في ${group.Date}  :   ${data[2][1]} `
-                                );
-                            } else {
-                                this.nationalIDs.push(data[2][1]);
-                            }
-                            if (data[2][1] && data[2][1].length < 14) {
-                                invalid = true;
-                                this.showSuccessAlert = false;
-                                this.validationErrors.push(
-                                    `تم العثور على رقم قومي أقل من 14 رقمًا : ${data[2][1]} في : ${group.Date}`
-                                );
-                            }
-
-                            // إذا كان هناك خطأ في التحقق أو وجود خلايا فارغة أو أرقام قومية مكررة
-                            if (
-                                invalid ||
-                                emptyCells.length > 0 ||
-                                this.duplicateNationalIDs.length > 0
-                            ) {
-                                this.validationError = true;
-
-                                // طباعة مؤشرات الخلايا الفارغة إذا لم تكن الـ array فارغة
-                                if (emptyCells.length > 0) {
-                                    invalid = true;
-                                    this.showSuccessAlert = false;
-                                    this.validationErrors.push(
-                                        `تم العثور على بيانات فارغه فى ${
-                                            group.Date
-                                        } وهى ${emptyCells
-                                            .map((index) => data[index][0])
-                                            .join(", ")}`
-                                    );
-                                }
-
-                                // طباعة مؤشرات الأرقام القومية المكررة إذا لم تكن الـ array فارغة
-                            } else {
-                                this.showSuccessAlert = true;
-                            }
-                            // بقية الكود...
-
-                            const obj = {
-                                personal_info: {
-                                    name: data[0][1],
-                                    nick_name: data[1][1],
-                                    national_id: data[2][1],
-                                    governorate: data[3][1],
-                                    house_number: data[4][1],
-                                    floor_number: data[5][1],
-                                    address: data[6][1],
-                                    marital_status: data[7][1],
-                                    phone: data[8][1],
-                                },
-                                financial_info: {
-                                    required: "",
-                                    income: "",
-                                    deficit: "",
-                                },
-                                diseases: {
-                                    patient_name: "",
-                                    disease: "",
-                                    get_treatment: "",
-                                    not_available: "",
-                                },
-                                housing_condition: {
-                                    number_rooms: "",
-                                    house_type: "",
-                                    bathroom_type: "",
-                                    floor_type: "",
-                                    description_kitchen: "",
-                                    DescriptionRoom1: "",
-                                    DescriptionRoom2: "",
-                                    DescriptionRoom3: "",
-                                    DescriptionRoom4: "",
-                                    DescriptionRoom5: "",
-                                },
-                                family_needs: "",
-                            };
-                            acc[group.Date] = obj; // استخدام التاريخ كمفتاح
-                        } else {
-                            console.error("خطأ: المصفوفة group غير متكاملة");
-                        }
-                        return acc;
-                    },
-                    {}
-                );
-                console.log("Titled Grouped Data:", titledGroupedData);
-                if (jsonData.length < 110 || jsonData.length > 110) {
-                    let MsErros = true;
-                    this.validationErrors = [];
-                    if (MsErros) {
-                        this.notExcel = true;
-                        setTimeout(() => {
-                            this.notExcel = false;
-                        }, 3000);
-                        return;
-                    }
-                }
-
-                this.jsonData = titledGroupedData;
+                this.convertToJSON(jsonData);
             };
             reader.readAsArrayBuffer(file);
         },
+
         handleDrop(event) {
             event.preventDefault();
             const fileList = event.dataTransfer.files;
@@ -1016,21 +853,158 @@ export default {
                     // مثال تحديث الحالة
                     this.jsonData = jsonData;
                     this.excelFile = file;
+                    this.jsonData = titledGroupedData;
+                    this.convertToJSON(jsonData); // تحويل الملف Excel إلى JSON وتنفيذ عملية التحميل تلقائياً
                 };
                 reader.readAsArrayBuffer(file);
             });
         },
-        convertToJSON() {
-            if (!this.jsonData) {
-                console.error("اضف ملف اكسل اولا");
-                return;
+        convertToJSON(jsonData) {
+            this.validationError = false;
+            this.validationErrors = [];
+            this.duplicateNationalIDs = [];
+            this.nationalIDs = [];
+            this.showSuccessAlert = true;
+
+            const groupedDataObjects = [];
+            for (let i = 0; i < jsonData.length; i += 11) {
+                const chunk = jsonData.slice(i, i + 11);
+                const obj = {
+                    Date: chunk[0][0],
+                    data: chunk.slice(2),
+                };
+                groupedDataObjects.push(obj);
             }
 
-            const jsonString = JSON.stringify(this.jsonData, null, 2); // Stringify with indentation
+            const result = [];
+            groupedDataObjects.forEach((group) => {
+                if (group && group.data && group.data.length > 0) {
+                    const data = group.data;
+                    let invalid = false;
+                    let emptyCells = [];
 
-            //  download using FileSaver
-            const blob = new Blob([jsonString], { type: "application/json" });
-            this.downloadURL = URL.createObjectURL(blob);
+                    data.forEach((cell, index) => {
+                        if (!cell[1]) {
+                            emptyCells.push(index);
+                        } else if (
+                            typeof cell[1] !== "string" &&
+                            (index === 2 || index === 8)
+                        ) {
+                            invalid = true;
+                        }
+                    });
+
+                    if (
+                        typeof data[4][1] !== "number" ||
+                        typeof data[5][1] !== "number" ||
+                        typeof data[2][1] !== "string" ||
+                        data[2][1].length !== 14 ||
+                        typeof data[8][1] !== "string" ||
+                        data[8][1].length !== 11
+                    ) {
+                        invalid = true;
+                    }
+
+                    if (data[2][1] && this.nationalIDs.includes(data[2][1])) {
+                        this.duplicateNationalIDs.push(data[2][1]);
+                        this.showSuccessAlert = false;
+                        this.validationErrors.push(
+                            `تم العثور على رقم قومي مكرر: في ${group.Date} : ${data[2][1]}`
+                        );
+                    } else {
+                        this.nationalIDs.push(data[2][1]);
+                    }
+
+                    if (data[2][1] && data[2][1].length < 14) {
+                        invalid = true;
+                        this.showSuccessAlert = false;
+                        this.validationErrors.push(
+                            `تم العثور على رقم قومي أقل من 14 رقمًا: ${data[2][1]} في: ${group.Date}`
+                        );
+                    }
+
+                    if (
+                        invalid ||
+                        emptyCells.length > 0 ||
+                        this.duplicateNationalIDs.length > 0
+                    ) {
+                        this.validationError = true;
+
+                        if (emptyCells.length > 0) {
+                            invalid = true;
+                            this.showSuccessAlert = false;
+                            this.validationErrors.push(
+                                `تم العثور على بيانات فارغة في ${
+                                    group.Date
+                                } وهي ${emptyCells
+                                    .map((index) => data[index][0])
+                                    .join(", ")}`
+                            );
+                        }
+                    }
+
+                    const obj = {
+                        personal_info: {
+                            name: data[0][1],
+                            nick_name: data[1][1],
+                            national_id: data[2][1],
+                            governorate: data[3][1],
+                            house_number: data[4][1],
+                            floor_number: data[5][1],
+                            address: data[6][1],
+                            marital_status: data[7][1],
+                            phone: data[8][1],
+                        },
+                        financial_info: {
+                            required: "",
+                            income: "",
+                            deficit: "",
+                        },
+                        diseases: {
+                            patient_name: "",
+                            disease: "",
+                            get_treatment: "",
+                            not_available: "",
+                        },
+                        housing_condition: {
+                            number_rooms: "",
+                            house_type: "",
+                            bathroom_type: "",
+                            floor_type: "",
+                            description_kitchen: "",
+                            DescriptionRoom1: "",
+                            DescriptionRoom2: "",
+                            DescriptionRoom3: "",
+                            DescriptionRoom4: "",
+                            DescriptionRoom5: "",
+                        },
+                        family_needs: "",
+                    };
+
+                    result.push(obj);
+                } else {
+                    console.error("خطأ: المصفوفة group غير متكاملة");
+                }
+            });
+
+            if (jsonData.length < 110 || jsonData.length > 110) {
+                this.validationErrors.push("عدد الصفوف في الملف غير صحيح.");
+                this.validationError = true;
+            }
+
+            if (!this.validationError) {
+                this.jsonData = result;
+                console.log("Processed Data:", result);
+
+                // حفظ الملف JSON باستخدام FileSaver.js
+                const jsonString = JSON.stringify(result, null, 2);
+                const blob = new Blob([jsonString], {
+                    type: "application/json",
+                });
+                saveAs(blob, "data.json");
+            } else {
+                this.showSuccessAlert = false;
+            }
         },
     },
 };
