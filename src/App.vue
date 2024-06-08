@@ -1,16 +1,13 @@
 <template>
-    <v-theme-provider class="pa-10" :theme="this.theme" with-background>
-        <nav>
-            <TheHeader @execute-toggle-theme="toggleTheme" />
-        </nav>
-        <router-view style="margin-top: 100px !important" />
-    </v-theme-provider>
+    <nav>
+        <TheHeader @execute-toggle-theme="toggleTheme" />
+    </nav>
+    <router-view style="margin-top: 100px !important" />
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import "bootstrap/dist/css/bootstrap.css";
-// import { ref } from "vue";
 
 export default {
     data() {
@@ -40,7 +37,10 @@ export default {
 * {
     direction: rtl !important;
 }
-
+:root {
+    --main-color: #0088ff;
+    --secound-color: #eee;
+}
 body {
     direction: rtl;
     font-family: "Cairo", sans-serif;
