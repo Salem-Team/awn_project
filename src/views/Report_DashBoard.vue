@@ -30,6 +30,7 @@
             }}</v-card-text>
         </v-card>
     </v-container>
+
     <!-- Cards for case data -->
     <v-container class="d-flex justify-space-evenly mb-4">
         <!-- Card for number of cases -->
@@ -85,8 +86,10 @@
             </v-container>
         </template>
     </Offline_error>
+    <div class="dach_cher mt-15"></div>
+
     <v-container
-        class="chart-container"
+        class="chart-container dach_cher6"
         style="width: 100%; height: 100%; overflow-y: auto; overflow-x: auto"
     >
         <DashboardCharitys_report ref="childComponentRef" />
@@ -144,8 +147,25 @@ export default {
         this.Get_data();
         // Method to check internet connection status
         this.startInternetCheckerUse();
+        // Add event listeners to handle online/offline status changes
+        window.addEventListener("online", this.updateOnlineStatus);
+        window.addEventListener("offline", this.updateOnlineStatus);
     },
     methods: {
+        updateOnlineStatus() {
+            const messageBox = document.querySelector(".dach_cher");
+            const messageBox2 = document.querySelector(".dach_cher6");
+            if (!navigator.onLine) {
+                messageBox.innerHTML =
+                    "الإنترنت غير متصل. يرجى التحقق من الاتصال الخاص بك";
+                messageBox.classList.add("show");
+                messageBox2.classList.add("d-none");
+            } else {
+                window.location.reload();
+                messageBox.classList.remove("show");
+                messageBox.innerHTML = "";
+            }
+        },
         // Method to check internet connection status
         startInternetCheckerUse() {
             this.Emitter.emit("startInternetChecker");

@@ -1,8 +1,14 @@
 <template>
     <Offline_error>
         <template v-slot:default>
+            <div class="dach_cher"></div>
             <Empty_error v-if="empty == true" />
-            <div style="width: 100%" v-else-if="empty !== true" :text="text0">
+            <div
+                style="width: 100%"
+                v-else-if="empty !== true"
+                :text="text0"
+                class="dach_cher2"
+            >
                 <v-container>
                     <v-text-field
                         v-model="search"
@@ -1256,6 +1262,20 @@ export default {
         },
     },
     methods: {
+        updateOnlineStatus() {
+            const messageBox = document.querySelector(".dach_cher");
+            const messageBox2 = document.querySelector(".dach_cher2");
+            if (!navigator.onLine) {
+                messageBox.innerHTML =
+                    "الإنترنت غير متصل. يرجى التحقق من الاتصال الخاص بك";
+                messageBox.classList.add("show");
+                messageBox2.classList.add("d-none");
+            } else {
+                window.location.reload();
+                messageBox.classList.remove("show");
+                messageBox.innerHTML = "";
+            }
+        },
         emitUpdate() {
             this.$emit("updateArray", this.formDataArray);
         },
@@ -1271,6 +1291,16 @@ export default {
         },
         async Get_data() {
             try {
+                // Check if the internet connection is available
+                if (!navigator.onLine) {
+                    this.loading = false;
+                    console.log("No internet connection");
+                    alert(
+                        "الإنترنت غير متصل. يرجى التحقق من الاتصال الخاص بك."
+                    );
+                    return;
+                }
+
                 this.loading = true; // Set loading to true before fetching data
                 this.Cases = [];
                 const querySnapshot = await getDocs(collection(db, "Cases"));
@@ -1294,6 +1324,7 @@ export default {
                 console.error("Error adding document: ", error);
             }
         },
+
         // Loop through each case to extract financial_info
         sumFinancialData() {
             this.deficit = 0;
@@ -1403,6 +1434,9 @@ export default {
                 (a, b) => b.financial_info.required - a.financial_info.required
             );
         });
+        // Add event listeners to handle online/offline status changes
+        window.addEventListener("online", this.updateOnlineStatus);
+        window.addEventListener("offline", this.updateOnlineStatus);
     },
 };
 </script>
@@ -1554,6 +1588,31 @@ export default {
             font-weight: bold;
             cursor: pointer;
         }
+    }
+}
+.dach_cher {
+    display: none;
+    background-color: #ffdddd;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    padding: 10px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.dach_cher.show {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 @media (max-width: 768px) {
