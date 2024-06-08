@@ -45,19 +45,7 @@
                     <v-icon v-else>mdi-weather-sunny</v-icon>
                 </v-fade-transition>
             </div>
-            <nav>
-                <ul>
-                    <li>
-                        <router-link to="/">الرئيسية</router-link>
-                    </li>
-                    <li>
-                        <a href="#About">عنا</a>
-                    </li>
-                    <li>
-                        <a href="#Connect_Us">تواصل معنا</a>
-                    </li>
-                </ul>
-            </nav>
+
             <div class="Login_Register">
                 <div class="login" v-if="User.User_State">
                     تسجيل دخول
