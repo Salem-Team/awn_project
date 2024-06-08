@@ -4,13 +4,14 @@
         <v-container style="direction: rtl">
             <v-row>
                 <v-col>
-                    <v-card style="padding: 50px">
+                    <div class="dach_cher mt-15"></div>
+                    <v-card style="padding: 50px" class="dach_cher5">
                         <h1 class="mx-auto w-100 text-center mb-5 text-primary">
                             الاعدادات
                         </h1>
 
                         <div
-                            class="d-flex flex-row"
+                            class="d-flex flex-row dach_cher5"
                             style="
                                 font-size: 20px;
                                 font-family: 'Cairo', sans-serif;
@@ -1246,6 +1247,20 @@ export default {
         },
     },
     methods: {
+        updateOnlineStatus() {
+            const messageBox = document.querySelector(".dach_cher");
+            const messageBox2 = document.querySelector(".dach_cher5");
+            if (!navigator.onLine) {
+                messageBox.innerHTML =
+                    "الإنترنت غير متصل. يرجى التحقق من الاتصال الخاص بك";
+                messageBox.classList.add("show");
+                messageBox2.classList.add("d-none");
+            } else {
+                window.location.reload();
+                messageBox.classList.remove("show");
+                messageBox.innerHTML = "";
+            }
+        },
         updateFormChanges() {
             // تحقق من التغييرات في النموذج
             this.isFormChanged = this.hasFormChanged();
@@ -1700,6 +1715,9 @@ export default {
         }
         // تخزين القيم الأصلية عند تحميل النموذج
         this.originalData = JSON.parse(JSON.stringify(this.User_Data));
+        // Add event listeners to handle online/offline status changes
+        window.addEventListener("online", this.updateOnlineStatus);
+        window.addEventListener("offline", this.updateOnlineStatus);
     },
 };
 </script>
