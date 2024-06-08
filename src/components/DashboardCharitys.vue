@@ -483,207 +483,113 @@
                                                                     <Empty_error
                                                                         v-if="
                                                                             Disease_Information.length ===
-                                                                                0 ||
-                                                                            Disease_Information_1.length ===
-                                                                                0
+                                                                            0
                                                                         "
                                                                         :text="
                                                                             text2
                                                                         "
                                                                     />
-                                                                    <div
-                                                                        class="dis_1"
-                                                                        v-else-if="
-                                                                            Disease_Information.length !==
-                                                                                0 ||
-                                                                            Disease_Information_1.length !==
-                                                                                0
-                                                                        "
-                                                                    >
+                                                                    <div v-else>
                                                                         <div
-                                                                            class="bg-[#eee]"
+                                                                            v-for="info in Disease_Information"
+                                                                            :key="
+                                                                                info
+                                                                            "
                                                                         >
                                                                             <div
-                                                                                class="mt-2 d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
+                                                                                class="bg-[#eee]"
                                                                             >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_1.patien_name
-                                                                                    "
-                                                                                    label="اسم المريض"
-                                                                                    variant="outlined"
+                                                                                <div
+                                                                                    class="mt-2 d-flex flex-column"
                                                                                     style="
                                                                                         width: 100%;
                                                                                     "
-                                                                                    placeholder="اسم المريض"
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                            <div
-                                                                                class="d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_1.disease
-                                                                                    "
-                                                                                    label="  المرض "
-                                                                                    variant="outlined"
-                                                                                    class="mt-2"
+                                                                                >
+                                                                                    <v-text-field
+                                                                                        v-model="
+                                                                                            info.patien_name
+                                                                                        "
+                                                                                        label="اسم المريض"
+                                                                                        variant="outlined"
+                                                                                        style="
+                                                                                            width: 100%;
+                                                                                        "
+                                                                                        placeholder="اسم المريض"
+                                                                                    ></v-text-field>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="d-flex flex-column"
                                                                                     style="
                                                                                         width: 100%;
                                                                                     "
-                                                                                    placeholder=" المرض"
-                                                                                ></v-text-field>
+                                                                                >
+                                                                                    <v-text-field
+                                                                                        v-model="
+                                                                                            info.disease
+                                                                                        "
+                                                                                        label="  المرض "
+                                                                                        variant="outlined"
+                                                                                        class="mt-2"
+                                                                                        style="
+                                                                                            width: 100%;
+                                                                                        "
+                                                                                        placeholder=" المرض"
+                                                                                    ></v-text-field>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="mt-2 d-flex flex-column"
+                                                                                    style="
+                                                                                        width: 100%;
+                                                                                    "
+                                                                                >
+                                                                                    <v-text-field
+                                                                                        v-model="
+                                                                                            info.get_treatment
+                                                                                        "
+                                                                                        label="كيفيه الحصول علي العلاج"
+                                                                                        variant="outlined"
+                                                                                        class="mt-2"
+                                                                                        style="
+                                                                                            width: 100%;
+                                                                                        "
+                                                                                        placeholder="كيفيه الحصول علي العلاج "
+                                                                                    ></v-text-field>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="mt-2 d-flex flex-column"
+                                                                                    style="
+                                                                                        width: 100%;
+                                                                                    "
+                                                                                >
+                                                                                    <v-text-field
+                                                                                        v-model="
+                                                                                            info.not_available
+                                                                                        "
+                                                                                        label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                                                        variant="outlined"
+                                                                                        class="mt-2"
+                                                                                        style="
+                                                                                            width: 100%;
+                                                                                        "
+                                                                                        placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                                    ></v-text-field>
+                                                                                </div>
                                                                             </div>
+                                                                            <v-divider
+                                                                                :thickness="
+                                                                                    8
+                                                                                "
+                                                                                class="my-5 mb-5"
+                                                                            ></v-divider>
                                                                         </div>
-                                                                        <div>
-                                                                            <div
-                                                                                class="mt-2 d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_1.get_treatment
-                                                                                    "
-                                                                                    label="كيفيه الحصول علي العلاج"
-                                                                                    variant="outlined"
-                                                                                    class="mt-2"
-                                                                                    style="
-                                                                                        width: 100%;
-                                                                                    "
-                                                                                    placeholder="كيفيه الحصول علي العلاج "
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div
-                                                                                class="mt-2 d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_1.not_available
-                                                                                    "
-                                                                                    label=" السبب في عدم العلاج علي نفقه الدولة"
-                                                                                    variant="outlined"
-                                                                                    class="mt-2"
-                                                                                    style="
-                                                                                        width: 100%;
-                                                                                    "
-                                                                                    placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                        </div>
-                                                                        <v-divider
-                                                                            :thickness="
-                                                                                8
-                                                                            "
-                                                                            class="my-5 mb-5"
-                                                                        ></v-divider>
                                                                     </div>
-                                                                    <div
-                                                                        class="dis_2"
-                                                                    >
-                                                                        <div
-                                                                            class="bg-[#eee]"
-                                                                        >
-                                                                            <div
-                                                                                class="mt-2 d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_2.patien_name
-                                                                                    "
-                                                                                    label=" اسم المريض "
-                                                                                    variant="outlined"
-                                                                                    style="
-                                                                                        width: 100%;
-                                                                                    "
-                                                                                    placeholder="اسم المريض"
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                            <div
-                                                                                class="d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_2.disease
-                                                                                    "
-                                                                                    label="  المرض "
-                                                                                    variant="outlined"
-                                                                                    class="mt-2"
-                                                                                    style="
-                                                                                        width: 100%;
-                                                                                    "
-                                                                                    placeholder=" المرض"
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div
-                                                                                class="mt-2 d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_2.get_treatment
-                                                                                    "
-                                                                                    label="كيفيه الحصول علي العلاج"
-                                                                                    variant="outlined"
-                                                                                    class="mt-2"
-                                                                                    style="
-                                                                                        width: 100%;
-                                                                                    "
-                                                                                    placeholder="كيفيه الحصول علي العلاج "
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div
-                                                                                class="mt-2 d-flex flex-column"
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                            >
-                                                                                <v-text-field
-                                                                                    v-model="
-                                                                                        Disease_Information_2.not_available
-                                                                                    "
-                                                                                    label=" السبب في عدم العلاج علي نفقه الدولة"
-                                                                                    variant="outlined"
-                                                                                    class="mt-2"
-                                                                                    style="
-                                                                                        width: 100%;
-                                                                                    "
-                                                                                    placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                                                                ></v-text-field>
-                                                                            </div>
-                                                                        </div>
-                                                                        <v-divider
-                                                                            :thickness="
-                                                                                8
-                                                                            "
-                                                                            class="my-5 mb-5"
-                                                                        ></v-divider>
-                                                                    </div>
+                                                                </div>
 
+                                                                <div
+                                                                    v-if="
+                                                                        e1 === 4
+                                                                    "
+                                                                >
                                                                     <!-- Show empty error if no data -->
                                                                     <Empty_error
                                                                         v-if="
@@ -1120,8 +1026,9 @@
                         v-model="currentPage"
                         next-icon="mdi-menu-left"
                         prev-icon="mdi-menu-right"
-                        :length="Math.ceil(Cases.length / 5)"
+                        :length="Math.ceil(filteredCases.length / 5)"
                         :total-visible="5"
+                        @input="paginate"
                     ></v-pagination>
                 </div>
             </div>
@@ -1355,8 +1262,6 @@ export default {
             this.Personal_Information = Case.personal_info;
             console.log(this.Personal_Information.national_id);
             this.Financial_Information = Case.financial_info;
-
-            this.Disease_Information_1 = Case.diseases;
 
             this.Disease_Information = Case.diseases;
 

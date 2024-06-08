@@ -420,7 +420,7 @@
                         <form @submit.prevent="validateForm3">
                             <div
                                 class="bg-[#eee]"
-                                v-for="(dis, index) in diseases_1"
+                                v-for="(dis, index) in diseases_3"
                                 :key="index"
                             >
                                 <div style="width: 100%">
@@ -1247,7 +1247,7 @@ export default {
                 incom: null,
                 deficit: this.required - this.incom,
             },
-            diseases_1: [
+            diseases_3: [
                 {
                     patien_name: "",
                     disease: "",
@@ -1542,7 +1542,7 @@ export default {
     methods: {
         addform_dis() {
             this.dis_index++;
-            this.diseases_1.push({
+            this.diseases_3.push({
                 patien_name: "",
                 disease: "",
                 get_treatment: "",
@@ -1650,20 +1650,7 @@ export default {
                         this.financial_info_2.required -
                         this.financial_info_2.incom,
                 },
-                diseases: [
-                    {
-                        patien_name: this.diseases_1[0].patien_name,
-                        disease: this.diseases_1[0].disease,
-                        get_treatment: this.diseases_1[0].get_treatment,
-                        not_available: this.diseases_1[0].not_available,
-                    },
-                    {
-                        patien_name: this.diseases_1[1].patien_name,
-                        disease: this.diseases_1[1].disease,
-                        get_treatment: this.diseases_1[1].get_treatment,
-                        not_available: this.diseases_1[1].not_available,
-                    },
-                ],
+                diseases: this.diseases_3,
 
                 housing_condition: {
                     number_rooms: this.housing_condition_4.number_rooms,
