@@ -40,6 +40,7 @@ export default {
 :root {
     --main-color: #0088ff;
     --secound-color: #eee;
+    --therd-color: #7a7a7a;
 }
 body {
     direction: rtl;
@@ -88,7 +89,12 @@ a {
     display: block;
     animation: fadeIn 0.5s;
 }
-
+p {
+    margin: 0;
+}
+input:focus {
+    outline: none;
+}
 @keyframes fadeIn {
     from {
         opacity: 0;
