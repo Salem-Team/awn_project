@@ -1,8 +1,63 @@
 <template>
     <Offline_error>
         <template v-slot:default>
+            <div class="cases">
+                <div class="box">
+                    <div class="feat">
+                        <span>
+                            <div class="number">1</div>
+                            <div class="name">محمود علي سمير</div>
+                        </span>
+                    </div>
+                    <div class="body">
+                        <div class="feat">
+                            <div class="number">1000</div>
+                            <div class="title">المطلوب</div>
+                        </div>
+                        <div class="feat">
+                            <div class="number">500</div>
+                            <div class="title">الدخل</div>
+                        </div>
+                        <div class="feat">
+                            <div class="small_box">
+                                <div>
+                                    <!-- Progress circular -->
+                                    <div class="progress-circular">
+                                        <v-progress-circular
+                                            class="mt-0"
+                                            bg-color="var(--secound-color)"
+                                            :rotate="360"
+                                            :size="70"
+                                            :width="20"
+                                            color="var(--main-color)"
+                                            style="font-size: 13px"
+                                            :model-value="value || 0"
+                                        >
+                                            <template #default>
+                                                <strong>
+                                                    {{ value || 0 }}%
+                                                </strong>
+                                            </template>
+                                        </v-progress-circular>
+                                        <p>نسبة إكمال المطلوب</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feat">
+                            <div class="number">لا</div>
+                            <div class="title">حالة مشتركة؟</div>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <font-awesome-icon :icon="['fas', 'circle-info']" />
+                        <div>التفاصيل</div>
+                    </div>
+                </div>
+            </div>
             <div class="dach_cher"></div>
             <Empty_error v-if="empty == true" />
+
             <div
                 style="width: 100%"
                 v-else-if="empty !== true"
@@ -10,7 +65,7 @@
                 class="dach_cher2"
             >
                 <v-container>
-                    <v-text-field
+                    <!-- <v-text-field
                         v-model="search"
                         label="أبحث"
                         hide-details
@@ -20,7 +75,7 @@
                             line-height: 18px;
                             text-align: center;
                         "
-                    ></v-text-field>
+                    ></v-text-field> -->
                     <div class="boxes">
                         <div
                             :class="'box ' + Case.personal_info.national_id"
@@ -1064,6 +1119,9 @@ export default {
     emits: ["child-result"],
     data: () => ({
         Personal_Information: "",
+        knowledge: 33,
+        knowledge_1: 66,
+        value: 50,
         FinancialInformation: "",
         SickCases: "",
         HousingCondition: "",
@@ -1512,6 +1570,125 @@ export default {
     animation: fadeIn 0.5s;
 }
 
+.cases {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    .box {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid var(--secound-color);
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ddd;
+        width: 100%;
+
+        & > .feat:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 30px;
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: -15px;
+                height: 3px;
+                width: 100%;
+                background: var(--secound-color);
+            }
+            span {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .number {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: var(--main-color);
+                    color: #fff;
+                    border-radius: 5px;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                .name {
+                    color: var(--therd-color);
+                    font-weight: bold;
+                }
+            }
+        }
+        .body {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+            .feat {
+                width: 23%;
+                border: 1px solid var(--secound-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                height: 126px;
+                .number {
+                    height: 70px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: var(--therd-color);
+                }
+                .title {
+                    color: var(--main-color);
+                    font-weight: bold;
+                }
+            }
+            & > .feat:first-child {
+                .number {
+                    color: var(--main-color);
+                }
+                .title {
+                    color: var(--therd-color);
+                }
+            }
+        }
+        .progress-circular {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            p {
+                font-weight: bold;
+                color: var(--therd-color);
+                text-align: center;
+            }
+        }
+        .details {
+            background: var(--main-color);
+            border-radius: 5px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            gap: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    }
+}
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1523,6 +1700,10 @@ export default {
 @media (max-width: 768px) {
     .boxes .box .details {
         width: 50% !important;
+    }
+    .cases .box .body .feat {
+        height: 145px;
+        width: 48%;
     }
 }
 @media (max-width: 1400px) {
