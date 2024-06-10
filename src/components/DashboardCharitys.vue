@@ -8,6 +8,10 @@
                             <div class="number">1</div>
                             <div class="name">محمود علي سمير</div>
                         </span>
+                        <font-awesome-icon
+                            :icon="['fas', 'trash-can']"
+                            style="color: var(--main-color); cursor: pointer"
+                        />
                     </div>
                     <div class="body">
                         <div class="feat">
