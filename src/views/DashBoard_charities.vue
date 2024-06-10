@@ -89,7 +89,7 @@
             <div class="use">
                 <div class="title">
                     <div class="right">
-                        <font-awesome-icon :icon="['fas', 'use-line']" />
+                        <font-awesome-icon :icon="['fas', 'users-line']" />
                         <div>الحالات</div>
                     </div>
                     <div class="left">
