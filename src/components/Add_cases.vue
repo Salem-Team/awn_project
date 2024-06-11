@@ -1130,7 +1130,12 @@
 </template>
 <script>
 // Add data
-import { collection, addDoc, getFirestore } from "@firebase/firestore";
+import {
+    collection,
+    addDoc,
+    getFirestore,
+    updateDoc,
+} from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
 
@@ -1667,10 +1672,14 @@ export default {
                 },
                 family_needs: this.family_needs_Array,
             });
+            await updateDoc(docRef, {
+                id: docRef.id,
+            });
             console.log("Document written with ID: ", docRef.id);
             console.log("validations");
             this.close_function();
         },
+
         /*async validateForm1() {
             const res = await this.v$.personal_info_1.$validate();
             if (res) {

@@ -731,7 +731,9 @@
                                             </span>
                                             <div class="delete">
                                                 <font-awesome-icon
-                                                    @click="removeItem(index)"
+                                                    @click="
+                                                        deleteAssistant(item.id)
+                                                    "
                                                     :icon="['fas', 'trash-can']"
                                                 />
                                             </div>
@@ -833,6 +835,7 @@ import {
     getFirestore,
     getDoc,
     doc,
+    deleteDoc,
     collection,
     addDoc,
     updateDoc,
@@ -1104,6 +1107,7 @@ export default {
                     doc.data().type === "assistant"
                 ) {
                     console.log(doc.id, " => ", doc.data());
+                    console.log("All_Assistant => ", this.All_Assistant);
                     this.All_Assistant.push(doc.data());
                 }
             });
@@ -1127,6 +1131,17 @@ export default {
             });
             console.log("Document written with ID: ", docRef.id);
             this.Get_Assistant();
+        },
+        async deleteAssistant(UsersId) {
+            try {
+                await deleteDoc(doc(db, "Users", UsersId));
+                // Assistant deleted successfully, update the Cases array
+                // Delete the document from Firestore
+                await deleteDoc(doc(db, "Users", UsersId));
+                console.log("Assistant deleted successfully");
+            } catch (error) {
+                console.error("Error deleting Assistant:", error);
+            }
         },
         async Check_User() {
             if (localStorage.getItem("id")) {

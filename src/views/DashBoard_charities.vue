@@ -110,477 +110,8 @@
                 </div>
             </div>
         </div>
-        <!-- <v-container class="mt-16">
-            <v-container>
-                <v-row
-                    style="
-                        padding: 40px;
-                        border-radius: 7px 0px 0px 0px;
-                        border-radius: 20px;
-                        border: 1px solid #ddd;
-                    "
-                >
-                    <v-col lg="5" md="7" sm="12">
-                        Info Status 
-                        <div
-                            class="info_stat d-flex justify-space-between align-center ga-4"
-                        >
-                            <v-chip
-                                style="padding: 46px; height: 10px"
-                                class="text-center chip_info"
-                            >
-                                <div class="info">
-                                    <div class="num">
-                                        {{ childResult }}
-                                    </div>
-                                    <span class="text-primary">الحاله</span>
-                                </div>
-                            </v-chip>
-                            <v-chip
-                                style="padding: 46px; height: 10px"
-                                class="text-center chip_info"
-                            >
-                                <div class="info">
-                                    <div class="num">
-                                        {{ childResult1 }}
-                                    </div>
-                                    <span class="text-primary">عجز</span>
-                                </div>
-                            </v-chip>
-                            <v-chip
-                                style="padding: 46px; height: 10px"
-                                class="text-center chip_info"
-                            >
-                                <div class="info">
-                                    <div class="num">50</div>
-                                    <span class="text-primary"
-                                        >حالات مشتركه</span
-                                    >
-                                </div>
-                            </v-chip>
-                        </div>
-                    </v-col>
-                    <v-col
-                        lg="7"
-                        md="5"
-                        sm="12"
-                        style="
-                            display: flex;
-                            justify-content: flex-end;
-                            align-items: center;
-                        "
-                        class="info_col2"
-                    >
-                        <div class="d-flex ga-3 mb-3">
-                            <v-menu>
-                                <template v-slot:activator="{ props }">
-                                    <v-btn
-                                        class="btn_menu"
-                                        color="primary"
-                                        v-bind="props"
-                                    >
-                                        ترتيب حسب
-                                        <v-icon>mdi-filter-variant</v-icon>
-                                    </v-btn>
-                                </template>
-                                <v-list>
-                                    <v-list-item>
-                                        إعادة ضبط الفلتر
-                                        <v-btn-toggle v-model="isActive0">
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        this.$refs.childComponentRef.Get_data(),
-                                                        (isActive1 = null),
-                                                        (isActive2 = null),
-                                                        (isActive3 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-reload</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        ابجدى
-                                        <v-btn-toggle v-model="isActive1">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funAtZClicked(),
-                                                        (isActive0 = null),
-                                                        (isActive2 = null),
-                                                        (isActive3 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funZtAClicked(),
-                                                        (isActive0 = null),
-                                                        (isActive2 = null),
-                                                        (isActive3 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        العجز
-                                        <v-btn-toggle v-model="isActive2">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funCards_STL(),
-                                                        (isActive1 = null),
-                                                        (isActive0 = null),
-                                                        (isActive3 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funCards_LTS(),
-                                                        (isActive1 = null),
-                                                        (isActive0 = null),
-                                                        (isActive3 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
 
-                                    <v-list-item>
-                                        الدخل
-                                        <v-btn-toggle v-model="isActive3">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funFat_STL(),
-                                                        (isActive1 = null),
-                                                        (isActive2 = null),
-                                                        (isActive0 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funFat_LTS(),
-                                                        (isActive1 = null),
-                                                        (isActive2 = null),
-                                                        (isActive0 = null),
-                                                        (isActive4 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        المطلوب
-                                        <v-btn-toggle v-model="isActive4">
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('up'),
-                                                        funCalories_STL(),
-                                                        (isActive1 = null),
-                                                        (isActive2 = null),
-                                                        (isActive3 = null),
-                                                        (isActive0 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'up',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-up</v-icon>
-                                            </v-btn>
-                                            <v-btn
-                                                small
-                                                v-model="isActive"
-                                                @click="
-                                                    toggleActive('down'),
-                                                        funCalories_LTS(),
-                                                        (isActive1 = null),
-                                                        (isActive2 = null),
-                                                        (isActive3 = null),
-                                                        (isActive0 = null)
-                                                "
-                                                :class="{
-                                                    active: isActive === 'down',
-                                                }"
-                                            >
-                                                <v-icon>mdi-arrow-down</v-icon>
-                                            </v-btn>
-                                        </v-btn-toggle>
-                                    </v-list-item>
-                                     المطلوب نهايه ------------------------------------------------ 
-                                </v-list>
-                            </v-menu>
-                            <v-btn @click="dialog = true" class="btn_menu">
-                                <v-icon style="font-size: 20px !important"
-                                    >mdi-plus</v-icon
-                                >
-                            </v-btn>
-                            <v-btn @click="Swap" class="btn_menu" id="Swap">
-                                <v-icon>mdi-view-grid-outline</v-icon>
-                            </v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-container>
-        <v-container>
-            <v-dialog v-model="dialog" width="90%">
-                <div class="popup bg-white w-100 rounded">
-                    <div class="header">
-                        <div>إضافة الحالات</div>
-                        <font-awesome-icon
-                            :icon="['fas', 'xmark']"
-                            @click="dialog = false"
-                        />
-                    </div>
-                    <div class="body">
-                        <div class="box" @click="close_function">
-                            <font-awesome-icon :icon="['fas', 'keyboard']" />
-                            <div>يدوي</div>
-                        </div>
-                        <div class="box" @click="dialog1 = true">
-                            <font-awesome-icon :icon="['fas', 'file-excel']" />
-                            <div>
-                                <div @click="dialog1 = true">اكسل</div>
-                                <v-dialog v-model="dialog1" max-width="90%">
-                                    <template v-slot:default="{ isActive }">
-                                        <v-card
-                                            rounded="lg"
-                                            class="mx-16"
-                                            height="700"
-                                            width="90%"
-                                        >
-                                            <v-card-title
-                                                class="d-flex justify-space-between align-center"
-                                            >
-                                                <div
-                                                    class="text-h5 text-medium-emphasis ps-2"
-                                                >
-                                                    اضافه ملف اكسيل
-                                                </div>
-
-                                                <v-btn
-                                                    icon="mdi-close"
-                                                    variant="text"
-                                                    @click="
-                                                        isActive.value = false
-                                                    "
-                                                ></v-btn>
-                                            </v-card-title>
-
-                                            <v-divider class="mb-4"></v-divider>
-
-                                            <v-card-text
-                                                class="d-flex flex-column align-center"
-                                            >
-                                                <div class="mb-4">
-                                                    <a
-                                                        href="https://docs.google.com/spreadsheets/d/1V5euJ0Yoaw6JDO7ZZwuZ8TYm4SU2Uu1i/edit?usp=sharing&ouid=103544609659766512054&rtpof=true&sd=true"
-                                                        download
-                                                        target="_blank"
-                                                    >
-                                                        تحميل ملف Excel</a
-                                                    >
-                                                </div>
-                                            </v-card-text>
-                                            <div
-                                                class="d-flex justify-center align-center"
-                                            >
-                                                <div
-                                                    class="text-medium-emphasis mb-1"
-                                                    style="
-                                                        display: flex;
-                                                        flex-wrap: wrap;
-                                                        justify-content: center;
-                                                        width: 60%;
-                                                        height: 120px;
-                                                        border: 3px dashed #777;
-                                                        align-content: center;
-                                                        justify-content: space-around;
-                                                    "
-                                                    @dragover.prevent
-                                                    @drop="handleDrop"
-                                                >
-                                                    <label
-                                                        style="
-                                                            width: 200px;
-                                                            position: relative;
-                                                        "
-                                                    >
-                                                        <v-icon
-                                                            color=""
-                                                            style="
-                                                                position: absolute;
-                                                                right: 37px;
-                                                                bottom: 19px;
-                                                            "
-                                                        >
-                                                            mdi-cloud-upload
-                                                        </v-icon>
-                                                        <input
-                                                            type="file"
-                                                            id="myinput"
-                                                            ref="fileInput"
-                                                            style="
-                                                                display: none;
-                                                            "
-                                                            @change="
-                                                                handleFileChange
-                                                            "
-                                                        />
-                                                        <span
-                                                            style="
-                                                                font-family: 'Roboto',
-                                                                    sans-serif;
-                                                                font-size: 18px;
-                                                            "
-                                                            >رفع ملف
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="alert">
-                                                <v-alert
-                                                    v-if="
-                                                        validationErrors.length >
-                                                        0
-                                                    "
-                                                    type="error"
-                                                    color="red"
-                                                    closable
-                                                    dismissible
-                                                >
-                                                    <v-alert
-                                                        v-for="(
-                                                            error, index
-                                                        ) in validationErrors"
-                                                        :key="index"
-                                                        class="mb-4"
-                                                    >
-                                                        {{ error }}
-                                                    </v-alert>
-                                                </v-alert>
-                                                <v-alert
-                                                    v-if="notExcel"
-                                                    type="error"
-                                                    color="red"
-                                                    closable
-                                                    dismissible
-                                                >
-                                                    خطأ ! رجاء التأكد من صحه
-                                                    الملف وعدد الحالات
-                                                </v-alert>
-                                                <v-alert
-                                                    v-if="showSuccessAlert"
-                                                    type="success"
-                                                    closable
-                                                    dismissible
-                                                >
-                                                    تم اضافه جميع الحالات بنجاح
-                                                </v-alert>
-                                                <v-alert
-                                                    v-if="ExcelFile"
-                                                    type="error"
-                                                    color="red"
-                                                    closable
-                                                    dismissible
-                                                >
-                                                    عذراً، يجب تحميل ملف إكسل
-                                                    فقط. الرجاء التأكد من امتداد
-                                                    الملف.
-                                                </v-alert>
-                                            </div>
-                                            <v-card-actions
-                                                class="my-2 d-flex justify-end"
-                                            >
-                                                <v-btn
-                                                    style="
-                                                        font-size: 21px;
-                                                        width: 16%;
-                                                        height: 50px;
-                                                        margin: 30px;
-                                                    "
-                                                    class="text-none"
-                                                    color="primary"
-                                                    text="تم"
-                                                    variant="flat"
-                                                    @click="
-                                                        isActive.value = false
-                                                    "
-                                                ></v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </template>
-                                </v-dialog>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </v-dialog>
-        </v-container>
-        <v-container> 
-            <div class="Charites d-flex justify-center">
-            </div>
-        </v-container> -->
-
-        <DashboardCharitys />
+        <DashboardCharitys ref="childComponentRef" :search="search" />
         <Add_cases v-if="Show_Add" :close_function="close_function" />
 
         <div>
@@ -627,6 +158,7 @@
                         "
                     >
                         <input
+                            v-model="search"
                             style="width: 100%; padding: 0 10px"
                             type="text"
                             placeholder="اكتب اسم الحالة"
@@ -641,7 +173,10 @@
                                 border-top-left-radius: 5px;
                                 border-bottom-left-radius: 5px;
                             "
-                            @click="dialog = false"
+                            @click="
+                                (dialog = false),
+                                    this.$refs.childComponentRef.filteredCase()
+                            "
                         />
                     </div>
                 </v-card>
@@ -727,6 +262,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('up'),
+                                            funAtZClicked(),
+                                            (isActive0 = null),
+                                            (isActive2 = null),
+                                            (isActive3 = null),
+                                            (isActive4 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'up',
+                                    }"
                                 />
                                 <font-awesome-icon
                                     :icon="['fas', 'arrow-up-short-wide']"
@@ -739,6 +286,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('down'),
+                                            funZtAClicked(),
+                                            (isActive0 = null),
+                                            (isActive2 = null),
+                                            (isActive3 = null),
+                                            (isActive4 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'down',
+                                    }"
                                 />
                             </div>
                         </div>
@@ -776,6 +335,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('up'),
+                                            funCards_STL(),
+                                            (isActive1 = null),
+                                            (isActive0 = null),
+                                            (isActive3 = null),
+                                            (isActive4 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'up',
+                                    }"
                                 />
                                 <font-awesome-icon
                                     :icon="['fas', 'arrow-up-short-wide']"
@@ -788,6 +359,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('down'),
+                                            funCards_LTS(),
+                                            (isActive1 = null),
+                                            (isActive0 = null),
+                                            (isActive3 = null),
+                                            (isActive4 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'down',
+                                    }"
                                 />
                             </div>
                         </div>
@@ -825,6 +408,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('up'),
+                                            funFat_STL(),
+                                            (isActive1 = null),
+                                            (isActive2 = null),
+                                            (isActive0 = null),
+                                            (isActive4 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'up',
+                                    }"
                                 />
                                 <font-awesome-icon
                                     :icon="['fas', 'arrow-up-short-wide']"
@@ -837,6 +432,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('down'),
+                                            funFat_LTS(),
+                                            (isActive1 = null),
+                                            (isActive2 = null),
+                                            (isActive0 = null),
+                                            (isActive4 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'down',
+                                    }"
                                 />
                             </div>
                         </div>
@@ -874,6 +481,18 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('up'),
+                                            funCalories_STL(),
+                                            (isActive1 = null),
+                                            (isActive2 = null),
+                                            (isActive3 = null),
+                                            (isActive0 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'up',
+                                    }"
                                 />
                                 <font-awesome-icon
                                     :icon="['fas', 'arrow-up-short-wide']"
@@ -886,12 +505,23 @@
                                         cursor: pointer;
                                         color: var(--main-color);
                                     "
+                                    v-model="isActive"
+                                    @click="
+                                        toggleActive('down'),
+                                            funCalories_LTS(),
+                                            (isActive1 = null),
+                                            (isActive2 = null),
+                                            (isActive3 = null),
+                                            (isActive0 = null)
+                                    "
+                                    :class="{
+                                        active: isActive === 'down',
+                                    }"
                                 />
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="footer"
+                    <v-btn
                         style="
                             background: var(--main-color);
                             color: rgb(255, 255, 255);
@@ -905,10 +535,23 @@
                             justify-content: center;
                             align-items: center;
                         "
+                        v-model="isActive"
+                        @click="
+                            toggleActive('up'),
+                                this.$refs.childComponentRef.Get_data(),
+                                (isActive1 = null),
+                                (isActive2 = null),
+                                (isActive3 = null),
+                                (isActive4 = null)
+                        "
+                        :class="{
+                            footer,
+                            active: isActive === 'up',
+                        }"
                     >
                         <font-awesome-icon :icon="['fas', 'rotate']" />
                         <div>إعادة ظبط الفلتر</div>
-                    </div>
+                    </v-btn>
                 </v-card>
             </v-dialog>
         </div>
@@ -1150,6 +793,7 @@ export default {
     },
     data() {
         return {
+            search: "",
             value: 0,
             text: "لا توجد بيانات",
             empty: false,
@@ -1200,6 +844,7 @@ export default {
     },
     mounted() {
         this.Get_data();
+        this.$refs.childComponentRef.Get_data();
         this.funLatestClicked(),
             this.funAtZClicked(),
             this.funZtAClicked(),
@@ -1209,8 +854,8 @@ export default {
             this.funFat_LTS(),
             this.funCalories_STL(),
             this.funCalories_LTS();
+        this.$refs.childComponentRef.filteredCase();
     },
-
     methods: {
         // Method to check internet connection status
         startInternetCheckerUse() {
@@ -1232,8 +877,6 @@ export default {
                 } else {
                     this.empty = false;
                 }
-                // Render both charts after getting data
-                this.renderChart();
             } catch (error) {
                 console.error("Error adding document: ", error);
                 // this.$refs.childComponentRef.startInternetChecke();
@@ -1288,6 +931,10 @@ export default {
         // change view
         Swap() {
             this.Emitter.emit("change_view");
+        },
+
+        filteredCases() {
+            this.Emitter.emit("filteredCases");
         },
         // / Firts Function ordered By >>>> Swap BT Latest && Oldest
         funLatestClicked() {
