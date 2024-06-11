@@ -1,4 +1,4 @@
-<template>
+  <template>
     <div class="My_profile">
         <!-- <Side_Bar /> -->
 
