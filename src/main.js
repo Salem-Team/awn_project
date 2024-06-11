@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "notyf/notyf.min.css";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import "@mdi/font/css/materialdesignicons.css";
+
 // pinia config
 import { createPinia } from "pinia";
 
@@ -76,5 +78,5 @@ createApp(App)
     .component("font-awesome-icon", FontAwesomeIcon)
     .provide("Emitter", Emitter)
     .use(createPinia())
-    .use(Toast, { position: "top-right", timeout: 1000 })
+    .use(Toast, { position: "top-right", timeout: 3000 })
     .mount("#app");

@@ -1,16 +1,13 @@
 <template>
-    <v-theme-provider class="pa-10" :theme="this.theme" with-background>
-        <nav>
-            <TheHeader @execute-toggle-theme="toggleTheme" />
-        </nav>
-        <router-view style="margin-top: 100px !important" />
-    </v-theme-provider>
+    <nav>
+        <TheHeader @execute-toggle-theme="toggleTheme" />
+    </nav>
+    <router-view style="margin-top: 100px !important" />
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import "bootstrap/dist/css/bootstrap.css";
-// import { ref } from "vue";
 
 export default {
     data() {
@@ -40,7 +37,11 @@ export default {
 * {
     direction: rtl !important;
 }
-
+:root {
+    --main-color: #0088ff;
+    --secound-color: #eee;
+    --therd-color: #7a7a7a;
+}
 body {
     direction: rtl;
     font-family: "Cairo", sans-serif;
@@ -88,7 +89,15 @@ a {
     display: block;
     animation: fadeIn 0.5s;
 }
-
+p {
+    margin: 0;
+}
+input:focus {
+    outline: none;
+}
+.Vue-Toastification__toast {
+    background: var(--main-color);
+}
 @keyframes fadeIn {
     from {
         opacity: 0;
