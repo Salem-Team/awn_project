@@ -76,5 +76,5 @@ createApp(App)
     .component("font-awesome-icon", FontAwesomeIcon)
     .provide("Emitter", Emitter)
     .use(createPinia())
-    .use(Toast, { position: "top-right", timeout: 1000 })
+    .use(Toast, { position: "top-right", timeout: 3000 })
     .mount("#app");
