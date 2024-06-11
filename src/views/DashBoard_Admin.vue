@@ -35,6 +35,7 @@
                         <v-window v-model="tab">
                             <v-window-item value="المحتاجين">
                                 <DashboardCharitys
+                                    :search="search"
                                     ref="childComponentRef"
                                     @child-result="handleChildResult"
                                 />
@@ -107,6 +108,7 @@ export default {
     },
     data() {
         return {
+            search: "",
             childResult: null,
             childResult1: null,
             items: [],

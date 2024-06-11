@@ -95,9 +95,6 @@ p {
 input:focus {
     outline: none;
 }
-.Vue-Toastification__toast {
-    background: var(--main-color);
-}
 @keyframes fadeIn {
     from {
         opacity: 0;

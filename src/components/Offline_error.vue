@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import isOnline from "is-online";
 export default {
     inject: ["Emitter"],
     data() {
@@ -32,24 +33,14 @@ export default {
             isInternetAvailable: true, // Internet availability flag
         };
     },
-    mounted() {
-        // Start internet checker on component mount
-        this.Emitter.on("startInternetChecker", () => {
-            // Method to check internet connection status
-            // Check if the browser is online
-            this.isInternetAvailable = window.navigator.onLine;
-            // Update UI based on internet status
-            if (this.isInternetAvailable) {
-                // If internet is available, hide the snackbar
-                this.snackbar = false;
-                console.log("Internet connected");
-                console.log(window.navigator.onLine);
-            } else {
-                // If internet is not available, show the snackbar
-                this.snackbar = true;
-                console.log("Internet disconnected");
-            }
-        });
+    async created() {
+        const online = await isOnline();
+        if (!online) {
+            console.log("انت غير متصل بالإنترنت");
+            this.snackbar = true;
+            this.isInternetAvailable = false;
+            console.log("Internet disconnected");
+        }
     },
     methods: {},
 };

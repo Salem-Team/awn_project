@@ -6,8 +6,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "notyf/notyf.min.css";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import "@mdi/font/css/materialdesignicons.css";
-
 // pinia config
 import { createPinia } from "pinia";
 
