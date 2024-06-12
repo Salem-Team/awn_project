@@ -103,4 +103,9 @@ input:focus {
         opacity: 1;
     }
 }
+.Vue-Toastification__toast--success {
+    background: var(--main-color) !important;
+    color: white !important;
+    margin-top: 100px;
+}
 </style>

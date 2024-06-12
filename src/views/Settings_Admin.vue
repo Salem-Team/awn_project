@@ -13,7 +13,7 @@
                         v-show="isSmallScreen"
                         color="#08f"
                     >
-                        <v-list>
+                        <v-list style="margin-bottom: 22px">
                             <v-list-item></v-list-item>
                         </v-list>
 
@@ -43,10 +43,8 @@
                         </v-list>
                     </v-navigation-drawer>
 
-                    <v-main style="height: 100vh">
-                        <div
-                            class="profile d-flex justify-content-between ml-16"
-                        >
+                    <v-main>
+                        <div class="profile d-flex justify-content-between">
                             <div>
                                 <img
                                     src="../assets/images/social-page.gif"
@@ -61,29 +59,45 @@
                                 class="save_btn"
                                 @click="validateForm1"
                                 v-if="tab_1 == 'one'"
+                                style="margin-top: 30px"
                             >
-                                حفظ التعديلات
+                                حفظ
+                                <span class="hide-on-small-screens"
+                                    >التعديلات</span
+                                >
                             </div>
                             <div
                                 class="save_btn"
                                 @click="validateForm2"
                                 v-if="tab_1 == 'two'"
+                                style="margin-top: 30px"
                             >
-                                حفظ التعديلات
+                                حفظ
+                                <span class="hide-on-small-screens"
+                                    >التعديلات</span
+                                >
                             </div>
                             <div
                                 class="save_btn"
                                 @click="validateForm3"
                                 v-if="tab_1 == 'three'"
+                                style="margin-top: 30px"
                             >
-                                حفظ التعديلات
+                                حفظ
+                                <span class="hide-on-small-screens"
+                                    >التعديلات</span
+                                >
                             </div>
                             <div
                                 class="save_btn"
                                 @click="validateForm4"
                                 v-if="tab_1 == 'four'"
+                                style="margin-top: 30px"
                             >
-                                حفظ التعديلات
+                                حفظ
+                                <span class="hide-on-small-screens"
+                                    >التعديلات</span
+                                >
                             </div>
                         </div>
                         <div>
@@ -222,6 +236,7 @@
                                                 bottom: 0px;
                                                 background: var(--main-color);
                                                 color: rgb(255, 255, 255);
+                                                z-index: 10000000;
                                             "
                                         >
                                             <v-tab value="one">
@@ -231,7 +246,7 @@
                                                     justify="center"
                                                 >
                                                     <v-col
-                                                        cols="6"
+                                                        cols="12"
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <font-awesome-icon
@@ -350,14 +365,21 @@
                                                             label="الإسم"
                                                             variant="outlined"
                                                             style="width: 100%"
-                                                            placeholder="الاسم "
+                                                            placeholder="الاسم"
                                                         >
-                                                            <font-awesome-icon
-                                                                :icon="[
-                                                                    'fas',
-                                                                    'file-signature',
-                                                                ]"
-                                                            />
+                                                            <template
+                                                                #prepend-inner
+                                                            >
+                                                                <font-awesome-icon
+                                                                    :icon="[
+                                                                        'fas',
+                                                                        'file-signature',
+                                                                    ]"
+                                                                    style="
+                                                                        margin-right: 10px;
+                                                                    "
+                                                                />
+                                                            </template>
                                                         </v-text-field>
                                                     </div>
                                                     <div
@@ -374,14 +396,21 @@
                                                             label="الإيميل"
                                                             variant="outlined"
                                                             style="width: 100%"
-                                                            placeholder=" الإيميل"
+                                                            placeholder="الإيميل"
                                                         >
-                                                            <font-awesome-icon
-                                                                :icon="[
-                                                                    'fas',
-                                                                    'at',
-                                                                ]"
-                                                            />
+                                                            <template
+                                                                #prepend-inner
+                                                            >
+                                                                <font-awesome-icon
+                                                                    :icon="[
+                                                                        'fas',
+                                                                        'at',
+                                                                    ]"
+                                                                    style="
+                                                                        margin-right: 10px;
+                                                                    "
+                                                                />
+                                                            </template>
                                                         </v-text-field>
                                                     </div>
                                                 </div>
@@ -413,20 +442,28 @@
                                                                         index
                                                                     ]
                                                                 "
-                                                                label="التليفون "
+                                                                label="التليفون"
                                                                 variant="outlined"
                                                                 class="mt-2"
                                                                 style="
                                                                     width: 100%;
                                                                 "
-                                                                placeholder=" التليفون"
+                                                                placeholder="التليفون"
                                                             >
-                                                                <font-awesome-icon
-                                                                    :icon="[
-                                                                        'fas',
-                                                                        'phone',
-                                                                    ]"
-                                                            /></v-text-field>
+                                                                <template
+                                                                    #prepend-inner
+                                                                >
+                                                                    <font-awesome-icon
+                                                                        :icon="[
+                                                                            'fas',
+                                                                            'phone',
+                                                                        ]"
+                                                                        style="
+                                                                            margin-right: 10px;
+                                                                        "
+                                                                    />
+                                                                </template>
+                                                            </v-text-field>
                                                         </div>
                                                     </div>
                                                     <div
@@ -445,12 +482,20 @@
                                                             variant="outlined"
                                                             placeholder="الرقم القومي"
                                                         >
-                                                            <font-awesome-icon
-                                                                :icon="[
-                                                                    'fas',
-                                                                    'id-card-clip',
-                                                                ]"
-                                                        /></v-text-field>
+                                                            <template
+                                                                #prepend-inner
+                                                            >
+                                                                <font-awesome-icon
+                                                                    :icon="[
+                                                                        'fas',
+                                                                        'id-card-clip',
+                                                                    ]"
+                                                                    style="
+                                                                        margin-right: 10px;
+                                                                    "
+                                                                />
+                                                            </template>
+                                                        </v-text-field>
                                                     </div>
                                                 </div>
                                             </div>
@@ -477,13 +522,22 @@
                                                     :type="inputType"
                                                     hint="At least 8 characters"
                                                     v-model="form2.password"
-                                                    label=" كلمة المرور الحالية"
+                                                    label="كلمة المرور الحالية"
                                                     name="input-10-1"
                                                     counter
                                                 >
-                                                    <font-awesome-icon
-                                                        :icon="['fas', 'lock']"
-                                                /></v-text-field>
+                                                    <template #prepend-inner>
+                                                        <font-awesome-icon
+                                                            :icon="[
+                                                                'fas',
+                                                                'lock',
+                                                            ]"
+                                                            style="
+                                                                margin-right: 10px;
+                                                            "
+                                                        />
+                                                    </template>
+                                                </v-text-field>
                                                 <v-text-field
                                                     :append-inner-icon="
                                                         showPassword2
@@ -503,9 +557,19 @@
                                                     label="كلمة المرور الجديدة"
                                                     name="input-10-1"
                                                     counter
-                                                    ><font-awesome-icon
-                                                        :icon="['fas', 'lock']"
-                                                /></v-text-field>
+                                                >
+                                                    <template #prepend-inner>
+                                                        <font-awesome-icon
+                                                            :icon="[
+                                                                'fas',
+                                                                'lock',
+                                                            ]"
+                                                            style="
+                                                                margin-right: 10px;
+                                                            "
+                                                        />
+                                                    </template>
+                                                </v-text-field>
                                                 <v-text-field
                                                     :append-inner-icon="
                                                         showPassword3
@@ -525,9 +589,17 @@
                                                     label="تاكيد كلمة المرور الجديدة"
                                                     name="input-10-1"
                                                     counter
-                                                    ><font-awesome-icon
-                                                        :icon="['fas', 'lock']"
-                                                /></v-text-field>
+                                                    ><template #prepend-inner>
+                                                        <font-awesome-icon
+                                                            :icon="[
+                                                                'fas',
+                                                                'lock',
+                                                            ]"
+                                                            style="
+                                                                margin-right: 10px;
+                                                            "
+                                                        /> </template
+                                                ></v-text-field>
                                             </div>
                                         </v-tabs-window-item>
 
@@ -559,12 +631,20 @@
                                                             placeholder=" اسم الجمعية"
                                                             type="tel"
                                                             variant="outlined"
-                                                            ><font-awesome-icon
-                                                                :icon="[
-                                                                    'fas',
-                                                                    'file-signature',
-                                                                ]"
-                                                        /></v-text-field>
+                                                        >
+                                                            <template
+                                                                #prepend-inner
+                                                            >
+                                                                <font-awesome-icon
+                                                                    :icon="[
+                                                                        'fas',
+                                                                        'file-signature',
+                                                                    ]"
+                                                                    style="
+                                                                        margin-right: 10px;
+                                                                    "
+                                                                /> </template
+                                                        ></v-text-field>
                                                     </div>
                                                     <div
                                                         class="mt-2 d-flex flex-column"
@@ -581,12 +661,21 @@
                                                             placeholder="تليفون الجمعية"
                                                             type="tel"
                                                             variant="outlined"
-                                                            ><font-awesome-icon
-                                                                :icon="[
-                                                                    'fas',
-                                                                    'phone',
-                                                                ]"
-                                                        /></v-text-field>
+                                                        >
+                                                            <template
+                                                                #prepend-inner
+                                                            >
+                                                                <font-awesome-icon
+                                                                    :icon="[
+                                                                        'fas',
+                                                                        'phone',
+                                                                    ]"
+                                                                    style="
+                                                                        margin-right: 10px;
+                                                                    "
+                                                                />
+                                                            </template>
+                                                        </v-text-field>
                                                     </div>
                                                 </div>
                                                 <div
@@ -627,12 +716,21 @@
                                                         v-model="
                                                             User_Charity.address
                                                         "
-                                                        ><font-awesome-icon
-                                                            :icon="[
-                                                                'fas',
-                                                                'location-dot',
-                                                            ]"
-                                                    /></v-text-field>
+                                                    >
+                                                        <template
+                                                            #prepend-inner
+                                                        >
+                                                            <font-awesome-icon
+                                                                :icon="[
+                                                                    'fas',
+                                                                    'location-dot',
+                                                                ]"
+                                                                style="
+                                                                    margin-right: 10px;
+                                                                "
+                                                            />
+                                                        </template>
+                                                    </v-text-field>
                                                 </div>
                                                 <div
                                                     style="
@@ -781,12 +879,19 @@
                                                                                         ]"
                                                                                         placeholder="الاسم "
                                                                                     >
-                                                                                        <font-awesome-icon
-                                                                                            :icon="[
-                                                                                                'fas',
-                                                                                                'file-signature',
-                                                                                            ]"
-                                                                                        />
+                                                                                        <template
+                                                                                            #prepend-inner
+                                                                                        >
+                                                                                            <font-awesome-icon
+                                                                                                :icon="[
+                                                                                                    'fas',
+                                                                                                    'file-signature',
+                                                                                                ]"
+                                                                                                style="
+                                                                                                    margin-right: 10px;
+                                                                                                "
+                                                                                            />
+                                                                                        </template>
                                                                                     </v-text-field>
                                                                                 </div>
                                                                                 <div
@@ -811,12 +916,19 @@
                                                                                         "
                                                                                         placeholder=" الإيميل"
                                                                                     >
-                                                                                        <font-awesome-icon
-                                                                                            :icon="[
-                                                                                                'fas',
-                                                                                                'at',
-                                                                                            ]"
-                                                                                        />
+                                                                                        <template
+                                                                                            #prepend-inner
+                                                                                        >
+                                                                                            <font-awesome-icon
+                                                                                                :icon="[
+                                                                                                    'fas',
+                                                                                                    'at',
+                                                                                                ]"
+                                                                                                style="
+                                                                                                    margin-right: 10px;
+                                                                                                "
+                                                                                            />
+                                                                                        </template>
                                                                                     </v-text-field>
                                                                                 </div>
                                                                             </div>
@@ -854,12 +966,20 @@
                                                                                             ]"
                                                                                             placeholder=" التليفون"
                                                                                         >
-                                                                                            <font-awesome-icon
-                                                                                                :icon="[
-                                                                                                    'fas',
-                                                                                                    'phone',
-                                                                                                ]"
-                                                                                        /></v-text-field>
+                                                                                            <template
+                                                                                                #prepend-inner
+                                                                                            >
+                                                                                                <font-awesome-icon
+                                                                                                    :icon="[
+                                                                                                        'fas',
+                                                                                                        'phone',
+                                                                                                    ]"
+                                                                                                    style="
+                                                                                                        margin-right: 10px;
+                                                                                                    "
+                                                                                                />
+                                                                                            </template>
+                                                                                        </v-text-field>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div
@@ -883,12 +1003,20 @@
                                                                                         variant="outlined"
                                                                                         placeholder="الرقم القومي"
                                                                                     >
-                                                                                        <font-awesome-icon
-                                                                                            :icon="[
-                                                                                                'fas',
-                                                                                                'id-card-clip',
-                                                                                            ]"
-                                                                                    /></v-text-field>
+                                                                                        <template
+                                                                                            #prepend-inner
+                                                                                        >
+                                                                                            <font-awesome-icon
+                                                                                                :icon="[
+                                                                                                    'fas',
+                                                                                                    'id-card-clip',
+                                                                                                ]"
+                                                                                                style="
+                                                                                                    margin-right: 10px;
+                                                                                                "
+                                                                                            />
+                                                                                        </template>
+                                                                                    </v-text-field>
                                                                                 </div>
                                                                             </div>
                                                                             <v-select
@@ -1027,66 +1155,6 @@
                 </v-layout>
             </div>
         </div>
-        <!-- <div>
-            <v-tabs
-                v-model="tab_1"
-                style="
-                    position: fixed;
-                    width: 100%;
-                    bottom: 0px;
-                    background: var(--main-color);
-                    color: rgb(255, 255, 255);
-                "
-                v-if="isSmallScreen"
-            >
-                <v-tab value="one">
-                    <v-row class="fill-height" align="center" justify="center">
-                        <v-col
-                            cols="12"
-                            class="d-flex flex-column align-center justify-center"
-                        >
-                            <font-awesome-icon :icon="['fas', 'id-card']" />
-                            <div class="name_of_tap">معلومات شخصية</div>
-                        </v-col>
-                    </v-row>
-                </v-tab>
-                <v-tab value="two">
-                    <v-row class="fill-height" align="center" justify="center">
-                        <v-col
-                            cols="12"
-                            class="d-flex flex-column align-center justify-center"
-                        >
-                            <font-awesome-icon :icon="['fas', 'user-lock']" />
-                            <div class="name_of_tap">الحماية</div>
-                        </v-col>
-                    </v-row>
-                </v-tab>
-                <v-tab value="three">
-                    <v-row class="fill-height" align="center" justify="center">
-                        <v-col
-                            cols="12"
-                            class="d-flex flex-column align-center justify-center"
-                        >
-                            <font-awesome-icon
-                                :icon="['fas', 'hand-holding-heart']"
-                            />
-                            <div class="name_of_tap">جمعيتك</div>
-                        </v-col>
-                    </v-row>
-                </v-tab>
-                <v-tab value="four">
-                    <v-row class="fill-height" align="center" justify="center">
-                        <v-col
-                            cols="12"
-                            class="d-flex flex-column align-center justify-center"
-                        >
-                            <font-awesome-icon :icon="['fas', 'users']" />
-                            <div class="name_of_tap">المساعدين</div>
-                        </v-col>
-                    </v-row>
-                </v-tab>
-            </v-tabs>
-        </div> -->
     </div>
 </template>
 
@@ -1380,7 +1448,7 @@ export default {
     },
     methods: {
         checkScreenSize() {
-            this.isLargeScreen = window.innerWidth >= 1024;
+            this.isLargeScreen = window.innerWidth >= 1281;
             this.isSmallScreen = window.innerWidth < 1024;
         },
 
@@ -1535,6 +1603,10 @@ export default {
         async validateForm1() {
             const res = await this.v$.form1.$validate();
             if (res) {
+                this.form1.name = this.User_Data.name;
+                this.form1.email = this.User_Data.email;
+                this.form1.phoneNumber = this.User_Data.phones;
+                this.form1.cardNumber = this.User_Data.nationalID;
                 this.testform1.push(
                     { name: this.form1.name },
                     { email: this.form1.email },
@@ -1557,11 +1629,6 @@ export default {
             const res = await this.v$.form2.$validate();
             if (this.form2.password === this.form2.Newpassword) {
                 this.passwordsMatchError = true;
-                this.testform2.push(
-                    { password: this.form2.password },
-                    { Newpassword: this.form2.Newpassword },
-                    { Newpassword2: this.form2.Newpassword2 }
-                );
 
                 this.owneerform.push({ Protectioninformation: this.testform2 });
                 console.log(this.testform2);
@@ -1573,7 +1640,16 @@ export default {
             }
             if (res) {
                 this.v$.$reset();
+                this.testform2.push(
+                    { password: this.form2.password },
+                    { Newpassword: this.form2.Newpassword },
+                    { Newpassword2: this.form2.Newpassword2 }
+                );
+                console.log(this.testform2);
+
                 this.form2.password = "";
+                this.form2.Newpassword = "";
+                this.form2.Newpassword2 = "";
 
                 this.testform2 = [];
             }
@@ -1581,6 +1657,14 @@ export default {
         async validateForm3() {
             const res = await this.v$.form3.$validate();
             if (res) {
+                this.form3.title = this.User_Charity.title;
+                this.form3.phone = this.User_Charity.phone;
+                this.form3.description = this.User_Charity.description;
+                this.form3.address = this.User_Charity.address;
+                this.form3.Charities_specialty =
+                    this.User_Charity.Charities_specialty;
+                this.form3.Package_type = this.User_Charity.Package_type;
+                this.form3.Fame_year = this.User_Charity.Fame_year;
                 this.testform3.push(
                     { Charities_title: this.form3.title },
                     { Charities_Social_media: this.User_Charity.Social_media },
@@ -1592,19 +1676,7 @@ export default {
                             this.form3.Charities_specialty,
                     },
                     { Charities_Package_type: this.form3.Package_type },
-                    { Charities_Fame_year: this.form3.Fame_year },
-                    {
-                        Facebook: this.User_Charity.Facebook,
-                    },
-                    {
-                        Twitter: this.User_Charity.Twitter,
-                    },
-                    {
-                        whatsapp: this.User_Charity.whatsapp,
-                    },
-                    {
-                        Youtube: this.User_Charity.Youtube,
-                    }
+                    { Charities_Fame_year: this.form3.Fame_year }
                 );
                 this.owneerform.push({
                     AssociationInformation: this.testform3,
@@ -1634,9 +1706,18 @@ export default {
         async validateForm4() {
             const res = await this.v$.form4.$validate();
             if (res) {
-                this.testform4.push(this.storedArray);
+                // this.testform4.push(this.storedArray);
 
-                this.owneerform.push({ Helpers: this.testform4 });
+                this.testform4.push({
+                    name: this.AssistantName,
+                    nationalID: this.nationalNumberAssistant,
+                    phone: this.AssistantPhoneNumber,
+                    email: this.AssistantEmail,
+                    type: "assistant",
+                    password: this.randomPassword,
+                    permissions: this.AssistantPowerss,
+                    charity_ID: this.Charity_id,
+                });
                 this.test_num_form = 1;
                 console.log(this.testform4);
 
@@ -1721,11 +1802,7 @@ export default {
             );
         },
         removeItem(index) {
-            this.storedArray.splice(index, 1);
-            localStorage.setItem(
-                "formmosed2",
-                JSON.stringify(this.storedArray)
-            );
+            this.testform4.splice(index, 1);
         },
         generateRandomPassword() {
             // توليد كلمة مرور عشوائية
@@ -1745,14 +1822,15 @@ export default {
             this.visible = !this.visible;
         },
         async copyPassword() {
+            const toast = useToast();
             try {
                 await navigator.clipboard.writeText(this.randomPassword);
-                const toast = useToast();
-                toast.success("تم نسخ الباسورد!", { color: "blue" });
+                toast.success("تم نسخ الباسورد!");
             } catch (err) {
                 console.error("Failed to copy text: ", err);
-                const toast = useToast();
-                toast.error("فشل في نسخ الباسورد", { color: "blue" });
+                toast.error("فشل في نسخ الباسورد", {
+                    className: "custom-toast-error",
+                });
             }
         },
     },
@@ -1836,7 +1914,7 @@ export default {
     background-size: cover;
     background-position: right top;
     background-attachment: fixed;
-    min-height: 84vh;
+    min-height: 90vh;
     padding-bottom: 80px;
     .profile {
         display: flex;
@@ -2065,9 +2143,24 @@ button.add {
     .v-btn__content svg {
         font-size: 25px;
     }
-
+    .name_of_tap {
+        display: none;
+    }
     .body .box {
         width: 100%;
     }
+}
+.v-slide-group {
+    margin-right: -20px !important;
+}
+@media (max-width: 600px) {
+    .hide-on-small-screens {
+        display: none;
+    }
+}
+
+.custom-toast-error {
+    background-color: blue !important;
+    color: white !important;
 }
 </style>
