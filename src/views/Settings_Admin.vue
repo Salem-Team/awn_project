@@ -2106,11 +2106,12 @@ button.add {
 }
 @media (max-width: 767px) {
     .v-btn__content svg {
-        font-size: 25px;
+        font-size: 16px;
     }
     .name_of_tap {
-        display: none;
+        font-size: 12px;
     }
+
     .body .box {
         width: 100%;
     }
