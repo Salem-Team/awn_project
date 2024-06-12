@@ -1,13 +1,13 @@
 <template>
     <Offline_error>
         <template v-slot:default>
-            <Empty_error v-if="empty == true" />
+            <Empty_error v-if="empty === true" :text="text0" />
             <div class="cases" v-else-if="empty !== true">
                 <div
                     class="box"
-                    :class="'box ' + Case.personal_info.national_id"
+                    :class="'box ' + Case.id"
                     v-for="(Case, index) in paginatedCases"
-                    :key="Case"
+                    :key="Case.id"
                 >
                     <div class="feat">
                         <span>
@@ -960,7 +960,10 @@ import {
     getFirestore,
     getDocs,
     deleteDoc,
+    //getDoc,
+    //query,
     collection,
+    //where,
     doc,
 } from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
@@ -984,7 +987,12 @@ export default {
     components: { Empty_error, Offline_error },
     props: ["search"],
     inject: ["Emitter"],
-    emits: ["child-result", "filteredCases", "child-result1"],
+    emits: [
+        "child-result",
+        "filteredCases",
+        "child-result1",
+        "sumFinancialData",
+    ],
     data: () => ({
         Personal_Information: "",
         knowledge: 33,
@@ -1001,7 +1009,7 @@ export default {
         text3: "لا توجد معلومات عن المسكن",
         text4: "لا توجد معلومات عن احتياجات الأسرة",
         tab: null,
-        loading: false, // Loading state
+        loading: true, // Loading state
         currentPage: 1, // Current page
         pageSize: 5, // Number of cases per page
         Cases_length: 0,
@@ -1121,18 +1129,60 @@ export default {
         Send_Function_To_Perant() {
             this.$emit("Send_Function_To_Perant", this.Get_data());
         },
+
+        //geting the user charity_ID
+        /*async Get_data() {
+            try {
+                this.loading = true; // Set loading to true before fetching data
+                this.Cases = [];
+                if (localStorage.getItem("id")) {
+                    const docRef = doc(db, "Users", localStorage.getItem("id"));
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        const charityId = docSnap.data().charity_ID;
+                        if (charityId) {
+                            // Check if charityId is defined
+                            const querySnapshot = await getDocs(
+                                query(
+                                    collection(db, "Cases"),
+                                    where("charity_ID", "==", charityId)
+                                )
+                            );
+
+                            querySnapshot.forEach((doc) => {
+                                this.Cases.push(doc.data());
+                                this.originalCases = this.Cases;
+                            });
+                            this.Cases_length = this.Cases.length;
+                            console.log("this.Cases", this.Cases);
+                            if (this.Cases.length === 0) {
+                                this.empty = true;
+                                // Method to check internet connection status
+                                this.startInternetCheckerUse();
+                            } else {
+                                this.empty = false;
+                            }
+                            this.$emit("child-result", this.Cases_length);
+                            this.loading = false; // Set loading to false after data is loaded
+                            this.sumFinancialData();
+                        } else {
+                            this.loading = false; // Set loading to false after data is loaded
+                            console.log(
+                                "Charity ID is undefined in the user document."
+                            );
+                            // Handle the case where charity ID is undefined
+                        }
+                    } else {
+                        // docSnap.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+            }
+        },*/
         async Get_data() {
             try {
-                // Check if the internet connection is available
-                if (!navigator.onLine) {
-                    this.loading = false;
-                    console.log("No internet connection");
-                    alert(
-                        "الإنترنت غير متصل. يرجى التحقق من الاتصال الخاص بك."
-                    );
-                    return;
-                }
-
                 this.loading = true; // Set loading to true before fetching data
                 this.Cases = [];
                 const querySnapshot = await getDocs(collection(db, "Cases"));
@@ -1156,7 +1206,6 @@ export default {
                 console.error("Error adding document: ", error);
             }
         },
-
         // Loop through each case to extract financial_info
         sumFinancialData() {
             this.deficit = 0;
@@ -1179,7 +1228,9 @@ export default {
         filteredCase() {
             this.$emit("filteredCases");
         },
-
+        sumFinancialDatas() {
+            this.$emit("sumFinancialData");
+        },
         async deleteCase(caseId) {
             try {
                 // Log before attempting to delete
@@ -1204,9 +1255,7 @@ export default {
                 } else {
                     console.log("Case not found in Cases array");
                 }
-                this.sumFinancialData();
-                this.$emit("sumFinancialData");
-                this.Cases_length = this.Cases.length;
+                this.sumFinancialDatas();
             } catch (error) {
                 console.error("Error deleting case:", error);
                 // Check if Firestore returned any specific error message

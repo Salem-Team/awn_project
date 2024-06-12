@@ -612,7 +612,6 @@
                                 (dialog_1 = false)
                         "
                         :class="{
-                            footer,
                             active: isActive === 'up',
                         }"
                     >
@@ -817,6 +816,7 @@
                 </div>
             </v-dialog>
         </v-container>
+        <Add_cases v-if="Show_Add" :close_function="close_function" />
     </div>
 </template>
 
@@ -922,7 +922,7 @@ export default {
             this.funCalories_STL(),
             this.funCalories_LTS();
         this.$refs.childComponentRef.filteredCase();
-        this.$refs.childComponentRef.sumFinancialData();
+        this.$refs.childComponentRef.sumFinancialDatas();
     },
     methods: {
         // Method to check internet connection status
@@ -977,6 +977,7 @@ export default {
             this.Show_Add = !this.Show_Add;
             this.dialog = false;
             this.Get_data();
+            this.$refs.childComponentRef.Get_data();
         },
         toggleActive(direction) {
             if (direction === "up") {
