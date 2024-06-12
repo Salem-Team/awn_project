@@ -1174,12 +1174,12 @@ export default {
                 }
             });
 
-            // إرسال القيمة إلى الأب
-            this.$emit("child-result1", this.required - this.incom);
+            this.value = Math.round((this.incom / this.required) * 100);
         },
         filteredCase() {
             this.$emit("filteredCases");
         },
+
         async deleteCase(caseId) {
             try {
                 // Log before attempting to delete
@@ -1192,19 +1192,21 @@ export default {
                     "Case deleted from Firestore successfully:",
                     caseId
                 );
-                // Reload the website after 3 seconds
-                setTimeout(function () {
-                    location.reload();
-                }, 3000);
+                // Find the index of the Case in the Cases array
+                const index = this.Cases.findIndex(
+                    (Case) => Case.id === caseId
+                );
 
-                // Remove the deleted case from the local Cases array
-                this.Cases = this.Cases.filter(
-                    (caseItem) => caseItem.personal_info.name !== caseId
-                );
-                console.log(
-                    "Case deleted from local array successfully:",
-                    caseId
-                );
+                // If the Case is found in the Cases array, remove it
+                if (index !== -1) {
+                    this.Cases.splice(index, 1);
+                    console.log("Case deleted successfully from Cases array");
+                } else {
+                    console.log("Case not found in Cases array");
+                }
+                this.sumFinancialData();
+                this.$emit("sumFinancialData");
+                this.Cases_length = this.Cases.length;
             } catch (error) {
                 console.error("Error deleting case:", error);
                 // Check if Firestore returned any specific error message

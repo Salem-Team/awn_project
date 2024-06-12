@@ -987,8 +987,8 @@
                                                         <div class="delete">
                                                             <font-awesome-icon
                                                                 @click="
-                                                                    removeItem(
-                                                                        index
+                                                                    deleteAssistant(
+                                                                        item.id
                                                                     )
                                                                 "
                                                                 :icon="[
@@ -1114,6 +1114,7 @@ import {
     addDoc,
     updateDoc,
     getDocs,
+    deleteDoc,
 } from "@firebase/firestore";
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -1416,6 +1417,30 @@ export default {
             });
             console.log("Document written with ID: ", docRef.id);
             this.Get_Assistant();
+        },
+        async deleteAssistant(UsersId) {
+            try {
+                // Delete the document from Firestore
+                await deleteDoc(doc(db, "Users", UsersId));
+                console.log("Assistant deleted successfully from Firestore");
+
+                // Find the index of the assistant in the All_Assistant array
+                const index = this.All_Assistant.findIndex(
+                    (assistant) => assistant.id === UsersId
+                );
+
+                // If the assistant is found in the All_Assistant array, remove it
+                if (index !== -1) {
+                    this.All_Assistant.splice(index, 1);
+                    console.log(
+                        "Assistant deleted successfully from All_Assistant array"
+                    );
+                } else {
+                    console.log("Assistant not found in All_Assistant array");
+                }
+            } catch (error) {
+                console.error("Error deleting Assistant:", error);
+            }
         },
         async Check_User() {
             if (localStorage.getItem("id")) {
