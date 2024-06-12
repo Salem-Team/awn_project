@@ -15,12 +15,12 @@
                 </div>
                 <div class="main_box">
                     <div class="small_box">
-                        <div class="number">{{ Cases_length || 0 }}</div>
+                        <div class="number">{{ Cases.length || 0 }}</div>
                         <span>حالة</span>
                     </div>
                     <div class="small_box">
                         <div class="number">
-                            {{ required }}
+                            {{ this.required }}
 
                             <!-- <span>جنية</span> -->
                         </div>
@@ -52,10 +52,12 @@
                                     :width="20"
                                     color="var(--main-color)"
                                     style="font-size: 15px"
-                                    :model-value="value || 0"
+                                    :model-value="this.value || 0"
                                 >
                                     <template #default>
-                                        <strong> {{ value || 0 }}% </strong>
+                                        <strong>
+                                            {{ this.value || 0 }}%
+                                        </strong>
                                     </template>
                                 </v-progress-circular>
                                 <p>نسبة إكمال المطلوب</p>
@@ -251,54 +253,72 @@
                                 أبجدي
                             </div>
                             <div style="display: flex; gap: 10px">
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-wide-short']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
-                                    v-model="isActive"
-                                    @click="
-                                        toggleActive('up'),
-                                            funAtZClicked(),
-                                            (isActive0 = null),
-                                            (isActive2 = null),
-                                            (isActive3 = null),
-                                            (isActive4 = null)
-                                    "
-                                    :class="{
-                                        active: isActive === 'up',
-                                    }"
-                                />
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-short-wide']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
-                                    v-model="isActive"
-                                    @click="
-                                        toggleActive('down'),
-                                            funZtAClicked(),
-                                            (isActive0 = null),
-                                            (isActive2 = null),
-                                            (isActive3 = null),
-                                            (isActive4 = null)
-                                    "
-                                    :class="{
-                                        active: isActive === 'down',
-                                    }"
-                                />
+                                <v-btn-toggle
+                                    v-model="isActive1"
+                                    style="padding-left: 150px"
+                                >
+                                    <v-btn
+                                        small
+                                        v-model="isActive"
+                                        @click="
+                                            toggleActive('up'),
+                                                funAtZClicked(),
+                                                (isActive0 = null),
+                                                (isActive2 = null),
+                                                (isActive3 = null),
+                                                (isActive4 = null),
+                                                (dialog_1 = false)
+                                        "
+                                        :class="{
+                                            active: isActive === 'up',
+                                        }"
+                                        style="margin-left: 10px"
+                                    >
+                                        <font-awesome-icon
+                                            :icon="[
+                                                'fas',
+                                                'arrow-up-wide-short',
+                                            ]"
+                                            style="
+                                                background: #fff;
+                                                width: 50px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                color: var(--main-color);
+                                            "
+                                        />
+                                    </v-btn>
+                                    <v-btn
+                                        small
+                                        v-model="isActive"
+                                        @click="
+                                            toggleActive('down'),
+                                                funZtAClicked(),
+                                                (isActive0 = null),
+                                                (isActive2 = null),
+                                                (isActive3 = null),
+                                                (isActive4 = null),
+                                                (dialog_1 = false)
+                                        "
+                                        :class="{
+                                            active: isActive === 'down',
+                                        }"
+                                    >
+                                        <font-awesome-icon
+                                            :icon="[
+                                                'fas',
+                                                'arrow-up-short-wide',
+                                            ]"
+                                            style="
+                                                background: #fff;
+                                                width: 50px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                color: var(--main-color);
+                                            "
+                                        />
+                                    </v-btn>
+                                </v-btn-toggle>
                             </div>
                         </div>
                         <div
@@ -324,54 +344,72 @@
                                 العجز
                             </div>
                             <div style="display: flex; gap: 10px">
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-wide-short']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
-                                    v-model="isActive"
-                                    @click="
-                                        toggleActive('up'),
-                                            funCards_STL(),
-                                            (isActive1 = null),
-                                            (isActive0 = null),
-                                            (isActive3 = null),
-                                            (isActive4 = null)
-                                    "
-                                    :class="{
-                                        active: isActive === 'up',
-                                    }"
-                                />
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-short-wide']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
-                                    v-model="isActive"
-                                    @click="
-                                        toggleActive('down'),
-                                            funCards_LTS(),
-                                            (isActive1 = null),
-                                            (isActive0 = null),
-                                            (isActive3 = null),
-                                            (isActive4 = null)
-                                    "
-                                    :class="{
-                                        active: isActive === 'down',
-                                    }"
-                                />
+                                <v-btn-toggle
+                                    v-model="isActive2"
+                                    style="padding-left: 150px"
+                                >
+                                    <v-btn
+                                        small
+                                        v-model="isActive"
+                                        @click="
+                                            toggleActive('up'),
+                                                funCards_STL(),
+                                                (isActive1 = null),
+                                                (isActive0 = null),
+                                                (isActive3 = null),
+                                                (isActive4 = null),
+                                                (dialog_1 = false)
+                                        "
+                                        :class="{
+                                            active: isActive === 'up',
+                                        }"
+                                        style="margin-left: 10px"
+                                    >
+                                        <font-awesome-icon
+                                            :icon="[
+                                                'fas',
+                                                'arrow-up-wide-short',
+                                            ]"
+                                            style="
+                                                background: #fff;
+                                                width: 50px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                color: var(--main-color);
+                                            "
+                                        />
+                                    </v-btn>
+                                    <v-btn
+                                        small
+                                        v-model="isActive"
+                                        @click="
+                                            toggleActive('down'),
+                                                funCards_LTS(),
+                                                (isActive1 = null),
+                                                (isActive0 = null),
+                                                (isActive3 = null),
+                                                (isActive4 = null),
+                                                (dialog_1 = false)
+                                        "
+                                        :class="{
+                                            active: isActive === 'down',
+                                        }"
+                                    >
+                                        <font-awesome-icon
+                                            :icon="[
+                                                'fas',
+                                                'arrow-up-short-wide',
+                                            ]"
+                                            style="
+                                                background: #fff;
+                                                width: 50px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                color: var(--main-color);
+                                            "
+                                        />
+                                    </v-btn>
+                                </v-btn-toggle>
                             </div>
                         </div>
                         <div
@@ -397,54 +435,72 @@
                                 الدخل
                             </div>
                             <div style="display: flex; gap: 10px">
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-wide-short']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
-                                    v-model="isActive"
-                                    @click="
-                                        toggleActive('up'),
-                                            funFat_STL(),
-                                            (isActive1 = null),
-                                            (isActive2 = null),
-                                            (isActive0 = null),
-                                            (isActive4 = null)
-                                    "
-                                    :class="{
-                                        active: isActive === 'up',
-                                    }"
-                                />
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-short-wide']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
-                                    v-model="isActive"
-                                    @click="
-                                        toggleActive('down'),
-                                            funFat_LTS(),
-                                            (isActive1 = null),
-                                            (isActive2 = null),
-                                            (isActive0 = null),
-                                            (isActive4 = null)
-                                    "
-                                    :class="{
-                                        active: isActive === 'down',
-                                    }"
-                                />
+                                <v-btn-toggle
+                                    v-model="isActive3"
+                                    style="padding-left: 150px"
+                                >
+                                    <v-btn
+                                        small
+                                        v-model="isActive"
+                                        @click="
+                                            toggleActive('up'),
+                                                funFat_STL(),
+                                                (isActive1 = null),
+                                                (isActive2 = null),
+                                                (isActive0 = null),
+                                                (isActive4 = null),
+                                                (dialog_1 = false)
+                                        "
+                                        :class="{
+                                            active: isActive === 'up',
+                                        }"
+                                        style="margin-left: 10px"
+                                    >
+                                        <font-awesome-icon
+                                            :icon="[
+                                                'fas',
+                                                'arrow-up-wide-short',
+                                            ]"
+                                            style="
+                                                background: #fff;
+                                                width: 50px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                color: var(--main-color);
+                                            "
+                                        />
+                                    </v-btn>
+                                    <v-btn
+                                        small
+                                        v-model="isActive"
+                                        @click="
+                                            toggleActive('down'),
+                                                funFat_LTS(),
+                                                (isActive1 = null),
+                                                (isActive2 = null),
+                                                (isActive0 = null),
+                                                (isActive4 = null),
+                                                (dialog_1 = false)
+                                        "
+                                        :class="{
+                                            active: isActive === 'down',
+                                        }"
+                                    >
+                                        <font-awesome-icon
+                                            :icon="[
+                                                'fas',
+                                                'arrow-up-short-wide',
+                                            ]"
+                                            style="
+                                                background: #fff;
+                                                width: 50px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                color: var(--main-color);
+                                            "
+                                        />
+                                    </v-btn>
+                                </v-btn-toggle>
                             </div>
                         </div>
                         <div
@@ -469,18 +525,12 @@
                             >
                                 المطلوب
                             </div>
-                            <div style="display: flex; gap: 10px">
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-wide-short']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
+                            <v-btn-toggle
+                                v-model="isActive4"
+                                style="padding-left: 150px"
+                            >
+                                <v-btn
+                                    small
                                     v-model="isActive"
                                     @click="
                                         toggleActive('up'),
@@ -488,23 +538,27 @@
                                             (isActive1 = null),
                                             (isActive2 = null),
                                             (isActive3 = null),
-                                            (isActive0 = null)
+                                            (isActive0 = null),
+                                            (dialog_1 = false)
                                     "
                                     :class="{
                                         active: isActive === 'up',
                                     }"
-                                />
-                                <font-awesome-icon
-                                    :icon="['fas', 'arrow-up-short-wide']"
-                                    style="
-                                        background: #fff;
-                                        width: 50px;
-                                        padding: 10px;
-                                        border-radius: 5px;
-                                        font-weight: bold;
-                                        cursor: pointer;
-                                        color: var(--main-color);
-                                    "
+                                    style="margin-left: 10px"
+                                >
+                                    <font-awesome-icon
+                                        :icon="['fas', 'arrow-up-wide-short']"
+                                        style="
+                                            background: #fff;
+                                            font-weight: bold;
+                                            width: 50px;
+                                            cursor: pointer;
+                                            color: var(--main-color);
+                                        "
+                                    />
+                                </v-btn>
+                                <v-btn
+                                    small
                                     v-model="isActive"
                                     @click="
                                         toggleActive('down'),
@@ -512,13 +566,25 @@
                                             (isActive1 = null),
                                             (isActive2 = null),
                                             (isActive3 = null),
-                                            (isActive0 = null)
+                                            (isActive0 = null),
+                                            (dialog_1 = false)
                                     "
                                     :class="{
                                         active: isActive === 'down',
                                     }"
-                                />
-                            </div>
+                                >
+                                    <font-awesome-icon
+                                        :icon="['fas', 'arrow-up-short-wide']"
+                                        style="
+                                            background: #fff;
+                                            width: 50px;
+                                            font-weight: bold;
+                                            cursor: pointer;
+                                            color: var(--main-color);
+                                        "
+                                    />
+                                </v-btn>
+                            </v-btn-toggle>
                         </div>
                     </div>
                     <v-btn
@@ -542,7 +608,8 @@
                                 (isActive1 = null),
                                 (isActive2 = null),
                                 (isActive3 = null),
-                                (isActive4 = null)
+                                (isActive4 = null),
+                                (dialog_1 = false)
                         "
                         :class="{
                             footer,
@@ -855,6 +922,7 @@ export default {
             this.funCalories_STL(),
             this.funCalories_LTS();
         this.$refs.childComponentRef.filteredCase();
+        this.$refs.childComponentRef.sumFinancialData();
     },
     methods: {
         // Method to check internet connection status
@@ -879,7 +947,6 @@ export default {
                 }
             } catch (error) {
                 console.error("Error adding document: ", error);
-                // this.$refs.childComponentRef.startInternetChecke();
             }
         },
         sumFinancialData() {
@@ -932,8 +999,10 @@ export default {
         Swap() {
             this.Emitter.emit("change_view");
         },
-
-        filteredCases() {
+        sumFinancialDatas() {
+            this.Emitter.emit("sumFinancialData");
+        },
+        filteredCase() {
             this.Emitter.emit("filteredCases");
         },
         // / Firts Function ordered By >>>> Swap BT Latest && Oldest
