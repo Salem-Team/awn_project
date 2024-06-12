@@ -106,6 +106,6 @@ input:focus {
 .Vue-Toastification__toast--success {
     background: var(--main-color) !important;
     color: white !important;
-    margin-top: 100px;
+    z-index: 1000000000000000000000000000000;
 }
 </style>

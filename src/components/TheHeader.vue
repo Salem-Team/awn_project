@@ -205,7 +205,7 @@ export default {
     width: 100%;
     background: white;
     box-shadow: 0 0 10px white;
-    z-index: 10000000;
+    z-index: 10;
     .container {
         display: flex;
         align-items: center;

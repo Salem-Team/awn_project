@@ -23,21 +23,25 @@
                             <v-list-item
                                 prepend-icon="mdi-id-card"
                                 title="المعلومات الشخصيه"
+                                :class="{ active: tab_1 === 'one' }"
                                 @click="tab_1 = 'one'"
                             ></v-list-item>
                             <v-list-item
                                 prepend-icon="mdi mdi-account-lock"
                                 title="الحمايه"
+                                :class="{ active: tab_1 === 'two' }"
                                 @click="tab_1 = 'two'"
                             ></v-list-item>
                             <v-list-item
                                 prepend-icon="mdi-hand-heart"
                                 title="جمعيتك"
+                                :class="{ active: tab_1 === 'three' }"
                                 @click="tab_1 = 'three'"
                             ></v-list-item>
                             <v-list-item
                                 prepend-icon="mdi-account-multiple"
                                 title="المساعدين"
+                                :class="{ active: tab_1 === 'four' }"
                                 @click="tab_1 = 'four'"
                             ></v-list-item>
                         </v-list>
@@ -45,7 +49,9 @@
 
                     <v-main>
                         <div class="profile d-flex justify-content-between">
-                            <div>
+                            <div
+                                class="d-flex justify-content-between align-center"
+                            >
                                 <img
                                     src="../assets/images/social-page.gif"
                                     alt=""
@@ -60,6 +66,7 @@
                                 @click="validateForm1"
                                 v-if="tab_1 == 'one'"
                                 style="margin-top: 30px"
+                                :class="{ disabled: isFormEmpty1 }"
                             >
                                 حفظ
                                 <span class="hide-on-small-screens"
@@ -71,6 +78,7 @@
                                 @click="validateForm2"
                                 v-if="tab_1 == 'two'"
                                 style="margin-top: 30px"
+                                :class="{ disabled: isFormEmpty2 }"
                             >
                                 حفظ
                                 <span class="hide-on-small-screens"
@@ -82,6 +90,7 @@
                                 @click="validateForm3"
                                 v-if="tab_1 == 'three'"
                                 style="margin-top: 30px"
+                                :class="{ disabled: isFormEmpty3 }"
                             >
                                 حفظ
                                 <span class="hide-on-small-screens"
@@ -366,6 +375,9 @@
                                                             variant="outlined"
                                                             style="width: 100%"
                                                             placeholder="الاسم"
+                                                            @input="
+                                                                updateFormEmpty1
+                                                            "
                                                         >
                                                             <template
                                                                 #prepend-inner
@@ -397,6 +409,9 @@
                                                             variant="outlined"
                                                             style="width: 100%"
                                                             placeholder="الإيميل"
+                                                            @input="
+                                                                updateFormEmpty1
+                                                            "
                                                         >
                                                             <template
                                                                 #prepend-inner
@@ -449,6 +464,9 @@
                                                                     width: 100%;
                                                                 "
                                                                 placeholder="التليفون"
+                                                                @input="
+                                                                    updateFormEmpty1
+                                                                "
                                                             >
                                                                 <template
                                                                     #prepend-inner
@@ -481,6 +499,9 @@
                                                             label="الرقم القومي"
                                                             variant="outlined"
                                                             placeholder="الرقم القومي"
+                                                            @input="
+                                                                updateFormEmpty1
+                                                            "
                                                         >
                                                             <template
                                                                 #prepend-inner
@@ -519,12 +540,12 @@
                                                         rules.required,
                                                         rules.min,
                                                     ]"
-                                                    :type="inputType"
                                                     hint="At least 8 characters"
                                                     v-model="form2.password"
                                                     label="كلمة المرور الحالية"
                                                     name="input-10-1"
                                                     counter
+                                                    @input="updateFormEmpty2"
                                                 >
                                                     <template #prepend-inner>
                                                         <font-awesome-icon
@@ -551,11 +572,11 @@
                                                         rules.required,
                                                         rules.min,
                                                     ]"
-                                                    :type="inputType2"
                                                     hint="At least 8 characters"
                                                     v-model="form2.Newpassword"
                                                     label="كلمة المرور الجديدة"
                                                     name="input-10-1"
+                                                    @input="updateFormEmpty2"
                                                     counter
                                                 >
                                                     <template #prepend-inner>
@@ -583,9 +604,9 @@
                                                         rules.required,
                                                         rules.min,
                                                     ]"
-                                                    :type="inputType3"
                                                     hint="At least 8 characters"
                                                     v-model="form2.Newpassword2"
+                                                    @input="updateFormEmpty2"
                                                     label="تاكيد كلمة المرور الجديدة"
                                                     name="input-10-1"
                                                     counter
@@ -610,7 +631,7 @@
                                             >
                                                 <div
                                                     style="
-                                                        widht: 100%;
+                                                        width: 100%;
                                                         display: flex;
                                                         justify-content: space-between;
                                                         align-items: center;
@@ -627,10 +648,13 @@
                                                             v-model="
                                                                 User_Charity.title
                                                             "
-                                                            label=" اسم الجمعية"
-                                                            placeholder=" اسم الجمعية"
+                                                            label="اسم الجمعية"
+                                                            placeholder="اسم الجمعية"
                                                             type="tel"
                                                             variant="outlined"
+                                                            @input="
+                                                                updateFormEmpty3
+                                                            "
                                                         >
                                                             <template
                                                                 #prepend-inner
@@ -643,8 +667,9 @@
                                                                     style="
                                                                         margin-right: 10px;
                                                                     "
-                                                                /> </template
-                                                        ></v-text-field>
+                                                                />
+                                                            </template>
+                                                        </v-text-field>
                                                     </div>
                                                     <div
                                                         class="mt-2 d-flex flex-column"
@@ -657,10 +682,13 @@
                                                             v-model="
                                                                 User_Charity.phone
                                                             "
-                                                            label=" تليفون الجمعية"
+                                                            label="تليفون الجمعية"
                                                             placeholder="تليفون الجمعية"
                                                             type="tel"
                                                             variant="outlined"
+                                                            @input="
+                                                                updateFormEmpty3
+                                                            "
                                                         >
                                                             <template
                                                                 #prepend-inner
@@ -694,13 +722,22 @@
                                                             User_Charity.description
                                                         "
                                                         placeholder="وصف قصير للجمعية"
+                                                        @input="
+                                                            updateFormEmpty3
+                                                        "
                                                         label="وصف قصير للجمعية"
-                                                        ><font-awesome-icon
-                                                            :icon="[
-                                                                'fas',
-                                                                'circle-info',
-                                                            ]"
-                                                    /></v-textarea>
+                                                    >
+                                                        <template
+                                                            #prepend-inner
+                                                        >
+                                                            <font-awesome-icon
+                                                                :icon="[
+                                                                    'fas',
+                                                                    'circle-info',
+                                                                ]"
+                                                            />
+                                                        </template>
+                                                    </v-textarea>
                                                 </div>
                                                 <div
                                                     class="mt-2 d-flex flex-column"
@@ -715,6 +752,9 @@
                                                         placeholder="العنوان"
                                                         v-model="
                                                             User_Charity.address
+                                                        "
+                                                        @input="
+                                                            updateFormEmpty3
                                                         "
                                                     >
                                                         <template
@@ -734,7 +774,7 @@
                                                 </div>
                                                 <div
                                                     style="
-                                                        widht: 100%;
+                                                        width: 100%;
                                                         display: flex;
                                                         justify-content: space-between;
                                                         align-items: center;
@@ -754,6 +794,9 @@
                                                             "
                                                             placeholder="رقم الشهرة"
                                                             label="رقم الشهرة"
+                                                            @input="
+                                                                updateFormEmpty3
+                                                            "
                                                         ></v-text-field>
                                                     </div>
                                                     <div
@@ -773,6 +816,9 @@
                                                             "
                                                             placeholder="لسنة"
                                                             label="لسنة"
+                                                            @input="
+                                                                updateFormEmpty3
+                                                            "
                                                         ></v-text-field>
                                                     </div>
                                                 </div>
@@ -797,6 +843,7 @@
                                                             <v-dialog
                                                                 transition="dialog-bottom-transition"
                                                                 width="90%"
+                                                                v-model="dialog"
                                                             >
                                                                 <template
                                                                     v-slot:activator="{
@@ -817,6 +864,10 @@
                                                                                 filter: grayscale(
                                                                                     1
                                                                                 );
+                                                                            "
+                                                                            @click="
+                                                                                dialog ==
+                                                                                    true
                                                                             "
                                                                         />
                                                                     </div>
@@ -848,123 +899,39 @@
                                                                                 ]"
                                                                             />
                                                                         </div>
-                                                                        <div
-                                                                            class="the_body"
+                                                                        <v-form
+                                                                            ref="form"
                                                                         >
                                                                             <div
-                                                                                style="
-                                                                                    display: flex;
-                                                                                    justify-content: space-between;
-                                                                                    align-items: center;
-                                                                                "
-                                                                            >
-                                                                                <div
-                                                                                    class="mt-2 d-flex flex-column"
-                                                                                    style="
-                                                                                        width: 48%;
-                                                                                        position: relative;
-                                                                                    "
-                                                                                >
-                                                                                    <v-text-field
-                                                                                        v-model="
-                                                                                            AssistantName
-                                                                                        "
-                                                                                        label="الإسم"
-                                                                                        variant="outlined"
-                                                                                        style="
-                                                                                            width: 100%;
-                                                                                        "
-                                                                                        :rules="[
-                                                                                            required1,
-                                                                                        ]"
-                                                                                        placeholder="الاسم "
-                                                                                    >
-                                                                                        <template
-                                                                                            #prepend-inner
-                                                                                        >
-                                                                                            <font-awesome-icon
-                                                                                                :icon="[
-                                                                                                    'fas',
-                                                                                                    'file-signature',
-                                                                                                ]"
-                                                                                                style="
-                                                                                                    margin-right: 10px;
-                                                                                                "
-                                                                                            />
-                                                                                        </template>
-                                                                                    </v-text-field>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="mt-2 d-flex flex-column"
-                                                                                    style="
-                                                                                        width: 48%;
-                                                                                        position: relative;
-                                                                                    "
-                                                                                >
-                                                                                    <v-text-field
-                                                                                        v-model="
-                                                                                            AssistantEmail
-                                                                                        "
-                                                                                        :rules="[
-                                                                                            required3,
-                                                                                        ]"
-                                                                                        type="email"
-                                                                                        label="الإيميل"
-                                                                                        variant="outlined"
-                                                                                        style="
-                                                                                            width: 100%;
-                                                                                        "
-                                                                                        placeholder=" الإيميل"
-                                                                                    >
-                                                                                        <template
-                                                                                            #prepend-inner
-                                                                                        >
-                                                                                            <font-awesome-icon
-                                                                                                :icon="[
-                                                                                                    'fas',
-                                                                                                    'at',
-                                                                                                ]"
-                                                                                                style="
-                                                                                                    margin-right: 10px;
-                                                                                                "
-                                                                                            />
-                                                                                        </template>
-                                                                                    </v-text-field>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div
-                                                                                style="
-                                                                                    display: flex;
-                                                                                    justify-content: space-between;
-                                                                                    align-items: center;
-                                                                                "
+                                                                                class="the_body"
                                                                             >
                                                                                 <div
                                                                                     style="
-                                                                                        width: 48%;
-                                                                                        position: relative;
+                                                                                        display: flex;
+                                                                                        justify-content: space-between;
+                                                                                        align-items: center;
                                                                                     "
                                                                                 >
                                                                                     <div
                                                                                         class="mt-2 d-flex flex-column"
                                                                                         style="
-                                                                                            width: 100%;
+                                                                                            width: 48%;
+                                                                                            position: relative;
                                                                                         "
                                                                                     >
                                                                                         <v-text-field
                                                                                             v-model="
-                                                                                                AssistantPhoneNumber
+                                                                                                AssistantName
                                                                                             "
-                                                                                            label="التليفون "
+                                                                                            label="الإسم"
                                                                                             variant="outlined"
-                                                                                            class="mt-2"
                                                                                             style="
                                                                                                 width: 100%;
                                                                                             "
                                                                                             :rules="[
-                                                                                                required2,
+                                                                                                required1,
                                                                                             ]"
-                                                                                            placeholder=" التليفون"
+                                                                                            placeholder="الاسم"
                                                                                         >
                                                                                             <template
                                                                                                 #prepend-inner
@@ -972,7 +939,45 @@
                                                                                                 <font-awesome-icon
                                                                                                     :icon="[
                                                                                                         'fas',
-                                                                                                        'phone',
+                                                                                                        'file-signature',
+                                                                                                    ]"
+                                                                                                    style="
+                                                                                                        margin-right: 10px;
+                                                                                                    "
+                                                                                                />
+                                                                                            </template>
+                                                                                        </v-text-field>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        style="
+                                                                                            width: 48%;
+                                                                                            position: relative;
+                                                                                        "
+                                                                                    >
+                                                                                        <v-text-field
+                                                                                            v-model="
+                                                                                                AssistantEmail
+                                                                                            "
+                                                                                            :rules="[
+                                                                                                required3,
+                                                                                                emailRule,
+                                                                                            ]"
+                                                                                            type="email"
+                                                                                            label="الإيميل"
+                                                                                            variant="outlined"
+                                                                                            style="
+                                                                                                width: 100%;
+                                                                                            "
+                                                                                            placeholder=" الإيميل"
+                                                                                        >
+                                                                                            <template
+                                                                                                #prepend-inner
+                                                                                            >
+                                                                                                <font-awesome-icon
+                                                                                                    :icon="[
+                                                                                                        'fas',
+                                                                                                        'at',
                                                                                                     ]"
                                                                                                     style="
                                                                                                         margin-right: 10px;
@@ -984,100 +989,150 @@
                                                                                 </div>
                                                                                 <div
                                                                                     style="
-                                                                                        width: 48%;
-                                                                                        position: relative;
+                                                                                        display: flex;
+                                                                                        justify-content: space-between;
+                                                                                        align-items: center;
                                                                                     "
-                                                                                    class="mt-2 d-flex flex-column"
                                                                                 >
-                                                                                    <v-text-field
-                                                                                        v-model="
-                                                                                            nationalNumberAssistant
-                                                                                        "
+                                                                                    <div
                                                                                         style="
-                                                                                            width: 100%;
+                                                                                            width: 48%;
+                                                                                            position: relative;
                                                                                         "
-                                                                                        :rules="[
-                                                                                            required4,
-                                                                                        ]"
-                                                                                        label="الرقم القومي"
-                                                                                        variant="outlined"
-                                                                                        placeholder="الرقم القومي"
                                                                                     >
-                                                                                        <template
-                                                                                            #prepend-inner
+                                                                                        <div
+                                                                                            class="mt-2 d-flex flex-column"
+                                                                                            style="
+                                                                                                width: 100%;
+                                                                                            "
                                                                                         >
-                                                                                            <font-awesome-icon
-                                                                                                :icon="[
-                                                                                                    'fas',
-                                                                                                    'id-card-clip',
-                                                                                                ]"
-                                                                                                style="
-                                                                                                    margin-right: 10px;
+                                                                                            <v-text-field
+                                                                                                v-model="
+                                                                                                    AssistantPhoneNumber
                                                                                                 "
-                                                                                            />
-                                                                                        </template>
-                                                                                    </v-text-field>
+                                                                                                label="التليفون"
+                                                                                                variant="outlined"
+                                                                                                class="mt-2"
+                                                                                                style="
+                                                                                                    width: 100%;
+                                                                                                "
+                                                                                                :rules="[
+                                                                                                    required2,
+                                                                                                    phoneNumberRule,
+                                                                                                ]"
+                                                                                                placeholder=" التليفون"
+                                                                                            >
+                                                                                                <template
+                                                                                                    #prepend-inner
+                                                                                                >
+                                                                                                    <font-awesome-icon
+                                                                                                        :icon="[
+                                                                                                            'fas',
+                                                                                                            'phone',
+                                                                                                        ]"
+                                                                                                        style="
+                                                                                                            margin-right: 10px;
+                                                                                                        "
+                                                                                                    />
+                                                                                                </template>
+                                                                                            </v-text-field>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        style="
+                                                                                            width: 48%;
+                                                                                            position: relative;
+                                                                                        "
+                                                                                        class="mt-2 d-flex flex-column"
+                                                                                    >
+                                                                                        <v-text-field
+                                                                                            v-model="
+                                                                                                nationalNumberAssistant
+                                                                                            "
+                                                                                            style="
+                                                                                                width: 100%;
+                                                                                            "
+                                                                                            :rules="[
+                                                                                                required4,
+                                                                                                nationalNumberRule,
+                                                                                            ]"
+                                                                                            label="الرقم القومي"
+                                                                                            variant="outlined"
+                                                                                            placeholder="الرقم القومي"
+                                                                                        >
+                                                                                            <template
+                                                                                                #prepend-inner
+                                                                                            >
+                                                                                                <font-awesome-icon
+                                                                                                    :icon="[
+                                                                                                        'fas',
+                                                                                                        'id-card-clip',
+                                                                                                    ]"
+                                                                                                    style="
+                                                                                                        margin-right: 10px;
+                                                                                                    "
+                                                                                                />
+                                                                                            </template>
+                                                                                        </v-text-field>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <v-select
-                                                                                style="
-                                                                                    width: 100%;
-                                                                                "
-                                                                                chips
-                                                                                :rules="[
-                                                                                    required,
-                                                                                ]"
-                                                                                v-model="
-                                                                                    AssistantPowerss
-                                                                                "
-                                                                                label="الصلاحيات"
-                                                                                :items="[
-                                                                                    'اضافه الحالات من الفورم',
-                                                                                    'اضافه الحالات من الاكسيل',
-                                                                                    'الاطلاع علي تقارير',
-                                                                                ]"
-                                                                                variant="solo-filled"
-                                                                            ></v-select>
-                                                                            <v-text-field
-                                                                                v-model="
-                                                                                    randomPassword
-                                                                                "
-                                                                                label="باسورد"
-                                                                                placeholder="باسورد"
-                                                                                :append-inner-icon="
-                                                                                    visible
-                                                                                        ? 'mdi-eye-off'
-                                                                                        : 'mdi-eye'
-                                                                                "
-                                                                                :type="
-                                                                                    visible
-                                                                                        ? 'text'
-                                                                                        : 'password'
-                                                                                "
-                                                                                density="compact"
-                                                                                prepend-inner-icon="mdi-content-copy"
-                                                                                variant="outlined"
-                                                                                @click:prepend-inner="
-                                                                                    copyPassword
-                                                                                "
-                                                                                @click:append-inner="
-                                                                                    toggleVisibility
-                                                                                "
-                                                                            >
-                                                                            </v-text-field>
+                                                                                <v-select
+                                                                                    style="
+                                                                                        width: 100%;
+                                                                                    "
+                                                                                    chips
+                                                                                    :rules="[
+                                                                                        required,
+                                                                                    ]"
+                                                                                    v-model="
+                                                                                        AssistantPowerss
+                                                                                    "
+                                                                                    label="الصلاحيات"
+                                                                                    :items="[
+                                                                                        'اضافه الحالات من الفورم',
+                                                                                        'اضافه الحالات من الاكسيل',
+                                                                                        'الاطلاع علي تقارير',
+                                                                                    ]"
+                                                                                    variant="solo-filled"
+                                                                                ></v-select>
+                                                                                <v-text-field
+                                                                                    v-model="
+                                                                                        randomPassword
+                                                                                    "
+                                                                                    label="باسورد"
+                                                                                    placeholder="باسورد"
+                                                                                    :append-inner-icon="
+                                                                                        visible
+                                                                                            ? 'mdi-eye-off'
+                                                                                            : 'mdi-eye'
+                                                                                    "
+                                                                                    :type="
+                                                                                        visible
+                                                                                            ? 'text'
+                                                                                            : 'password'
+                                                                                    "
+                                                                                    density="compact"
+                                                                                    prepend-inner-icon="mdi-content-copy"
+                                                                                    variant="outlined"
+                                                                                    @click:prepend-inner="
+                                                                                        copyPassword
+                                                                                    "
+                                                                                    @click:append-inner="
+                                                                                        toggleVisibility
+                                                                                    "
+                                                                                >
+                                                                                </v-text-field>
 
-                                                                            <v-btn
-                                                                                class="add"
-                                                                                @click="
-                                                                                    isActive.value = false
-                                                                                "
-                                                                                @click.prevent="
-                                                                                    Add_Assistant
-                                                                                "
-                                                                            >
-                                                                                إضافة
-                                                                            </v-btn>
-                                                                        </div>
+                                                                                <v-btn
+                                                                                    class="add"
+                                                                                    @click="
+                                                                                        validate
+                                                                                    "
+                                                                                >
+                                                                                    إضافة
+                                                                                </v-btn>
+                                                                            </div>
+                                                                        </v-form>
                                                                     </v-card>
                                                                 </template>
                                                             </v-dialog>
@@ -1201,6 +1256,7 @@ export default {
         User_Charity: "",
         User_Data: "",
         randomPassword: "",
+        dialog: false,
         passwordsMatchError: false,
         passwordsMatchError2: false,
         showPassword: false,
@@ -1320,6 +1376,12 @@ export default {
         ],
         Charities: {},
         Cases: [],
+
+        emailRule: (v) => /.+@.+\..+/.test(v) || "الإيميل غير صحيح",
+        phoneNumberRule: (v) =>
+            /^\d+$/.test(v) || "رقم الهاتف يجب أن يكون أرقام فقط",
+        nationalNumberRule: (v) =>
+            v.length === 14 || "الرقم القومي يجب أن يكون 14 رقم",
     }),
     setup() {
         return { v$: useVuelidate() };
@@ -1371,69 +1433,7 @@ export default {
             return this.showPassword3 ? "text" : "password";
         },
     },
-    watch: {
-        "form1.name": function () {
-            this.updateFormEmpty1();
-        },
-        "form1.email": function () {
-            this.updateFormEmpty1();
-        },
-        "form1.cardNumber": function () {
-            this.updateFormEmpty1();
-        },
-        "form1.phoneNumber": function () {
-            this.updateFormEmpty1();
-        },
-
-        "form2.password": function () {
-            this.updateFormEmpty2();
-        },
-        "form2.Newpassword": function () {
-            this.updateFormEmpty2();
-        },
-        "form2.Newpassword2": function () {
-            this.updateFormEmpty2();
-        },
-
-        "form3.title": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.phone": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.address": function () {
-            this.updateFormEmpty3();
-        },
-
-        "form3.description": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.Fame_number": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.Charities_specialty": function () {
-            this.updateFormEmpty3();
-        },
-        "form3.Fame_year": function () {
-            this.updateFormEmpty3();
-        },
-
-        "form3.activitiesc_chertes": function () {
-            this.updateFormEmpty3();
-        },
-        "User_Charity.Facebook": function () {
-            this.updateFormEmpty3();
-        },
-        "User_Charity.Twitter": function () {
-            this.updateFormEmpty3();
-        },
-        "User_Charity.whatsapp": function () {
-            this.updateFormEmpty3();
-        },
-        "User_Charity.Youtube": function () {
-            this.updateFormEmpty3();
-        },
-    },
+    watch: {},
     beforeUnmount() {
         window.removeEventListener("resize", this.checkScreenSize);
     },
@@ -1549,12 +1549,12 @@ export default {
             this.$emit("execute-toggle-theme"); // إرسال حدث لتنفيذ دالة toggleTheme
         },
         updateFormEmpty1() {
-            // تحقق من إذا كان أي حقل فارغ
+            // تحقق مما إذا كان أي حقل فارغ
             this.isFormEmpty1 = !(
-                this.form1.name ||
-                this.form1.email ||
-                this.form1.cardNumber ||
-                this.form1.phoneNumber
+                this.User_Data.name ||
+                this.User_Data.email ||
+                this.User_Data.cardNumber ||
+                this.User_Data.phoneNumber
             );
         },
         updateFormEmpty2() {
@@ -1567,19 +1567,12 @@ export default {
         },
         updateFormEmpty3() {
             this.isFormEmpty3 = !(
-                this.form3.title ||
-                this.form3.phone ||
-                this.form3.password ||
-                this.form3.address ||
-                this.form3.description ||
-                this.form3.Fame_number ||
-                this.form3.Charities_specialty ||
-                this.form3.Fame_year ||
-                this.form3.activitiesc_chertes ||
-                this.User_Charity.Facebook ||
-                this.User_Charity.Twitter ||
-                this.User_Charity.whatsapp ||
-                this.User_Charity.Youtube
+                this.User_Charity.title ||
+                this.User_Charity.phone ||
+                this.User_Charity.description ||
+                this.User_Charity.address ||
+                this.User_Charity.Fame_number ||
+                this.User_Charity.Fame_year
             );
         },
         toggleTheme() {
@@ -1731,7 +1724,10 @@ export default {
         async validate() {
             const { valid } = await this.$refs.form.validate();
 
-            if (valid) alert("Form is valid");
+            if (valid) {
+                this.Add_Assistant();
+                this.dialog = false;
+            }
         },
         reset() {
             this.$refs.form.reset();
@@ -1743,37 +1739,6 @@ export default {
             window.location.reload();
         },
 
-        onSubmit() {
-            if (!this.form) return;
-
-            const oldData =
-                JSON.parse(localStorage.getItem("formmosed2")) || [];
-
-            // إضافة القيمة الجديدةة إلى القيمة الحاليةة
-            oldData.push(
-                this.namemosed != ""
-                    ? {
-                          Assistantname: this.AssistantName,
-                          AssistantEmail: this.AssistantEmail,
-                          nationalNumberAssistant: this.nationalNumberAssistant,
-                          AssistantPowers: this.AssistantPowerss,
-                          AssistantPhoneNumber: this.AssistantPhoneNumber,
-                          randomPassword: this.randomPassword,
-                      }
-                    : ""
-            );
-
-            // حفظ القيمة المحدثة في localStorage
-            localStorage.setItem("formmosed2", JSON.stringify(oldData));
-            this.storedArray = oldData;
-            this.AssistantName = "";
-            this.AssistantEmail = "";
-            this.nationalNumberAssistant = "";
-            this.AssistantPhoneNumber = "";
-            this.AssistantPowerss = "";
-            this.randomPassword = this.generateRandomPassword();
-            console.log(this.s1);
-        },
         required(v) {
             return !!v || "الحقل مطلوب";
         },
@@ -2162,5 +2127,18 @@ button.add {
 .custom-toast-error {
     background-color: blue !important;
     color: white !important;
+}
+.active {
+    background-color: rgba(
+        255,
+        255,
+        255,
+        0.2
+    ); /* Example style for active item */
+    color: #fff;
+}
+.save_btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 </style>
