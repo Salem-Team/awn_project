@@ -7,7 +7,7 @@
                 <v-layout>
                     <!-- Navigation Drawer -->
                     <v-navigation-drawer
-                        expand-in-hover
+                        expand-on-hover
                         rail
                         location="right"
                         v-show="isSmallScreen"
@@ -65,7 +65,6 @@
                                 class="save_btn"
                                 @click="validateForm1"
                                 v-if="tab_1 == 'one'"
-                                style="margin-top: 30px"
                                 :class="{ disabled: isFormEmpty1 }"
                             >
                                 حفظ
@@ -77,7 +76,6 @@
                                 class="save_btn"
                                 @click="validateForm2"
                                 v-if="tab_1 == 'two'"
-                                style="margin-top: 30px"
                                 :class="{ disabled: isFormEmpty2 }"
                             >
                                 حفظ
@@ -89,7 +87,6 @@
                                 class="save_btn"
                                 @click="validateForm3"
                                 v-if="tab_1 == 'three'"
-                                style="margin-top: 30px"
                                 :class="{ disabled: isFormEmpty3 }"
                             >
                                 حفظ
@@ -101,7 +98,6 @@
                                 class="save_btn"
                                 @click="validateForm4"
                                 v-if="tab_1 == 'four'"
-                                style="margin-top: 30px"
                             >
                                 حفظ
                                 <span class="hide-on-small-screens"
