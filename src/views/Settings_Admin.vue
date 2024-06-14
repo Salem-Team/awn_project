@@ -826,7 +826,7 @@
                                                     <font-awesome-icon
                                                         :icon="['fas', 'users']"
                                                     />
-                                                    <div>
+                                                    <div class="masaaed">
                                                         المساعدين ({{
                                                             All_Assistant.length ||
                                                             0
@@ -1090,6 +1090,7 @@
                                                                                         'الاطلاع علي تقارير',
                                                                                     ]"
                                                                                     variant="solo-filled"
+                                                                                    class="salheat"
                                                                                 ></v-select>
                                                                                 <v-text-field
                                                                                     v-model="

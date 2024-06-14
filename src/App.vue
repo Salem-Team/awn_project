@@ -1,7 +1,8 @@
 <template>
     <nav>
-        <TheHeader @execute-toggle-theme="toggleTheme" />
+        <TheHeader />
     </nav>
+
     <router-view style="margin-top: 100px !important" />
 </template>
 
@@ -107,5 +108,89 @@ input:focus {
     background: var(--main-color) !important;
     color: white !important;
     z-index: 1000000000000000000000000000000;
+}
+body.dark-mode {
+    background-color: #183153;
+    color: #ffffff;
+}
+body.dark-mode .header {
+    background: #183153;
+    box-shadow: 0 0 10px;
+    color: black;
+}
+// .v-field {
+//     color: var(--main-color);
+// }
+body.dark-mode .v-field {
+    color: white;
+}
+body.dark-mode .v-navigation-drawer {
+    background: #183153 !important;
+}
+body.dark-mode .v-navigation-drawer__content {
+    background-color: #183153;
+    color: #ffffff;
+}
+body.dark-mode .v-tabs {
+    background-color: #465a75 !important;
+    color: #ffffff;
+}
+body.dark-mode .v-divider {
+    // background-color: ;
+    color: #465a75 !important;
+}
+body.dark-mode .container_0 {
+    background: #183153;
+    color: #ffffff;
+}
+body.dark-mode .box {
+    background: #465a75 !important;
+    color: #ffffff;
+}
+body.dark-mode .box .name,
+body.dark-mode .box .permissions_1 {
+    color: #ffffff !important;
+}
+body.dark-mode .v-card {
+    background: #465a75 !important;
+    color: #ffffff;
+}
+body.dark-mode .salheat .v-field__field,
+body.dark-mode .salheat .v-field__append-inner i {
+    color: #465a75 !important;
+}
+.salheat .v-field__field,
+.salheat .v-field__append-inner i {
+    color: var(--main-color) !important;
+}
+body.dark-mode .User_box {
+    background: #465a75 !important;
+}
+body.dark-mode svg {
+    color: white !important;
+}
+body.dark-mode .masaaed {
+    color: white !important;
+}
+body.dark-mode hr {
+    color: #465a75 !important;
+}
+
+body.dark-mode .Vue-Toastification__toast--success {
+    background: #183153 !important;
+    color: white !important;
+    z-index: 1000000000000000000000000000000;
+}
+// body.dark-mode .v-field {
+// }
+body.dark-mode .v-sheet {
+    background: #183153 !important;
+    color: white !important;
+}
+body.dark-mode .tafasel {
+    color: white !important;
+}
+body.dark-mode .details {
+    background: #183153 !important;
 }
 </style>
