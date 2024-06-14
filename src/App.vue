@@ -193,4 +193,8 @@ body.dark-mode .tafasel {
 body.dark-mode .details {
     background: #183153 !important;
 }
+.v-slide-group__next,
+.v-slide-group__prev {
+    display: none !important;
+}
 </style>
