@@ -3,7 +3,15 @@
     <v-row>
         <v-col>
             <v-container class="m-auto text-center pa-auto">
-                <p>{{ text }}</p>
+                <p
+                    style="
+                        color: var(--main-color);
+                        font-size: 20px;
+                        font-weight: bold;
+                    "
+                >
+                    {{ text }}
+                </p>
             </v-container>
         </v-col>
     </v-row>

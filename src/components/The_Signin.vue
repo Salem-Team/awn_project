@@ -12,94 +12,104 @@
                         @click="isActive.value = false"
                     ></v-btn>
                 </v-card-title>
-                <div class="The_Signin">
-                    <v-container class="form_container mt-4">
-                        <span class="pr-8">{{ selectedRole }}</span>
-                        <!--get the data from the Charities using v-model-->
-                        <form
-                            ref="form"
-                            @submit.prevent="validateForm"
-                            class="ma-auto"
-                            action="post"
-                        >
-                            <v-select
-                                v-model="selectedRole"
-                                :items="roles"
-                                label="أختر صلاحية الدخول"
-                                variant="outlined"
-                                @blur="handleroles"
-                                @click="handleroles"
-                            ></v-select>
 
-                            <v-text-field
-                                v-model="user.nationalID"
-                                variant="outlined"
-                                label="الرقم القومي"
-                                class="mt-2"
-                                :error-messages="
-                                    v$.user.nationalID.$errors.map(
-                                        (e) => e.$message
-                                    )
-                                "
-                            ></v-text-field>
-                            <v-text-field
-                                v-model="user.password"
-                                :type="inputType"
-                                variant="outlined"
-                                label="الباسورد"
-                                placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
-                                class="mt-2"
-                                :error-messages="
-                                    v$.user.password.$errors.map(
-                                        (e) => e.$message
-                                    )
-                                "
-                                :append-inner-icon="
-                                    showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                                "
-                                @click:append-inner="toggleShowPassword"
-                            ></v-text-field>
-                            <!-- remember me checkbox -->
-                            <div
-                                class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
-                            >
-                                <v-checkbox label="تذكرني"></v-checkbox>
-                                <a
-                                    class="ms-2 mb-1 cursor-pointer text-primary"
-                                    @click.stop="isActive.value = false"
-                                    @click="$router.push('/Reset_Password')"
+                <div class="The_Signin" style="height: 500px">
+                    <v-container class="form_container mt-4">
+                        <Offline_error>
+                            <template v-slot:default>
+                                <span class="pr-8">{{ selectedRole }}</span>
+                                <!--get the data from the Charities using v-model-->
+
+                                <form
+                                    ref="form"
+                                    @submit.prevent="validateForm"
+                                    class="ma-auto"
+                                    action="post"
                                 >
-                                    هل نسيت كلمة المرور؟
-                                </a>
-                            </div>
-                            <v-btn
-                                class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
-                                type="submit"
-                                style="
-                                    width: 100%;
-                                    font-size: 16px;
-                                    margin: auto;
-                                "
-                                @click="Sing_In"
-                            >
-                                تسجيل الدخول
-                            </v-btn>
-                            <v-divider></v-divider>
-                            <!-- create account -->
-                            <v-col
-                                cols="12"
-                                class="text-center text-base d-flex align-center justify-space-between flex-wrap mt-4 mb-4"
-                            >
-                                <span>هل أنت جديد على منصتنا؟ </span>
-                                <div
-                                    class="register cursor-pointer text-primary"
-                                    @click="openRegistrationDialog"
-                                >
-                                    حساب جديد
-                                </div>
-                                <TheRegister />
-                            </v-col>
-                        </form>
+                                    <v-select
+                                        v-model="selectedRole"
+                                        :items="roles"
+                                        label="أختر صلاحية الدخول"
+                                        variant="outlined"
+                                        @blur="handleroles"
+                                        @click="handleroles"
+                                    ></v-select>
+
+                                    <v-text-field
+                                        v-model="user.nationalID"
+                                        variant="outlined"
+                                        label="الرقم القومي"
+                                        class="mt-2"
+                                        :error-messages="
+                                            v$.user.nationalID.$errors.map(
+                                                (e) => e.$message
+                                            )
+                                        "
+                                    ></v-text-field>
+                                    <v-text-field
+                                        v-model="user.password"
+                                        :type="inputType"
+                                        variant="outlined"
+                                        label="الباسورد"
+                                        placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                                        class="mt-2"
+                                        :error-messages="
+                                            v$.user.password.$errors.map(
+                                                (e) => e.$message
+                                            )
+                                        "
+                                        :append-inner-icon="
+                                            showPassword
+                                                ? 'mdi-eye'
+                                                : 'mdi-eye-off'
+                                        "
+                                        @click:append-inner="toggleShowPassword"
+                                    ></v-text-field>
+                                    <!-- remember me checkbox -->
+                                    <div
+                                        class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
+                                    >
+                                        <v-checkbox label="تذكرني"></v-checkbox>
+                                        <a
+                                            class="ms-2 mb-1 cursor-pointer text-primary"
+                                            @click.stop="isActive.value = false"
+                                            @click="
+                                                $router.push('/Reset_Password')
+                                            "
+                                        >
+                                            هل نسيت كلمة المرور؟
+                                        </a>
+                                    </div>
+                                    <v-btn
+                                        class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
+                                        type="submit"
+                                        style="
+                                            width: 100%;
+                                            font-size: 16px;
+                                            margin: auto;
+                                        "
+                                        @click="Sing_In"
+                                    >
+                                        تسجيل الدخول
+                                    </v-btn>
+                                    <v-divider></v-divider>
+                                    <!-- create account -->
+                                    <v-col
+                                        cols="12"
+                                        class="text-center text-base d-flex align-center justify-space-between flex-wrap mt-4 mb-4"
+                                    >
+                                        <span>هل أنت جديد على منصتنا؟ </span>
+                                        <div
+                                            class="register cursor-pointer text-primary"
+                                            @click="openRegistrationDialog"
+                                        >
+                                            حساب جديد
+                                        </div>
+                                        <TheRegister />
+                                    </v-col>
+                                </form>
+                            </template>
+                        </Offline_error>
                     </v-container>
                 </div>
             </v-card>
@@ -108,6 +118,7 @@
 </template>
 
 <script>
+import Offline_error from "@/components/Offline_error.vue";
 import TheRegister from "@/components/The_Register.vue";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, numeric, helpers } from "@vuelidate/validators";
@@ -131,8 +142,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
-    components: { TheRegister },
+    components: { TheRegister, Offline_error },
     props: ["Check_User"],
+    inject: ["Emitter"],
     setup() {
         return {
             v$: useVuelidate(),
@@ -185,7 +197,15 @@ export default {
             return this.showPassword ? "text" : "password";
         },
     },
+    mounted() {
+        // Method to check internet connection status
+        this.startInternetCheckerUse();
+    },
     methods: {
+        // Method to check internet connection status
+        startInternetCheckerUse() {
+            this.Emitter.emit("startInternetChecker");
+        },
         handleroles() {
             console.log("Handleroles function called on blur");
             if (this.selectedRole === "مشرف") {
