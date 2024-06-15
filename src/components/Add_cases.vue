@@ -26,7 +26,7 @@
 
                 <v-stepper-window>
                     <div v-if="e1 === 1">
-                        <form @submit.prevent="validateForm">
+                        <form @submit.prevent="validateForm" action="post">
                             <div class="form">
                                 <div>
                                     <div
@@ -42,6 +42,8 @@
                                             @input="
                                                 v$.personal_info_1.name.$touch()
                                             "
+                                            @focus="isFocused = true"
+                                            @blur="isFocused = false"
                                             :error-messages="
                                                 v$.personal_info_1.name.$errors.map(
                                                     (e) => e.$message
@@ -49,7 +51,7 @@
                                             "
                                         ></v-text-field>
                                         <span
-                                            v-if="!regex1"
+                                            v-if="!regex1 && isFocused"
                                             style="
                                                 display: block;
                                                 margin-right: 15px;
@@ -72,6 +74,8 @@
                                                 v$.personal_info_1.nick_name.$touch()
                                             "
                                             placeholder="اسم الشهره"
+                                            @focus="isFocused = true"
+                                            @blur="isFocused = false"
                                             :error-messages="
                                                 v$.personal_info_1.nick_name.$errors.map(
                                                     (e) => e.$message
@@ -79,7 +83,7 @@
                                             "
                                         ></v-text-field>
                                         <span
-                                            v-if="!regex2"
+                                            v-if="!regex2 && isFocused"
                                             style="
                                                 display: block;
                                                 margin-right: 15px;
@@ -154,35 +158,24 @@
                                             variant="outlined"
                                             placeholder=" العنوان"
                                             auto-grow
-                                            :class="[
-                                                `${
-                                                    v$.personal_info_1.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'detailed_address'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
+                                            @focus="isFocused = true"
+                                            @blur="isFocused = false"
+                                            :error-messages="
+                                                v$.personal_info_1.detailed_address.$errors.map(
+                                                    (e) => e.$message
+                                                )
+                                            "
                                         ></v-textarea>
                                         <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
+                                            v-if="!regex3 && isFocused"
                                             style="
                                                 display: block;
-                                                width: 100%;
-                                                color: red;
+                                                margin-right: 15px;
+                                                font-size: small;
+                                                color: #af0829;
                                             "
+                                            >حروف عربية فقط</span
                                         >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'detailed_address'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div>
@@ -282,7 +275,7 @@
                         </form>
                     </div>
                     <div v-if="e1 === 2">
-                        <form @submit.prevent="validateForm2">
+                        <form @submit.prevent="validateForm" action="post">
                             <div class="form">
                                 <div>
                                     <div
@@ -293,37 +286,18 @@
                                             v-model="financial_info_2.required"
                                             label="المطلوب "
                                             class="mt-2"
+                                            @input="
+                                                v$.financial_info_2.required.$touch()
+                                            "
                                             style="width: 100%"
                                             variant="outlined"
                                             placeholder="المطلوب "
-                                            :class="[
-                                                `${
-                                                    v$.financial_info_2.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'required'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            :error-messages="
+                                                v$.financial_info_2.required.$errors.map(
+                                                    (e) => e.$message
+                                                )
                                             "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'required'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                        ></v-text-field>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -333,35 +307,18 @@
                                             v-model="financial_info_2.incom"
                                             label="الداخل "
                                             class="mt-2"
+                                            @input="
+                                                v$.financial_info_2.incom.$touch()
+                                            "
                                             style="width: 100%"
                                             variant="outlined"
                                             placeholder="الداخل "
-                                            :class="[
-                                                `${
-                                                    v$.financial_info_2.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'incom'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
-                                        ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
+                                            :error-messages="
+                                                v$.financial_info_2.incom.$errors.map(
+                                                    (e) => e.$message
+                                                )
                                             "
-                                        >
-                                            <span
-                                                v-if="err.$property == 'incom'"
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
+                                        ></v-text-field>
                                     </div>
                                 </div>
                                 <div>
@@ -383,41 +340,14 @@
                                             "
                                             variant="outlined"
                                             placeholder="العجز "
-                                            :class="[
-                                                `${
-                                                    v$.financial_info_2.$errors.find(
-                                                        (err) =>
-                                                            err.$property ==
-                                                            'deficit'
-                                                    )
-                                                        ? 'danger'
-                                                        : ''
-                                                }`,
-                                            ]"
                                         ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'deficit'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div v-if="e1 === 3">
-                        <form @submit.prevent="validateForm3">
+                        <form @submit.prevent="validateForm3" action="post">
                             <div
                                 class="bg-[#eee]"
                                 v-for="(dis, index) in diseases_3"
@@ -503,7 +433,7 @@
                         </form>
                     </div>
                     <div v-if="e1 === 4">
-                        <form @submit.prevent="validateForm4">
+                        <form @submit.prevent="validateForm4" action="post">
                             <div class="form">
                                 <div>
                                     <div
@@ -519,24 +449,6 @@
                                             style="width: 100%"
                                             label=" عدد الغرف"
                                         ></v-select>
-
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'number_rooms'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -551,23 +463,6 @@
                                             style="width: 100%"
                                             label="الشقه ملك ام ايجار"
                                         ></v-select>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'house_type'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div>
@@ -584,23 +479,6 @@
                                             style="width: 100%"
                                             label="الحمام خاص ام مشترك"
                                         ></v-select>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'bathroom_type'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -615,23 +493,6 @@
                                             style="width: 100%"
                                             label="  نوع الارضيه "
                                         ></v-select>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'floor_type'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div>
@@ -649,23 +510,6 @@
                                             variant="outlined"
                                             placeholder="وصف شامل للمطبخ"
                                         ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'description_kitchen'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -681,23 +525,6 @@
                                             style="width: 100%"
                                             placeholder="وصف سريع للغرفه رقم 1 "
                                         ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                width: 100%;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'DescriptionRoom1'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div>
@@ -719,25 +546,6 @@
                                             variant="outlined"
                                             placeholder="وصف سريع للغرفه رقم 2 "
                                         ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                            v-show="showDiv1"
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'DescriptionRoom2'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
 
                                     <v-text-field
@@ -753,25 +561,6 @@
                                         variant="outlined"
                                         placeholder="وصف سريع للغرفه رقم 3 "
                                     ></v-text-field>
-                                    <span
-                                        v-show="showDiv2"
-                                        v-for="err in v$.$errors"
-                                        :key="err.$uid"
-                                        style="
-                                            display: block;
-                                            margin-right: 273px;
-                                            margin-bottom: 17px;
-                                            color: red;
-                                        "
-                                    >
-                                        <span
-                                            v-if="
-                                                err.$property ==
-                                                'DescriptionRoom3'
-                                            "
-                                            >{{ err.$message }}</span
-                                        >
-                                    </span>
                                 </div>
 
                                 <div>
@@ -793,25 +582,6 @@
                                             variant="outlined"
                                             placeholder="وصف سريع للغرفه رقم 4 "
                                         ></v-text-field>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                            v-show="showDiv1"
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'DescriptionRoom4'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
 
                                     <v-text-field
@@ -827,31 +597,12 @@
                                         variant="outlined"
                                         placeholder="وصف سريع للغرفه رقم 5 "
                                     ></v-text-field>
-                                    <span
-                                        v-show="showDiv2"
-                                        v-for="err in v$.$errors"
-                                        :key="err.$uid"
-                                        style="
-                                            display: block;
-                                            margin-right: 273px;
-                                            margin-bottom: 17px;
-                                            color: red;
-                                        "
-                                    >
-                                        <span
-                                            v-if="
-                                                err.$property ==
-                                                'DescriptionRoom5'
-                                            "
-                                            >{{ err.$message }}</span
-                                        >
-                                    </span>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div v-if="e1 === 5">
-                        <form @submit.prevent="validateForm5">
+                        <form @submit.prevent="validateForm5" action="post">
                             <div class="form">
                                 <div class="height: 59px;">
                                     <div
@@ -863,23 +614,6 @@
                                             label="طبي"
                                             value="طبي"
                                         ></v-checkbox>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'medical'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
 
                                     <div
@@ -891,23 +625,6 @@
                                             label="زوج"
                                             value="زوج"
                                         ></v-checkbox>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'Husband'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -918,23 +635,6 @@
                                             label="ملابس"
                                             value="ملابس"
                                         ></v-checkbox>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'clothes'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="height: 59px;">
@@ -947,24 +647,6 @@
                                             label="مرتبات"
                                             value="مرتبات"
                                         ></v-checkbox>
-
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'salaries'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
 
                                     <div
@@ -976,23 +658,6 @@
                                             label="بطاطين"
                                             value="بطاطين"
                                         ></v-checkbox>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'Blankets'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -1003,23 +668,6 @@
                                             label="شنطه غذائيه"
                                             value="شنطه غذائيه"
                                         ></v-checkbox>
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property == 'FoodBag'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="height: 59px;">
@@ -1032,25 +680,6 @@
                                             label="كفاله شهريه"
                                             value="كفاله شهريه"
                                         ></v-checkbox>
-
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'MonthlyWarranty'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
 
                                     <div
@@ -1062,25 +691,6 @@
                                             label="اجهزه منزليه"
                                             value="اجهزه منزليه"
                                         ></v-checkbox>
-
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'Appliances'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                     <div
                                         class="d-flex flex-column"
@@ -1091,29 +701,12 @@
                                             label="كفاله "
                                             value="كفاله "
                                         ></v-checkbox>
-
-                                        <span
-                                            v-for="err in v$.$errors"
-                                            :key="err.$uid"
-                                            style="
-                                                display: block;
-                                                margin-right: 273px;
-                                                margin-bottom: 17px;
-                                                color: red;
-                                            "
-                                        >
-                                            <span
-                                                v-if="
-                                                    err.$property ==
-                                                    'MonthlyWarranty2'
-                                                "
-                                                >{{ err.$message }}</span
-                                            >
-                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn" @click="Add_Cases">أضف الحالة</div>
+                            <div class="btn" @click="validateForm">
+                                أضف الحالة
+                            </div>
                         </form>
                     </div>
                 </v-stepper-window>
@@ -1172,6 +765,8 @@ export default {
             dis_3: true,
             regex2: true,
             regex1: true,
+            isFocused: false,
+            regex3: true,
             close: null,
             diseasesArray: [],
             family_needs_Array: [],
@@ -1260,24 +855,6 @@ export default {
                     not_available: "",
                 },
             ],
-            // diseases_1: {
-            //     patien_name: "",
-            //     disease: "",
-            //     get_treatment: "",
-            //     not_available: "",
-            // },
-            // diseases_2: {
-            //     patien_name: "",
-            //     disease: "",
-            //     get_treatment: "",
-            //     not_available: "",
-            // },
-            // diseases_3: {
-            //     patien_name: "",
-            //     disease: "",
-            //     get_treatment: "",
-            //     not_available: "",
-            // },
 
             housing_condition_4: {
                 number_rooms: 1,
@@ -1413,6 +990,12 @@ export default {
                 },
                 detailed_address: {
                     required: helpers.withMessage("ادخل عنوان", required),
+                    regex3: function (value) {
+                        const regexPattern = /[\u0600-\u06FF\s]+/;
+                        const matchResult = regexPattern.test(value);
+                        this.regex3 = matchResult;
+                        return matchResult;
+                    },
                 },
                 marital_status: {
                     required: helpers.withMessage("ادخل الحالة ", required),
@@ -1441,106 +1024,6 @@ export default {
                         numeric
                     ),
                 },
-                deficit: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
-                    ),
-                },
-            },
-            diseases_3: {
-                patien_name: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                disease: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                get_treatment: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                not_available: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-            },
-            housing_condition_4: {
-                number_rooms: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    numeric: helpers.withMessage(
-                        "  يجب ان تكون ارقام فقط",
-                        numeric
-                    ),
-                },
-                house_type: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                },
-                bathroom_type: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                },
-                floor_type: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                },
-                description_kitchen: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                DescriptionRoom1: {
-                    required: helpers.withMessage("حقل مطلوب", required),
-                    regex: helpers.withMessage(
-                        "حقل مطلوب",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                DescriptionRoom2: {
-                    regex: helpers.withMessage(
-                        "حقل مطلوب",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                DescriptionRoom3: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                DescriptionRoom4: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-                DescriptionRoom5: {
-                    regex: helpers.withMessage(
-                        "يجب أن تحتوي على حروف عربية فقط",
-                        /[\u0600-\u06FF\s]+/
-                    ),
-                },
-            },
-            family_needs_5: {
-                medical: {},
-                Husband: {},
-                clothes: {},
-                salaries: {},
-                Blankets: {},
-                FoodBag: {},
-                MonthlyWarranty: {},
-                Appliances: {},
-                MonthlyWarranty2: {},
             },
         };
     },
@@ -1576,63 +1059,11 @@ export default {
             // Return true if data exists, false otherwise
             return !(
                 this.financial_info_2.required == null &&
-                this.financial_info_2.incom == null &&
-                this.financial_info_2.deficit == null
+                this.financial_info_2.incom == null
             );
         },
-        async validateForm() {
-            const dataExists = this.checkDataExists();
-            this.v$.personal_info_1.$validate();
-            if (dataExists) {
-                this.v$.personal_info_1.$validate();
-                await this.$nextTick();
-                if (!this.v$.$error) {
-                    // If no errors, proceed with further processing
-                    console.log("Data filled and Form submitted successfully");
-                    console.log("personal_info_1", this.personal_info_1);
-                    this.validateForm2();
-                    this.v$.$reset();
-                } else {
-                    // If there are validation errors, handle them accordingly
-                    console.log("Data not all filled Validation errors found");
-                    this.e1 = 1;
-                }
-            } else {
-                console.log("Data required");
-                this.e1 = 1;
-            }
-        },
-        async validateForm2() {
-            const dataExists = this.checkDataExists1();
-            this.v$.financial_info_2.$validate();
-            if (dataExists) {
-                this.v$.financial_info_2.$validate();
-                await this.$nextTick();
-                if (!this.v$.$error) {
-                    // If no errors, proceed with further processing
-                    this.testform2.push({
-                        required: this.financial_info_2.required,
-                        incom: this.financial_info_2.incom,
-                        deficit:
-                            this.financial_info_2.required -
-                            this.financial_info_2.incom,
-                    });
-                    console.log("Data filled and Form submitted successfully");
-                    console.log("financial_info_2", this.testform2);
-                    this.v$.$reset();
-                } else {
-                    // If there are validation errors, handle them accordingly
-                    console.log("Data not all filled Validation errors found");
-                    this.e1 = 2;
-                }
-            } else {
-                console.log("Data required");
-                this.e1 = 2;
-            }
-        },
+
         async Add_Cases() {
-            // Wait for both form validations to complete
-            await this.validateForm();
             // Add a new document with a generated id.
 
             const docRef = await addDoc(collection(db, "Cases"), {
@@ -1678,6 +1109,51 @@ export default {
             console.log("Document written with ID: ", docRef.id);
             console.log("validations");
             this.close_function();
+        },
+        async validateForm() {
+            const dataExists = this.checkDataExists();
+            const dataExists1 = this.checkDataExists1();
+            if (dataExists) {
+                this.v$.$validate(); // Validate personal info
+                await this.$nextTick(); // Wait for DOM update
+                if (!this.v$.$error) {
+                    // If no errors, proceed with further processing
+                    console.log("Data filled and Form submitted successfully");
+                    console.log("personal_info_1", this.personal_info_1);
+                    this.v$.$reset(); // Reset validation state
+                } else {
+                    // If there are validation errors, handle them accordingly
+                    console.log("Data not all filled, validation errors found");
+                    this.e1 = 1; // Set error code 1
+                }
+            } else if (dataExists1) {
+                this.v$.$validate(); // Validate financial info
+                await this.$nextTick(); // Wait for DOM update
+
+                if (!this.v$.$error) {
+                    // If no errors, proceed with further processing
+                    this.testform2.push({
+                        required: this.financial_info_2.required,
+                        incom: this.financial_info_2.incom,
+                        deficit:
+                            this.financial_info_2.required -
+                            this.financial_info_2.incom,
+                    });
+                    console.log("Data filled and Form submitted successfully");
+                    console.log("financial_info_2", this.testform2);
+                    this.v$.$reset(); // Reset validation state
+                } else {
+                    // If there are validation errors, handle them accordingly
+                    console.log("Data not all filled, validation errors found");
+                    this.e1 = 2; // Set error code 2
+                }
+                this.Add_Cases();
+            } else {
+                // If neither dataExists nor dataExists1 is true
+                console.log("Data required");
+                // Set appropriate error code or handle as needed
+                this.e1 = 1; // For example, set error code 1
+            }
         },
 
         /*async validateForm1() {
