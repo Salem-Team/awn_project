@@ -116,19 +116,46 @@
                                 <div>الحالات</div>
                             </div>
                             <div class="left">
-                                <font-awesome-icon
+                                <v-btn
                                     @click="dialog = true"
-                                    :icon="['fas', 'magnifying-glass']"
-                                />
+                                    height="40px"
+                                    width="20px"
+                                >
+                                    <img
+                                        @click="dialog = true"
+                                        src="../assets/images/search.gif"
+                                        alt=""
+                                        width="30px"
+                                /></v-btn>
 
-                                <font-awesome-icon
+                                <v-btn
                                     @click="dialog_1 = true"
-                                    :icon="['fas', 'filter']"
-                                />
-                                <font-awesome-icon
+                                    height="40px"
+                                    width="20px"
+                                >
+                                    <img
+                                        src="../assets/images/filter.gif"
+                                        alt=""
+                                        style="
+                                            position: relative;
+                                            top: 15px;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                        "
+                                        width="60px"
+                                /></v-btn>
+
+                                <v-btn
                                     @click="dialog_2 = true"
-                                    :icon="['fas', 'plus']"
-                                />
+                                    height="40px"
+                                    width="20px"
+                                >
+                                    <img
+                                        @click="dialog = true"
+                                        src="../assets/images/plus.gif"
+                                        alt=""
+                                        width="35px"
+                                /></v-btn>
                             </div>
                         </div>
                     </div>
@@ -231,7 +258,16 @@
                             </div>
                         </div>
                         <div class="details" @click="Case_Information(Case)">
-                            <font-awesome-icon :icon="['fas', 'circle-info']" />
+                            <img
+                                src="../assets/images/info.gif"
+                                alt=""
+                                style="
+                                    background-color: white;
+                                    border: solid 2px white;
+                                    border-radius: 50%;
+                                "
+                                width="25px"
+                            />
                             <div>التفاصيل</div>
                             <!--this a dialog to show the case's data-->
                             <v-dialog
@@ -1076,6 +1112,17 @@
                             </v-dialog>
                         </div>
                     </div>
+                    <div
+                        v-if="filteredCases.length == 0"
+                        style="
+                            color: var(--main-color);
+                            font-size: 20px;
+                            font-weight: bold;
+                            text-align: center;
+                        "
+                    >
+                        لاتوجد حالات مشابهة
+                    </div>
                 </div>
                 <div class="text-center" v-if="(!empty, !loading)">
                     <v-pagination
@@ -1176,8 +1223,15 @@
                             <img
                                 src="../assets/images/filter.gif"
                                 alt=""
-                                width="40px"
-                                style="background-color: white; color: #0088ff"
+                                width="65px"
+                                style="
+                                    background-color: white;
+                                    color: #0088ff;
+                                    position: relative;
+                                    top: 30px;
+                                    left: 28px;
+                                    transform: translate(-50%, -50%);
+                                "
                             />
                             <div>الفلتر</div>
                         </div>
@@ -1973,7 +2027,9 @@ export default {
         },
         // Filtered cases based on search term
         filteredCases() {
-            if (!this.search.trim()) return this.Cases; // If search term is empty, return original Cases
+            if (!this.search.trim()) {
+                return this.Cases;
+            } // If search term is empty, return original Cases
             return this.Cases.filter((Case) =>
                 Case.personal_info.name.includes(this.search.trim())
             );
