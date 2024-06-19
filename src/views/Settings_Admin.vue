@@ -29,17 +29,19 @@
                                     trigger="loop"
                                     stroke="bold"
                                     state="hover-unfold"
-                                    style="width: 23px; height: 23px"
+                                    delay="2500"
+                                    style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
+
                                 <div
                                     style="
                                         width: 100%;
                                         margin-right: 50px;
-                                        margin-top: -34px;
+                                        margin-top: -27px;
                                     "
                                 >
-                                    معلومات شخصية
+                                    المعلومات
                                 </div></v-list-item
                             >
                             <v-list-item
@@ -47,8 +49,10 @@
                                 @click="tab_1 = 'two'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/pdwpcpva.json"
+                                    src="https://cdn.lordicon.com/fygyhyze.json"
                                     trigger="loop"
+                                    stroke="bold"
+                                    delay="2500"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -67,9 +71,9 @@
                                 @click="tab_1 = 'three'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/rymzvwiu.json"
+                                    src="https://cdn.lordicon.com/bvymuvni.json"
                                     trigger="loop"
-                                    stroke="bold"
+                                    delay="2500"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -88,11 +92,13 @@
                                 @click="tab_1 = 'four'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/egmlnyku.json"
+                                    src="https://cdn.lordicon.com/amjaykqd.json"
                                     trigger="loop"
-                                    state="hover-conversation-alt"
+                                    delay="2500"
                                     style="width: 25px; height: 25px"
-                                ></lord-icon>
+                                >
+                                </lord-icon>
+
                                 <div
                                     style="
                                         width: 100%;
@@ -318,6 +324,7 @@
                                                             trigger="loop"
                                                             stroke="bold"
                                                             state="hover-unfold"
+                                                            delay="2500"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -327,7 +334,7 @@
                                                         <div
                                                             class="name_of_tap"
                                                         >
-                                                            معلومات شخصية
+                                                            المعلومات
                                                         </div>
                                                     </v-col>
                                                 </v-row>
@@ -343,8 +350,10 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/pdwpcpva.json"
+                                                            src="https://cdn.lordicon.com/fygyhyze.json"
                                                             trigger="loop"
+                                                            stroke="bold"
+                                                            delay="2500"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -370,9 +379,9 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/rymzvwiu.json"
+                                                            src="https://cdn.lordicon.com/bvymuvni.json"
                                                             trigger="loop"
-                                                            stroke="bold"
+                                                            delay="2500"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -398,9 +407,9 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/egmlnyku.json"
+                                                            src="https://cdn.lordicon.com/amjaykqd.json"
                                                             trigger="loop"
-                                                            state="hover-conversation-alt"
+                                                            delay="2500"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
