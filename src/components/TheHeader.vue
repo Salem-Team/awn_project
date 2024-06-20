@@ -94,7 +94,7 @@
                             transition="scale-transition"
                             activator="#menu-activator"
                         >
-                            <v-list nav>
+                            <v-list nav class="nav_sin">
                                 <v-list-item>
                                     مرحباً {{ User_FullName }}</v-list-item
                                 >

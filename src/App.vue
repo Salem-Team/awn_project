@@ -197,4 +197,59 @@ body.dark-mode .details {
 .v-slide-group__prev {
     display: none !important;
 }
+body.dark-mode .profile::before {
+    background: #152b49 !important;
+}
+body.dark-mode .nav_sin {
+    background: #183153 !important;
+    color: white !important;
+}
+body.dark-mode .the_header::before {
+    background: #183153 !important;
+}
+body.dark-mode .v-form .salheat {
+    color: white !important;
+}
+body.dark-mode .v-form .salheat .v-field {
+    background: none !important;
+}
+body.dark-mode .v-form .salheat .v-label.v-field-label {
+    color: white !important;
+}
+body.dark-mode .v-form .salheat .mdi-menu-down {
+    color: white !important;
+}
+body.dark-mode .v-form .add {
+    background: #465a75;
+    color: #fff;
+
+    &:hover {
+        background: #183153;
+
+        color: #fff;
+    }
+}
+body.dark-mode .permissions_2 {
+    background: #183153 !important;
+    color: #fff !important;
+}
+body.dark-mode .box {
+    .Row {
+        &:last-child::before {
+            background: #183153 !important;
+        }
+        span {
+            .number {
+                background: #183153 !important;
+
+                color: #ddd;
+                box-shadow: 0 0 10px #ddd;
+            }
+            .name {
+                font-weight: bold;
+                color: var(--therd-color);
+            }
+        }
+    }
+}
 </style>
