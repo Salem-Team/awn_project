@@ -25,14 +25,14 @@
                                 @click="tab_1 = 'one'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/xsqjakgm.json"
+                                    src="https://cdn.lordicon.com/lsrcesku.json"
                                     trigger="loop"
                                     stroke="bold"
                                     state="hover-unfold"
                                     delay="2500"
                                     style="width: 25px; height: 25px"
-                                >
-                                </lord-icon>
+                                    colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                ></lord-icon>
 
                                 <div
                                     style="
@@ -49,11 +49,12 @@
                                 @click="tab_1 = 'two'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/fygyhyze.json"
+                                    src="https://cdn.lordicon.com/pdwpcpva.json"
                                     trigger="loop"
                                     stroke="bold"
                                     delay="2500"
                                     style="width: 25px; height: 25px"
+                                    colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
                                 >
                                 </lord-icon>
                                 <div
@@ -71,9 +72,10 @@
                                 @click="tab_1 = 'three'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/bvymuvni.json"
+                                    src="https://cdn.lordicon.com/kgvlhryh.json"
                                     trigger="loop"
                                     delay="2500"
+                                    colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -92,9 +94,11 @@
                                 @click="tab_1 = 'four'"
                             >
                                 <lord-icon
-                                    src="https://cdn.lordicon.com/amjaykqd.json"
+                                    src="https://cdn.lordicon.com/kiynvdns.json"
                                     trigger="loop"
                                     delay="2500"
+                                    stroke="bold"
+                                    colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -159,7 +163,7 @@
                                     >التعديلات</span
                                 >
                             </div>
-                            <div
+                            <!-- <div
                                 class="save_btn"
                                 @click="validateForm4"
                                 v-if="tab_1 == 'four'"
@@ -168,7 +172,7 @@
                                 <span class="hide-on-small-screens"
                                     >التعديلات</span
                                 >
-                            </div>
+                            </div> -->
                         </div>
                         <div>
                             <div>
@@ -320,7 +324,7 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/xsqjakgm.json"
+                                                            src="https://cdn.lordicon.com/lsrcesku.json"
                                                             trigger="loop"
                                                             stroke="bold"
                                                             state="hover-unfold"
@@ -329,8 +333,8 @@
                                                                 width: 25px;
                                                                 height: 25px;
                                                             "
-                                                        >
-                                                        </lord-icon>
+                                                            colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                                        ></lord-icon>
                                                         <div
                                                             class="name_of_tap"
                                                         >
@@ -350,7 +354,7 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/fygyhyze.json"
+                                                            src="https://cdn.lordicon.com/pdwpcpva.json"
                                                             trigger="loop"
                                                             stroke="bold"
                                                             delay="2500"
@@ -358,6 +362,7 @@
                                                                 width: 25px;
                                                                 height: 25px;
                                                             "
+                                                            colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
                                                         >
                                                         </lord-icon>
                                                         <div
@@ -379,9 +384,10 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/bvymuvni.json"
+                                                            src="https://cdn.lordicon.com/kgvlhryh.json"
                                                             trigger="loop"
                                                             delay="2500"
+                                                            colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -407,9 +413,11 @@
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
                                                         <lord-icon
-                                                            src="https://cdn.lordicon.com/amjaykqd.json"
+                                                            src="https://cdn.lordicon.com/kiynvdns.json"
                                                             trigger="loop"
                                                             delay="2500"
+                                                            stroke="bold"
+                                                            colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
