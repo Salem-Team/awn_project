@@ -132,7 +132,7 @@ body.dark-mode .v-navigation-drawer__content {
     color: #ffffff;
 }
 body.dark-mode .v-tabs {
-    background-color: #465a75 !important;
+    background-color: #152b49 !important;
     color: #ffffff;
 }
 body.dark-mode .v-divider {
@@ -140,11 +140,11 @@ body.dark-mode .v-divider {
     color: #465a75 !important;
 }
 body.dark-mode .container_0 {
-    background: #183153;
+    background: #1a355a;
     color: #ffffff;
 }
 body.dark-mode .box {
-    background: #465a75 !important;
+    background: #152b49 !important;
     color: #ffffff;
 }
 body.dark-mode .box .name,
@@ -152,7 +152,7 @@ body.dark-mode .box .permissions_1 {
     color: #ffffff !important;
 }
 body.dark-mode .v-card {
-    background: #465a75 !important;
+    background: #152b49 !important;
     color: #ffffff;
 }
 body.dark-mode .salheat .v-field__field,
@@ -164,7 +164,7 @@ body.dark-mode .salheat .v-field__append-inner i {
     color: var(--main-color) !important;
 }
 body.dark-mode .User_box {
-    background: #465a75 !important;
+    background: #152b49 !important;
 }
 body.dark-mode svg {
     color: white !important;
@@ -173,7 +173,7 @@ body.dark-mode .masaaed {
     color: white !important;
 }
 body.dark-mode hr {
-    color: #465a75 !important;
+    color: #152b49 !important;
 }
 
 body.dark-mode .Vue-Toastification__toast--success {
@@ -220,7 +220,7 @@ body.dark-mode .v-form .salheat .mdi-menu-down {
     color: white !important;
 }
 body.dark-mode .v-form .add {
-    background: #465a75;
+    background: #152b49;
     color: #fff;
 
     &:hover {
@@ -241,7 +241,6 @@ body.dark-mode .box {
         span {
             .number {
                 background: #183153 !important;
-
                 color: #ddd;
                 box-shadow: 0 0 10px #ddd;
             }
@@ -251,5 +250,27 @@ body.dark-mode .box {
             }
         }
     }
+}
+body.dark-mode .mahtagn_tap {
+    color: white !important;
+}
+body.dark-mode #menu-activator {
+    color: white !important;
+}
+body.dark-mode .v-card {
+    color: white !important;
+}
+body.dark-mode .v-select__selection {
+    color: white !important;
+    background: #183153 !important;
+    border-radius: 20px !important;
+}
+body.dark-mode .text-h5 {
+    color: white !important;
+}
+body.dark-mode .login,
+body.dark-mode .register {
+    color: white !important;
+    background: #152b49 !important;
 }
 </style>
