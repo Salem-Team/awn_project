@@ -117,6 +117,8 @@
                                         ></v-btn>
                                     </v-card-title>
                                     <v-stepper
+                                        editable
+                                        :ripple="false"
                                         v-model="e1"
                                         alt-labels
                                         style="padding: 20px; overflow: auto"
@@ -124,18 +126,57 @@
                                         <template
                                             v-slot:default="{ prev, next }"
                                         >
-                                            <v-stepper-header>
+                                            <v-stepper-header
+                                                class="stepper_head m-2"
+                                            >
                                                 <template
                                                     v-for="n in steps"
                                                     :key="`${n}-step`"
                                                 >
                                                     <v-stepper-item
+                                                        :ripple="false"
+                                                        style="
+                                                            font-size: 15px;
+                                                            font-weight: bold;
+                                                        "
                                                         :title="title[n]"
-                                                        editable
                                                         :complete="e1 > n"
-                                                        :step="`Step {{ n }}`"
+                                                        :step="`Step ${n}`"
                                                         :value="n"
-                                                    ></v-stepper-item>
+                                                        ref="stepperItems"
+                                                    >
+                                                        <template
+                                                            v-slot:default
+                                                        >
+                                                            <v-icon
+                                                                v-if="n === 1"
+                                                                style="
+                                                                    font-size: 40px;
+                                                                "
+                                                                >mdi-account</v-icon
+                                                            >
+                                                            <v-icon
+                                                                v-if="n === 2"
+                                                                ><font-awesome-icon
+                                                                    icon="hand-holding-dollar"
+                                                            /></v-icon>
+                                                            <v-icon
+                                                                v-if="n === 3"
+                                                                ><font-awesome-icon
+                                                                    icon="briefcase-medical"
+                                                            /></v-icon>
+                                                            <v-icon
+                                                                v-if="n === 4"
+                                                                ><font-awesome-icon
+                                                                    icon="house-user"
+                                                            /></v-icon>
+                                                            <v-icon
+                                                                v-if="n === 5"
+                                                                ><font-awesome-icon
+                                                                    icon="people-line"
+                                                            /></v-icon>
+                                                        </template>
+                                                    </v-stepper-item>
 
                                                     <v-divider
                                                         v-if="n !== steps"
@@ -312,6 +353,7 @@
                                                                 "
                                                             >
                                                                 <v-select
+                                                                    variant="outlined"
                                                                     v-model="
                                                                         Personal_Information.marital_status
                                                                     "
@@ -524,10 +566,6 @@
                                                                     ></v-text-field>
                                                                 </div>
                                                             </div>
-                                                            <v-divider
-                                                                :thickness="8"
-                                                                class="my-5 mb-5"
-                                                            ></v-divider>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -556,6 +594,7 @@
                                                                 "
                                                             >
                                                                 <v-select
+                                                                    variant="outlined"
                                                                     v-model="
                                                                         Housing_Condition.number_rooms
                                                                     "
@@ -576,6 +615,7 @@
                                                                 "
                                                             >
                                                                 <v-select
+                                                                    variant="outlined"
                                                                     v-model="
                                                                         Housing_Condition.house_type
                                                                     "
@@ -598,6 +638,7 @@
                                                                 "
                                                             >
                                                                 <v-select
+                                                                    variant="outlined"
                                                                     v-model="
                                                                         Housing_Condition.bathroom_type
                                                                     "
@@ -618,6 +659,7 @@
                                                                 "
                                                             >
                                                                 <v-select
+                                                                    variant="outlined"
                                                                     v-model="
                                                                         Housing_Condition.floor_type
                                                                     "
@@ -762,6 +804,7 @@
                                                 <div v-if="e1 === 5">
                                                     <!-- Show empty error if no data -->
                                                     <Empty_error
+                                                        style="color: #0088ff"
                                                         v-if="
                                                             Case_FamilyNeeds.length ===
                                                             0
@@ -909,21 +952,79 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="btn"
-                                                        @click="Add_Cases"
-                                                    >
-                                                        أضف الحالة
+                                                    <div class="btn_add">
+                                                        <v-btn
+                                                            style="
+                                                                font-family: Cairo !important;
+                                                                font-size: 20px !important;
+                                                            "
+                                                            class="btn"
+                                                            @click="Add_Cases"
+                                                            color="#fff"
+                                                            append-icon="mdi-account-plus"
+                                                            ><span
+                                                                >أضف
+                                                                الحالة</span
+                                                            >
+                                                        </v-btn>
                                                     </div>
                                                 </div>
                                             </v-stepper-window>
 
                                             <v-stepper-actions
+                                                class="d-flex justify-center ga-5"
                                                 :disabled="disabled"
                                                 @click:next="next"
                                                 @click:prev="prev"
                                                 type="submit"
-                                            ></v-stepper-actions>
+                                            >
+                                                <template #prev="{ props }">
+                                                    <v-btn
+                                                        class="prev"
+                                                        style="
+                                                            background-color: #eee;
+                                                        "
+                                                        @click="
+                                                            () =>
+                                                                props.onClick(
+                                                                    'prev'
+                                                                )
+                                                        "
+                                                        rounded="lg"
+                                                        size="x-large"
+                                                    >
+                                                        <span class="icon2 ml-3"
+                                                            ><font-awesome-icon
+                                                                icon="circle-chevron-right"
+                                                                size="lg"
+                                                        /></span>
+                                                        <span> رجوع</span>
+                                                    </v-btn>
+                                                </template>
+                                                <template #next="{ props }">
+                                                    <div>
+                                                        <v-btn
+                                                            @click="
+                                                                () =>
+                                                                    props.onClick(
+                                                                        'next'
+                                                                    )
+                                                            "
+                                                            rounded="lg"
+                                                            size="x-large"
+                                                        >
+                                                            <span> التالي</span>
+                                                            <span
+                                                                class="icon1 mr-4"
+                                                            >
+                                                                <font-awesome-icon
+                                                                    icon="circle-chevron-left"
+                                                                    size="lg"
+                                                            /></span>
+                                                        </v-btn>
+                                                    </div>
+                                                </template>
+                                            </v-stepper-actions>
                                         </template>
                                     </v-stepper>
                                 </v-card>
@@ -1691,5 +1792,190 @@ export default {
         padding: 5px !important;
         font-size: 16px !important;
     }
+}
+//Start Stepper
+.v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default {
+    font-size: 40px !important;
+    margin-top: 15px !important;
+    color: #0088ff;
+}
+.v-icon.notranslate.v-theme--.v-icon--size-default {
+    margin: 20px 0 !important;
+    color: #0088ff !important;
+}
+
+.stepper_head {
+    border-radius: 5px 50px 5px 50px;
+}
+@media screen and (max-width: 1000px) {
+    .v-stepper--alt-labels .v-stepper-header {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+}
+@media screen and (max-width: 700px) {
+    .v-stepper--alt-labels .v-stepper-header {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .form > div[data-v-2ee767a5] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important  ;
+    }
+    .v-input__control,
+    .mt-2.d-flex.flex-column,
+    .d-flex.flex-column {
+        width: 90% !important;
+    }
+}
+.v-stepper-item {
+    font-family: "Cairo", sans-serif !important;
+}
+.v-stepper-item.v-stepper-item--selected {
+    color: #fff !important;
+}
+// All Used Animations
+// Animation Fadein
+@keyframes fadeIn {
+    from {
+        transform: scale(1);
+        // transform: translateY(0px);
+    }
+    to {
+        transform: scale(1.2);
+        // transform: translateY(10px);
+    }
+}
+// Ani MoveOn
+@keyframes moveRight {
+    from {
+        transform: translateX(0);
+        // transform: translateY(0px);
+    }
+    to {
+        transform: translateX(-5px);
+        // transform: translateY(10px);
+    }
+}
+@keyframes moveLift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(5px);
+    }
+}
+@keyframes Scale3d {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(1.1);
+    }
+}
+// for Box Focus
+button.v-stepper-item.v-stepper-item--selected {
+    background-color: #0088ff !important;
+    border-radius: 5px 50px 5px 50px;
+    transition: 1s;
+    .v-icon.notranslate.v-theme--.v-icon--size-default,
+    .v-stepper--alt-labels .v-stepper-item {
+        color: #fff !important;
+    }
+    .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-2ee767a5] {
+        color: #eee !important;
+        animation: fadeIn 1s infinite ease-in-out alternate;
+    }
+    .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-5f88210f] {
+        color: #fff;
+    }
+}
+// Styling Form >> Add Casess personal info
+::v-deep.v-input--density-default .v-field--variant-outlined,
+::v-deep.v-input--density-default .v-field--single-line,
+::v-deep.v-input--density-default .v-field--no-label {
+    border-radius: 50px !important ;
+    height: 70px !important;
+    font-size: 20px !important;
+    font-family: cairo;
+}
+.v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
+    min-height: 100%;
+}
+// Btn Steppers
+.v-btn {
+    display: flex;
+    width: 150px;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    span {
+        margin-right: 5px;
+    }
+    font-family: "Cairo";
+}
+.v-btn:hover {
+    transition: 0.5;
+    background-color: #eee !important;
+    color: #0088ff !important;
+}
+.v-btn.prev:hover {
+    background: #5c5c5c !important;
+    color: #fff !important;
+    transition: 0.5;
+}
+.icon2.ml-3 {
+    font-size: 20px;
+}
+.v-btn:hover .icon2.ml-3 {
+    animation: moveRight 0.5s infinite ease-in-out alternate;
+}
+.v-btn:hover .icon1.mr-4 {
+    animation: moveLift 0.5s infinite ease-in-out alternate;
+}
+// div.Addbtn {
+//     display: block !important;
+// }
+.Addbtn .v-btn {
+    transition: 0.4s;
+}
+.Addbtn:hover .v-btn {
+    background-color: #0088ff !important;
+    color: #fff !important;
+    // transition: 3s;
+}
+.v-checkbox {
+    font-size: 20px;
+}
+::v-deep .v-label--clickable {
+    width: 150px !important;
+    font-size: 22px !important;
+    margin: 15px !important;
+    font-family: "Cairo" !important;
+}
+.btn_add {
+    width: 200px;
+    display: flex;
+    justify-content: left;
+    margin: 50px 0 0 0;
+}
+.btn_add .v-btn {
+    width: 200px !important;
+    height: 60px !important;
+    padding: 10px !important;
+    font-size: 20px !important;
+    font-family: "Cairo" !important;
+    border: 1px solid #0088ff;
+    color: #0088ff !important;
+    position: relative;
+    overflow: hidden;
+}
+.btn_add:hover .v-btn {
+    transition: 0.5s;
+    background-color: #0088ff !important;
+    color: #fff !important;
+}
+.text-h5.ps-2.text-primary {
+    font-family: Cairo !important;
 }
 </style>
