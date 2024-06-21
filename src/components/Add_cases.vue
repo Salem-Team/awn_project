@@ -1,31 +1,62 @@
 <template>
     <div class="mian_overlay" @click="close_function_1"></div>
-    <div class="main_popup">
-        <div class="header">
-            <div>إضافة حالة</div>
+    <div class="main_popup" style="z-index: 9999999">
+        <div class="header mb-1">
+            <div
+                style="
+                    font-family: 'Cairo', sans-serif;
+                    font-size: 20px;
+                    z-index: 9999999;
+                "
+            >
+                إضافة حالة
+            </div>
             <font-awesome-icon
                 :icon="['fas', 'xmark']"
                 @click="close_function_1"
             />
         </div>
 
-        <v-stepper v-model="e1" alt-labels style="padding: 20px">
+        <v-stepper editable v-model="e1" alt-labels style="padding: 5px">
             <template v-slot:default="{ prev, next }">
-                <v-stepper-header>
+                <v-stepper-header class="stepper_head m-2">
                     <template v-for="n in steps" :key="`${n}-step`">
                         <v-stepper-item
+                            :ripple="false"
+                            style="font-size: 15px; font-weight: bold"
                             :title="title[n]"
                             :complete="e1 > n"
-                            :step="`Step {{ n }}`"
+                            :step="`Step ${n}`"
                             :value="n"
-                        ></v-stepper-item>
+                            ref="stepperItems"
+                        >
+                            <template v-slot:default>
+                                <v-icon v-if="n === 1" style="font-size: 50px"
+                                    >mdi-account</v-icon
+                                >
+                                <v-icon v-if="n === 2"
+                                    ><font-awesome-icon
+                                        icon="hand-holding-dollar"
+                                /></v-icon>
+                                <v-icon v-if="n === 3"
+                                    ><font-awesome-icon
+                                        icon="briefcase-medical"
+                                /></v-icon>
+                                <v-icon v-if="n === 4"
+                                    ><font-awesome-icon icon="house-user"
+                                /></v-icon>
+                                <v-icon v-if="n === 5"
+                                    ><font-awesome-icon icon="people-line"
+                                /></v-icon>
+                            </template>
+                        </v-stepper-item>
 
                         <v-divider v-if="n !== steps" :key="n"></v-divider>
                     </template>
                 </v-stepper-header>
 
                 <v-stepper-window>
-                    <div v-if="e1 === 1">
+                    <div v-if="e1 === 1" ref="slide1">
                         <form @submit.prevent="validateForm">
                             <div class="form">
                                 <div>
@@ -243,6 +274,7 @@
                                                 personal_info_1.marital_status
                                             "
                                             class="mt-2"
+                                            variant="outlined"
                                             style="width: 100%"
                                             :items="SocialStatuss"
                                             label="الحاله الجتماعيه  "
@@ -281,7 +313,7 @@
                             </div>
                         </form>
                     </div>
-                    <div v-if="e1 === 2">
+                    <div v-if="e1 === 2" ref="slide2">
                         <form @submit.prevent="validateForm2">
                             <div class="form">
                                 <div>
@@ -373,10 +405,7 @@
                                             v-model="financial_info_2.deficit"
                                             label="العجز "
                                             class="mt-2"
-                                            style="
-                                                width: 100%;
-                                                pointer-events: none;
-                                            "
+                                            style="pointer-events: none"
                                             :value="
                                                 financial_info_2.required -
                                                 financial_info_2.incom
@@ -481,22 +510,28 @@
                                     </div>
                                 </div>
                                 <v-divider
-                                    :thickness="8"
+                                    :thickness="3"
                                     class="my-5"
                                 ></v-divider>
                             </div>
                             <div>
-                                <div class="w-25 d-flex">
+                                <div class="Addbtn mr-5" style="width: 300px">
                                     <v-btn
-                                        style="
-                                            display: block;
-                                            margin-bottom: 20px;
-                                            margin-right: 20px;
-                                        "
+                                        append-icon="mdi-plus"
                                         @click="addform_dis"
-                                        icon="mdi-plus"
-                                        size="small"
+                                        color="#0088ff"
+                                        variant="outlined"
+                                        style="
+                                            font-size: 18px;
+                                            font-family: Cairo;
+                                            padding: 15px;
+                                            width: 300px;
+                                            height: 60px;
+                                            border: 1px solid #0088ff;
+                                            border-radius: 100px;
+                                        "
                                     >
+                                        أضافه حاله مرضيه اخرى
                                     </v-btn>
                                 </div>
                             </div>
@@ -511,12 +546,16 @@
                                         style="width: 50%"
                                     >
                                         <v-select
+                                            variant="outlined"
                                             v-model="
                                                 housing_condition_4.number_rooms
                                             "
                                             :items="number_rooms"
                                             class="mt-2"
-                                            style="width: 100%"
+                                            style="
+                                                width: 100%;
+                                                border-radius: 0;
+                                            "
                                             label=" عدد الغرف"
                                         ></v-select>
 
@@ -543,6 +582,7 @@
                                         style="width: 50%"
                                     >
                                         <v-select
+                                            variant="outlined"
                                             v-model="
                                                 housing_condition_4.house_type
                                             "
@@ -576,6 +616,7 @@
                                         style="width: 50%"
                                     >
                                         <v-select
+                                            variant="outlined"
                                             v-model="
                                                 housing_condition_4.bathroom_type
                                             "
@@ -607,6 +648,7 @@
                                         style="width: 50%"
                                     >
                                         <v-select
+                                            variant="outlined"
                                             v-model="
                                                 housing_condition_4.floor_type
                                             "
@@ -861,6 +903,7 @@
                                         <v-checkbox
                                             v-model="family_needs_Array"
                                             label="طبي"
+                                            color="primary"
                                             value="طبي"
                                         ></v-checkbox>
                                         <span
@@ -888,8 +931,10 @@
                                     >
                                         <v-checkbox
                                             v-model="family_needs_Array"
+                                            color="primary"
                                             label="زوج"
                                             value="زوج"
+                                            class="larger-checkbox"
                                         ></v-checkbox>
                                         <span
                                             v-for="err in v$.$errors"
@@ -915,6 +960,7 @@
                                     >
                                         <v-checkbox
                                             v-model="family_needs_Array"
+                                            color="primary"
                                             label="ملابس"
                                             value="ملابس"
                                         ></v-checkbox>
@@ -943,6 +989,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
+                                            color="primary"
                                             v-model="family_needs_Array"
                                             label="مرتبات"
                                             value="مرتبات"
@@ -972,6 +1019,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
+                                            color="primary"
                                             v-model="family_needs_Array"
                                             label="بطاطين"
                                             value="بطاطين"
@@ -999,6 +1047,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
+                                            color="primary"
                                             v-model="family_needs_Array"
                                             label="شنطه غذائيه"
                                             value="شنطه غذائيه"
@@ -1028,6 +1077,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
+                                            color="primary"
                                             v-model="family_needs_Array"
                                             label="كفاله شهريه"
                                             value="كفاله شهريه"
@@ -1058,6 +1108,7 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
+                                            color="primary"
                                             v-model="family_needs_Array"
                                             label="اجهزه منزليه"
                                             value="اجهزه منزليه"
@@ -1087,9 +1138,11 @@
                                         style="width: 50%"
                                     >
                                         <v-checkbox
+                                            color="primary"
                                             v-model="family_needs_Array"
                                             label="كفاله "
                                             value="كفاله "
+                                            rounded
                                         ></v-checkbox>
 
                                         <span
@@ -1113,17 +1166,59 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn" @click="Add_Cases">أضف الحالة</div>
+                            <div class="btn_add">
+                                <v-btn
+                                    style="font-family: 'Cairo', sans-serif"
+                                    class="btn"
+                                    @click="Add_Cases"
+                                    color="#fff"
+                                    append-icon="mdi-account-plus"
+                                    ><span>أضف الحالة</span>
+                                </v-btn>
+                            </div>
                         </form>
                     </div>
                 </v-stepper-window>
-
                 <v-stepper-actions
+                    class="d-flex justify-center ga-5"
                     :disabled="disabled"
                     @click:next="next"
                     @click:prev="prev"
                     type="submit"
-                ></v-stepper-actions>
+                >
+                    <template #prev="{ props }">
+                        <v-btn
+                            class="prev"
+                            style="background-color: #eee"
+                            @click="() => props.onClick('prev')"
+                            rounded="lg"
+                            size="x-large"
+                        >
+                            <span class="icon2 ml-3"
+                                ><font-awesome-icon
+                                    icon="circle-chevron-right"
+                                    size="lg"
+                            /></span>
+                            <span> رجوع</span>
+                        </v-btn>
+                    </template>
+                    <template #next="{ props }">
+                        <div>
+                            <v-btn
+                                @click="() => props.onClick('next')"
+                                rounded="lg"
+                                size="x-large"
+                            >
+                                <span> التالي</span>
+                                <span class="icon1 mr-4">
+                                    <font-awesome-icon
+                                        icon="circle-chevron-left"
+                                        size="lg"
+                                /></span>
+                            </v-btn>
+                        </div>
+                    </template>
+                </v-stepper-actions>
             </template>
         </v-stepper>
     </div>
@@ -1138,7 +1233,8 @@ import {
 } from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
-
+// import Gsap animations
+import { gsap } from "gsap";
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
@@ -1545,6 +1641,46 @@ export default {
         };
     },
     methods: {
+        // animation headers
+        animateIcons() {
+            this.$refs.stepperItems.forEach((item, index) => {
+                gsap.fromTo(
+                    item.$el,
+                    {
+                        opacity: 0, // البداية من opacity 0.5
+                        x: 50 * (index + 1), // الوضع الأولي للإحداثي y
+                    },
+                    {
+                        duration: 1, // مدة الحركة
+                        opacity: 1, // النهاية عند opacity 1
+                        x: 0, // النهاية عند الإحداثي y صفر
+                        delay: index * 0.2, // تأخير حسب الترتيب
+                        ease: "power2.out", // نوع الانتقال
+                    }
+                );
+            });
+        },
+        // second ani
+        animateSlideChange() {
+            const slides = [this.$refs.slide1, this.$refs.slide2];
+
+            slides.forEach((slide, index) => {
+                gsap.fromTo(
+                    slide,
+                    {
+                        opacity: 0.5, // البداية من opacity 0.5
+                        y: -100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
+                    },
+                    {
+                        duration: 1, // مدة الحركة
+                        opacity: 1, // النهاية عند opacity 1
+                        y: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
+                        delay: index * 0.2, // تأخير حسب الترتيب
+                        ease: "power2.out", // نوع الانتقال
+                    }
+                );
+            });
+        },
         addform_dis() {
             this.dis_index++;
             this.diseases_3.push({
@@ -1873,11 +2009,15 @@ export default {
         "financial_info_2.incom": function () {
             this.calculateDifference();
         },
+        e1(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                this.animateSlideChange(newVal);
+            }
+        },
     },
     mounted() {
-        // if (this.des_1) {
-        // }
-        // console.log(this.);
+        this.animateIcons();
+        this.animateSlideChange();
     },
 };
 </script>
@@ -1927,9 +2067,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    // background: #fafafa;
-    border-bottom: 1px solid #ddd;
     border-radius: 5px;
+    overflow: auto;
     padding: 10px;
     font-size: 25px;
     color: #0088ff;
@@ -1938,4 +2077,231 @@ export default {
         cursor: pointer;
     }
 }
+// Start Add Cases Styles
+.svg-inline--fa.fa-xmark {
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    transition: 0.5s;
+    border-radius: 50%;
+}
+.svg-inline--fa.fa-xmark:hover {
+    border-radius: 50%;
+    background-color: #ddd !important;
+    color: #fff !important;
+}
+.v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default {
+    font-size: 40px !important;
+    margin-top: 15px !important;
+    color: #0088ff;
+}
+.v-icon.notranslate.v-theme--.v-icon--size-default {
+    margin: 20px 0 !important;
+    color: #0088ff !important;
+}
+
+.stepper_head {
+    border-radius: 5px 50px 5px 50px;
+}
+@media screen and (max-width: 1000px) {
+    .v-stepper--alt-labels .v-stepper-header {
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+}
+@media screen and (max-width: 700px) {
+    .v-stepper--alt-labels .v-stepper-header {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .form > div[data-v-2ee767a5] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important  ;
+    }
+    .v-input__control,
+    .mt-2.d-flex.flex-column,
+    .d-flex.flex-column {
+        width: 90% !important;
+    }
+}
+.v-stepper-item {
+    font-family: "Cairo", sans-serif !important;
+}
+.v-stepper-item.v-stepper-item--selected {
+    color: #fff !important;
+}
+// All Used Animations
+// Animation Fadein
+@keyframes fadeIn {
+    from {
+        transform: scale(1);
+        // transform: translateY(0px);
+    }
+    to {
+        transform: scale(1.2);
+        // transform: translateY(10px);
+    }
+}
+// Ani MoveOn
+@keyframes moveRight {
+    from {
+        transform: translateX(0);
+        // transform: translateY(0px);
+    }
+    to {
+        transform: translateX(-5px);
+        // transform: translateY(10px);
+    }
+}
+@keyframes moveLift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(5px);
+    }
+}
+@keyframes Scale3d {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(1.1);
+    }
+}
+// for Box Focus
+button.v-stepper-item.v-stepper-item--selected {
+    background-color: #0088ff !important;
+    border-radius: 5px 50px 5px 50px;
+    transition: 1s;
+    .v-icon.notranslate.v-theme--.v-icon--size-default,
+    .v-stepper--alt-labels .v-stepper-item {
+        color: #fff !important;
+    }
+    .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-2ee767a5] {
+        color: #eee !important;
+        animation: fadeIn 1s infinite ease-in-out alternate; /* Apply fade-in animation */
+    }
+}
+// Styling Form >> Add Casess personal info
+::v-deep.v-input--density-default .v-field--variant-outlined,
+::v-deep.v-input--density-default .v-field--single-line,
+::v-deep.v-input--density-default .v-field--no-label {
+    border-radius: 50px !important ;
+    height: 70px !important;
+    font-size: 20px !important;
+    font-family: cairo;
+}
+.v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
+    min-height: 100%;
+}
+// Btn Steppers
+.v-btn {
+    display: flex;
+    width: 150px;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    span {
+        margin-right: 5px;
+    }
+    font-family: "Cairo";
+}
+.v-btn:hover {
+    transition: 0.5;
+    background-color: #0088ff;
+    color: #ffffff;
+}
+.v-btn.prev:hover {
+    background: #5c5c5c !important;
+    color: #fff !important;
+    transition: 0.5;
+}
+.icon2.ml-3 {
+    font-size: 20px;
+}
+.v-btn:hover .icon2.ml-3 {
+    animation: moveRight 0.5s infinite ease-in-out alternate;
+}
+.v-btn:hover .icon1.mr-4 {
+    animation: moveLift 0.5s infinite ease-in-out alternate;
+}
+// div.Addbtn {
+//     display: block !important;
+// }
+.Addbtn .v-btn {
+    transition: 0.4s;
+}
+.Addbtn:hover .v-btn {
+    background-color: #0088ff !important;
+    color: #fff !important;
+    // transition: 3s;
+}
+.v-checkbox {
+    font-size: 20px; /* Adjust font size for label (optional) */
+}
+::v-deep .v-label--clickable {
+    width: 150px !important;
+    font-size: 22px !important;
+    margin: 15px !important;
+    font-family: "Cairo" !important;
+}
+// Add case btn
+.btn_add {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0 50px 0;
+}
+.v-btn.v-btn--elevated.v-theme--myCustomLightTheme.v-btn--density-default.v-btn--size-default.v-btn--variant-elevated.btn:hover {
+    transition: 0.5s;
+    background-color: #0088ff !important;
+    color: #fff !important;
+}
+.btn_add .v-btn {
+    width: 220px !important;
+    height: 60px !important;
+    padding: 10px !important;
+    font-size: 20px !important;
+    font-family: "Cairo", sans-serif !important;
+    transition: 0.5s;
+    border: 1px solid #0088ff;
+    color: #0088ff !important;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.5s ease;
+}
+
+.btn_add .v-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0088ff;
+    transition: transform 0.5s ease;
+    transform: scaleX(0);
+    transform-origin: right;
+    z-index: 0;
+}
+
+.btn_add .v-btn:hover::before {
+    transition: 0.5s;
+    background-color: #0088ff !important;
+    color: #fff !important;
+    transform: scaleX(1);
+}
+
+.btn_add .v-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn_add .v-btn .v-icon {
+    position: relative;
+    z-index: 1;
+}
+// .v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
+//     overflow: scroll;
+// }
 </style>

@@ -223,7 +223,7 @@
                     <div
                         class="body"
                         style="
-                            ddisplay: flex;
+                            display: flex;
                             align-items: center;
                             justify-content: space-between;
                             flex-direction: column;
@@ -625,7 +625,9 @@
             <v-dialog v-model="dialog_2" width="90%">
                 <div class="popup bg-white w-100 rounded">
                     <div class="header">
-                        <div>إضافة الحالات</div>
+                        <div style="font-family: 'Cairo', sans-serif">
+                            إضافة الحالات
+                        </div>
                         <font-awesome-icon
                             :icon="['fas', 'xmark']"
                             @click="dialog_2 = false"
@@ -642,17 +644,20 @@
                                 <div @click="dialog1 = true">اكسل</div>
                                 <v-dialog v-model="dialog1" max-width="90%">
                                     <template v-slot:default="{ isActive }">
-                                        <v-card
-                                            rounded="lg"
-                                            class="mx-16"
-                                            height="700"
-                                            width="90%"
-                                        >
+                                        <v-card rounded="lg" class="mx-16">
                                             <v-card-title
                                                 class="d-flex justify-space-between align-center"
+                                                style="
+                                                    box-shadow: 0 4px 3px
+                                                        rgba(0, 0, 0, 0.1);
+                                                "
                                             >
                                                 <div
-                                                    class="text-h5 text-medium-emphasis ps-2"
+                                                    style="
+                                                        font-family: Cairo;
+                                                        font-weight: 500;
+                                                    "
+                                                    class="text-h5 text-medium-emphasis ps-2 ma-6"
                                                 >
                                                     اضافه ملف اكسيل
                                                 </div>
@@ -660,38 +665,70 @@
                                                 <v-btn
                                                     icon="mdi-close"
                                                     variant="text"
+                                                    color="#7a7a7a"
                                                     @click="
                                                         isActive.value = false
                                                     "
                                                 ></v-btn>
                                             </v-card-title>
 
-                                            <v-divider class="mb-4"></v-divider>
-
                                             <v-card-text
                                                 class="d-flex flex-column align-center"
                                             >
-                                                <div class="mb-4">
-                                                    <a
-                                                        href="https://docs.google.com/spreadsheets/d/1V5euJ0Yoaw6JDO7ZZwuZ8TYm4SU2Uu1i/edit?usp=sharing&ouid=103544609659766512054&rtpof=true&sd=true"
-                                                        download
-                                                        target="_blank"
+                                                <div
+                                                    class="mt-10"
+                                                    style="
+                                                        font-size: 20px;
+                                                        font-family: Cairo;
+                                                        color: #7a7a7a;
+                                                    "
+                                                >
+                                                    اذا لم يكن لديك ملف اكسيل
+                                                    يمكنك تحميله
+                                                    <div
+                                                        class="text-center my-6"
                                                     >
-                                                        تحميل ملف Excel</a
-                                                    >
+                                                        <a
+                                                            href="https://docs.google.com/spreadsheets/d/1V5euJ0Yoaw6JDO7ZZwuZ8TYm4SU2Uu1i/edit?usp=sharing&ouid=103544609659766512054&rtpof=true&sd=true"
+                                                            download
+                                                            target="_blank"
+                                                        >
+                                                            من هنا
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </v-card-text>
+                                            <div
+                                                style="
+                                                    position: relative;
+                                                    bottom: 30px;
+                                                    margin-top: 10px;
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    height: 100px;
+                                                "
+                                            >
+                                                <font-awesome-icon
+                                                    style="
+                                                        font-size: 100px;
+                                                        color: #0088ff;
+                                                    "
+                                                    icon="folder-open"
+                                                    beat-fade
+                                                />
+                                            </div>
                                             <div
                                                 class="d-flex justify-center align-center"
                                             >
                                                 <div
-                                                    class="text-medium-emphasis mb-1"
+                                                    class="text-medium-emphasis mb-1 mt-4"
                                                     style="
                                                         display: flex;
                                                         flex-wrap: wrap;
                                                         justify-content: center;
                                                         width: 60%;
-                                                        height: 120px;
+                                                        height: 150px;
+                                                        border-radius: 20px;
                                                         border: 3px dashed #777;
                                                         align-content: center;
                                                         justify-content: space-around;
@@ -728,11 +765,13 @@
                                                         />
                                                         <span
                                                             style="
-                                                                font-family: 'Roboto',
+                                                                font-family: 'Cairo',
                                                                     sans-serif;
                                                                 font-size: 18px;
+                                                                margin-right: 15px;
                                                             "
-                                                            >رفع ملف
+                                                        >
+                                                            أضف ملفك
                                                         </span>
                                                     </label>
                                                 </div>
@@ -792,20 +831,16 @@
                                                 class="my-2 d-flex justify-end"
                                             >
                                                 <v-btn
-                                                    style="
-                                                        font-size: 21px;
-                                                        width: 16%;
-                                                        height: 50px;
-                                                        margin: 30px;
-                                                    "
-                                                    class="text-none"
-                                                    color="primary"
-                                                    text="تم"
-                                                    variant="flat"
                                                     @click="
                                                         isActive.value = false
                                                     "
-                                                ></v-btn>
+                                                    class="submit"
+                                                    style=""
+                                                    rounded="lg"
+                                                    size="x-large"
+                                                >
+                                                    <span> تم</span>
+                                                </v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </template>
@@ -1435,10 +1470,7 @@ export default {
 //         font-size: 25px;
 //     }
 // }
-.Dash_board {
-    // width: calc(100% - 56px);
-    // margin-right: auto;
-}
+
 .popup {
     padding: 20px;
     font-family: system-ui;
@@ -1485,8 +1517,7 @@ label input[type="file"] {
 }
 label span {
     cursor: pointer;
-    background: #ddd;
-    border: 2px solid #ddd;
+    // border: 2px solid #ddd;
     border-radius: 4px;
     padding: 10px 20px;
     display: flex;
@@ -1697,5 +1728,24 @@ label span:active {
     .container_0 .statistics .main_box .small_box {
         width: 47%;
     }
+}
+@media (max-width: 500px) {
+    .mdi-cloud-upload.mdi.v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default {
+        display: none !important;
+    }
+}
+.v-card.v-theme--myCustomLightTheme.v-card--density-default.rounded-lg.v-card--variant-elevated.mx-16 {
+    background-color: #eee;
+    color: #fff;
+}
+.v-btn.submit {
+    color: #0088ff;
+    background-color: #eee !important;
+    width: 200px;
+}
+.v-btn.submit:hover {
+    background: #0088ff !important;
+    color: #fff !important;
+    transition: 0.5;
 }
 </style>
