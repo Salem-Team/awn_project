@@ -1890,10 +1890,9 @@
                                                         "
                                                     >
                                                         <v-icon
-                                                            color=""
                                                             style="
                                                                 position: absolute;
-                                                                right: 37px;
+                                                                right: 20px;
                                                                 bottom: 19px;
                                                             "
                                                         >
@@ -3020,7 +3019,7 @@ label span:active {
         width: 47%;
     }
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .mdi-cloud-upload.mdi.v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default {
         display: none !important;
     }
