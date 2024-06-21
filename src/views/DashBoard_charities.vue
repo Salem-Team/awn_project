@@ -3466,7 +3466,7 @@ button.v-stepper-item.v-stepper-item--selected {
         color: #fff;
     }
     .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-d1ccef3e] {
-        color: #fff;
+        color: #ddd;
     }
 }
 // Styling Form >> Add Casess personal info
