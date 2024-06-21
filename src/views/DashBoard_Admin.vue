@@ -27,8 +27,12 @@
                     <div class="px-12">
                         <v-card>
                             <v-tabs v-model="tab" bg-color="grey-lighten-3">
-                                <v-tab value="المحتاجين">المحتاجين</v-tab>
-                                <v-tab value="الجمعيات">الجمعيات</v-tab>
+                                <v-tab class="mahtagn_tap" value="المحتاجين"
+                                    >المحتاجين</v-tab
+                                >
+                                <v-tab class="mahtagn_tap" value="الجمعيات"
+                                    >الجمعيات</v-tab
+                                >
                             </v-tabs>
                         </v-card>
                         <v-window v-model="tab">

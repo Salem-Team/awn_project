@@ -6,8 +6,8 @@
             <div>
                 <v-layout>
                     <!-- Navigation Drawer -->
+                    <!-- expand-on-hover -->
                     <v-navigation-drawer
-                        expand-on-hover
                         rail
                         location="right"
                         v-show="isSmallScreen"
@@ -338,7 +338,7 @@
                                                         <div
                                                             class="name_of_tap"
                                                         >
-                                                            المعلومات
+                                                            المعلومات الشخصيه
                                                         </div>
                                                     </v-col>
                                                 </v-row>
