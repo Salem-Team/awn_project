@@ -104,7 +104,9 @@
                                     <v-card-title
                                         class="d-flex justify-space-between align-center"
                                     >
-                                        <div class="text-h5 ps-2 text-primary">
+                                        <div
+                                            class="tafasel text-h5 ps-2 text-primary"
+                                        >
                                             تفاصيل الحالة
                                         </div>
                                         <v-btn

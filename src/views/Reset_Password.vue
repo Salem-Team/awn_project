@@ -1,62 +1,60 @@
 <template>
-    <v-theme-provider class="pa-10" :theme="triggerToggleTheme" with-background>
-        <div class="reset_password mt-16" style="height: 100vh !important">
-            <v-container class="mt-16">
-                <form
-                    ref="form"
-                    @submit.prevent="validateForm"
-                    class="ma-auto"
-                    action="post"
-                >
-                    <h2 class="mt-16 mb-4">نسيت كلمة المرور</h2>
-                    <!--phone input-->
-                    <v-text-field
-                        v-model="user.phone"
-                        label="تليفون"
-                        type="tel"
-                        variant="outlined"
-                        @input="v$.user.phone.$touch()"
-                        :error-messages="
-                            v$.user.phone.$errors.map((e) => e.$message)
-                        "
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="user.email"
-                        type="email"
-                        placeholder="example@gmail.com"
-                        variant="outlined"
-                        label="الايميل"
-                        class="mt-2"
-                        @input="v$.user.email.$touch()"
-                        @focus="isEmailFocused = true"
-                        @blur="isEmailFocused = false"
-                        :error-messages="
-                            v$.user.email.$errors.map((e) => e.$message)
-                        "
-                    ></v-text-field>
+    <div class="reset_password mt-16" style="height: 100vh !important">
+        <v-container class="mt-16">
+            <form
+                ref="form"
+                @submit.prevent="validateForm"
+                class="ma-auto"
+                action="post"
+            >
+                <h2 class="mt-16 mb-4">نسيت كلمة المرور</h2>
+                <!--phone input-->
+                <v-text-field
+                    v-model="user.phone"
+                    label="تليفون"
+                    type="tel"
+                    variant="outlined"
+                    @input="v$.user.phone.$touch()"
+                    :error-messages="
+                        v$.user.phone.$errors.map((e) => e.$message)
+                    "
+                ></v-text-field>
+                <v-text-field
+                    v-model="user.email"
+                    type="email"
+                    placeholder="example@gmail.com"
+                    variant="outlined"
+                    label="الايميل"
+                    class="mt-2"
+                    @input="v$.user.email.$touch()"
+                    @focus="isEmailFocused = true"
+                    @blur="isEmailFocused = false"
+                    :error-messages="
+                        v$.user.email.$errors.map((e) => e.$message)
+                    "
+                ></v-text-field>
 
-                    <span
-                        v-if="!isValidEmail1 && isEmailFocused"
-                        style="
-                            display: block;
-                            margin-right: 15px;
-                            font-size: small;
-                            color: #af0829;
-                        "
-                        >ادخل ايميل صحيح</span
-                    >
-                    <v-btn
-                        class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
-                        type="submit"
-                        style="width: 100%; font-size: 25px; margin: auto"
-                    >
-                        ارسال
-                    </v-btn>
-                </form>
-                <p>{{ message }}</p>
-            </v-container>
-        </div>
-    </v-theme-provider>
+                <span
+                    v-if="!isValidEmail1 && isEmailFocused"
+                    style="
+                        display: block;
+                        margin-right: 15px;
+                        font-size: small;
+                        color: #af0829;
+                    "
+                    >ادخل ايميل صحيح</span
+                >
+                <v-btn
+                    class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
+                    type="submit"
+                    style="width: 100%; font-size: 25px; margin: auto"
+                >
+                    ارسال
+                </v-btn>
+            </form>
+            <p>{{ message }}</p>
+        </v-container>
+    </div>
 </template>
 
 <script>

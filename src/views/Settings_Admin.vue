@@ -6,8 +6,8 @@
             <div>
                 <v-layout>
                     <!-- Navigation Drawer -->
+                    <!-- expand-on-hover -->
                     <v-navigation-drawer
-                        expand-in-hover
                         rail
                         location="right"
                         v-show="isSmallScreen"
@@ -21,29 +21,98 @@
 
                         <v-list density="compact" nav>
                             <v-list-item
-                                prepend-icon="mdi-id-card"
-                                title="المعلومات الشخصيه"
                                 :class="{ active: tab_1 === 'one' }"
                                 @click="tab_1 = 'one'"
-                            ></v-list-item>
+                            >
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/lsrcesku.json"
+                                    trigger="loop"
+                                    stroke="bold"
+                                    state="hover-unfold"
+                                    delay="2500"
+                                    style="width: 25px; height: 25px"
+                                    colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                ></lord-icon>
+
+                                <div
+                                    style="
+                                        width: 100%;
+                                        margin-right: 50px;
+                                        margin-top: -27px;
+                                    "
+                                >
+                                    المعلومات
+                                </div></v-list-item
+                            >
                             <v-list-item
-                                prepend-icon="mdi mdi-account-lock"
-                                title="الحمايه"
                                 :class="{ active: tab_1 === 'two' }"
                                 @click="tab_1 = 'two'"
-                            ></v-list-item>
+                            >
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/pdwpcpva.json"
+                                    trigger="loop"
+                                    stroke="bold"
+                                    delay="2500"
+                                    style="width: 25px; height: 25px"
+                                    colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
+                                >
+                                </lord-icon>
+                                <div
+                                    style="
+                                        width: 100%;
+                                        margin-right: 50px;
+                                        margin-top: -27px;
+                                    "
+                                >
+                                    الحمايه
+                                </div>
+                            </v-list-item>
                             <v-list-item
-                                prepend-icon="mdi-hand-heart"
-                                title="جمعيتك"
                                 :class="{ active: tab_1 === 'three' }"
                                 @click="tab_1 = 'three'"
-                            ></v-list-item>
+                            >
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/kgvlhryh.json"
+                                    trigger="loop"
+                                    delay="2500"
+                                    colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
+                                    style="width: 25px; height: 25px"
+                                >
+                                </lord-icon>
+                                <div
+                                    style="
+                                        width: 100%;
+                                        margin-right: 50px;
+                                        margin-top: -27px;
+                                    "
+                                >
+                                    جمعيتك
+                                </div>
+                            </v-list-item>
                             <v-list-item
-                                prepend-icon="mdi-account-multiple"
-                                title="المساعدين"
                                 :class="{ active: tab_1 === 'four' }"
                                 @click="tab_1 = 'four'"
-                            ></v-list-item>
+                            >
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/kiynvdns.json"
+                                    trigger="loop"
+                                    delay="2500"
+                                    stroke="bold"
+                                    colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
+                                    style="width: 25px; height: 25px"
+                                >
+                                </lord-icon>
+
+                                <div
+                                    style="
+                                        width: 100%;
+                                        margin-right: 50px;
+                                        margin-top: -27px;
+                                    "
+                                >
+                                    المساعدين
+                                </div></v-list-item
+                            >
                         </v-list>
                     </v-navigation-drawer>
 
@@ -65,7 +134,6 @@
                                 class="save_btn"
                                 @click="validateForm1"
                                 v-if="tab_1 == 'one'"
-                                style="margin-top: 30px"
                                 :class="{ disabled: isFormEmpty1 }"
                             >
                                 حفظ
@@ -77,7 +145,6 @@
                                 class="save_btn"
                                 @click="validateForm2"
                                 v-if="tab_1 == 'two'"
-                                style="margin-top: 30px"
                                 :class="{ disabled: isFormEmpty2 }"
                             >
                                 حفظ
@@ -89,7 +156,6 @@
                                 class="save_btn"
                                 @click="validateForm3"
                                 v-if="tab_1 == 'three'"
-                                style="margin-top: 30px"
                                 :class="{ disabled: isFormEmpty3 }"
                             >
                                 حفظ
@@ -97,17 +163,16 @@
                                     >التعديلات</span
                                 >
                             </div>
-                            <div
+                            <!-- <div
                                 class="save_btn"
                                 @click="validateForm4"
                                 v-if="tab_1 == 'four'"
-                                style="margin-top: 30px"
                             >
                                 حفظ
                                 <span class="hide-on-small-screens"
                                     >التعديلات</span
                                 >
-                            </div>
+                            </div> -->
                         </div>
                         <div>
                             <div>
@@ -258,16 +323,22 @@
                                                         cols="12"
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
-                                                        <font-awesome-icon
-                                                            :icon="[
-                                                                'fas',
-                                                                'id-card',
-                                                            ]"
-                                                        />
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/lsrcesku.json"
+                                                            trigger="loop"
+                                                            stroke="bold"
+                                                            state="hover-unfold"
+                                                            delay="2500"
+                                                            style="
+                                                                width: 25px;
+                                                                height: 25px;
+                                                            "
+                                                            colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                                        ></lord-icon>
                                                         <div
                                                             class="name_of_tap"
                                                         >
-                                                            معلومات شخصية
+                                                            المعلومات الشخصيه
                                                         </div>
                                                     </v-col>
                                                 </v-row>
@@ -282,12 +353,18 @@
                                                         cols="12"
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
-                                                        <font-awesome-icon
-                                                            :icon="[
-                                                                'fas',
-                                                                'user-lock',
-                                                            ]"
-                                                        />
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/pdwpcpva.json"
+                                                            trigger="loop"
+                                                            stroke="bold"
+                                                            delay="2500"
+                                                            style="
+                                                                width: 25px;
+                                                                height: 25px;
+                                                            "
+                                                            colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
+                                                        >
+                                                        </lord-icon>
                                                         <div
                                                             class="name_of_tap"
                                                         >
@@ -306,12 +383,17 @@
                                                         cols="12"
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
-                                                        <font-awesome-icon
-                                                            :icon="[
-                                                                'fas',
-                                                                'hand-holding-heart',
-                                                            ]"
-                                                        />
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/kgvlhryh.json"
+                                                            trigger="loop"
+                                                            delay="2500"
+                                                            colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
+                                                            style="
+                                                                width: 25px;
+                                                                height: 25px;
+                                                            "
+                                                        >
+                                                        </lord-icon>
                                                         <div
                                                             class="name_of_tap"
                                                         >
@@ -330,12 +412,18 @@
                                                         cols="12"
                                                         class="d-flex flex-column align-center justify-center"
                                                     >
-                                                        <font-awesome-icon
-                                                            :icon="[
-                                                                'fas',
-                                                                'users',
-                                                            ]"
-                                                        />
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/kiynvdns.json"
+                                                            trigger="loop"
+                                                            delay="2500"
+                                                            stroke="bold"
+                                                            colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
+                                                            style="
+                                                                width: 25px;
+                                                                height: 25px;
+                                                            "
+                                                        >
+                                                        </lord-icon>
                                                         <div
                                                             class="name_of_tap"
                                                         >
@@ -830,7 +918,7 @@
                                                     <font-awesome-icon
                                                         :icon="['fas', 'users']"
                                                     />
-                                                    <div>
+                                                    <div class="masaaed">
                                                         المساعدين ({{
                                                             All_Assistant.length ||
                                                             0
@@ -1094,6 +1182,7 @@
                                                                                         'الاطلاع علي تقارير',
                                                                                     ]"
                                                                                     variant="solo-filled"
+                                                                                    class="salheat"
                                                                                 ></v-select>
                                                                                 <v-text-field
                                                                                     v-model="
@@ -1812,6 +1901,11 @@ export default {
         if (this.isLargeScreen) {
             this.tab_1 = "one"; // or any other default tab you want
         }
+        // Load the Lordicon script
+        const script = document.createElement("script");
+        script.src = "https://cdn.lordicon.com/lordicon.js";
+        script.async = true;
+        document.head.appendChild(script);
     },
 };
 </script>
@@ -2141,5 +2235,30 @@ button.add {
 .save_btn.disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+@media (max-width: 600px) {
+    .v-tabs__wrapper {
+        overflow-x: hidden;
+    }
+    .v-tabs__item {
+        min-width: 60px;
+        font-size: 10px;
+    }
+    .v-tabs__item .lord-icon {
+        width: 20px;
+        height: 20px;
+    }
+    .v-tabs__content {
+        padding: 0;
+    }
+}
+@media (max-width: 400px) {
+    .v-slide-group button {
+        min-width: 65px;
+    }
+    .name_of_tap {
+        font-size: 8px !important;
+        margin-bottom: 5px;
+    }
 }
 </style>
