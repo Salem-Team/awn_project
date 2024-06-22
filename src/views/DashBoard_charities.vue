@@ -115,46 +115,59 @@
                                 />
                                 <div>الحالات</div>
                             </div>
-                            <div class="left">
-                                <v-btn
+                            <div class="left" v-if="useFontAwesomeIcon">
+                                <font-awesome-icon
                                     @click="dialog = true"
-                                    height="40px"
-                                    width="20px"
+                                    :icon="['fas', 'magnifying-glass']"
+                                />
+                                <font-awesome-icon
+                                    @click="dialog_1 = true"
+                                    :icon="['fas', 'filter']"
+                                />
+                                <font-awesome-icon
+                                    @click="dialog_2 = true"
+                                    :icon="['fas', 'plus']"
+                                />
+                            </div>
+                            <div class="left" v-else>
+                                <v-btn
+                                    class="image"
+                                    @click="dialog = true"
+                                    width="0px"
                                 >
                                     <img
                                         @click="dialog = true"
                                         src="../assets/images/search.gif"
                                         alt=""
-                                        width="30px"
+                                        width="20px"
                                 /></v-btn>
 
                                 <v-btn
+                                    class="image"
                                     @click="dialog_1 = true"
-                                    height="40px"
-                                    width="20px"
+                                    width="0px"
                                 >
                                     <img
                                         src="../assets/images/filter.gif"
                                         alt=""
                                         style="
                                             position: relative;
-                                            top: 15px;
+                                            top: 20px;
                                             left: 50%;
                                             transform: translate(-50%, -50%);
                                         "
-                                        width="60px"
+                                        width="45px"
                                 /></v-btn>
 
                                 <v-btn
+                                    class="image"
                                     @click="dialog_2 = true"
-                                    height="40px"
-                                    width="20px"
+                                    width="0px"
                                 >
                                     <img
-                                        @click="dialog = true"
                                         src="../assets/images/plus.gif"
                                         alt=""
-                                        width="35px"
+                                        width="20px"
                                 /></v-btn>
                             </div>
                         </div>
@@ -1237,6 +1250,13 @@
                             text-align: center;
                         "
                     >
+                        <img
+                            src="../assets/images/reload.gif"
+                            alt=""
+                            width="50px"
+                            style="background: white; cursor: pointer"
+                            @click="this.search = ''"
+                        />
                         لاتوجد حالات مشابهة
                     </div>
                 </div>
@@ -1657,6 +1677,7 @@
                                 width: 100%;
                                 background: rgb(250, 250, 250);
                                 display: flex;
+                                margin-bottom: 5px;
                                 align-items: center;
                                 justify-content: space-between;
                                 border-radius: 5px;
@@ -1734,19 +1755,19 @@
                             </v-btn-toggle>
                         </div>
                     </div>
-                    <v-btn
+                    <v-container
                         style="
-                            background: var(--main-color);
-                            color: rgb(255, 255, 255);
-                            padding: 10px;
-                            margin-top: 20px;
-                            border-radius: 5px;
-                            text-align: center;
-                            font-weight: bold;
-                            display: flex;
-                            gap: 5px;
-                            justify-content: center;
-                            align-items: center;
+                            background: var(--main-color) !important;
+                            color: rgb(255, 255, 255) !important;
+                            padding: 10px !important;
+                            border-radius: 5px !important;
+                            text-align: center !important;
+                            font-weight: bold !important;
+                            display: flex !important;
+                            gap: 5px !important;
+                            justify-content: center !important;
+                            align-items: center !important;
+                            cursor: pointer;
                         "
                         v-model="isActive"
                         @click="
@@ -1764,7 +1785,7 @@
                     >
                         <font-awesome-icon :icon="['fas', 'rotate']" />
                         <div>إعادة ظبط الفلتر</div>
-                    </v-btn>
+                    </v-container>
                 </v-card>
             </v-dialog>
         </div>
@@ -2151,6 +2172,7 @@ export default {
                 "حالة المسكن",
                 "إحتياجات الأسرة",
             ],
+            useFontAwesomeIcon: false,
             number_rooms: [1, 2, 3, 4, 5],
             case: {
                 personal_info_1: {
@@ -2192,6 +2214,16 @@ export default {
                 startIndex,
                 startIndex + this.pageSize
             );
+        },
+        displayComponent() {
+            // Example condition (replace with your own logic)
+            const shouldDisplayFontAwesomeIcon = this.useFontAwesomeIcon; // Condition to determine which component to display
+
+            if (shouldDisplayFontAwesomeIcon) {
+                return "font-awesome-icon"; // Component name or tag for Font Awesome icon
+            } else {
+                return "v-btn"; // Component name or tag for image button
+            }
         },
     },
     mounted() {
@@ -2970,10 +3002,11 @@ label span:active {
         .title {
             margin-top: 40px;
             background: var(--secound-color);
-            padding: 10px 20px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 3px;
             border-radius: 5px;
             color: var(--main-color);
             font-weight: bold;
@@ -2981,8 +3014,16 @@ label span:active {
             & > div {
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 4px;
                 &.left {
+                    .image {
+                        padding: 0 !important;
+                        transition: 0.3s !important;
+                        background: #fff !important;
+                        &:hover {
+                            color: var(--therd-color) !important;
+                        }
+                    }
                     svg {
                         cursor: pointer;
                         transition: 0.3s;
@@ -3367,6 +3408,11 @@ label span:active {
     .chip_info[data-v-d1ccef3e] {
         padding: 5px !important;
         font-size: 16px !important;
+    }
+    .use {
+        .title {
+            padding: 3px 10px !important;
+        }
     }
 }
 .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default {
