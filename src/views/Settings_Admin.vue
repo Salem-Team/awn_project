@@ -31,7 +31,7 @@
                                     state="hover-unfold"
                                     delay="2500"
                                     style="width: 25px; height: 25px"
-                                    colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                    colors="primary:#ababab,secondary:#ffffff,tertiary:#104891,quaternary:#ababab"
                                 ></lord-icon>
 
                                 <div
@@ -53,14 +53,12 @@
                                     trigger="loop"
                                     stroke="bold"
                                     delay="2500"
-                                    style="
-                                        width: 25px;
-                                        height: 25px;
-                                        filter: hue-rotate(41deg);
-                                    "
-                                    colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
+                                    style="width: 25px; height: 25px"
+                                    colors="primary:#ababab,secondary:#ffffff,tertiary:#7a7a7a;"
+                                    primary="41"
                                 >
                                 </lord-icon>
+
                                 <div
                                     style="
                                         width: 100%;
@@ -79,7 +77,7 @@
                                     src="https://cdn.lordicon.com/kgvlhryh.json"
                                     trigger="loop"
                                     delay="2500"
-                                    colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
+                                    colors="primary:#ababab,secondary:#ebe6ef,tertiary:#ababab,quaternary:#ababab,quinary:#0088ff,senary:#ffffff,septenary:#ababab,octonary:#ababab"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -102,7 +100,7 @@
                                     trigger="loop"
                                     delay="2500"
                                     stroke="bold"
-                                    colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
+                                    colors="primary:#ababab,secondary:#ababab,tertiary:#ababab,quaternary:#ababab,quinary:#eeeeee"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -337,7 +335,7 @@
                                                                 width: 25px;
                                                                 height: 25px;
                                                             "
-                                                            colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                                            colors="primary:#ababab,secondary:#ffffff,tertiary:#104891,quaternary:#ababab"
                                                         ></lord-icon>
                                                         <div
                                                             class="name_of_tap"
@@ -366,7 +364,7 @@
                                                                 width: 25px;
                                                                 height: 25px;
                                                             "
-                                                            colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
+                                                            colors="primary:#ababab,secondary:#ffffff,tertiary:#7a7a7a;"
                                                         >
                                                         </lord-icon>
                                                         <div
@@ -391,7 +389,7 @@
                                                             src="https://cdn.lordicon.com/kgvlhryh.json"
                                                             trigger="loop"
                                                             delay="2500"
-                                                            colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
+                                                            colors="primary:#ababab,secondary:#ebe6ef,tertiary:#ababab,quaternary:#ababab,quinary:#0088ff,senary:#ffffff,septenary:#ababab,octonary:#ababab"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -421,7 +419,7 @@
                                                             trigger="loop"
                                                             delay="2500"
                                                             stroke="bold"
-                                                            colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
+                                                            colors="primary:#ababab,secondary:#ababab,tertiary:#ababab,quaternary:#ababab,quinary:#eeeeee"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
