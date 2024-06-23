@@ -53,7 +53,11 @@
                                     trigger="loop"
                                     stroke="bold"
                                     delay="2500"
-                                    style="width: 25px; height: 25px"
+                                    style="
+                                        width: 25px;
+                                        height: 25px;
+                                        filter: hue-rotate(41deg);
+                                    "
                                     colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
                                 >
                                 </lord-icon>
@@ -1969,17 +1973,32 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    background-image: url("../assets/images/_40ae7a5a-5aea-43c7-a95e-de3ca51ab30b.jpg");
+    background-image: url("../assets/images/winter-8433257.jpg");
     background-size: cover;
     background-position: right top;
     background-attachment: fixed;
     min-height: 90vh;
     padding-bottom: 80px;
+    position: relative; // أضف هذه الخاصية هنا
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0.9; // يمكنك تعديل هذه القيمة للتحكم في شدة التراكب
+        pointer-events: none; // تأكد من أن التراكب لا يمنع التفاعل مع المحتوى
+        z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
+    }
     .profile {
         display: flex;
         align-items: center;
         gap: 5px;
         position: relative;
+        z-index: 1; // تأكد من أن المحتوى يكون فوق التراكب
+
         &::before {
             content: "";
             position: absolute;
@@ -1990,6 +2009,7 @@ export default {
         }
     }
 }
+
 .title {
     font-size: 20px;
     color: var(--main-color);
@@ -2259,6 +2279,30 @@ button.add {
     .name_of_tap {
         font-size: 8px !important;
         margin-bottom: 5px;
+    }
+}
+body.dark-mode .container_0 {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-image: url("../assets/images/mmmm.jpg");
+    background-size: cover;
+    background-position: right top;
+    background-attachment: fixed;
+    min-height: 90vh;
+    padding-bottom: 80px;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #072756;
+        opacity: 0.8; // يمكنك تعديل هذه القيمة للتحكم في شدة التراكب
+        pointer-events: none; // تأكد من أن التراكب لا يمنع التفاعل مع المحتوى
+        z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
     }
 }
 </style>
