@@ -1446,6 +1446,7 @@
                                                 'fas',
                                                 'arrow-up-wide-short',
                                             ]"
+                                            class="svg_icon"
                                             style="
                                                 background: #fff;
                                                 width: 50px;
@@ -1476,6 +1477,7 @@
                                                 'fas',
                                                 'arrow-up-short-wide',
                                             ]"
+                                            class="svg_icon"
                                             style="
                                                 background: #fff;
                                                 width: 50px;
@@ -1537,6 +1539,7 @@
                                                 'fas',
                                                 'arrow-up-wide-short',
                                             ]"
+                                            class="svg_icon"
                                             style="
                                                 background: #fff;
                                                 width: 50px;
@@ -1574,6 +1577,7 @@
                                                 cursor: pointer;
                                                 color: var(--main-color);
                                             "
+                                            class="svg_icon"
                                         />
                                     </v-btn>
                                 </v-btn-toggle>
@@ -1635,6 +1639,7 @@
                                                 cursor: pointer;
                                                 color: var(--main-color);
                                             "
+                                            class="svg_icon"
                                         />
                                     </v-btn>
                                     <v-btn
@@ -1665,6 +1670,7 @@
                                                 cursor: pointer;
                                                 color: var(--main-color);
                                             "
+                                            class="svg_icon"
                                         />
                                     </v-btn>
                                 </v-btn-toggle>
@@ -1723,6 +1729,7 @@
                                             cursor: pointer;
                                             color: var(--main-color);
                                         "
+                                        class="svg_icon"
                                     />
                                 </v-btn>
                                 <v-btn
@@ -1750,6 +1757,7 @@
                                             cursor: pointer;
                                             color: var(--main-color);
                                         "
+                                        class="svg_icon"
                                     />
                                 </v-btn>
                             </v-btn-toggle>
@@ -3601,5 +3609,8 @@ button.v-stepper-item.v-stepper-item--selected {
 }
 .text-h5.ps-2.text-primary {
     font-family: Cairo !important;
+}
+.body.dark-mode svg {
+    color: var(--main-color) !important;
 }
 </style>
