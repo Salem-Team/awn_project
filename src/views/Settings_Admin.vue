@@ -2324,4 +2324,7 @@ body.dark-mode .container_0 {
         z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
     }
 }
+.body.dark-mode .right {
+    color: white !important;
+}
 </style>

@@ -278,4 +278,7 @@ body.dark-mode .use .title {
     color: white !important;
     background: #072756 !important;
 }
+.body.dark-mode .right {
+    color: white !important;
+}
 </style>
