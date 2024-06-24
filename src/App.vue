@@ -274,4 +274,8 @@ body.dark-mode .register {
     color: white !important;
     background: #072756 !important;
 }
+body.dark-mode .use .title {
+    color: white !important;
+    background: #072756 !important;
+}
 </style>
