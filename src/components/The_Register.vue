@@ -3,10 +3,11 @@
         <template v-slot:default="{ isActive }">
             <v-card rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
-                    <div class="text-h5 text-medium-emphasis ps-2">
+                    <div class="text-h5 ps-2" style="color: var(--main-color)">
                         حساب جديد
                     </div>
                     <v-btn
+                        style="color: var(--main-color)"
                         icon="mdi-close"
                         variant="text"
                         @click="isActive.value = false"
@@ -17,13 +18,16 @@
                         <v-stepper-header>
                             <template v-for="n in steps" :key="`${n}-step`">
                                 <v-stepper-item
+                                    style="color: var(--therd-color)"
                                     :title="title[n]"
                                     :complete="e1 > n"
                                     :step="`Step {{ n }}`"
                                     :value="n"
+                                    color="var(--main-color)"
                                 ></v-stepper-item>
 
                                 <v-divider
+                                    color="var(--main-color)"
                                     v-if="n !== steps"
                                     :key="n"
                                 ></v-divider>
@@ -87,33 +91,30 @@
                                             )
                                         "
                                     ></v-text-field>
-                                    <div
-                                        class="d-flex align-center flex-wrap !w-full"
-                                    >
-                                        <!--Fame_number input-->
-                                        <v-text-field
-                                            variant="outlined"
-                                            v-model="Charities.Fame_number"
-                                            :error-messages="
-                                                v$.Charities.Fame_number.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                            label="رقم الشهره"
-                                        ></v-text-field>
-                                        <!--year input-->
-                                        <v-text-field
-                                            variant="outlined"
-                                            name="year"
-                                            v-model="Charities.Fame_year"
-                                            :error-messages="
-                                                v$.Charities.Fame_year.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                            label="لسنة"
-                                        ></v-text-field>
-                                    </div>
+
+                                    <!--Fame_number input-->
+                                    <v-text-field
+                                        variant="outlined"
+                                        v-model="Charities.Fame_number"
+                                        :error-messages="
+                                            v$.Charities.Fame_number.$errors.map(
+                                                (e) => e.$message
+                                            )
+                                        "
+                                        label="رقم الشهره"
+                                    ></v-text-field>
+                                    <!--year input-->
+                                    <v-text-field
+                                        variant="outlined"
+                                        name="year"
+                                        v-model="Charities.Fame_year"
+                                        :error-messages="
+                                            v$.Charities.Fame_year.$errors.map(
+                                                (e) => e.$message
+                                            )
+                                        "
+                                        label="لسنة"
+                                    ></v-text-field>
                                     <!--the Charities can add another email box if needed by clicking the plus button-->
                                     <div
                                         class="d-flex align-center flex-wrap mb-2"
@@ -126,7 +127,12 @@
                                             icon="mdi-plus"
                                             variant="text"
                                             @click="social++"
-                                            class="bg-grey-lighten-3"
+                                            style="
+                                                background-color: var(
+                                                    --main-color
+                                                );
+                                                color: white;
+                                            "
                                             size="small"
                                         ></v-btn>
                                     </div>
@@ -145,7 +151,7 @@
                                     </p>
                                     <!--the Charities can select multiple items from the group and it will be displayed in a paragraph-->
                                     <v-chip-group
-                                        selected-class="bg-grey-lighten-1"
+                                        selected-class="bg-primary"
                                         multiple
                                         mandatory
                                         class="text-right"
@@ -157,6 +163,7 @@
                                         "
                                     >
                                         <v-chip
+                                            style="color: var(--main-color)"
                                             elevation="2"
                                             v-for="(
                                                 activity, index
@@ -219,13 +226,14 @@
                                         "
                                     ></v-text-field>
                                     <v-chip-group
-                                        selected-class="bg-grey-lighten-1"
+                                        selected-class="bg-primary"
                                         mandatory
                                         class="text-right d-flex"
                                         v-model="user.gender"
                                     >
                                         <p class="mt-5 text-right">الجنس :</p>
                                         <v-chip
+                                            style="color: var(--main-color)"
                                             elevation="2"
                                             class="ma-2"
                                             rounded="lg"
@@ -235,6 +243,7 @@
                                             >ذكر</v-chip
                                         >
                                         <v-chip
+                                            style="color: var(--main-color)"
                                             elevation="2"
                                             class="ma-2"
                                             rounded="lg"
@@ -254,7 +263,12 @@
                                             icon="mdi-plus"
                                             variant="text"
                                             @click="tel++"
-                                            class="bg-grey-lighten-3"
+                                            style="
+                                                background-color: var(
+                                                    --main-color
+                                                );
+                                                color: white;
+                                            "
                                             size="small"
                                         ></v-btn>
                                     </div>
@@ -333,9 +347,11 @@
                                     >
                                     </v-text-field>
                                     <div
-                                        class="btn mt-4 bg-blue-lighten-1 mb-10"
+                                        class="btn mt-4 mb-10"
                                         @click="validateForm"
                                         style="
+                                            background-color: var(--main-color);
+                                            color: white;
                                             width: 100%;
                                             font-size: 25px;
                                             margin: auto;
@@ -347,6 +363,7 @@
                             </div>
                         </v-stepper-window>
                         <v-stepper-actions
+                            style="color: var(--main-color)"
                             type="submit"
                             :disabled="disabled"
                             @click:next="next"
@@ -683,6 +700,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@media screen and (max-width: 500px) {
+    .v-chip {
+        font-size: 16px !important;
+        padding: 10px !important;
+    }
+}
+@media screen and (max-width: 400px) {
+    .v-chip {
+        font-size: 13px !important;
+        padding: 7px !important;
+    }
+}
 form {
     width: 95% !important;
 }

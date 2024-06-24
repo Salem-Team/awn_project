@@ -6,47 +6,122 @@
             <!-- Show empty error if no data -->
             <Empty_error v-if="empty == true" :text="text" />
             <!-- Iterate over paginated charities -->
-            <div
-                v-else-if="empty !== true"
-                class="box px-5 py-3 mt-5 border rounded"
-                v-for="(charity, index) in paginatedCharities"
-                :key="charity.id"
-            >
-                <!-- Display serial number -->
-                <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
-                <!-- Lazy load content -->
-                <v-lazy
-                    :min-height="200"
-                    :options="{ threshold: 0.7 }"
-                    transition="fade-transition"
+            <div class="Charities" v-if="(empty === false, !loading)">
+                <div
+                    class="box px-5 py-3 mt-5 border rounded"
+                    v-for="(charity, index) in paginatedCharities"
+                    :key="charity.id"
                 >
-                    <!-- Charity information -->
-                    <div class="Charities">
-                        <v-container class="Charities_container mt-4">
-                            <!-- Display charity title and cases number -->
-                            <div class="Charity">
+                    <!-- Display serial number -->
+                    <div class="feat">
+                        <span>
+                            <div class="number">
+                                {{ (currentPage - 1) * 5 + index + 1 }}
+                            </div>
+                            <div class="name">
+                                {{ charity.title }}
+                            </div>
+                        </span>
+                        <img
+                            src="../assets/images/trash.gif"
+                            alt=""
+                            width="25px"
+                            style="cursor: pointer"
+                            @click="deletecharity(charity.id)"
+                        />
+                    </div>
+                    <div
+                        class="number"
+                        style="
+                            color: var(--main-color);
+                            font-size: 20px;
+                            font-weight: bold;
+                            text-align: center;
+                        "
+                    >
+                        {{ charity.description }}
+                    </div>
+                    <div class="body">
+                        <div class="feat">
+                            <div class="number">
+                                <!-- Return the icon according to the charity social media links -->
                                 <div
-                                    class="d-flex align-center flex-wrap justify-around"
+                                    class="d-flex align-center justify-between"
                                 >
-                                    <h3>اسم الجمعية :</h3>
-                                    <p>{{ charity.title }}</p>
-                                    <v-spacer></v-spacer>
-                                    <h3>عدد الحالات :</h3>
-                                    <p>{{ charity.cases_number || 0 }}</p>
+                                    <a
+                                        v-if="
+                                            charity.facebook &&
+                                            charity.facebookLink
+                                        "
+                                        :href="charity.facebookLink"
+                                        ><v-icon>mdi-facebook</v-icon></a
+                                    >
+                                    <a
+                                        v-if="
+                                            charity.youtube &&
+                                            charity.youtubeLink
+                                        "
+                                        :href="charity.youtubeLink"
+                                        ><v-icon>mdi-youtube</v-icon></a
+                                    >
+                                    <a
+                                        v-if="
+                                            charity.linkedin &&
+                                            charity.linkedinLink
+                                        "
+                                        :href="charity.linkedinLink"
+                                        ><v-icon>mdi-linkedin</v-icon></a
+                                    >
+                                    <a
+                                        v-if="
+                                            charity.whatsapp &&
+                                            charity.whatsappLink
+                                        "
+                                        :href="charity.whatsappLink"
+                                        ><v-icon>mdi-whatsapp</v-icon></a
+                                    >
+                                    <a
+                                        v-if="
+                                            charity.instagram &&
+                                            charity.instagramLink
+                                        "
+                                        :href="charity.instagramLink"
+                                        ><v-icon>mdi-instagram</v-icon></a
+                                    >
+                                    <p
+                                        v-if="
+                                            !charity.instagram &&
+                                            !charity.instagramLink &&
+                                            !charity.whatsapp &&
+                                            !charity.whatsappLink &&
+                                            !charity.linkedin &&
+                                            !charity.linkedinLink &&
+                                            !charity.youtube &&
+                                            !charity.youtubeLink &&
+                                            !charity.facebook &&
+                                            !charity.facebookLink
+                                        "
+                                    >
+                                        لا توجد لينكات تواصل
+                                    </p>
                                 </div>
                             </div>
-                            <!-- Display charity specialties -->
-                            <v-container
-                                class="text-right d-flex align-center flex-wrap justify-around"
-                                v-model="Charities.Charities_specialty"
+                            <div class="title">منصات</div>
+                        </div>
+                        <div class="feat">
+                            <div class="number">
+                                {{ charity.cases_number || 0 }}
+                            </div>
+                            <div class="title">حالة</div>
+                        </div>
+
+                        <div class="feat">
+                            <div
+                                class="number"
+                                style="display: flex; flex-flow: row wrap"
                             >
-                                <h3
-                                    class="mb-2 text-right d-flex align-center flex-wrap justify-around"
-                                >
-                                    تخصص الجمعية:
-                                </h3>
                                 <v-card
-                                    elevation="2"
+                                    elevation="0"
                                     v-for="(
                                         activity, index_1
                                     ) in charity.Charities_specialty"
@@ -56,69 +131,11 @@
                                     :value="activity"
                                     >{{ activity }}</v-card
                                 >
-                            </v-container>
-                            <br />
-                            <!-- Display charity description -->
-                            <div
-                                class="d-flex align-center flex-wrap justify-around"
-                            >
-                                <h3>وصف قصير للجمعية :</h3>
-                                <p>{{ charity.description }}</p>
                             </div>
-                            <br />
-                            <!-- Display charity social media links -->
-                            <h3>منصات التواصل :</h3>
-                            <br />
-                            <!-- Return the icon according to the charity social media links -->
-                            <div class="d-flex align-center justify-between">
-                                <a
-                                    v-if="
-                                        charity.facebook && charity.facebookLink
-                                    "
-                                    :href="charity.facebookLink"
-                                    ><v-icon>mdi-facebook</v-icon></a
-                                >
-                                <a
-                                    v-if="
-                                        charity.youtube && charity.youtubeLink
-                                    "
-                                    :href="charity.youtubeLink"
-                                    ><v-icon>mdi-youtube</v-icon></a
-                                >
-                                <a
-                                    v-if="
-                                        charity.linkedin && charity.linkedinLink
-                                    "
-                                    :href="charity.linkedinLink"
-                                    ><v-icon>mdi-linkedin</v-icon></a
-                                >
-                                <a
-                                    v-if="
-                                        charity.whatsapp && charity.whatsappLink
-                                    "
-                                    :href="charity.whatsappLink"
-                                    ><v-icon>mdi-whatsapp</v-icon></a
-                                >
-                                <a
-                                    v-if="
-                                        charity.instagram &&
-                                        charity.instagramLink
-                                    "
-                                    :href="charity.instagramLink"
-                                    ><v-icon>mdi-instagram</v-icon></a
-                                >
-                            </div>
-                        </v-container>
+                            <div class="title">أنشطة</div>
+                        </div>
                     </div>
-                </v-lazy>
-            </div>
-            <!-- Display loading progress -->
-            <div>
-                <v-progress-linear
-                    color="primary"
-                    indeterminate
-                    v-if="loading"
-                ></v-progress-linear>
+                </div>
             </div>
             <!-- Display pagination -->
             <div class="text-center">
@@ -139,7 +156,13 @@ import { ref } from "vue";
 import Offline_error from "@/components/Offline_error.vue";
 import Empty_error from "@/components/Empty_error.vue";
 // Get Data
-import { getDocs, getFirestore, collection } from "@firebase/firestore";
+import {
+    getDocs,
+    getFirestore,
+    collection,
+    deleteDoc,
+    doc,
+} from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
 
@@ -221,6 +244,30 @@ export default {
                 console.error("Error adding document: ", error);
             }
         },
+        async deletecharity(UsersId) {
+            try {
+                // Delete the document from Firestore
+                await deleteDoc(doc(db, "Charities", UsersId));
+                console.log("charity deleted successfully from Firestore");
+
+                // Find the index of the CharitiesDB in the CharitiesDB array
+                const index = this.CharitiesDB.findIndex(
+                    (CharitiesDB) => CharitiesDB.id === UsersId
+                );
+
+                // If the charity is found in the charity array, remove it
+                if (index !== -1) {
+                    this.charity.splice(index, 1);
+                    console.log(
+                        "charity deleted successfully from charity array"
+                    );
+                } else {
+                    console.log("charity not found in charity array");
+                }
+            } catch (error) {
+                console.error("Error deleting charity:", error);
+            }
+        },
         //fuction to detect the Social_media link type
         detectSocialMediaType(charity) {
             const whatsappRegex = /^(https?):\/\/(www\.)?api\.whatsapp\.com/i;
@@ -259,4 +306,113 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.Charities {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    .box {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid var(--secound-color);
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px #ddd;
+        width: 100%;
+
+        & > .feat:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 30px;
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: -15px;
+                height: 3px;
+                width: 100%;
+                background: var(--secound-color);
+            }
+            span {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .number {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: var(--main-color);
+                    color: #fff;
+                    border-radius: 5px;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                .name {
+                    color: var(--therd-color);
+                    font-weight: bold;
+                }
+            }
+        }
+        .body {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+            .feat {
+                min-width: 23%;
+                border: 1px solid var(--secound-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                min-height: 126px;
+                .number {
+                    min-height: 70px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: var(--therd-color);
+                }
+                .title {
+                    color: var(--main-color);
+                    font-weight: bold;
+                }
+            }
+
+            & > .feat:last-child {
+                .number {
+                    color: var(--main-color);
+                }
+                .title {
+                    color: var(--therd-color);
+                }
+            }
+        }
+    }
+}
+@media (max-width: 900px) {
+    .Charities .box .body .feat {
+        min-height: 145px;
+        min-width: 48%;
+    }
+}
+@media (max-width: 700px) {
+    .Charities .box .body .feat {
+        min-height: 145px;
+        min-width: 100%;
+        text-align: center;
+    }
+}
+</style>
