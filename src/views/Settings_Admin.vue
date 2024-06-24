@@ -123,12 +123,21 @@
                             <div
                                 class="d-flex justify-content-between align-center"
                             >
-                                <img
-                                    src="../assets/images/social-page.gif"
+                                <!-- <img
+                                    src="../assets/images/[removal.ai]_80da6822-cfbe-453e-a123-d4ec1cf3177c-remove-bg-ai_1719197829260.png"
                                     alt=""
                                     width="50px"
                                     style="filter: grayscale(1)"
-                                />
+                                /> -->
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/rlovzwva.json"
+                                    trigger="loop"
+                                    state="loop-cycle"
+                                    delay="0"
+                                    style="width: 40px; height: 40px"
+                                    colors="primary:#0088ff"
+                                >
+                                </lord-icon>
                                 <div class="title">الملف الشخصي</div>
                             </div>
 
@@ -449,9 +458,10 @@
                                                         justify-content: space-between;
                                                         align-items: center;
                                                     "
+                                                    class="input_phone_up"
                                                 >
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 d-flex flex-column input_phone"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -485,7 +495,7 @@
                                                         </v-text-field>
                                                     </div>
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 d-flex flex-column input_phone"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -525,6 +535,7 @@
                                                         justify-content: space-between;
                                                         align-items: center;
                                                     "
+                                                    class="input_phone_up"
                                                 >
                                                     <div
                                                         v-for="(
@@ -535,6 +546,7 @@
                                                             width: 48%;
                                                             position: relative;
                                                         "
+                                                        class="input_phone"
                                                     >
                                                         <div
                                                             class="mt-2 d-flex flex-column"
@@ -579,7 +591,7 @@
                                                             width: 48%;
                                                             position: relative;
                                                         "
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 d-flex flex-column input_phone"
                                                     >
                                                         <v-text-field
                                                             v-model="
@@ -726,9 +738,10 @@
                                                         justify-content: space-between;
                                                         align-items: center;
                                                     "
+                                                    class="input_phone_up"
                                                 >
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -762,7 +775,7 @@
                                                         </v-text-field>
                                                     </div>
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -863,6 +876,7 @@
                                                     </v-text-field>
                                                 </div>
                                                 <div
+                                                    class="input_phone_up"
                                                     style="
                                                         width: 100%;
                                                         display: flex;
@@ -871,7 +885,7 @@
                                                     "
                                                 >
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -890,7 +904,7 @@
                                                         ></v-text-field>
                                                     </div>
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -898,9 +912,7 @@
                                                     >
                                                         <v-text-field
                                                             variant="outlined"
-                                                            style="
-                                                                margin-right: 20px;
-                                                            "
+                                                            style=""
                                                             v-model="
                                                                 User_Charity.Fame_year
                                                             "
@@ -1001,9 +1013,10 @@
                                                                                         justify-content: space-between;
                                                                                         align-items: center;
                                                                                     "
+                                                                                    class="input_phone_up"
                                                                                 >
                                                                                     <div
-                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        class="mt-2 input_phone d-flex flex-column"
                                                                                         style="
                                                                                             width: 48%;
                                                                                             position: relative;
@@ -1039,7 +1052,7 @@
                                                                                         </v-text-field>
                                                                                     </div>
                                                                                     <div
-                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        class="mt-2 input_phone d-flex flex-column"
                                                                                         style="
                                                                                             width: 48%;
                                                                                             position: relative;
@@ -1078,6 +1091,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div
+                                                                                    class="input_phone_up"
                                                                                     style="
                                                                                         display: flex;
                                                                                         justify-content: space-between;
@@ -1089,6 +1103,7 @@
                                                                                             width: 48%;
                                                                                             position: relative;
                                                                                         "
+                                                                                        class="input_phone"
                                                                                     >
                                                                                         <div
                                                                                             class="mt-2 d-flex flex-column"
@@ -1133,7 +1148,7 @@
                                                                                             width: 48%;
                                                                                             position: relative;
                                                                                         "
-                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        class="mt-2 input_phone d-flex flex-column"
                                                                                     >
                                                                                         <v-text-field
                                                                                             v-model="
@@ -2268,6 +2283,12 @@ button.add {
     }
     .v-tabs__content {
         padding: 0;
+    }
+    .input_phone {
+        width: 100% !important;
+    }
+    .input_phone_up {
+        display: block !important;
     }
 }
 @media (max-width: 400px) {
