@@ -167,7 +167,7 @@ body.dark-mode .salheat .v-field__append-inner i {
 body.dark-mode .User_box {
     background: #082c62 !important;
 }
-body.dark-mode .svg-inline--fa {
+body.dark-mode .svg-inline--fa.fa-users {
     color: white !important;
 }
 body.dark-mode .masaaed {
