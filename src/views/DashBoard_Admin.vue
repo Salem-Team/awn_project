@@ -1,7 +1,19 @@
 <template>
     <div class="Dash_board">
         <!-- NavBar  -->
-        <v-container fluid>
+        <img
+            style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 245px;
+            "
+            v-if="loading"
+            src="../assets/images/Spinner@1x-1.0s-200px-200px.svg"
+            alt=""
+        />
+        <v-container fluid v-if="!loading">
             <v-row>
                 <v-col>
                     <div
@@ -20,7 +32,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div class="container px-12">
+        <div class="container" v-if="!loading">
             <v-card style="width: 96.5% !important; margin: auto !important">
                 <v-tabs
                     v-model="tab"
@@ -46,7 +58,7 @@
                     >
                 </v-tabs>
             </v-card>
-            <v-window v-model="tab">
+            <v-window v-model="tab" v-if="!loading">
                 <v-window-item value="المحتاجين">
                     <Offline_error>
                         <template v-slot:default>
@@ -1542,53 +1554,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.info_stat .info {
-    font-size: 20px;
-    span {
-        font-size: 25px;
-    }
-}
-.popup {
-    padding: 20px;
-    font-family: system-ui;
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 10px;
-        font-size: 21px;
-        color: #0088ff;
-        font-weight: bold;
-        svg {
-            cursor: pointer;
-        }
-    }
-    .body {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 10px;
-        .box {
-            cursor: pointer;
-            width: 48%;
-            background: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 20px;
-            border-radius: 5px;
-            transition: 0.3s;
-            &:hover {
-                box-shadow: 0 0 10px #ddd;
-                color: #0088ff;
-            }
-        }
-    }
-    // btn style
-}
 label input[type="file"] {
     display: none;
 }
@@ -1611,68 +1576,6 @@ label span:hover {
 }
 label span:active {
     box-shadow: 1px 1px 0 #012;
-}
-
-.Table {
-    display: table;
-    width: 100%;
-}
-.Title {
-    display: table-caption;
-    text-align: center;
-    font-weight: bold;
-    font-size: larger;
-}
-.Heading {
-    display: table-row;
-    font-weight: bold;
-    text-align: center;
-}
-.Row {
-    display: table-row;
-}
-.Cell {
-    display: table-cell;
-    border: solid;
-    border-width: thin;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-/* Grid */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 10px;
-}
-
-.grid-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-.grid-cell {
-    padding: 5px;
-}
-
-.dach_cher {
-    display: none;
-    background-color: #ffdddd;
-    color: #d8000c;
-    border: 1px solid #d8000c;
-    padding: 10px;
-    margin: 20px 0;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.dach_cher.show {
-    display: block;
-    animation: fadeIn 0.5s;
 }
 
 .cases {
@@ -1795,7 +1698,7 @@ label span:active {
     }
 }
 .use {
-    width: 96.5%;
+    width: 100%;
     margin: auto;
     .title {
         margin-top: 40px;

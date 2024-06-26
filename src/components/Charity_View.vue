@@ -2,7 +2,19 @@
     <!-- Handle offline error and empty data -->
     <Offline_error>
         <template v-slot:default>
-            <slot></slot>
+            <img
+                style="
+                    position: fixed;
+                    top: 80%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 245px;
+                "
+                v-if="loading"
+                src="../assets/images/Spinner@1x-1.0s-200px-200px.svg"
+                alt=""
+            />
+            <slot v-if="!loading"></slot>
             <!-- Show empty error if no data -->
             <Empty_error v-if="empty == true" :text="text" />
             <!-- Iterate over paginated charities -->
@@ -36,7 +48,7 @@
                             color: var(--main-color);
                             font-size: 20px;
                             font-weight: bold;
-                            text-align: center;
+                            text-align: right;
                         "
                     >
                         {{ charity.description }}
@@ -138,7 +150,7 @@
                 </div>
             </div>
             <!-- Display pagination -->
-            <div class="text-center">
+            <div class="text-center" v-if="(empty === false, !loading)">
                 <v-pagination
                     v-model="currentPage"
                     next-icon="mdi-menu-left"
@@ -311,13 +323,11 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 20px;
     .box {
         display: flex;
         flex-direction: column;
         gap: 10px;
         border: 1px solid var(--secound-color);
-        padding: 20px;
         border-radius: 5px;
         box-shadow: 0 0 10px #ddd;
         width: 100%;
@@ -381,6 +391,7 @@ export default {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    flex-direction: column !important;
                     font-size: 25px;
                     font-weight: bold;
                     color: var(--therd-color);
@@ -392,7 +403,7 @@ export default {
             }
 
             & > .feat:last-child {
-                .number {
+                .number .v-card {
                     color: var(--main-color);
                 }
                 .title {

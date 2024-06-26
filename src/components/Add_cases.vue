@@ -16,805 +16,855 @@
                 @click="close_function_1"
             />
         </div>
-
-        <v-stepper editable v-model="e1" alt-labels style="padding: 5px">
-            <template v-slot:default="{ prev, next }">
-                <v-stepper-header class="stepper_head m-2">
-                    <template v-for="n in steps" :key="`${n}-step`">
-                        <v-stepper-item
-                            :ripple="false"
-                            style="font-size: 15px; font-weight: bold"
-                            :title="title[n]"
-                            :complete="e1 > n"
-                            :step="`Step ${n}`"
-                            :value="n"
-                            ref="stepperItems"
-                        >
-                            <template v-slot:default>
-                                <v-icon v-if="n === 1" style="font-size: 50px"
-                                    >mdi-account</v-icon
+        <Offline_error>
+            <template v-slot:default>
+                <v-stepper
+                    editable
+                    v-model="e1"
+                    alt-labels
+                    style="padding: 5px"
+                >
+                    <template v-slot:default="{ prev, next }">
+                        <v-stepper-header class="stepper_head m-2">
+                            <template v-for="n in steps" :key="`${n}-step`">
+                                <v-stepper-item
+                                    :ripple="false"
+                                    style="font-size: 15px; font-weight: bold"
+                                    :title="title[n]"
+                                    :complete="e1 > n"
+                                    :step="`Step ${n}`"
+                                    :value="n"
+                                    ref="stepperItems"
                                 >
-                                <v-icon v-if="n === 2"
-                                    ><font-awesome-icon
-                                        icon="hand-holding-dollar"
-                                /></v-icon>
-                                <v-icon v-if="n === 3"
-                                    ><font-awesome-icon
-                                        icon="briefcase-medical"
-                                /></v-icon>
-                                <v-icon v-if="n === 4"
-                                    ><font-awesome-icon icon="house-user"
-                                /></v-icon>
-                                <v-icon v-if="n === 5"
-                                    ><font-awesome-icon icon="people-line"
-                                /></v-icon>
-                            </template>
-                        </v-stepper-item>
-
-                        <v-divider v-if="n !== steps" :key="n"></v-divider>
-                    </template>
-                </v-stepper-header>
-
-                <v-stepper-window>
-                    <div v-if="e1 === 1">
-                        <form @submit.prevent="validateForm" action="post">
-                            <div class="form">
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="personal_info_1.name"
-                                            label="الاسم ثلاثي"
-                                            variant="outlined"
-                                            style="width: 100%"
-                                            placeholder="الاسم ثلاثي"
-                                            @input="
-                                                v$.personal_info_1.name.$touch()
-                                            "
-                                            @focus="isFocused = true"
-                                            @blur="isFocused = false"
-                                            :error-messages="
-                                                v$.personal_info_1.name.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                        <span
-                                            v-if="!regex1 && isFocused"
-                                            style="
-                                                display: block;
-                                                margin-right: 15px;
-                                                font-size: small;
-                                                color: #af0829;
-                                            "
-                                            >حروف عربية فقط</span
+                                    <template v-slot:default>
+                                        <v-icon
+                                            v-if="n === 1"
+                                            style="font-size: 50px"
+                                            >mdi-account</v-icon
                                         >
-                                    </div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="personal_info_1.nick_name"
-                                            label="اسم الشهره"
-                                            variant="outlined"
-                                            style="width: 100%"
-                                            @input="
-                                                v$.personal_info_1.nick_name.$touch()
-                                            "
-                                            placeholder="اسم الشهره"
-                                            @focus="isFocused = true"
-                                            @blur="isFocused = false"
-                                            :error-messages="
-                                                v$.personal_info_1.nick_name.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                        <span
-                                            v-if="!regex2 && isFocused"
-                                            style="
-                                                display: block;
-                                                margin-right: 15px;
-                                                font-size: small;
-                                                color: #af0829;
-                                            "
-                                            >حروف عربية فقط</span
-                                        >
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                personal_info_1.national_id
-                                            "
-                                            label="رقم البطاقه"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="رقم البطاقه"
-                                            @input="
-                                                v$.personal_info_1.national_id.$touch()
-                                            "
-                                            :error-messages="
-                                                v$.personal_info_1.national_id.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                    </div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-select
-                                            v-model="
-                                                personal_info_1.governorate
-                                            "
-                                            label="المحافظه"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="المحافظه"
-                                            @input="
-                                                v$.personal_info_1.governorate.$touch()
-                                            "
-                                            :error-messages="
-                                                v$.personal_info_1.governorate.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                            :items="Governorates"
-                                        ></v-select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-textarea
-                                            v-model="
-                                                personal_info_1.detailed_address
-                                            "
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            label=" العنوان"
-                                            variant="outlined"
-                                            placeholder=" العنوان"
-                                            auto-grow
-                                            @focus="isFocused = true"
-                                            @blur="isFocused = false"
-                                            :error-messages="
-                                                v$.personal_info_1.detailed_address.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-textarea>
-                                        <span
-                                            v-if="!regex3 && isFocused"
-                                            style="
-                                                display: block;
-                                                margin-right: 15px;
-                                                font-size: small;
-                                                color: #af0829;
-                                            "
-                                            >حروف عربية فقط</span
-                                        >
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                personal_info_1.house_number
-                                            "
-                                            style="width: 100%"
-                                            label="رقم المنزل"
-                                            variant="outlined"
-                                            placeholder="رقم المنزل"
-                                            @input="
-                                                v$.personal_info_1.house_number.$touch()
-                                            "
-                                            :error-messages="
-                                                v$.personal_info_1.house_number.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                personal_info_1.floor_number
-                                            "
-                                            label="رقم الدور"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="رقم الدور"
-                                            @input="
-                                                v$.personal_info_1.floor_number.$touch()
-                                            "
-                                            :error-messages="
-                                                v$.personal_info_1.floor_number.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                    </div>
-                                </div>
+                                        <v-icon v-if="n === 2"
+                                            ><font-awesome-icon
+                                                icon="hand-holding-dollar"
+                                        /></v-icon>
+                                        <v-icon v-if="n === 3"
+                                            ><font-awesome-icon
+                                                icon="briefcase-medical"
+                                        /></v-icon>
+                                        <v-icon v-if="n === 4"
+                                            ><font-awesome-icon
+                                                icon="house-user"
+                                        /></v-icon>
+                                        <v-icon v-if="n === 5"
+                                            ><font-awesome-icon
+                                                icon="people-line"
+                                        /></v-icon>
+                                    </template>
+                                </v-stepper-item>
 
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-select
-                                            v-model="
-                                                personal_info_1.marital_status
-                                            "
-                                            class="mt-2"
-                                            variant="outlined"
-                                            style="width: 100%"
-                                            :items="SocialStatuss"
-                                            label="الحاله الجتماعيه  "
-                                            @input="
-                                                v$.personal_info_1.marital_status.$touch()
-                                            "
-                                            :error-messages="
-                                                v$.personal_info_1.marital_status.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-select>
-                                    </div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="personal_info_1.phone"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            label="رقم التليفون"
-                                            variant="outlined"
-                                            placeholder="رقم التليفون"
-                                            @input="
-                                                v$.personal_info_1.phone.$touch()
-                                            "
-                                            :error-messages="
-                                                v$.personal_info_1.phone.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div v-if="e1 === 2">
-                        <form @submit.prevent="validateForm" action="post">
-                            <div class="form">
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="financial_info_2.required"
-                                            label="المطلوب "
-                                            class="mt-2"
-                                            @input="
-                                                v$.financial_info_2.required.$touch()
-                                            "
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="المطلوب "
-                                            :error-messages="
-                                                v$.financial_info_2.required.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="financial_info_2.incom"
-                                            label="الداخل "
-                                            class="mt-2"
-                                            @input="
-                                                v$.financial_info_2.incom.$touch()
-                                            "
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="الداخل "
-                                            :error-messages="
-                                                v$.financial_info_2.incom.$errors.map(
-                                                    (e) => e.$message
-                                                )
-                                            "
-                                        ></v-text-field>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="financial_info_2.deficit"
-                                            label="العجز "
-                                            class="mt-2"
-                                            style="pointer-events: none"
-                                            :value="
-                                                financial_info_2.required -
-                                                financial_info_2.incom
-                                            "
-                                            variant="outlined"
-                                            placeholder="العجز "
-                                        ></v-text-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div v-if="e1 === 3">
-                        <form @submit.prevent="validateForm3" action="post">
-                            <div
-                                class="bg-[#eee]"
-                                v-for="(dis, index) in diseases_3"
-                                :key="index"
-                            >
-                                <div style="width: 100%">
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="dis.patien_name"
-                                            label=" اسم المريض "
-                                            variant="outlined"
-                                            style="width: 100%"
-                                            placeholder="اسم المريض"
-                                        ></v-text-field>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="dis.disease"
-                                            label="  المرض "
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder=" المرض"
-                                        ></v-text-field>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="dis.get_treatment"
-                                            label="كيفيه الحصول علي العلاج"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="كيفيه الحصول علي العلاج "
-                                        ></v-text-field>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="mt-2 d-flex flex-column"
-                                        style="width: 100%"
-                                    >
-                                        <v-text-field
-                                            v-model="dis.not_available"
-                                            label=" السبب في عدم العلاج علي نفقه الدولة"
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                        ></v-text-field>
-                                    </div>
-                                </div>
                                 <v-divider
-                                    :thickness="3"
-                                    class="my-5"
+                                    v-if="n !== steps"
+                                    :key="n"
                                 ></v-divider>
+                            </template>
+                        </v-stepper-header>
+
+                        <v-stepper-window>
+                            <div v-if="e1 === 1">
+                                <form
+                                    @submit.prevent="validateForm"
+                                    action="post"
+                                >
+                                    <div class="form">
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        personal_info_1.name
+                                                    "
+                                                    label="الاسم ثلاثي"
+                                                    variant="outlined"
+                                                    style="width: 100%"
+                                                    placeholder="الاسم ثلاثي"
+                                                    @input="
+                                                        v$.personal_info_1.name.$touch()
+                                                    "
+                                                    @focus="isFocused = true"
+                                                    @blur="isFocused = false"
+                                                    :error-messages="
+                                                        v$.personal_info_1.name.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                                <span
+                                                    v-if="!regex1 && isFocused"
+                                                    style="
+                                                        display: block;
+                                                        margin-right: 15px;
+                                                        font-size: small;
+                                                        color: #af0829;
+                                                    "
+                                                    >حروف عربية فقط</span
+                                                >
+                                            </div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        personal_info_1.nick_name
+                                                    "
+                                                    label="اسم الشهره"
+                                                    variant="outlined"
+                                                    style="width: 100%"
+                                                    @input="
+                                                        v$.personal_info_1.nick_name.$touch()
+                                                    "
+                                                    placeholder="اسم الشهره"
+                                                    @focus="isFocused = true"
+                                                    @blur="isFocused = false"
+                                                    :error-messages="
+                                                        v$.personal_info_1.nick_name.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                                <span
+                                                    v-if="!regex2 && isFocused"
+                                                    style="
+                                                        display: block;
+                                                        margin-right: 15px;
+                                                        font-size: small;
+                                                        color: #af0829;
+                                                    "
+                                                    >حروف عربية فقط</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        personal_info_1.national_id
+                                                    "
+                                                    label="رقم البطاقه"
+                                                    variant="outlined"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    placeholder="رقم البطاقه"
+                                                    @input="
+                                                        v$.personal_info_1.national_id.$touch()
+                                                    "
+                                                    :error-messages="
+                                                        v$.personal_info_1.national_id.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                            </div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-select
+                                                    v-model="
+                                                        personal_info_1.governorate
+                                                    "
+                                                    label="المحافظه"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="المحافظه"
+                                                    @input="
+                                                        v$.personal_info_1.governorate.$touch()
+                                                    "
+                                                    :error-messages="
+                                                        v$.personal_info_1.governorate.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                    :items="Governorates"
+                                                ></v-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 100%"
+                                            >
+                                                <v-textarea
+                                                    v-model="
+                                                        personal_info_1.detailed_address
+                                                    "
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    label=" العنوان"
+                                                    variant="outlined"
+                                                    placeholder=" العنوان"
+                                                    auto-grow
+                                                    @focus="isFocused = true"
+                                                    @blur="isFocused = false"
+                                                    :error-messages="
+                                                        v$.personal_info_1.detailed_address.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-textarea>
+                                                <span
+                                                    v-if="!regex3 && isFocused"
+                                                    style="
+                                                        display: block;
+                                                        margin-right: 15px;
+                                                        font-size: small;
+                                                        color: #af0829;
+                                                    "
+                                                    >حروف عربية فقط</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        personal_info_1.house_number
+                                                    "
+                                                    style="width: 100%"
+                                                    label="رقم المنزل"
+                                                    variant="outlined"
+                                                    placeholder="رقم المنزل"
+                                                    @input="
+                                                        v$.personal_info_1.house_number.$touch()
+                                                    "
+                                                    :error-messages="
+                                                        v$.personal_info_1.house_number.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        personal_info_1.floor_number
+                                                    "
+                                                    label="رقم الدور"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="رقم الدور"
+                                                    @input="
+                                                        v$.personal_info_1.floor_number.$touch()
+                                                    "
+                                                    :error-messages="
+                                                        v$.personal_info_1.floor_number.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-select
+                                                    v-model="
+                                                        personal_info_1.marital_status
+                                                    "
+                                                    class="mt-2"
+                                                    variant="outlined"
+                                                    style="width: 100%"
+                                                    :items="SocialStatuss"
+                                                    label="الحاله الجتماعيه  "
+                                                    @input="
+                                                        v$.personal_info_1.marital_status.$touch()
+                                                    "
+                                                    :error-messages="
+                                                        v$.personal_info_1.marital_status.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-select>
+                                            </div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        personal_info_1.phone
+                                                    "
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    label="رقم التليفون"
+                                                    variant="outlined"
+                                                    placeholder="رقم التليفون"
+                                                    @input="
+                                                        v$.personal_info_1.phone.$touch()
+                                                    "
+                                                    :error-messages="
+                                                        v$.personal_info_1.phone.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <div class="Addbtn mr-5" style="width: 300px">
-                                    <v-btn
-                                        append-icon="mdi-plus"
-                                        @click="addform_dis"
-                                        color="#0088ff"
-                                        variant="outlined"
-                                        style="
-                                            font-size: 18px;
-                                            font-family: Cairo;
-                                            padding: 15px;
-                                            width: 300px;
-                                            height: 60px;
-                                            border: 1px solid #0088ff;
-                                            border-radius: 100px;
-                                        "
+                            <div v-if="e1 === 2">
+                                <form
+                                    @submit.prevent="validateForm"
+                                    action="post"
+                                >
+                                    <div class="form">
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        financial_info_2.required
+                                                    "
+                                                    label="المطلوب "
+                                                    class="mt-2"
+                                                    @input="
+                                                        v$.financial_info_2.required.$touch()
+                                                    "
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="المطلوب "
+                                                    :error-messages="
+                                                        v$.financial_info_2.required.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        financial_info_2.incom
+                                                    "
+                                                    label="الداخل "
+                                                    class="mt-2"
+                                                    @input="
+                                                        v$.financial_info_2.incom.$touch()
+                                                    "
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="الداخل "
+                                                    :error-messages="
+                                                        v$.financial_info_2.incom.$errors.map(
+                                                            (e) => e.$message
+                                                        )
+                                                    "
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 100%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        financial_info_2.deficit
+                                                    "
+                                                    label="العجز "
+                                                    class="mt-2"
+                                                    style="pointer-events: none"
+                                                    :value="
+                                                        financial_info_2.required -
+                                                        financial_info_2.incom
+                                                    "
+                                                    variant="outlined"
+                                                    placeholder="العجز "
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div v-if="e1 === 3">
+                                <form
+                                    @submit.prevent="validateForm3"
+                                    action="post"
+                                >
+                                    <div
+                                        class="bg-[#eee]"
+                                        v-for="(dis, index) in diseases_3"
+                                        :key="index"
                                     >
-                                        أضافه حاله مرضيه اخرى
+                                        <div style="width: 100%">
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 100%"
+                                            >
+                                                <v-text-field
+                                                    v-model="dis.patien_name"
+                                                    label=" اسم المريض "
+                                                    variant="outlined"
+                                                    style="width: 100%"
+                                                    placeholder="اسم المريض"
+                                                ></v-text-field>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 100%"
+                                            >
+                                                <v-text-field
+                                                    v-model="dis.disease"
+                                                    label="  المرض "
+                                                    variant="outlined"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    placeholder=" المرض"
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 100%"
+                                            >
+                                                <v-text-field
+                                                    v-model="dis.get_treatment"
+                                                    label="كيفيه الحصول علي العلاج"
+                                                    variant="outlined"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    placeholder="كيفيه الحصول علي العلاج "
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="mt-2 d-flex flex-column"
+                                                style="width: 100%"
+                                            >
+                                                <v-text-field
+                                                    v-model="dis.not_available"
+                                                    label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                    variant="outlined"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                        <v-divider
+                                            :thickness="3"
+                                            class="my-5"
+                                        ></v-divider>
+                                    </div>
+                                    <div>
+                                        <div
+                                            class="Addbtn mr-5"
+                                            style="width: 300px"
+                                        >
+                                            <v-btn
+                                                append-icon="mdi-plus"
+                                                @click="addform_dis"
+                                                color="#0088ff"
+                                                variant="outlined"
+                                                style="
+                                                    font-size: 18px;
+                                                    font-family: Cairo;
+                                                    padding: 15px;
+                                                    width: 300px;
+                                                    height: 60px;
+                                                    border: 1px solid #0088ff;
+                                                    border-radius: 100px;
+                                                "
+                                            >
+                                                أضافه حاله مرضيه اخرى
+                                            </v-btn>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div v-if="e1 === 4">
+                                <form
+                                    @submit.prevent="validateForm4"
+                                    action="post"
+                                >
+                                    <div class="form">
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-select
+                                                    variant="outlined"
+                                                    v-model="
+                                                        housing_condition_4.number_rooms
+                                                    "
+                                                    :items="number_rooms"
+                                                    class="mt-2"
+                                                    style="
+                                                        width: 100%;
+                                                        border-radius: 0;
+                                                    "
+                                                    label=" عدد الغرف"
+                                                ></v-select>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-select
+                                                    variant="outlined"
+                                                    v-model="
+                                                        housing_condition_4.house_type
+                                                    "
+                                                    :items="items"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    label="الشقه ملك ام ايجار"
+                                                ></v-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-select
+                                                    variant="outlined"
+                                                    v-model="
+                                                        housing_condition_4.bathroom_type
+                                                    "
+                                                    :items="amam"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    label="الحمام خاص ام مشترك"
+                                                ></v-select>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-select
+                                                    variant="outlined"
+                                                    v-model="
+                                                        housing_condition_4.floor_type
+                                                    "
+                                                    :items="kitchen"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    label="  نوع الارضيه "
+                                                ></v-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        housing_condition_4.description_kitchen
+                                                    "
+                                                    label="  وصف شامل للمطبخ "
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="وصف شامل للمطبخ"
+                                                ></v-text-field>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        housing_condition_4.DescriptionRoom1
+                                                    "
+                                                    label="  وصف سريع للغرفه رقم 1 "
+                                                    variant="outlined"
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    placeholder="وصف سريع للغرفه رقم 1 "
+                                                ></v-text-field>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        housing_condition_4.DescriptionRoom2
+                                                    "
+                                                    v-show="
+                                                        housing_condition_4.number_rooms >
+                                                        1
+                                                    "
+                                                    label="  وصف سريع للغرفه رقم 2 "
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="وصف سريع للغرفه رقم 2 "
+                                                ></v-text-field>
+                                            </div>
+
+                                            <v-text-field
+                                                v-model="
+                                                    housing_condition_4.DescriptionRoom3
+                                                "
+                                                label="  وصف سريع للغرفه رقم 3 "
+                                                v-show="
+                                                    housing_condition_4.number_rooms >
+                                                    2
+                                                "
+                                                class="mt-2"
+                                                style="width: 45%"
+                                                variant="outlined"
+                                                placeholder="وصف سريع للغرفه رقم 3 "
+                                            ></v-text-field>
+                                        </div>
+
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-text-field
+                                                    v-model="
+                                                        housing_condition_4.DescriptionRoom2
+                                                    "
+                                                    v-show="
+                                                        housing_condition_4.number_rooms >
+                                                        3
+                                                    "
+                                                    label="  وصف سريع للغرفه رقم 4 "
+                                                    class="mt-2"
+                                                    style="width: 100%"
+                                                    variant="outlined"
+                                                    placeholder="وصف سريع للغرفه رقم 4 "
+                                                ></v-text-field>
+                                            </div>
+
+                                            <v-text-field
+                                                v-model="
+                                                    housing_condition_4.DescriptionRoom3
+                                                "
+                                                label="  وصف سريع للغرفه رقم 5 "
+                                                v-show="
+                                                    housing_condition_4.number_rooms >
+                                                    4
+                                                "
+                                                class="mt-2"
+                                                style="width: 45%"
+                                                variant="outlined"
+                                                placeholder="وصف سريع للغرفه رقم 5 "
+                                            ></v-text-field>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div v-if="e1 === 5">
+                                <form
+                                    @submit.prevent="validateForm5"
+                                    action="post"
+                                >
+                                    <div class="form">
+                                        <div class="height: 59px;">
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    v-model="family_needs_Array"
+                                                    label="طبي"
+                                                    color="primary"
+                                                    value="طبي"
+                                                ></v-checkbox>
+                                            </div>
+
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    v-model="family_needs_Array"
+                                                    color="primary"
+                                                    label="زوج"
+                                                    value="زوج"
+                                                    class="larger-checkbox"
+                                                ></v-checkbox>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    v-model="family_needs_Array"
+                                                    color="primary"
+                                                    label="ملابس"
+                                                    value="ملابس"
+                                                ></v-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="height: 59px;">
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    color="primary"
+                                                    v-model="family_needs_Array"
+                                                    label="مرتبات"
+                                                    value="مرتبات"
+                                                ></v-checkbox>
+                                            </div>
+
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    color="primary"
+                                                    v-model="family_needs_Array"
+                                                    label="بطاطين"
+                                                    value="بطاطين"
+                                                ></v-checkbox>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    color="primary"
+                                                    v-model="family_needs_Array"
+                                                    label="شنطه غذائيه"
+                                                    value="شنطه غذائيه"
+                                                ></v-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="height: 59px;">
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    color="primary"
+                                                    v-model="family_needs_Array"
+                                                    label="كفاله شهريه"
+                                                    value="كفاله شهريه"
+                                                ></v-checkbox>
+                                            </div>
+
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    color="primary"
+                                                    v-model="family_needs_Array"
+                                                    label="اجهزه منزليه"
+                                                    value="اجهزه منزليه"
+                                                ></v-checkbox>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column"
+                                                style="width: 50%"
+                                            >
+                                                <v-checkbox
+                                                    color="primary"
+                                                    v-model="family_needs_Array"
+                                                    label="كفاله "
+                                                    value="كفاله "
+                                                    rounded
+                                                ></v-checkbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn_add">
+                                        <v-btn
+                                            style="
+                                                font-family: 'Cairo', sans-serif;
+                                            "
+                                            class="btn"
+                                            @click="validateForm"
+                                            color="#fff"
+                                            append-icon="mdi-account-plus"
+                                            ><span>أضف الحالة</span>
+                                        </v-btn>
+                                    </div>
+                                </form>
+                            </div>
+                        </v-stepper-window>
+                        <v-stepper-actions
+                            class="d-flex justify-center ga-5"
+                            :disabled="disabled"
+                            @click:next="next"
+                            @click:prev="prev"
+                            type="submit"
+                        >
+                            <template #prev="{ props }">
+                                <v-btn
+                                    class="prev"
+                                    style="background-color: #eee"
+                                    @click="() => props.onClick('prev')"
+                                    rounded="lg"
+                                    size="x-large"
+                                >
+                                    <span class="icon2 ml-3"
+                                        ><font-awesome-icon
+                                            icon="circle-chevron-right"
+                                            size="lg"
+                                    /></span>
+                                    <span> رجوع</span>
+                                </v-btn>
+                            </template>
+                            <template #next="{ props }">
+                                <div>
+                                    <v-btn
+                                        @click="() => props.onClick('next')"
+                                        rounded="lg"
+                                        size="x-large"
+                                    >
+                                        <span> التالي</span>
+                                        <span class="icon1 mr-4">
+                                            <font-awesome-icon
+                                                icon="circle-chevron-left"
+                                                size="lg"
+                                        /></span>
                                     </v-btn>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div v-if="e1 === 4">
-                        <form @submit.prevent="validateForm4" action="post">
-                            <div class="form">
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-select
-                                            variant="outlined"
-                                            v-model="
-                                                housing_condition_4.number_rooms
-                                            "
-                                            :items="number_rooms"
-                                            class="mt-2"
-                                            style="
-                                                width: 100%;
-                                                border-radius: 0;
-                                            "
-                                            label=" عدد الغرف"
-                                        ></v-select>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-select
-                                            variant="outlined"
-                                            v-model="
-                                                housing_condition_4.house_type
-                                            "
-                                            :items="items"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            label="الشقه ملك ام ايجار"
-                                        ></v-select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-select
-                                            variant="outlined"
-                                            v-model="
-                                                housing_condition_4.bathroom_type
-                                            "
-                                            :items="amam"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            label="الحمام خاص ام مشترك"
-                                        ></v-select>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-select
-                                            variant="outlined"
-                                            v-model="
-                                                housing_condition_4.floor_type
-                                            "
-                                            :items="kitchen"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            label="  نوع الارضيه "
-                                        ></v-select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                housing_condition_4.description_kitchen
-                                            "
-                                            label="  وصف شامل للمطبخ "
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="وصف شامل للمطبخ"
-                                        ></v-text-field>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                housing_condition_4.DescriptionRoom1
-                                            "
-                                            label="  وصف سريع للغرفه رقم 1 "
-                                            variant="outlined"
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            placeholder="وصف سريع للغرفه رقم 1 "
-                                        ></v-text-field>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                housing_condition_4.DescriptionRoom2
-                                            "
-                                            v-show="
-                                                housing_condition_4.number_rooms >
-                                                1
-                                            "
-                                            label="  وصف سريع للغرفه رقم 2 "
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="وصف سريع للغرفه رقم 2 "
-                                        ></v-text-field>
-                                    </div>
-
-                                    <v-text-field
-                                        v-model="
-                                            housing_condition_4.DescriptionRoom3
-                                        "
-                                        label="  وصف سريع للغرفه رقم 3 "
-                                        v-show="
-                                            housing_condition_4.number_rooms > 2
-                                        "
-                                        class="mt-2"
-                                        style="width: 45%"
-                                        variant="outlined"
-                                        placeholder="وصف سريع للغرفه رقم 3 "
-                                    ></v-text-field>
-                                </div>
-
-                                <div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-text-field
-                                            v-model="
-                                                housing_condition_4.DescriptionRoom2
-                                            "
-                                            v-show="
-                                                housing_condition_4.number_rooms >
-                                                3
-                                            "
-                                            label="  وصف سريع للغرفه رقم 4 "
-                                            class="mt-2"
-                                            style="width: 100%"
-                                            variant="outlined"
-                                            placeholder="وصف سريع للغرفه رقم 4 "
-                                        ></v-text-field>
-                                    </div>
-
-                                    <v-text-field
-                                        v-model="
-                                            housing_condition_4.DescriptionRoom3
-                                        "
-                                        label="  وصف سريع للغرفه رقم 5 "
-                                        v-show="
-                                            housing_condition_4.number_rooms > 4
-                                        "
-                                        class="mt-2"
-                                        style="width: 45%"
-                                        variant="outlined"
-                                        placeholder="وصف سريع للغرفه رقم 5 "
-                                    ></v-text-field>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div v-if="e1 === 5">
-                        <form @submit.prevent="validateForm5" action="post">
-                            <div class="form">
-                                <div class="height: 59px;">
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            v-model="family_needs_Array"
-                                            label="طبي"
-                                            color="primary"
-                                            value="طبي"
-                                        ></v-checkbox>
-                                    </div>
-
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            v-model="family_needs_Array"
-                                            color="primary"
-                                            label="زوج"
-                                            value="زوج"
-                                            class="larger-checkbox"
-                                        ></v-checkbox>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            v-model="family_needs_Array"
-                                            color="primary"
-                                            label="ملابس"
-                                            value="ملابس"
-                                        ></v-checkbox>
-                                    </div>
-                                </div>
-                                <div class="height: 59px;">
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            color="primary"
-                                            v-model="family_needs_Array"
-                                            label="مرتبات"
-                                            value="مرتبات"
-                                        ></v-checkbox>
-                                    </div>
-
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            color="primary"
-                                            v-model="family_needs_Array"
-                                            label="بطاطين"
-                                            value="بطاطين"
-                                        ></v-checkbox>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            color="primary"
-                                            v-model="family_needs_Array"
-                                            label="شنطه غذائيه"
-                                            value="شنطه غذائيه"
-                                        ></v-checkbox>
-                                    </div>
-                                </div>
-                                <div class="height: 59px;">
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            color="primary"
-                                            v-model="family_needs_Array"
-                                            label="كفاله شهريه"
-                                            value="كفاله شهريه"
-                                        ></v-checkbox>
-                                    </div>
-
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            color="primary"
-                                            v-model="family_needs_Array"
-                                            label="اجهزه منزليه"
-                                            value="اجهزه منزليه"
-                                        ></v-checkbox>
-                                    </div>
-                                    <div
-                                        class="d-flex flex-column"
-                                        style="width: 50%"
-                                    >
-                                        <v-checkbox
-                                            color="primary"
-                                            v-model="family_needs_Array"
-                                            label="كفاله "
-                                            value="كفاله "
-                                            rounded
-                                        ></v-checkbox>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btn_add">
-                                <v-btn
-                                    style="font-family: 'Cairo', sans-serif"
-                                    class="btn"
-                                    @click="Add_Cases"
-                                    color="#fff"
-                                    append-icon="mdi-account-plus"
-                                    ><span>أضف الحالة</span>
-                                </v-btn>
-                            </div>
-                        </form>
-                    </div>
-                </v-stepper-window>
-                <v-stepper-actions
-                    class="d-flex justify-center ga-5"
-                    :disabled="disabled"
-                    @click:next="next"
-                    @click:prev="prev"
-                    type="submit"
-                >
-                    <template #prev="{ props }">
-                        <v-btn
-                            class="prev"
-                            style="background-color: #eee"
-                            @click="() => props.onClick('prev')"
-                            rounded="lg"
-                            size="x-large"
-                        >
-                            <span class="icon2 ml-3"
-                                ><font-awesome-icon
-                                    icon="circle-chevron-right"
-                                    size="lg"
-                            /></span>
-                            <span> رجوع</span>
-                        </v-btn>
+                            </template>
+                        </v-stepper-actions>
                     </template>
-                    <template #next="{ props }">
-                        <div>
-                            <v-btn
-                                @click="() => props.onClick('next')"
-                                rounded="lg"
-                                size="x-large"
-                            >
-                                <span> التالي</span>
-                                <span class="icon1 mr-4">
-                                    <font-awesome-icon
-                                        icon="circle-chevron-left"
-                                        size="lg"
-                                /></span>
-                            </v-btn>
-                        </div>
-                    </template>
-                </v-stepper-actions>
+                </v-stepper>
             </template>
-        </v-stepper>
+        </Offline_error>
     </div>
 </template>
 <script>
+import Offline_error from "@/components/Offline_error.vue";
 // Add data
 import {
     collection,
@@ -851,6 +901,8 @@ import {
 
 export default {
     props: ["close_function"],
+    components: { Offline_error },
+    inject: ["Emitter"],
     data() {
         return {
             dis_index: 0,
@@ -1000,7 +1052,6 @@ export default {
             return this.e1 === 1 ? "prev" : this.e1 === 5 ? "next" : undefined;
         },
     },
-    inject: ["Emitter"],
     setup() {
         return { v$: useVuelidate() };
     },
@@ -1122,6 +1173,10 @@ export default {
         };
     },
     methods: {
+        // Method to check internet connection status
+        startInternetCheckerUse() {
+            this.Emitter.emit("startInternetChecker");
+        },
         // animation headers
         animateIcons() {
             this.$refs.stepperItems.forEach((item, index) => {
@@ -1255,6 +1310,7 @@ export default {
                     console.log("Data filled and Form submitted successfully");
                     console.log("personal_info_1", this.personal_info_1);
                     this.v$.$reset(); // Reset validation state
+                    this.Add_Cases();
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled, validation errors found");
@@ -1276,6 +1332,7 @@ export default {
                     console.log("Data filled and Form submitted successfully");
                     console.log("financial_info_2", this.testform2);
                     this.v$.$reset(); // Reset validation state
+                    this.Add_Cases();
                 } else {
                     // If there are validation errors, handle them accordingly
                     console.log("Data not all filled, validation errors found");
@@ -1490,6 +1547,9 @@ export default {
         },
     },
     mounted() {
+        // Method to check internet connection status
+        this.startInternetCheckerUse();
+
         this.animateIcons();
         this.animateSlideChange();
     },
