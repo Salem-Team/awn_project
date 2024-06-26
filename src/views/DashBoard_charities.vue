@@ -2799,13 +2799,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .info_stat .info {
-//     font-size: 20px;
-//     span {
-//         font-size: 25px;
-//     }
-// }
-
 .popup {
     padding: 20px;
     font-family: system-ui;
