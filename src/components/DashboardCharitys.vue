@@ -298,9 +298,9 @@
                                                                     style="
                                                                         width: 100%;
                                                                     "
-                                                                    label=" العنوان"
+                                                                    label=" dd"
                                                                     variant="outlined"
-                                                                    placeholder=" العنوان"
+                                                                    placeholder=" eded"
                                                                     auto-grow
                                                                 ></v-textarea>
                                                             </div>
