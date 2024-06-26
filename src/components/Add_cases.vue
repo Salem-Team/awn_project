@@ -2,7 +2,7 @@
     <div class="mian_overlay" @click="close_function_1"></div>
     <div class="main_popup" style="z-index: 11">
         <div class="header mr-4">
-            <div style="font-family: 'Cairo', sans-serif; font-size: 20px">
+            <div style="font-family: 'Cairo', sans-serif; font-size: 21px">
                 إضافة حالة
             </div>
             <font-awesome-icon
