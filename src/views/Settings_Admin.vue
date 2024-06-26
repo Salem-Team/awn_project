@@ -31,7 +31,7 @@
                                     state="hover-unfold"
                                     delay="2500"
                                     style="width: 25px; height: 25px"
-                                    colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                    colors="primary:#ababab,secondary:#ffffff,tertiary:#104891,quaternary:#ababab"
                                 ></lord-icon>
 
                                 <div
@@ -54,9 +54,11 @@
                                     stroke="bold"
                                     delay="2500"
                                     style="width: 25px; height: 25px"
-                                    colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
+                                    colors="primary:#ababab,secondary:#ffffff,tertiary:#7a7a7a;"
+                                    primary="41"
                                 >
                                 </lord-icon>
+
                                 <div
                                     style="
                                         width: 100%;
@@ -75,7 +77,7 @@
                                     src="https://cdn.lordicon.com/kgvlhryh.json"
                                     trigger="loop"
                                     delay="2500"
-                                    colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
+                                    colors="primary:#ababab,secondary:#ebe6ef,tertiary:#ababab,quaternary:#ababab,quinary:#0088ff,senary:#ffffff,septenary:#ababab,octonary:#ababab"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -98,7 +100,7 @@
                                     trigger="loop"
                                     delay="2500"
                                     stroke="bold"
-                                    colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
+                                    colors="primary:#ababab,secondary:#ababab,tertiary:#ababab,quaternary:#ababab,quinary:#eeeeee"
                                     style="width: 25px; height: 25px"
                                 >
                                 </lord-icon>
@@ -121,12 +123,21 @@
                             <div
                                 class="d-flex justify-content-between align-center"
                             >
-                                <img
-                                    src="../assets/images/social-page.gif"
+                                <!-- <img
+                                    src="../assets/images/[removal.ai]_80da6822-cfbe-453e-a123-d4ec1cf3177c-remove-bg-ai_1719197829260.png"
                                     alt=""
                                     width="50px"
                                     style="filter: grayscale(1)"
-                                />
+                                /> -->
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/rlovzwva.json"
+                                    trigger="loop"
+                                    state="loop-cycle"
+                                    delay="0"
+                                    style="width: 40px; height: 40px"
+                                    colors="primary:#0088ff"
+                                >
+                                </lord-icon>
                                 <div class="title">الملف الشخصي</div>
                             </div>
 
@@ -333,7 +344,7 @@
                                                                 width: 25px;
                                                                 height: 25px;
                                                             "
-                                                            colors="primary:#0088ff,secondary:#ffffff,tertiary:#104891,quaternary:#7a7a7a"
+                                                            colors="primary:#ababab,secondary:#ffffff,tertiary:#104891,quaternary:#ababab"
                                                         ></lord-icon>
                                                         <div
                                                             class="name_of_tap"
@@ -362,7 +373,7 @@
                                                                 width: 25px;
                                                                 height: 25px;
                                                             "
-                                                            colors="primary:#7a7a7a,secondary:#ffffff,tertiary:#0088ff"
+                                                            colors="primary:#ababab,secondary:#ffffff,tertiary:#7a7a7a;"
                                                         >
                                                         </lord-icon>
                                                         <div
@@ -387,7 +398,7 @@
                                                             src="https://cdn.lordicon.com/kgvlhryh.json"
                                                             trigger="loop"
                                                             delay="2500"
-                                                            colors="primary:#7a7a7a,secondary:#ebe6ef,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#0088ff,senary:#ffffff,septenary:#7a7a7a,octonary:#7a7a7a"
+                                                            colors="primary:#ababab,secondary:#ebe6ef,tertiary:#ababab,quaternary:#ababab,quinary:#0088ff,senary:#ffffff,septenary:#ababab,octonary:#ababab"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -417,7 +428,7 @@
                                                             trigger="loop"
                                                             delay="2500"
                                                             stroke="bold"
-                                                            colors="primary:#7a7a7a,secondary:#7a7a7a,tertiary:#7a7a7a,quaternary:#7a7a7a,quinary:#eeeeee"
+                                                            colors="primary:#ababab,secondary:#ababab,tertiary:#ababab,quaternary:#ababab,quinary:#eeeeee"
                                                             style="
                                                                 width: 25px;
                                                                 height: 25px;
@@ -447,9 +458,10 @@
                                                         justify-content: space-between;
                                                         align-items: center;
                                                     "
+                                                    class="input_phone_up"
                                                 >
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 d-flex flex-column input_phone"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -483,7 +495,7 @@
                                                         </v-text-field>
                                                     </div>
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 d-flex flex-column input_phone"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -523,6 +535,7 @@
                                                         justify-content: space-between;
                                                         align-items: center;
                                                     "
+                                                    class="input_phone_up"
                                                 >
                                                     <div
                                                         v-for="(
@@ -533,6 +546,7 @@
                                                             width: 48%;
                                                             position: relative;
                                                         "
+                                                        class="input_phone"
                                                     >
                                                         <div
                                                             class="mt-2 d-flex flex-column"
@@ -577,7 +591,7 @@
                                                             width: 48%;
                                                             position: relative;
                                                         "
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 d-flex flex-column input_phone"
                                                     >
                                                         <v-text-field
                                                             v-model="
@@ -724,9 +738,10 @@
                                                         justify-content: space-between;
                                                         align-items: center;
                                                     "
+                                                    class="input_phone_up"
                                                 >
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -760,7 +775,7 @@
                                                         </v-text-field>
                                                     </div>
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -861,6 +876,7 @@
                                                     </v-text-field>
                                                 </div>
                                                 <div
+                                                    class="input_phone_up"
                                                     style="
                                                         width: 100%;
                                                         display: flex;
@@ -869,7 +885,7 @@
                                                     "
                                                 >
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -888,7 +904,7 @@
                                                         ></v-text-field>
                                                     </div>
                                                     <div
-                                                        class="mt-2 d-flex flex-column"
+                                                        class="mt-2 input_phone d-flex flex-column"
                                                         style="
                                                             width: 48%;
                                                             position: relative;
@@ -896,9 +912,7 @@
                                                     >
                                                         <v-text-field
                                                             variant="outlined"
-                                                            style="
-                                                                margin-right: 20px;
-                                                            "
+                                                            style=""
                                                             v-model="
                                                                 User_Charity.Fame_year
                                                             "
@@ -999,9 +1013,10 @@
                                                                                         justify-content: space-between;
                                                                                         align-items: center;
                                                                                     "
+                                                                                    class="input_phone_up"
                                                                                 >
                                                                                     <div
-                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        class="mt-2 input_phone d-flex flex-column"
                                                                                         style="
                                                                                             width: 48%;
                                                                                             position: relative;
@@ -1037,7 +1052,7 @@
                                                                                         </v-text-field>
                                                                                     </div>
                                                                                     <div
-                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        class="mt-2 input_phone d-flex flex-column"
                                                                                         style="
                                                                                             width: 48%;
                                                                                             position: relative;
@@ -1076,6 +1091,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div
+                                                                                    class="input_phone_up"
                                                                                     style="
                                                                                         display: flex;
                                                                                         justify-content: space-between;
@@ -1087,6 +1103,7 @@
                                                                                             width: 48%;
                                                                                             position: relative;
                                                                                         "
+                                                                                        class="input_phone"
                                                                                     >
                                                                                         <div
                                                                                             class="mt-2 d-flex flex-column"
@@ -1131,7 +1148,7 @@
                                                                                             width: 48%;
                                                                                             position: relative;
                                                                                         "
-                                                                                        class="mt-2 d-flex flex-column"
+                                                                                        class="mt-2 input_phone d-flex flex-column"
                                                                                     >
                                                                                         <v-text-field
                                                                                             v-model="
@@ -1969,17 +1986,32 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    background-image: url("../assets/images/_40ae7a5a-5aea-43c7-a95e-de3ca51ab30b.jpg");
+    background-image: url("../assets/images/winter-8433257.jpg");
     background-size: cover;
     background-position: right top;
     background-attachment: fixed;
     min-height: 90vh;
     padding-bottom: 80px;
+    position: relative; // أضف هذه الخاصية هنا
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0.9; // يمكنك تعديل هذه القيمة للتحكم في شدة التراكب
+        pointer-events: none; // تأكد من أن التراكب لا يمنع التفاعل مع المحتوى
+        z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
+    }
     .profile {
         display: flex;
         align-items: center;
         gap: 5px;
         position: relative;
+        z-index: 1; // تأكد من أن المحتوى يكون فوق التراكب
+
         &::before {
             content: "";
             position: absolute;
@@ -1990,6 +2022,7 @@ export default {
         }
     }
 }
+
 .title {
     font-size: 20px;
     color: var(--main-color);
@@ -2251,6 +2284,12 @@ button.add {
     .v-tabs__content {
         padding: 0;
     }
+    .input_phone {
+        width: 100% !important;
+    }
+    .input_phone_up {
+        display: block !important;
+    }
 }
 @media (max-width: 400px) {
     .v-slide-group button {
@@ -2260,5 +2299,32 @@ button.add {
         font-size: 8px !important;
         margin-bottom: 5px;
     }
+}
+body.dark-mode .container_0 {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-image: url("../assets/images/mmmm.jpg");
+    background-size: cover;
+    background-position: right top;
+    background-attachment: fixed;
+    min-height: 90vh;
+    padding-bottom: 80px;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #072756;
+        opacity: 0.8; // يمكنك تعديل هذه القيمة للتحكم في شدة التراكب
+        pointer-events: none; // تأكد من أن التراكب لا يمنع التفاعل مع المحتوى
+        z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
+    }
+}
+.body.dark-mode .right {
+    color: white !important;
 }
 </style>

@@ -37,16 +37,12 @@
                             <div class="small_box">
                                 <div class="number">
                                     {{ this.required }}
-
-                                    <!-- <span>جنية</span> -->
                                 </div>
                                 <span>إجمالي المطلوب</span>
                             </div>
                             <div class="small_box">
                                 <div class="number">
                                     {{ this.incom }}
-
-                                    <!-- <span>جنية</span> -->
                                 </div>
                                 <span>إجمالي الدخل</span>
                             </div>
@@ -111,6 +107,7 @@
                                     src="../assets/images/customer.gif"
                                     alt=""
                                     width="50px"
+                                    style="filter: grayscale(1)"
                                     bg-color="var(--secound-color)"
                                 />
                                 <div>الحالات</div>
@@ -306,7 +303,6 @@
                                             ></v-btn>
                                         </v-card-title>
                                         <v-stepper
-                                            editable
                                             :ripple="false"
                                             v-model="e1"
                                             alt-labels
@@ -1457,6 +1453,7 @@
                                                 'fas',
                                                 'arrow-up-wide-short',
                                             ]"
+                                            class="svg_icon"
                                             style="
                                                 background: #fff;
                                                 width: 50px;
@@ -1487,12 +1484,14 @@
                                                 'fas',
                                                 'arrow-up-short-wide',
                                             ]"
+                                            class="svg_icon"
                                             style="
                                                 background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
                                                 color: var(--main-color);
+                                                transform: rotate(180deg);
                                             "
                                         />
                                     </v-btn>
@@ -1548,6 +1547,7 @@
                                                 'fas',
                                                 'arrow-up-wide-short',
                                             ]"
+                                            class="svg_icon"
                                             style="
                                                 background: #fff;
                                                 width: 50px;
@@ -1584,7 +1584,9 @@
                                                 font-weight: bold;
                                                 cursor: pointer;
                                                 color: var(--main-color);
+                                                transform: rotate(180deg);
                                             "
+                                            class="svg_icon"
                                         />
                                     </v-btn>
                                 </v-btn-toggle>
@@ -1646,6 +1648,7 @@
                                                 cursor: pointer;
                                                 color: var(--main-color);
                                             "
+                                            class="svg_icon"
                                         />
                                     </v-btn>
                                     <v-btn
@@ -1675,7 +1678,9 @@
                                                 font-weight: bold;
                                                 cursor: pointer;
                                                 color: var(--main-color);
+                                                transform: rotate(180deg);
                                             "
+                                            class="svg_icon"
                                         />
                                     </v-btn>
                                 </v-btn-toggle>
@@ -1734,6 +1739,7 @@
                                             cursor: pointer;
                                             color: var(--main-color);
                                         "
+                                        class="svg_icon"
                                     />
                                 </v-btn>
                                 <v-btn
@@ -1760,7 +1766,9 @@
                                             font-weight: bold;
                                             cursor: pointer;
                                             color: var(--main-color);
+                                            transform: rotate(180deg);
                                         "
+                                        class="svg_icon"
                                     />
                                 </v-btn>
                             </v-btn-toggle>
@@ -1855,7 +1863,7 @@
                                                 class="d-flex flex-column align-center"
                                             >
                                                 <div
-                                                    class="mt-10"
+                                                    class="mt-10 notes"
                                                     style="
                                                         font-size: 20px;
                                                         font-family: Cairo;
@@ -2412,10 +2420,6 @@ export default {
                     console.error("Unknown Firestore error:", error);
                 }
             }
-        },
-        // change view
-        Swap() {
-            document.querySelector(".boxes ").classList.toggle("Change_View");
         },
         //get the data for each case
         Case_Information(Case) {
@@ -3221,111 +3225,6 @@ label span:active {
 .grid-cell {
     padding: 5px;
 }
-.boxes {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    margin: 10px auto;
-    &.Change_View {
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        .box {
-            width: 32%;
-            flex-direction: column !important;
-            gap: 20px;
-            .row_chys {
-                flex-direction: column !important;
-                flex-wrap: nowrap;
-                .col_chys {
-                    max-width: 100% !important;
-                    flex: 0;
-                }
-            }
-            .About {
-                width: 100%;
-                justify-content: start;
-            }
-            .details {
-                width: 100%;
-            }
-        }
-    }
-    .box {
-        width: 100%;
-        border: 1px solid #eee;
-        border-radius: 5px;
-        box-shadow: 0 0 10px #ddd;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: system-ui;
-
-        .About {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            .index {
-                padding: 5px 15px;
-                border-radius: 5px;
-                background: #eee;
-                font-weight: bold;
-            }
-            .name {
-                font-size: 20px;
-                color: #767676;
-                font-weight: bold;
-                width: 250px;
-            }
-        }
-        .Financial_details {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            & > div {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                background: #fafafa;
-                padding: 10px 15px;
-                border-radius: 5px;
-                div {
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #767676;
-                }
-                span {
-                    color: #0088ff;
-                    font-weight: bold;
-                    font-size: 20px;
-                    width: 70px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 5px;
-                }
-            }
-        }
-        .details {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #0088ff;
-            padding: 7px;
-            border-radius: 5px;
-            color: #fff;
-            width: 50% !important;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    }
-}
 .dach_cher {
     display: none;
     background-color: #ffdddd;
@@ -3471,37 +3370,12 @@ label span:active {
     }
 }
 @media (max-width: 768px) {
-    .boxes .box .details {
-        width: 50% !important;
-    }
     .cases .box .body .feat {
         height: 145px;
         width: 48%;
     }
 }
-@media (max-width: 1400px) {
-    .boxes.Change_View .box {
-        width: 48% !important;
-    }
-}
-@media (max-width: 800px) {
-    /* Apply styles for screens up to 800px wide */
-    .boxes.Change_View .box {
-        width: 100% !important;
-    }
-}
-@media (max-width: 900px) {
-    .boxes .box .Financial_details > div[data-v-5f88210f] {
-        padding: 0 !important;
-        gap: 4px;
-    }
-    .boxes .box .row_chys .col_chys .details {
-        width: 100% !important;
-    }
-    .boxes .box .row_chys .col_chys .Financial_details {
-        gap: 4px !important;
-    }
-}
+
 @media (max-width: 400px) {
     .chip_info[data-v-d1ccef3e] {
         padding: 5px !important;
@@ -3936,7 +3810,14 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
         height: 400px !important;
     }
     h4.Drag {
-        font-size: 15px;
+        font-size: 13px;
+    }
+    svg.svg-inline--fa.fa-file-excel.fa-2xl {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    .mt-10.notes {
+        font-size: 14px !important;
     }
 }
 .custom_lable {
@@ -3949,5 +3830,12 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
 
 label span[data-v-d1ccef3e]:active {
     box-shadow: none;
+}
+
+.body.dark-mode svg {
+    color: var(--main-color) !important;
+}
+.body.dark-mode svg {
+    color: var(--main-color) !important;
 }
 </style>

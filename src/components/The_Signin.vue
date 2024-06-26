@@ -3,10 +3,11 @@
         <template v-slot:default="{ isActive }">
             <v-card rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
-                    <div class="text-h5 text-medium-emphasis ps-2">
+                    <div class="text-h5 text-medium-emphasis ps-2 text-primary">
                         تسجيل دخول
                     </div>
                     <v-btn
+                        style="color: var(--main-color)"
                         icon="mdi-close"
                         variant="text"
                         @click="isActive.value = false"
@@ -65,26 +66,21 @@
                                         "
                                         @click:append-inner="toggleShowPassword"
                                     ></v-text-field>
-                                    <!-- remember me checkbox -->
-                                    <div
-                                        class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
+                                    <a
+                                        class="ms-2 mb-1 cursor-pointer"
+                                        style="color: var(--main-color)"
+                                        @click.stop="isActive.value = false"
+                                        @click="$router.push('/Reset_Password')"
                                     >
-                                        <v-checkbox label="تذكرني"></v-checkbox>
-                                        <a
-                                            class="ms-2 mb-1 cursor-pointer text-primary"
-                                            @click.stop="isActive.value = false"
-                                            @click="
-                                                $router.push('/Reset_Password')
-                                            "
-                                        >
-                                            هل نسيت كلمة المرور؟
-                                        </a>
-                                    </div>
+                                        هل نسيت كلمة المرور؟
+                                    </a>
                                     <v-btn
-                                        class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
+                                        class="d-flex align-center mt-4 mb-10"
                                         type="submit"
                                         style="
+                                            background-color: var(--main-color);
                                             width: 100%;
+                                            color: white;
                                             font-size: 16px;
                                             margin: auto;
                                         "
@@ -98,9 +94,12 @@
                                         cols="12"
                                         class="text-center text-base d-flex align-center justify-space-between flex-wrap mt-4 mb-4"
                                     >
-                                        <span>هل أنت جديد على منصتنا؟ </span>
+                                        <span style="color: var(--therd-color)"
+                                            >هل أنت جديد على منصتنا؟
+                                        </span>
                                         <div
-                                            class="register cursor-pointer text-primary"
+                                            class="register cursor-pointer"
+                                            style="color: var(--main-color)"
                                             @click="openRegistrationDialog"
                                         >
                                             حساب جديد
