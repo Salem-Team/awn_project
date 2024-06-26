@@ -1,14 +1,8 @@
 <template>
     <div class="mian_overlay" @click="close_function_1"></div>
-    <div class="main_popup" style="z-index: 9999999">
-        <div class="header mb-1">
-            <div
-                style="
-                    font-family: 'Cairo', sans-serif;
-                    font-size: 20px;
-                    z-index: 9999999;
-                "
-            >
+    <div class="main_popup" style="z-index: 11">
+        <div class="header mr-4">
+            <div style="font-family: 'Cairo', sans-serif; font-size: 20px">
                 إضافة حالة
             </div>
             <font-awesome-icon
@@ -16,60 +10,29 @@
                 @click="close_function_1"
             />
         </div>
+        <v-divider class="border-opacity-20" color="#7a7a7a"></v-divider>
         <Offline_error>
             <template v-slot:default>
-                <v-stepper
-                    editable
-                    v-model="e1"
-                    alt-labels
-                    style="padding: 5px"
-                >
+                <v-stepper v-model="e1" alt-labels style="padding: 5px">
                     <template v-slot:default="{ prev, next }">
-                        <v-stepper-header class="stepper_head m-2">
+                        <v-stepper-header class="stepper_head">
                             <template v-for="n in steps" :key="`${n}-step`">
                                 <v-stepper-item
+                                    class="stepper-width"
                                     :ripple="false"
-                                    style="font-size: 15px; font-weight: bold"
+                                    style="font-size: 13px; font-weight: bold"
                                     :title="title[n]"
                                     :complete="e1 > n"
                                     :step="`Step ${n}`"
                                     :value="n"
                                     ref="stepperItems"
                                 >
-                                    <template v-slot:default>
-                                        <v-icon
-                                            v-if="n === 1"
-                                            style="font-size: 50px"
-                                            >mdi-account</v-icon
-                                        >
-                                        <v-icon v-if="n === 2"
-                                            ><font-awesome-icon
-                                                icon="hand-holding-dollar"
-                                        /></v-icon>
-                                        <v-icon v-if="n === 3"
-                                            ><font-awesome-icon
-                                                icon="briefcase-medical"
-                                        /></v-icon>
-                                        <v-icon v-if="n === 4"
-                                            ><font-awesome-icon
-                                                icon="house-user"
-                                        /></v-icon>
-                                        <v-icon v-if="n === 5"
-                                            ><font-awesome-icon
-                                                icon="people-line"
-                                        /></v-icon>
-                                    </template>
                                 </v-stepper-item>
-
-                                <v-divider
-                                    v-if="n !== steps"
-                                    :key="n"
-                                ></v-divider>
                             </template>
                         </v-stepper-header>
 
-                        <v-stepper-window>
-                            <div v-if="e1 === 1">
+                        <v-stepper-window class="m-3">
+                            <div v-if="e1 === 1" ref="slide1">
                                 <form
                                     @submit.prevent="validateForm"
                                     action="post"
@@ -98,8 +61,10 @@
                                                             (e) => e.$message
                                                         )
                                                     "
+                                                    color="#0088ff"
                                                 ></v-text-field>
                                                 <span
+                                                    class="hint"
                                                     v-if="!regex1 && isFocused"
                                                     style="
                                                         display: block;
@@ -132,8 +97,10 @@
                                                             (e) => e.$message
                                                         )
                                                     "
+                                                    color="#0088ff"
                                                 ></v-text-field>
                                                 <span
+                                                    calss="hint"
                                                     v-if="!regex2 && isFocused"
                                                     style="
                                                         display: block;
@@ -151,6 +118,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.national_id
                                                     "
@@ -174,6 +142,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-select
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.governorate
                                                     "
@@ -200,11 +169,15 @@
                                                 style="width: 100%"
                                             >
                                                 <v-textarea
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.detailed_address
                                                     "
                                                     class="mt-2"
-                                                    style="width: 100%"
+                                                    style="
+                                                        width: 100%;
+                                                        min-height: 70px;
+                                                    "
                                                     label=" العنوان"
                                                     variant="outlined"
                                                     placeholder=" العنوان"
@@ -218,6 +191,7 @@
                                                     "
                                                 ></v-textarea>
                                                 <span
+                                                    class="hint"
                                                     v-if="!regex3 && isFocused"
                                                     style="
                                                         display: block;
@@ -235,6 +209,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.house_number
                                                     "
@@ -257,6 +232,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.floor_number
                                                     "
@@ -283,6 +259,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-select
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.marital_status
                                                     "
@@ -306,6 +283,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         personal_info_1.phone
                                                     "
@@ -328,7 +306,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div v-if="e1 === 2">
+                            <div v-if="e1 === 2" ref="slide2">
                                 <form
                                     @submit.prevent="validateForm"
                                     action="post"
@@ -340,6 +318,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         financial_info_2.required
                                                     "
@@ -363,6 +342,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         financial_info_2.incom
                                                     "
@@ -388,6 +368,7 @@
                                                 style="width: 100%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         financial_info_2.deficit
                                                     "
@@ -406,7 +387,28 @@
                                     </div>
                                 </form>
                             </div>
-                            <div v-if="e1 === 3">
+                            <div v-if="e1 === 3" ref="slide3">
+                                <div class="add_Patient">
+                                    <div
+                                        class="Addbtn mb-6"
+                                        style="width: 250px"
+                                    >
+                                        <v-btn
+                                            append-icon="mdi-plus"
+                                            @click="addform_dis"
+                                            color="#0088ff"
+                                            variant="outlined"
+                                            style="
+                                                font-size: 15px;
+                                                font-family: Cairo;
+                                                padding: 5px;
+                                                width: 100%;
+                                            "
+                                        >
+                                            أضافه حاله مرضيه اخرى
+                                        </v-btn>
+                                    </div>
+                                </div>
                                 <form
                                     @submit.prevent="validateForm3"
                                     action="post"
@@ -416,95 +418,77 @@
                                         v-for="(dis, index) in diseases_3"
                                         :key="index"
                                     >
-                                        <div style="width: 100%">
-                                            <div
-                                                class="mt-2 d-flex flex-column"
-                                                style="width: 100%"
-                                            >
-                                                <v-text-field
-                                                    v-model="dis.patien_name"
-                                                    label=" اسم المريض "
-                                                    variant="outlined"
-                                                    style="width: 100%"
-                                                    placeholder="اسم المريض"
-                                                ></v-text-field>
+                                        <!-- first row -->
+                                        <div class="form">
+                                            <div>
+                                                <div
+                                                    class="d-flex flex-column"
+                                                    style="width: 50%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            dis.patien_name
+                                                        "
+                                                        label=" اسم المريض "
+                                                        variant="outlined"
+                                                        style="width: 100%"
+                                                        placeholder="اسم المريض"
+                                                        color="#0088ff"
+                                                    ></v-text-field>
+                                                </div>
+                                                <div
+                                                    class="d-flex flex-column"
+                                                    style="width: 50%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="dis.disease"
+                                                        label="  المرض "
+                                                        variant="outlined"
+                                                        style="width: 100%"
+                                                        color="#0088ff"
+                                                        placeholder=" المرض"
+                                                    ></v-text-field>
+                                                </div>
                                             </div>
-                                            <div
-                                                class="d-flex flex-column"
-                                                style="width: 100%"
-                                            >
-                                                <v-text-field
-                                                    v-model="dis.disease"
-                                                    label="  المرض "
-                                                    variant="outlined"
-                                                    class="mt-2"
-                                                    style="width: 100%"
-                                                    placeholder=" المرض"
-                                                ></v-text-field>
+
+                                            <div>
+                                                <div
+                                                    class="d-flex flex-column"
+                                                    style="width: 50%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            dis.get_treatment
+                                                        "
+                                                        label="كيفيه الحصول علي العلاج"
+                                                        variant="outlined"
+                                                        style="width: 100%"
+                                                        placeholder="كيفيه الحصول علي العلاج "
+                                                        color="#0088ff"
+                                                    ></v-text-field>
+                                                </div>
+
+                                                <div
+                                                    class="d-flex flex-column"
+                                                    style="width: 50%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            dis.not_available
+                                                        "
+                                                        label=" السبب في عدم العلاج علي نفقه الدولة"
+                                                        variant="outlined"
+                                                        style="width: 100%"
+                                                        placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                        color="#0088ff"
+                                                    ></v-text-field>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <div
-                                                class="mt-2 d-flex flex-column"
-                                                style="width: 100%"
-                                            >
-                                                <v-text-field
-                                                    v-model="dis.get_treatment"
-                                                    label="كيفيه الحصول علي العلاج"
-                                                    variant="outlined"
-                                                    class="mt-2"
-                                                    style="width: 100%"
-                                                    placeholder="كيفيه الحصول علي العلاج "
-                                                ></v-text-field>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div
-                                                class="mt-2 d-flex flex-column"
-                                                style="width: 100%"
-                                            >
-                                                <v-text-field
-                                                    v-model="dis.not_available"
-                                                    label=" السبب في عدم العلاج علي نفقه الدولة"
-                                                    variant="outlined"
-                                                    class="mt-2"
-                                                    style="width: 100%"
-                                                    placeholder="السبب في عدم العلاج علي نفقه الدولة"
-                                                ></v-text-field>
-                                            </div>
-                                        </div>
-                                        <v-divider
-                                            :thickness="3"
-                                            class="my-5"
-                                        ></v-divider>
-                                    </div>
-                                    <div>
-                                        <div
-                                            class="Addbtn mr-5"
-                                            style="width: 300px"
-                                        >
-                                            <v-btn
-                                                append-icon="mdi-plus"
-                                                @click="addform_dis"
-                                                color="#0088ff"
-                                                variant="outlined"
-                                                style="
-                                                    font-size: 18px;
-                                                    font-family: Cairo;
-                                                    padding: 15px;
-                                                    width: 300px;
-                                                    height: 60px;
-                                                    border: 1px solid #0088ff;
-                                                    border-radius: 100px;
-                                                "
-                                            >
-                                                أضافه حاله مرضيه اخرى
-                                            </v-btn>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div v-if="e1 === 4">
+                            <div v-if="e1 === 4" ref="slide4">
                                 <form
                                     @submit.prevent="validateForm4"
                                     action="post"
@@ -516,6 +500,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-select
+                                                    color="#0088ff"
                                                     variant="outlined"
                                                     v-model="
                                                         housing_condition_4.number_rooms
@@ -534,6 +519,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-select
+                                                    color="#0088ff"
                                                     variant="outlined"
                                                     v-model="
                                                         housing_condition_4.house_type
@@ -551,6 +537,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-select
+                                                    color="#0088ff"
                                                     variant="outlined"
                                                     v-model="
                                                         housing_condition_4.bathroom_type
@@ -566,6 +553,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-select
+                                                    color="#0088ff"
                                                     variant="outlined"
                                                     v-model="
                                                         housing_condition_4.floor_type
@@ -583,6 +571,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         housing_condition_4.description_kitchen
                                                     "
@@ -598,6 +587,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         housing_condition_4.DescriptionRoom1
                                                     "
@@ -615,6 +605,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         housing_condition_4.DescriptionRoom2
                                                     "
@@ -631,6 +622,7 @@
                                             </div>
 
                                             <v-text-field
+                                                color="#0088ff"
                                                 v-model="
                                                     housing_condition_4.DescriptionRoom3
                                                 "
@@ -652,6 +644,7 @@
                                                 style="width: 50%"
                                             >
                                                 <v-text-field
+                                                    color="#0088ff"
                                                     v-model="
                                                         housing_condition_4.DescriptionRoom2
                                                     "
@@ -668,6 +661,7 @@
                                             </div>
 
                                             <v-text-field
+                                                color="#0088ff"
                                                 v-model="
                                                     housing_condition_4.DescriptionRoom3
                                                 "
@@ -685,13 +679,17 @@
                                     </div>
                                 </form>
                             </div>
-                            <div v-if="e1 === 5">
+                            <div v-if="e1 === 5" ref="slide5">
                                 <form
                                     @submit.prevent="validateForm5"
                                     action="post"
                                 >
                                     <div class="form">
-                                        <div class="height: 59px;">
+                                        <v-divider
+                                            class="border-opacity-100"
+                                            color="#7a7a7a"
+                                        ></v-divider>
+                                        <div class="Case_options">
                                             <div
                                                 class="d-flex flex-column"
                                                 style="width: 50%"
@@ -728,7 +726,11 @@
                                                 ></v-checkbox>
                                             </div>
                                         </div>
-                                        <div class="height: 59px;">
+                                        <v-divider
+                                            class="border-opacity-100"
+                                            color="#7a7a7a"
+                                        ></v-divider>
+                                        <div class="Case_options">
                                             <div
                                                 class="d-flex flex-column"
                                                 style="width: 50%"
@@ -764,7 +766,11 @@
                                                 ></v-checkbox>
                                             </div>
                                         </div>
-                                        <div class="height: 59px;">
+                                        <v-divider
+                                            class="border-opacity-100"
+                                            color="#7a7a7a"
+                                        ></v-divider>
+                                        <div class="Case_options">
                                             <div
                                                 class="d-flex flex-column"
                                                 style="width: 50%"
@@ -801,6 +807,10 @@
                                                 ></v-checkbox>
                                             </div>
                                         </div>
+                                        <v-divider
+                                            class="border-opacity-100"
+                                            color="#7a7a7a"
+                                        ></v-divider>
                                     </div>
                                     <div class="btn_add">
                                         <v-btn
@@ -808,7 +818,7 @@
                                                 font-family: 'Cairo', sans-serif;
                                             "
                                             class="btn"
-                                            @click="validateForm"
+                                            @click="Add_Cases"
                                             color="#fff"
                                             append-icon="mdi-account-plus"
                                             ><span>أضف الحالة</span>
@@ -823,6 +833,13 @@
                             @click:next="next"
                             @click:prev="prev"
                             type="submit"
+                            style="
+                                padding: 0 1.5rem 1rem;
+                                /* position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, 576%); */
+                            "
                         >
                             <template #prev="{ props }">
                                 <v-btn
@@ -830,11 +847,11 @@
                                     style="background-color: #eee"
                                     @click="() => props.onClick('prev')"
                                     rounded="lg"
-                                    size="x-large"
+                                    size="large"
                                 >
                                     <span class="icon2 ml-3"
                                         ><font-awesome-icon
-                                            icon="circle-chevron-right"
+                                            icon="chevron-right"
                                             size="lg"
                                     /></span>
                                     <span> رجوع</span>
@@ -843,14 +860,19 @@
                             <template #next="{ props }">
                                 <div>
                                     <v-btn
-                                        @click="() => props.onClick('next')"
+                                        @click="
+                                            () => {
+                                                props.onClick('next');
+                                                animateSlideChange();
+                                            }
+                                        "
                                         rounded="lg"
-                                        size="x-large"
+                                        size="large"
                                     >
                                         <span> التالي</span>
                                         <span class="icon1 mr-4">
                                             <font-awesome-icon
-                                                icon="circle-chevron-left"
+                                                icon="chevron-left"
                                                 size="lg"
                                         /></span>
                                     </v-btn>
@@ -1187,7 +1209,7 @@ export default {
                         x: 50 * (index + 1), // الوضع الأولي للإحداثي y
                     },
                     {
-                        duration: 1, // مدة الحركة
+                        duration: 0.5, // مدة الحركة
                         opacity: 1, // النهاية عند opacity 1
                         x: 0, // النهاية عند الإحداثي y صفر
                         delay: index * 0.2, // تأخير حسب الترتيب
@@ -1198,20 +1220,26 @@ export default {
         },
         // second ani
         animateSlideChange() {
-            const slides = [this.$refs.slide1, this.$refs.slide2];
+            const slides = [
+                this.$refs.slide1,
+                this.$refs.slide2,
+                this.$refs.slide3,
+                this.$refs.slide4,
+                this.$refs.slide5,
+            ];
 
             slides.forEach((slide, index) => {
                 gsap.fromTo(
                     slide,
                     {
                         opacity: 0.5, // البداية من opacity 0.5
-                        y: -100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
+                        x: 100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
                     },
                     {
-                        duration: 1, // مدة الحركة
+                        duration: 0.7, // مدة الحركة
                         opacity: 1, // النهاية عند opacity 1
-                        y: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
-                        delay: index * 0.2, // تأخير حسب الترتيب
+                        x: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
+                        // delay: index * 0.1, // تأخير حسب الترتيب
                         ease: "power2.out", // نوع الانتقال
                     }
                 );
@@ -1347,59 +1375,6 @@ export default {
             }
         },
 
-        /*async validateForm1() {
-            const res = await this.v$.personal_info_1.$validate();
-            if (res) {
-                this.testform1.push(
-                    { name: this.personal_info_1.name },
-                    { nick_name: this.personal_info_1.nick_name },
-                    { national_id: this.personal_info_1.national_id },
-                    { governorate: this.personal_info_1.governorate },
-                    { house_number: this.personal_info_1.house_number },
-                    { floor_number: this.personal_info_1.floor_number },
-                    { detailed_address: this.personal_info_1.detailed_address },
-                    { marital_status: this.personal_info_1.marital_status },
-                    { phone: this.personal_info_1.phone }
-                );
-                // console.log(this.testform1);
-                // this.v$.$reset();
-                // this.personal_info_1.name = "";
-                // this.personal_info_1.nick_name = "";
-                // this.personal_info_1.national_id = "";
-                // this.personal_info_1.governorate = "";
-                // this.personal_info_1.house_number = "";
-                // this.personal_info_1.floor_number = "";
-                // this.personal_info_1.marital_status = "";
-                // this.personal_info_1.phone = "";
-                // this.testform1 = [];
-                // this.personal_info_1_State = true;
-            } else {
-                this.e1 = 1;
-            }
-        },
-        async validateForm2() {
-            const res = await this.v$.financial_info_2.$validate();
-            if (res) {
-                this.testform2.push(
-                    { required: this.financial_info_2.required },
-                    { incom: this.financial_info_2.incom },
-                    {
-                        deficit:
-                            this.financial_info_2.required -
-                            this.financial_info_2.incom,
-                    }
-                );
-                this.e1++;
-                console.log(this.testform2);
-
-                this.v$.$reset();
-                this.financial_info_2.required = "";
-                this.financial_info_2.incom = "";
-                this.financial_info_2.deficit = "";
-
-                this.testform2 = [];
-            }
-        },*/
         async validateForm3() {
             const res = await this.v$.diseases_3.$validate();
             if (res) {
@@ -1542,7 +1517,9 @@ export default {
         },
         e1(newVal, oldVal) {
             if (newVal !== oldVal) {
-                this.animateSlideChange(newVal);
+                this.$nextTick(() => {
+                    this.animateSlideChange();
+                });
             }
         },
     },
@@ -1564,6 +1541,10 @@ export default {
         width: 100%;
     }
 }
+// .form > div[data-v-2ee767a5] {
+//     min-height: 50px !important;
+// }
+// basics Styles
 .btn {
     background: #e4e4e4;
     padding: 10px;
@@ -1577,12 +1558,14 @@ export default {
 }
 .main_popup {
     width: 90%;
+    height: 90%;
     margin: auto;
+    border: 2px solid #ddd;
+    border-radius: 20px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 90%;
     overflow: auto;
     background: #fff;
     z-index: 4;
@@ -1591,7 +1574,7 @@ export default {
 .mian_overlay {
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: 11;
     position: fixed;
     background: #7f7f7f80;
     top: 0;
@@ -1611,7 +1594,15 @@ export default {
         cursor: pointer;
     }
 }
-// Start Add Cases Styles
+
+// ُErrors ms
+span.hint {
+    font-size: 15px !important;
+}
+.v-messages__message {
+    font-size: 14px !important;
+}
+// Close Popup Icon
 .svg-inline--fa.fa-xmark {
     width: 25px;
     height: 25px;
@@ -1619,124 +1610,55 @@ export default {
     transition: 0.5s;
     border-radius: 50%;
 }
+//Hovering Popup Close Icon
 .svg-inline--fa.fa-xmark:hover {
     border-radius: 50%;
     background-color: #ddd !important;
-    color: #fff !important;
-}
-.v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default {
-    font-size: 40px !important;
-    margin-top: 15px !important;
-    color: #0088ff;
-}
-.v-icon.notranslate.v-theme--.v-icon--size-default {
-    margin: 20px 0 !important;
-    color: #0088ff !important;
+    color: #707070 !important;
 }
 
-.stepper_head {
-    border-radius: 5px 50px 5px 50px;
+// items in header
+button.v-stepper-item.stepper-width {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
 }
-@media screen and (max-width: 1000px) {
-    .v-stepper--alt-labels .v-stepper-header {
-        display: grid !important;
-        grid-template-columns: repeat(5, 1fr) !important;
-    }
-}
-@media screen and (max-width: 700px) {
-    .v-stepper--alt-labels .v-stepper-header {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-    .form > div[data-v-2ee767a5] {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important  ;
-    }
-    .v-input__control,
-    .mt-2.d-flex.flex-column,
-    .d-flex.flex-column {
-        width: 90% !important;
-    }
-}
-.v-stepper-item {
-    font-family: "Cairo", sans-serif !important;
-}
-.v-stepper-item.v-stepper-item--selected {
-    color: #fff !important;
-}
-// All Used Animations
-// Animation Fadein
-@keyframes fadeIn {
-    from {
-        transform: scale(1);
-        // transform: translateY(0px);
-    }
-    to {
-        transform: scale(1.2);
-        // transform: translateY(10px);
-    }
-}
-// Ani MoveOn
-@keyframes moveRight {
-    from {
-        transform: translateX(0);
-        // transform: translateY(0px);
-    }
-    to {
-        transform: translateX(-5px);
-        // transform: translateY(10px);
-    }
-}
-@keyframes moveLift {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(5px);
-    }
-}
-@keyframes Scale3d {
-    from {
-        transform: scaleY(1);
-    }
-    to {
-        transform: scaleY(1.1);
-    }
-}
-// for Box Focus
+
+// When item header Selected
 button.v-stepper-item.v-stepper-item--selected {
-    background-color: #0088ff !important;
-    border-radius: 5px 50px 5px 50px;
-    transition: 1s;
-    .v-icon.notranslate.v-theme--.v-icon--size-default,
-    .v-stepper--alt-labels .v-stepper-item {
-        color: #fff !important;
-    }
+    border-radius: 2px;
+    transition: 0.7s;
     .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-2ee767a5] {
-        color: #eee !important;
-        animation: fadeIn 1s infinite ease-in-out alternate; /* Apply fade-in animation */
+        color: #0088ff !important;
+        animation: fadeIn 0.5s infinite ease-in-out alternate;
+    }
+    ::v-deep.v-stepper-item--selected .v-stepper-item__avatar.v-avatar {
+        background-color: #fff !important;
+        color: #0088ff;
     }
 }
+
 // Styling Form >> Add Casess personal info
 ::v-deep.v-input--density-default .v-field--variant-outlined,
 ::v-deep.v-input--density-default .v-field--single-line,
 ::v-deep.v-input--density-default .v-field--no-label {
-    border-radius: 50px !important ;
-    height: 70px !important;
-    font-size: 20px !important;
     font-family: cairo;
 }
 .v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
-    min-height: 100%;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
 }
 // Btn Steppers
 .v-btn {
     display: flex;
     width: 150px;
-    padding: 10px;
+    padding: 5px;
     transition: background-color 0.3s, color 0.3s;
     span {
+        font-weight: 600 !important;
+        font-size: 15px !important;
         margin-right: 5px;
     }
     font-family: "Cairo";
@@ -1752,7 +1674,7 @@ button.v-stepper-item.v-stepper-item--selected {
     transition: 0.5;
 }
 .icon2.ml-3 {
-    font-size: 20px;
+    font-size: 15px !important;
 }
 .v-btn:hover .icon2.ml-3 {
     animation: moveRight 0.5s infinite ease-in-out alternate;
@@ -1760,9 +1682,7 @@ button.v-stepper-item.v-stepper-item--selected {
 .v-btn:hover .icon1.mr-4 {
     animation: moveLift 0.5s infinite ease-in-out alternate;
 }
-// div.Addbtn {
-//     display: block !important;
-// }
+
 .Addbtn .v-btn {
     transition: 0.4s;
 }
@@ -1771,13 +1691,24 @@ button.v-stepper-item.v-stepper-item--selected {
     color: #fff !important;
     // transition: 3s;
 }
+span.v-btn__append {
+    margin: 9px !important;
+}
+::v-deep.focus-effect input:focus {
+    border-color: #0088ff !important;
+    box-shadow: 0 0 5px #0088ff !important;
+    transition: border-color 0.5s, box-shadow 0.5s;
+}
+// family sections
 .v-checkbox {
-    font-size: 20px; /* Adjust font size for label (optional) */
+    font-size: 18px; /* Adjust font size for label (optional) */
+}
+hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
+    margin: 0 !important;
 }
 ::v-deep .v-label--clickable {
-    width: 150px !important;
+    width: 140px !important;
     font-size: 22px !important;
-    margin: 15px !important;
     font-family: "Cairo" !important;
 }
 // Add case btn
@@ -1792,8 +1723,8 @@ button.v-stepper-item.v-stepper-item--selected {
     color: #fff !important;
 }
 .btn_add .v-btn {
-    width: 220px !important;
-    height: 60px !important;
+    width: 200px !important;
+    height: 45px !important;
     padding: 10px !important;
     font-size: 20px !important;
     font-family: "Cairo", sans-serif !important;
@@ -1835,7 +1766,194 @@ button.v-stepper-item.v-stepper-item--selected {
     position: relative;
     z-index: 1;
 }
-// .v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
-//     overflow: scroll;
-// }
+// Start Edit header items
+// The Container Headdr
+
+.v-stepper-header.stepper_head {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    flex-wrap: wrap;
+    gap: 25px;
+    min-height: 70px;
+    border: none;
+    box-shadow: none;
+}
+.v-stepper--alt-labels .v-stepper-item .v-stepper-item__title {
+    font-size: 13px !important;
+}
+// The Items Headdr
+.v-stepper-item {
+    font-family: "Cairo", sans-serif !important;
+}
+// Number items
+::v-deep.v-stepper--alt-labels .v-stepper-item__avatar.v-avatar {
+    margin-bottom: 0 !important;
+}
+.stepper-width {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    padding: 0 10px;
+}
+.stepper-width {
+    color: #707070; /* Text color */
+}
+.v-stepper-item.v-stepper-item--selected[data-v-2ee767a5] {
+    color: #0088ff;
+}
+
+.stepper-width::before {
+    content: "";
+    position: absolute;
+    left: -30px; /* Adjust the position */
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent; /* Half the height */
+    border-bottom: 25px solid transparent; /* Half the height */
+    border-right: 30px solid #f0f0f0; /* Same as background color */
+}
+
+::v-deep.stepper-width.v-stepper__step--complete::before {
+    border-left-color: #1976d2 !important; /* Same as completed background color */
+}
+.v-window.v-theme--myCustomLightTheme.v-stepper-window.m-3 {
+    min-height: auto;
+}
+// Customize All Media Screen
+@media (max-width: 1288px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 169px !important ;
+    }
+}
+
+@media (max-width: 1258px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 166px !important ;
+    }
+    button.v-stepper-item.v-stepper-item--selected.stepper-width {
+        font-size: 12px !important;
+    }
+}
+@media (max-width: 1238px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 162px !important ;
+    }
+    button.v-stepper-item.v-stepper-item--selected.stepper-width {
+        font-size: 12px !important;
+    }
+}
+@media (max-width: 1218px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 160px !important ;
+    }
+}
+@media (max-width: 1206px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 158px !important ;
+    }
+    button.v-stepper-item.v-stepper-item--selected.stepper-width {
+        font-size: 11px !important;
+    }
+}
+@media (max-width: 1197px) {
+    .stepper-width[data-v-2ee767a5]::before {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 177px !important ;
+    }
+    .form > div[data-v-2ee767a5] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important  ;
+    }
+    ::v-deep label.v-label.v-label--clickable,
+    [data-v-d1ccef3e] .v-label--clickable {
+        width: 95px !important;
+        font-size: 14px !important;
+    }
+    .form
+        > div[data-v-2ee767a5][data-v-2ee767a5]:not(
+            .Case_options[data-v-2ee767a5]
+        ) {
+        flex-direction: column !important;
+    }
+    ::v-deep.form > .Case_options[data-v-2ee767a5] {
+        flex-direction: row !important;
+    }
+    hr.v-divider.v-theme--myCustomLightTheme.border-opacity-100 {
+        display: none !important;
+    }
+    .btn_add[data-v-2ee767a5] {
+        margin: 16px !important;
+    }
+    .v-input__control,
+    .mt-2.d-flex.flex-column,
+    .d-flex.flex-column {
+        width: 90% !important;
+    }
+    .add_Patient {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        .Addbtn.mb-6 {
+            margin-top: 3px !important;
+            width: 90% !important;
+        }
+    }
+    .v-stepper-header.stepper_head[data-v-2ee767a5] {
+        gap: 8px !important;
+    }
+}
+
+// All Used Animations
+// Animation Fadein
+@keyframes fadeIn {
+    from {
+        transform: scale(1);
+        // transform: translateY(0px);
+    }
+    to {
+        transform: scale(1.2);
+        // transform: translateY(10px);
+    }
+}
+// Ani MoveOn
+@keyframes moveRight {
+    from {
+        transform: translateX(0);
+        // transform: translateY(0px);
+    }
+    to {
+        transform: translateX(-5px);
+        // transform: translateY(10px);
+    }
+}
+@keyframes moveLift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(5px);
+    }
+}
+@keyframes Scale3d {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(1.1);
+    }
+}
 </style>

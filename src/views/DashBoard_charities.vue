@@ -280,18 +280,18 @@
                             />
                             <div>التفاصيل</div>
                             <!--this a dialog to show the case's data-->
-                            <v-dialog
-                                activator="parent"
-                                width="100%"
-                                scrollable
-                            >
+                            <v-dialog activator="parent" width="90%" scrollable>
                                 <template v-slot:default="{ isActive }">
                                     <v-card rounded="lg">
                                         <v-card-title
                                             class="d-flex justify-space-between align-center"
                                         >
                                             <div
-                                                class="text-h5 ps-2 text-primary"
+                                                class="ps-2 ma-2 text-primary"
+                                                style="
+                                                    font-size: 22px;
+                                                    font-weight: bold;
+                                                "
                                             >
                                                 تفاصيل الحالة
                                             </div>
@@ -303,29 +303,26 @@
                                             ></v-btn>
                                         </v-card-title>
                                         <v-stepper
-                                            editable
                                             :ripple="false"
                                             v-model="e1"
                                             alt-labels
-                                            style="
-                                                padding: 20px;
-                                                overflow: auto;
-                                            "
+                                            style="overflow: auto"
                                         >
                                             <template
                                                 v-slot:default="{ prev, next }"
                                             >
                                                 <v-stepper-header
-                                                    class="stepper_head m-2"
+                                                    class="stepper_head"
                                                 >
                                                     <template
                                                         v-for="n in steps"
                                                         :key="`${n}-step`"
                                                     >
                                                         <v-stepper-item
+                                                            class="stepper-width"
                                                             :ripple="false"
                                                             style="
-                                                                font-size: 15px;
+                                                                font-size: 13px;
                                                                 font-weight: bold;
                                                             "
                                                             :title="title[n]"
@@ -334,58 +331,15 @@
                                                             :value="n"
                                                             ref="stepperItems"
                                                         >
-                                                            <template
-                                                                v-slot:default
-                                                            >
-                                                                <v-icon
-                                                                    v-if="
-                                                                        n === 1
-                                                                    "
-                                                                    style="
-                                                                        font-size: 40px;
-                                                                    "
-                                                                    >mdi-account</v-icon
-                                                                >
-                                                                <v-icon
-                                                                    v-if="
-                                                                        n === 2
-                                                                    "
-                                                                    ><font-awesome-icon
-                                                                        icon="hand-holding-dollar"
-                                                                /></v-icon>
-                                                                <v-icon
-                                                                    v-if="
-                                                                        n === 3
-                                                                    "
-                                                                    ><font-awesome-icon
-                                                                        icon="briefcase-medical"
-                                                                /></v-icon>
-                                                                <v-icon
-                                                                    v-if="
-                                                                        n === 4
-                                                                    "
-                                                                    ><font-awesome-icon
-                                                                        icon="house-user"
-                                                                /></v-icon>
-                                                                <v-icon
-                                                                    v-if="
-                                                                        n === 5
-                                                                    "
-                                                                    ><font-awesome-icon
-                                                                        icon="people-line"
-                                                                /></v-icon>
-                                                            </template>
                                                         </v-stepper-item>
-
-                                                        <v-divider
-                                                            v-if="n !== steps"
-                                                            :key="n"
-                                                        ></v-divider>
                                                     </template>
                                                 </v-stepper-header>
 
-                                                <v-stepper-window>
-                                                    <div v-if="e1 === 1">
+                                                <v-stepper-window class="m-3">
+                                                    <div
+                                                        v-if="e1 === 1"
+                                                        ref="slide1"
+                                                    >
                                                         <!-- Show empty error if no data -->
                                                         <Empty_error
                                                             v-if="
@@ -395,7 +349,7 @@
                                                             :text="text"
                                                         />
                                                         <div
-                                                            v-else-if="
+                                                            v-if="
                                                                 Personal_Information.length !==
                                                                 0
                                                             "
@@ -405,7 +359,7 @@
                                                                 <div
                                                                     class="mt-2 d-flex flex-column"
                                                                     style="
-                                                                        width: 100%;
+                                                                        width: 50%;
                                                                     "
                                                                 >
                                                                     <v-text-field
@@ -418,12 +372,13 @@
                                                                             width: 100%;
                                                                         "
                                                                         placeholder="الاسم ثلاثي"
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                                 <div
                                                                     class="mt-2 d-flex flex-column"
                                                                     style="
-                                                                        width: 100%;
+                                                                        width: 50%;
                                                                     "
                                                                 >
                                                                     <v-text-field
@@ -436,6 +391,7 @@
                                                                             width: 100%;
                                                                         "
                                                                         placeholder="اسم الشهره"
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                             </div>
@@ -457,6 +413,7 @@
                                                                             width: 100%;
                                                                         "
                                                                         placeholder="رقم البطاقه"
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                                 <div
@@ -479,6 +436,7 @@
                                                                         :items="
                                                                             Governorates
                                                                         "
+                                                                        color="#0088ff"
                                                                     ></v-select>
                                                                 </div>
                                                             </div>
@@ -501,6 +459,7 @@
                                                                         variant="outlined"
                                                                         placeholder=" العنوان"
                                                                         auto-grow
+                                                                        color="#0088ff"
                                                                     ></v-textarea>
                                                                 </div>
                                                             </div>
@@ -521,6 +480,7 @@
                                                                         label="رقم المنزل"
                                                                         variant="outlined"
                                                                         placeholder="رقم المنزل"
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                                 <div
@@ -540,6 +500,7 @@
                                                                         "
                                                                         variant="outlined"
                                                                         placeholder="رقم الدور"
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                             </div>
@@ -564,6 +525,7 @@
                                                                             SocialStatuss
                                                                         "
                                                                         label="الحاله الجتماعيه  "
+                                                                        color="#0088ff"
                                                                     ></v-select>
                                                                 </div>
                                                                 <div
@@ -583,12 +545,16 @@
                                                                         label="رقم التليفون"
                                                                         variant="outlined"
                                                                         placeholder="رقم التليفون"
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div v-if="e1 === 2">
+                                                    <div
+                                                        v-if="e1 === 2"
+                                                        ref="slide2"
+                                                    >
                                                         <!-- Show empty error if no data -->
                                                         <Empty_error
                                                             v-if="
@@ -622,6 +588,7 @@
                                                                         "
                                                                         variant="outlined"
                                                                         placeholder="المطلوب "
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                                 <div
@@ -641,6 +608,7 @@
                                                                         "
                                                                         variant="outlined"
                                                                         placeholder="الداخل "
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                             </div>
@@ -667,12 +635,16 @@
                                                                         "
                                                                         variant="outlined"
                                                                         placeholder="العجز "
+                                                                        color="#0088ff"
                                                                     ></v-text-field>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div v-if="e1 === 3">
+                                                    <div
+                                                        v-if="e1 === 3"
+                                                        ref="slide3"
+                                                    >
                                                         <!-- Show empty error if no data -->
                                                         <Empty_error
                                                             v-if="
@@ -681,16 +653,17 @@
                                                             "
                                                             :text="text2"
                                                         />
-                                                        <div v-else>
+                                                        <div>
                                                             <div
                                                                 v-for="info in Disease_Information"
                                                                 :key="info"
+                                                                class="form"
                                                             >
                                                                 <div
                                                                     class="bg-[#eee]"
                                                                 >
                                                                     <div
-                                                                        class="mt-2 d-flex flex-column"
+                                                                        class="d-flex flex-column"
                                                                         style="
                                                                             width: 100%;
                                                                         "
@@ -705,8 +678,10 @@
                                                                                 width: 100%;
                                                                             "
                                                                             placeholder="اسم المريض"
+                                                                            color="#0088ff"
                                                                         ></v-text-field>
                                                                     </div>
+
                                                                     <div
                                                                         class="d-flex flex-column"
                                                                         style="
@@ -719,13 +694,15 @@
                                                                             "
                                                                             label="  المرض "
                                                                             variant="outlined"
-                                                                            class="mt-2"
                                                                             style="
                                                                                 width: 100%;
                                                                             "
                                                                             placeholder=" المرض"
+                                                                            color="#0088ff"
                                                                         ></v-text-field>
                                                                     </div>
+                                                                </div>
+                                                                <div>
                                                                     <div
                                                                         class="mt-2 d-flex flex-column"
                                                                         style="
@@ -743,6 +720,7 @@
                                                                                 width: 100%;
                                                                             "
                                                                             placeholder="كيفيه الحصول علي العلاج "
+                                                                            color="#0088ff"
                                                                         ></v-text-field>
                                                                     </div>
                                                                     <div
@@ -762,6 +740,7 @@
                                                                                 width: 100%;
                                                                             "
                                                                             placeholder="السبب في عدم العلاج علي نفقه الدولة"
+                                                                            color="#0088ff"
                                                                         ></v-text-field>
                                                                     </div>
                                                                 </div>
@@ -769,7 +748,10 @@
                                                         </div>
                                                     </div>
 
-                                                    <div v-if="e1 === 4">
+                                                    <div
+                                                        v-if="e1 === 4"
+                                                        ref="slide4"
+                                                    >
                                                         <!-- Show empty error if no data -->
                                                         <Empty_error
                                                             v-if="
@@ -793,6 +775,7 @@
                                                                     "
                                                                 >
                                                                     <v-select
+                                                                        color="#0088ff"
                                                                         variant="outlined"
                                                                         v-model="
                                                                             Housing_Condition.number_rooms
@@ -814,6 +797,7 @@
                                                                     "
                                                                 >
                                                                     <v-select
+                                                                        color="#0088ff"
                                                                         variant="outlined"
                                                                         v-model="
                                                                             Housing_Condition.house_type
@@ -837,6 +821,7 @@
                                                                     "
                                                                 >
                                                                     <v-select
+                                                                        color="#0088ff"
                                                                         variant="outlined"
                                                                         v-model="
                                                                             Housing_Condition.bathroom_type
@@ -858,6 +843,7 @@
                                                                     "
                                                                 >
                                                                     <v-select
+                                                                        color="#0088ff"
                                                                         variant="outlined"
                                                                         v-model="
                                                                             Housing_Condition.floor_type
@@ -881,6 +867,7 @@
                                                                     "
                                                                 >
                                                                     <v-text-field
+                                                                        color="#0088ff"
                                                                         v-model="
                                                                             Housing_Condition.description_kitchen
                                                                         "
@@ -900,6 +887,7 @@
                                                                     "
                                                                 >
                                                                     <v-text-field
+                                                                        color="#0088ff"
                                                                         v-model="
                                                                             Housing_Condition.DescriptionRoom1
                                                                         "
@@ -921,6 +909,7 @@
                                                                     "
                                                                 >
                                                                     <v-text-field
+                                                                        color="#0088ff"
                                                                         v-model="
                                                                             Housing_Condition.DescriptionRoom2
                                                                         "
@@ -939,6 +928,7 @@
                                                                 </div>
 
                                                                 <v-text-field
+                                                                    color="#0088ff"
                                                                     v-model="
                                                                         Housing_Condition.DescriptionRoom3
                                                                     "
@@ -964,6 +954,7 @@
                                                                     "
                                                                 >
                                                                     <v-text-field
+                                                                        color="#0088ff"
                                                                         v-model="
                                                                             Housing_Condition.DescriptionRoom2
                                                                         "
@@ -982,6 +973,7 @@
                                                                 </div>
 
                                                                 <v-text-field
+                                                                    color="#0088ff"
                                                                     v-model="
                                                                         Housing_Condition.DescriptionRoom3
                                                                     "
@@ -1000,9 +992,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div v-if="e1 === 5">
+                                                    <div
+                                                        v-if="e1 === 5"
+                                                        ref="slide5"
+                                                    >
                                                         <!-- Show empty error if no data -->
-                                                        <Empty_error
+                                                        <!-- <Empty_error
                                                             style="
                                                                 color: #0088ff;
                                                             "
@@ -1011,15 +1006,15 @@
                                                                 0
                                                             "
                                                             :text="text4"
-                                                        />
-                                                        <div
-                                                            v-else-if="
-                                                                Case_FamilyNeeds.length !==
-                                                                0
-                                                            "
-                                                            class="form"
-                                                        >
-                                                            <div class="d-flex">
+                                                        /> -->
+                                                        <div class="form">
+                                                            <v-divider
+                                                                class="border-opacity-100"
+                                                                color="#7a7a7a"
+                                                            ></v-divider>
+                                                            <div
+                                                                class="d-flex Case_options"
+                                                            >
                                                                 <div
                                                                     style="
                                                                         width: 100%;
@@ -1062,7 +1057,13 @@
                                                                     ></v-checkbox>
                                                                 </div>
                                                             </div>
-                                                            <div class="d-flex">
+                                                            <v-divider
+                                                                class="border-opacity-100"
+                                                                color="#7a7a7a"
+                                                            ></v-divider>
+                                                            <div
+                                                                class="d-flex Case_options"
+                                                            >
                                                                 <div
                                                                     class="d-flex flex-column"
                                                                     style="
@@ -1107,7 +1108,13 @@
                                                                     ></v-checkbox>
                                                                 </div>
                                                             </div>
-                                                            <div class="d-flex">
+                                                            <v-divider
+                                                                class="border-opacity-100"
+                                                                color="#7a7a7a"
+                                                            ></v-divider>
+                                                            <div
+                                                                class="d-flex Case_options"
+                                                            >
                                                                 <div
                                                                     class="d-flex flex-column"
                                                                     style="
@@ -1152,24 +1159,26 @@
                                                                     ></v-checkbox>
                                                                 </div>
                                                             </div>
+                                                            <v-divider
+                                                                class="border-opacity-100"
+                                                                color="#7a7a7a"
+                                                            ></v-divider>
                                                         </div>
-                                                        <div class="btn_add">
-                                                            <v-btn
-                                                                style="
-                                                                    font-family: Cairo !important;
-                                                                    font-size: 20px !important;
-                                                                "
-                                                                class="btn"
+                                                        <div
+                                                            class="d-flex justify-center ma-15"
+                                                        >
+                                                            <div
+                                                                class="save_btn"
                                                                 @click="
-                                                                    Add_Cases
+                                                                    validateForm1
                                                                 "
-                                                                color="#fff"
-                                                                append-icon="mdi-account-plus"
-                                                                ><span
-                                                                    >أضف
-                                                                    الحالة</span
+                                                            >
+                                                                حفظ
+                                                                <span
+                                                                    class="hide-on-small-screens"
+                                                                    >التعديلات</span
                                                                 >
-                                                            </v-btn>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </v-stepper-window>
@@ -1194,12 +1203,12 @@
                                                                     )
                                                             "
                                                             rounded="lg"
-                                                            size="x-large"
+                                                            size="large"
                                                         >
                                                             <span
                                                                 class="icon2 ml-3"
                                                                 ><font-awesome-icon
-                                                                    icon="circle-chevron-right"
+                                                                    icon="chevron-right"
                                                                     size="lg"
                                                             /></span>
                                                             <span> رجوع</span>
@@ -1215,7 +1224,8 @@
                                                                         )
                                                                 "
                                                                 rounded="lg"
-                                                                size="x-large"
+                                                                size="large"
+                                                                class="next"
                                                             >
                                                                 <span>
                                                                     التالي</span
@@ -1224,7 +1234,7 @@
                                                                     class="icon1 mr-4"
                                                                 >
                                                                     <font-awesome-icon
-                                                                        icon="circle-chevron-left"
+                                                                        icon="chevron-left"
                                                                         size="lg"
                                                                 /></span>
                                                             </v-btn>
@@ -1270,7 +1280,7 @@
             </template>
         </Offline_error>
         <div>
-            <v-dialog v-model="dialog" width="90%">
+            <v-dialog v-model="dialog">
                 <v-card width="auto" class="popup">
                     <div
                         class="title"
@@ -1817,7 +1827,7 @@
                         </div>
                         <div class="box" @click="dialog1 = true">
                             <font-awesome-icon :icon="['fas', 'file-excel']" />
-                            <div>
+                            <div class="container_Exc">
                                 <div @click="dialog1 = true">اكسل</div>
                                 <v-dialog v-model="dialog1" max-width="90%">
                                     <template v-slot:default="{ isActive }">
@@ -1832,17 +1842,17 @@
                                                 <div
                                                     style="
                                                         font-family: Cairo;
-                                                        font-weight: 500;
+                                                        font-weight: bold;
                                                     "
-                                                    class="text-h5 text-medium-emphasis ps-2 ma-6"
+                                                    class="text-medium-emphasis ma-3"
                                                 >
-                                                    اضافه ملف اكسيل
+                                                    إضافه ملف اكسيل
                                                 </div>
 
                                                 <v-btn
                                                     icon="mdi-close"
                                                     variant="text"
-                                                    color="#7a7a7a"
+                                                    color="#707070"
                                                     @click="
                                                         isActive.value = false
                                                     "
@@ -1853,11 +1863,12 @@
                                                 class="d-flex flex-column align-center"
                                             >
                                                 <div
-                                                    class="mt-10"
+                                                    class="mt-10 notes"
                                                     style="
                                                         font-size: 20px;
                                                         font-family: Cairo;
                                                         color: #7a7a7a;
+                                                        font-weight: bold;
                                                     "
                                                 >
                                                     اذا لم يكن لديك ملف اكسيل
@@ -1875,36 +1886,20 @@
                                                     </div>
                                                 </div>
                                             </v-card-text>
+
                                             <div
-                                                style="
-                                                    position: relative;
-                                                    bottom: 30px;
-                                                    margin-top: 10px;
-                                                    display: flex;
-                                                    justify-content: center;
-                                                    height: 100px;
-                                                "
-                                            >
-                                                <font-awesome-icon
-                                                    style="
-                                                        font-size: 100px;
-                                                        color: #0088ff;
-                                                    "
-                                                    icon="folder-open"
-                                                    beat-fade
-                                                />
-                                            </div>
-                                            <div
-                                                class="d-flex justify-center align-center"
+                                                class="d-flex flex-column justify-center align-center"
                                             >
                                                 <div
                                                     class="text-medium-emphasis mb-1 mt-4"
                                                     style="
                                                         display: flex;
+                                                        flex-direction: column;
                                                         flex-wrap: wrap;
                                                         justify-content: center;
-                                                        width: 60%;
-                                                        height: 150px;
+                                                        align-items: center;
+                                                        width: 90%;
+                                                        height: 550px;
                                                         border-radius: 20px;
                                                         border: 3px dashed #777;
                                                         align-content: center;
@@ -1913,43 +1908,91 @@
                                                     @dragover.prevent
                                                     @drop="handleDrop"
                                                 >
-                                                    <label
+                                                    <div
+                                                        class="d-flex flex-column"
                                                         style="
-                                                            width: 200px;
-                                                            position: relative;
+                                                            flex-wrap: wrap;
+                                                            justify-content: center;
+                                                            align-items: center;
                                                         "
                                                     >
-                                                        <v-icon
-                                                            style="
-                                                                position: absolute;
-                                                                right: 20px;
-                                                                bottom: 19px;
-                                                            "
+                                                        <div>
+                                                            <font-awesome-icon
+                                                                icon="file-excel"
+                                                                size="2xl"
+                                                                style="
+                                                                    color: #63e6be;
+                                                                    width: 200px;
+                                                                    height: 200px;
+                                                                "
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            class="mt-10 d-flex flex-column align-center"
                                                         >
-                                                            mdi-cloud-upload
-                                                        </v-icon>
-                                                        <input
-                                                            type="file"
-                                                            id="myinput"
-                                                            ref="fileInput"
-                                                            style="
-                                                                display: none;
-                                                            "
-                                                            @change="
-                                                                handleFileChange
-                                                            "
-                                                        />
-                                                        <span
-                                                            style="
-                                                                font-family: 'Cairo',
-                                                                    sans-serif;
-                                                                font-size: 18px;
-                                                                margin-right: 15px;
-                                                            "
-                                                        >
-                                                            أضف ملفك
-                                                        </span>
-                                                    </label>
+                                                            <h4
+                                                                class="Drag"
+                                                                style="
+                                                                    font-weight: bold;
+                                                                "
+                                                            >
+                                                                استخدم السحب
+                                                                والافلات لأضافه
+                                                                ملفك
+                                                            </h4>
+                                                            <h4 class="ma-2">
+                                                                او
+                                                            </h4>
+                                                            <div>
+                                                                <label
+                                                                    class="custom_lable"
+                                                                    style="
+                                                                        width: 200px;
+                                                                        position: relative;
+                                                                        background: #eee;
+                                                                        border-radius: 7px;
+                                                                        margin-top: 10px;
+                                                                    "
+                                                                >
+                                                                    <v-icon
+                                                                        style="
+                                                                            outline: none !important;
+                                                                            position: absolute;
+                                                                            right: 10px;
+                                                                            bottom: 13px;
+                                                                            color: #eee;
+                                                                        "
+                                                                    >
+                                                                        mdi-cloud-upload
+                                                                    </v-icon>
+                                                                    <input
+                                                                        type="file"
+                                                                        id="myinput"
+                                                                        ref="fileInput"
+                                                                        style="
+                                                                            outline: none !important;
+                                                                            display: none;
+                                                                        "
+                                                                        @change="
+                                                                            handleFileChange
+                                                                        "
+                                                                    />
+                                                                    <span
+                                                                        style="
+                                                                            font-family: 'Cairo',
+                                                                                sans-serif;
+                                                                            font-size: 18px;
+                                                                            margin-right: 15px;
+                                                                            outline: none !important;
+                                                                        "
+                                                                    >
+                                                                        تصفح
+                                                                        ملفاتك
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="alert">
@@ -2003,21 +2046,6 @@
                                                     الملف.
                                                 </v-alert>
                                             </div>
-                                            <v-card-actions
-                                                class="my-2 d-flex justify-end"
-                                            >
-                                                <v-btn
-                                                    @click="
-                                                        isActive.value = false
-                                                    "
-                                                    class="submit"
-                                                    style=""
-                                                    rounded="lg"
-                                                    size="x-large"
-                                                >
-                                                    <span> تم</span>
-                                                </v-btn>
-                                            </v-card-actions>
                                         </v-card>
                                     </template>
                                 </v-dialog>
@@ -2044,6 +2072,7 @@ import {
 } from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
+import { gsap } from "gsap";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -2235,14 +2264,63 @@ export default {
             }
         },
     },
-    mounted() {
-        this.Get_data();
-    },
+
     created() {
         // Initialize originalCases with a copy of Cases
         this.originalCases = [...this.Cases];
     },
     methods: {
+        // animation headers
+        animateIcons() {
+            // فحص ما إذا كانت stepperItems معرّفة وليست فارغة
+            if (this.$refs.stepperItems && this.$refs.stepperItems.length) {
+                this.$refs.stepperItems.forEach((item, index) => {
+                    gsap.fromTo(
+                        item.$el,
+                        {
+                            opacity: 0, // البداية من opacity 0
+                            x: 50 * (index + 1), // الوضع الأولي للإحداثي x
+                        },
+                        {
+                            duration: 0.5, // مدة الحركة
+                            opacity: 1, // النهاية عند opacity 1
+                            x: 0, // النهاية عند الإحداثي x صفر
+                            delay: index * 0.2, // تأخير حسب الترتيب
+                            ease: "power2.out", // نوع الانتقال
+                        }
+                    );
+                });
+            } else {
+                console.error("stepperItems غير معرّفة أو فارغة");
+            }
+        },
+        // second ani
+        animateSlideChange() {
+            const slides = [
+                this.$refs.slide1,
+                this.$refs.slide2,
+                this.$refs.slide3,
+                this.$refs.slide4,
+                this.$refs.slide5,
+            ];
+
+            slides.forEach((slide, index) => {
+                gsap.fromTo(
+                    slide,
+                    {
+                        opacity: 0.5, // البداية من opacity 0.5
+                        x: 100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
+                    },
+                    {
+                        duration: 0.7, // مدة الحركة
+                        opacity: 1, // النهاية عند opacity 1
+                        x: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
+                        // delay: index * 0.1, // تأخير حسب الترتيب
+                        ease: "power2.out", // نوع الانتقال
+                    }
+                );
+            });
+        },
         // Method to check internet connection status
         startInternetCheckerUse() {
             this.Emitter.emit("startInternetChecker");
@@ -2796,9 +2874,33 @@ export default {
             }
         },
     },
+    watch: {
+        e1(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                this.$nextTick(() => {
+                    this.animateSlideChange();
+                });
+            }
+        },
+    },
+    async mounted() {
+        await this.Get_data();
+        this.$nextTick(() => {
+            this.animateIcons();
+            this.animateSlideChange();
+        });
+    },
 };
 </script>
 <style lang="scss" scoped>
+.form {
+    & > div {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
 .popup {
     padding: 20px;
     font-family: system-ui;
@@ -3051,6 +3153,7 @@ label span:active {
 .v-dialog > .v-overlay__content {
     min-width: auto !important;
     max-width: 100% !important;
+    height: 100% !important;
 }
 
 @media (max-width: 1060px) {
@@ -3064,8 +3167,9 @@ label span:active {
     }
 }
 .v-card.v-theme--myCustomLightTheme.v-card--density-default.rounded-lg.v-card--variant-elevated.mx-16 {
-    background-color: #eee;
+    // background-color: #eee;
     color: #fff;
+    height: 100% !important;
 }
 .v-btn.submit {
     color: #0088ff;
@@ -3293,36 +3397,41 @@ label span:active {
     color: #0088ff !important;
 }
 
-.stepper_head {
-    border-radius: 5px 50px 5px 50px;
-}
-@media screen and (max-width: 1000px) {
-    .v-stepper--alt-labels .v-stepper-header {
-        display: grid !important;
-        grid-template-columns: repeat(5, 1fr) !important;
-    }
-}
-@media screen and (max-width: 700px) {
-    .v-stepper--alt-labels .v-stepper-header {
-        display: flex !important;
-        flex-direction: column !important;
-    }
-    .form > div[data-v-2ee767a5] {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important  ;
-    }
-    .v-input__control,
-    .mt-2.d-flex.flex-column,
-    .d-flex.flex-column {
-        width: 90% !important;
-    }
-}
+// .stepper_head {
+//     border-radius: 5px 50px 5px 50px;
+// }
+// @media screen and (max-width: 1000px) {
+//     .v-stepper--alt-labels .v-stepper-header {
+//         display: grid !important;
+//         grid-template-columns: repeat(5, 1fr) !important;
+//     }
+// }
+// @media screen and (max-width: 700px) {
+//     .v-stepper--alt-labels .v-stepper-header {
+//         display: flex !important;
+//         flex-direction: column !important;
+//     }
+//     .form > div[data-v-2ee767a5] {
+//         display: flex !important;
+//         flex-direction: column !important;
+//         align-items: center !important  ;
+//     }
+//     .v-input__control,
+//     .mt-2.d-flex.flex-column,
+//     .d-flex.flex-column {
+//         width: 90% !important;
+//     }
+// }
 .v-stepper-item {
     font-family: "Cairo", sans-serif !important;
+    color: #707070 !important;
 }
 .v-stepper-item.v-stepper-item--selected {
-    color: #fff !important;
+    color: #0088ff !important;
+}
+::v-deep[data-v-d1ccef3e].v-stepper--alt-labels
+    .v-stepper-item__avatar.v-avatar {
+    background-color: #012 !important;
 }
 // All Used Animations
 // Animation Fadein
@@ -3363,61 +3472,91 @@ label span:active {
         transform: scaleY(1.1);
     }
 }
-// for Box Focus
+
+span.hint {
+    font-size: 15px !important;
+}
+.v-messages__message {
+    font-size: 14px !important;
+}
+// Close Popup Icon
+.svg-inline--fa.fa-xmark {
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    transition: 0.5s;
+    border-radius: 50%;
+}
+//Hovering Popup Close Icon
+.svg-inline--fa.fa-xmark:hover {
+    border-radius: 50%;
+    background-color: #ddd !important;
+    color: #707070 !important;
+}
+
+// items in header
+button.v-stepper-item.stepper-width {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+// When item header Selected
 button.v-stepper-item.v-stepper-item--selected {
-    background-color: #0088ff !important;
-    border-radius: 5px 50px 5px 50px;
-    transition: 1s;
-    .v-icon.notranslate.v-theme--.v-icon--size-default,
-    .v-stepper--alt-labels .v-stepper-item {
-        color: #fff !important;
-    }
+    border-radius: 2px;
+    transition: 0.7s;
     .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-2ee767a5] {
-        color: #eee !important;
-        animation: fadeIn 1s infinite ease-in-out alternate;
+        color: #0088ff !important;
+        animation: fadeIn 0.5s infinite ease-in-out alternate;
     }
-    .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-5f88210f] {
-        color: #fff;
-    }
-    .v-icon.notranslate.v-theme--myCustomLightTheme.v-icon--size-default[data-v-d1ccef3e] {
-        color: #ddd;
+    ::v-deep.v-stepper-item--selected .v-stepper-item__avatar.v-avatar {
+        background-color: #fff !important;
+        color: #0088ff;
     }
 }
+
 // Styling Form >> Add Casess personal info
 ::v-deep.v-input--density-default .v-field--variant-outlined,
 ::v-deep.v-input--density-default .v-field--single-line,
 ::v-deep.v-input--density-default .v-field--no-label {
-    border-radius: 50px !important ;
-    height: 70px !important;
-    font-size: 20px !important;
     font-family: cairo;
 }
 .v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
-    min-height: 100%;
+    // min-height: 100%;
 }
 // Btn Steppers
 .v-btn {
     display: flex;
     width: 150px;
-    padding: 10px;
+    padding: 5px;
     transition: background-color 0.3s, color 0.3s;
     span {
+        font-weight: 600 !important;
+        font-size: 15px !important;
         margin-right: 5px;
     }
     font-family: "Cairo";
 }
 .v-btn:hover {
     transition: 0.5;
-    background-color: #eee !important;
-    color: #0088ff !important;
+    background-color: #ddd;
+    color: #ffffff !important;
 }
 .v-btn.prev:hover {
     background: #5c5c5c !important;
     color: #fff !important;
     transition: 0.5;
 }
+.v-btn.next:hover {
+    background: #0088ff !important;
+    color: #fff !important;
+    transition: 0.5;
+}
 .icon2.ml-3 {
-    font-size: 20px;
+    font-size: 15px !important;
 }
 .v-btn:hover .icon2.ml-3 {
     animation: moveRight 0.5s infinite ease-in-out alternate;
@@ -3425,9 +3564,7 @@ button.v-stepper-item.v-stepper-item--selected {
 .v-btn:hover .icon1.mr-4 {
     animation: moveLift 0.5s infinite ease-in-out alternate;
 }
-// div.Addbtn {
-//     display: block !important;
-// }
+
 .Addbtn .v-btn {
     transition: 0.4s;
 }
@@ -3436,39 +3573,267 @@ button.v-stepper-item.v-stepper-item--selected {
     color: #fff !important;
     // transition: 3s;
 }
+span.v-btn__append {
+    margin: 9px !important;
+}
+::v-deep.focus-effect input:focus {
+    border-color: #0088ff !important;
+    box-shadow: 0 0 5px #0088ff !important;
+    transition: border-color 0.5s, box-shadow 0.5s;
+}
+// family sections
 .v-checkbox {
-    font-size: 20px;
+    font-size: 18px; /* Adjust font size for label (optional) */
+}
+hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
+    margin: 0 !important;
 }
 ::v-deep .v-label--clickable {
-    width: 150px !important;
-    font-size: 22px !important;
-    margin: 15px !important;
-    font-family: "Cairo" !important;
-}
-.btn_add {
-    width: 200px;
-    display: flex;
-    justify-content: left;
-    margin: 50px 0 0 0;
-}
-.btn_add .v-btn {
-    width: 200px !important;
-    height: 60px !important;
-    padding: 10px !important;
+    width: 140px !important;
     font-size: 20px !important;
     font-family: "Cairo" !important;
-    border: 1px solid #0088ff;
-    color: #0088ff !important;
-    position: relative;
-    overflow: hidden;
 }
-.btn_add:hover .v-btn {
+// Add case btn
+.btn_add {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0 50px 0;
+}
+.v-btn.v-btn--elevated.v-theme--myCustomLightTheme.v-btn--density-default.v-btn--size-default.v-btn--variant-elevated.btn:hover {
     transition: 0.5s;
     background-color: #0088ff !important;
     color: #fff !important;
 }
-.text-h5.ps-2.text-primary {
-    font-family: Cairo !important;
+.btn_add .v-btn {
+    width: 200px !important;
+    height: 45px !important;
+    padding: 10px !important;
+    font-size: 20px !important;
+    font-family: "Cairo", sans-serif !important;
+    transition: 0.5s;
+    border: 1px solid #0088ff;
+    color: #0088ff !important;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.5s ease;
+}
+
+.btn_add .v-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0088ff;
+    transition: transform 0.5s ease;
+    transform: scaleX(0);
+    transform-origin: right;
+    z-index: 0;
+}
+
+.btn_add .v-btn:hover::before {
+    transition: 0.5s;
+    background-color: #0088ff !important;
+    color: #fff !important;
+    transform: scaleX(1);
+}
+
+.btn_add .v-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn_add .v-btn .v-icon {
+    position: relative;
+    z-index: 1;
+}
+// Start Edit header items
+// The Container Headdr
+
+.v-stepper-header.stepper_head {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    flex-wrap: wrap;
+    gap: 25px;
+    min-height: 70px;
+    border: none;
+    box-shadow: none;
+}
+.v-stepper--alt-labels .v-stepper-item .v-stepper-item__title {
+    font-size: 13px !important;
+}
+// The Items Headdr
+.v-stepper-item {
+    font-family: "Cairo", sans-serif !important;
+}
+// Number items
+::v-deep.v-stepper--alt-labels .v-stepper-item__avatar.v-avatar {
+    margin-bottom: 0 !important;
+}
+.stepper-width {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    padding: 0 10px;
+}
+.stepper-width {
+    color: #707070; /* Text color */
+}
+.v-stepper-item.v-stepper-item--selected[data-v-2ee767a5] {
+    color: #0088ff;
+}
+.stepper-width.v-stepper-item__conten--selected [data-v-d1ccef3e] {
+    color: red !important;
+}
+
+.stepper-width::before {
+    content: "";
+    position: absolute;
+    left: -30px; /* Adjust the position */
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent; /* Half the height */
+    border-bottom: 25px solid transparent; /* Half the height */
+    border-right: 30px solid #f0f0f0; /* Same as background color */
+}
+
+::v-deep.stepper-width.v-stepper__step--complete::before {
+    border-left-color: #1976d2 !important; /* Same as completed background color */
+}
+.save_btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    width: fit-content;
+    color: var(--main-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        color: #fff;
+        background: var(--main-color);
+    }
+}
+// Media For Details
+@media (max-width: 1288px) {
+    button.v-stepper-item.stepper-width[data-v-d1ccef3e] {
+        flex-basis: 169px !important ;
+    }
+}
+
+@media (max-width: 1258px) {
+    button.v-stepper-item.stepper-width[data-v-d1ccef3e] {
+        flex-basis: 166px !important ;
+    }
+    button.v-stepper-item.v-stepper-item--selected.stepper-width {
+        font-size: 12px !important;
+    }
+}
+@media (max-width: 1238px) {
+    button.v-stepper-item.stepper-width[data-v-d1ccef3e] {
+        flex-basis: 162px !important ;
+    }
+    button.v-stepper-item.v-stepper-item--selected.stepper-width {
+        font-size: 12px !important;
+    }
+}
+@media (max-width: 1218px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 160px !important ;
+    }
+}
+@media (max-width: 1206px) {
+    button.v-stepper-item.stepper-width[data-v-d1ccef3e] {
+        flex-basis: 158px !important ;
+    }
+    button.v-stepper-item.v-stepper-item--selected.stepper-width {
+        font-size: 11px !important;
+    }
+}
+@media (max-width: 1180px) {
+    .stepper-width[data-v-d1ccef3e]::before {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    button.v-stepper-item.stepper-width {
+        flex-basis: 177px !important ;
+    }
+    .form > div[data-v-d1ccef3e] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important  ;
+    }
+    .form > .Case_options[data-v-d1ccef3e] {
+        flex-direction: row !important;
+    }
+    ::v-deep label.v-label.v-label--clickable,
+    [data-v-d1ccef3e] .v-label--clickable {
+        width: 95px !important;
+        font-size: 14px !important;
+    }
+    .d-flex.justify-center.ma-15 {
+        margin: 6px !important;
+    }
+    hr.v-divider.v-theme--myCustomLightTheme.border-opacity-100 {
+        display: none !important;
+    }
+    button.v-stepper-item.stepper-width[data-v-d1ccef3e] {
+        flex-basis: 168px !important ;
+    }
+    .v-input__control,
+    .d-flex.flex-column,
+    .d-flex.flex-column {
+        width: 100% !important;
+    }
+    // .add_Patient {
+    //     width: 100%;
+    //     display: flex;
+    //     justify-content: space-around;
+    //     .Addbtn.mb-6 {
+    //         margin-top: 3px !important;
+    //         width: 90% !important;
+    //     }
+    // }
+    .text-medium-emphasis.mb-1.mt-4 {
+        height: 400px !important;
+    }
+    h4.Drag {
+        font-size: 13px;
+    }
+    svg.svg-inline--fa.fa-file-excel.fa-2xl {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    .mt-10.notes {
+        font-size: 14px !important;
+    }
+}
+.custom_lable {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none;
+    background-color: #0088ff !important;
+    color: #fff !important;
+}
+
+label span[data-v-d1ccef3e]:active {
+    box-shadow: none;
+}
+
+.body.dark-mode svg {
+    color: var(--main-color) !important;
 }
 .body.dark-mode svg {
     color: var(--main-color) !important;
