@@ -1,9 +1,9 @@
 <template>
-    <v-dialog activator="parent" max-width="900">
+    <v-dialog activator="parent" max-width="90%">
         <template v-slot:default="{ isActive }">
-            <v-card rounded="lg">
+            <v-card class="popup" rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
-                    <div class="text-h5 text-medium-emphasis ps-2 text-primary">
+                    <div class="text-h5 ps-2" style="color: var(--main-color)">
                         تسجيل دخول
                     </div>
                     <v-btn
@@ -279,5 +279,20 @@ export default {
 <style lang="scss" scoped>
 form {
     width: 50% !important;
+}
+.popup {
+    padding: 20px;
+    font-family: system-ui;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafafa;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 21px;
+        color: #0088ff;
+        font-weight: bold;
+    }
 }
 </style>
