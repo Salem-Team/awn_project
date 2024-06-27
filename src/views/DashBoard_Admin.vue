@@ -18,7 +18,7 @@
                 <v-col>
                     <div
                         class="d-flex justify-space-between align-end flex-wrap"
-                        style="padding: 0px 120px; height: 115px"
+                        style="padding: 0px 90px; height: 115px"
                     >
                         <h1
                             style="

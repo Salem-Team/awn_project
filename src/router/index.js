@@ -68,14 +68,14 @@ router.beforeEach(async (to, from, next) => {
 
             if (!userData) {
                 console.log("User data not found");
-                next("/error");
+                next("/");
                 return;
             }
 
             // Check if user has required authority
             if (userData.type !== requiredAuthority) {
                 console.log("User does not have required authority");
-                next("/unauthorized");
+                next("/");
                 return;
             }
 
@@ -83,7 +83,7 @@ router.beforeEach(async (to, from, next) => {
             next();
         } catch (error) {
             console.error("Error checking user:", error);
-            next("/error"); // Redirect to error page if there's an issue
+            next("/"); // Redirect to error page if there's an issue
         }
     } else {
         // If route does not require authentication, proceed
