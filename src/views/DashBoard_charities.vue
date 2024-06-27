@@ -3173,6 +3173,66 @@ label span:active {
     color: #fff !important;
     transition: 0.5;
 }
+.Table {
+    display: table;
+    width: 100%;
+}
+.Title {
+    display: table-caption;
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+.Heading {
+    display: table-row;
+    font-weight: bold;
+    text-align: center;
+}
+.Row {
+    display: table-row;
+}
+.Cell {
+    display: table-cell;
+    border: solid;
+    border-width: thin;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.grid-cell {
+    padding: 5px;
+}
+.dach_cher {
+    display: none;
+    background-color: #ffdddd;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+    padding: 10px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.dach_cher.show {
+    display: block;
+    animation: fadeIn 0.5s;
+}
 
 .cases {
     display: flex;
@@ -3329,7 +3389,31 @@ label span:active {
     color: #0088ff !important;
 }
 
-
+// .stepper_head {
+//     border-radius: 5px 50px 5px 50px;
+// }
+// @media screen and (max-width: 1000px) {
+//     .v-stepper--alt-labels .v-stepper-header {
+//         display: grid !important;
+//         grid-template-columns: repeat(5, 1fr) !important;
+//     }
+// }
+// @media screen and (max-width: 700px) {
+//     .v-stepper--alt-labels .v-stepper-header {
+//         display: flex !important;
+//         flex-direction: column !important;
+//     }
+//     .form > div[data-v-2ee767a5] {
+//         display: flex !important;
+//         flex-direction: column !important;
+//         align-items: center !important  ;
+//     }
+//     .v-input__control,
+//     .mt-2.d-flex.flex-column,
+//     .d-flex.flex-column {
+//         width: 90% !important;
+//     }
+// }
 .v-stepper-item {
     font-family: "Cairo", sans-serif !important;
     color: #707070 !important;
