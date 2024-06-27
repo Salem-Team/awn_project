@@ -1,7 +1,7 @@
 <template>
-    <v-dialog class="dialog" activator="parent" max-width="900" v-if="isActive">
+    <v-dialog class="dialog" activator="parent" max-width="90%" v-if="isActive">
         <template v-slot:default="{ isActive }">
-            <v-card rounded="lg">
+            <v-card class="popup" width="100%" rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
                     <div class="text-h5 ps-2" style="color: var(--main-color)">
                         حساب جديد
@@ -13,7 +13,12 @@
                         @click="isActive.value = false"
                     ></v-btn>
                 </v-card-title>
-                <v-stepper v-model="e1" alt-labels style="overflow: auto">
+                <v-stepper
+                    v-model="e1"
+                    alt-labels
+                    style="overflow: auto"
+                    width="100%"
+                >
                     <template v-slot:default="{ prev, next }">
                         <v-stepper-header>
                             <template v-for="n in steps" :key="`${n}-step`">
@@ -402,10 +407,48 @@
                         <v-stepper-actions
                             style="color: var(--main-color)"
                             type="submit"
+                            class="d-flex justify-center ga-5"
                             :disabled="disabled"
                             @click:next="next"
                             @click:prev="prev"
-                        ></v-stepper-actions>
+                        >
+                            <template #prev="{ props }">
+                                <v-btn
+                                    class="prev"
+                                    style="background-color: #eee"
+                                    @click="() => props.onClick('prev')"
+                                    rounded="lg"
+                                    size="large"
+                                >
+                                    <span class="icon2 ml-3"
+                                        ><font-awesome-icon
+                                            icon="chevron-right"
+                                            size="lg"
+                                    /></span>
+                                    <span> رجوع</span>
+                                </v-btn>
+                            </template>
+                            <template #next="{ props }">
+                                <div>
+                                    <v-btn
+                                        @click="
+                                            () => {
+                                                props.onClick('next');
+                                            }
+                                        "
+                                        rounded="lg"
+                                        size="large"
+                                    >
+                                        <span> التالي</span>
+                                        <span class="icon1 mr-4">
+                                            <font-awesome-icon
+                                                icon="chevron-left"
+                                                size="lg"
+                                        /></span>
+                                    </v-btn>
+                                </div>
+                            </template>
+                        </v-stepper-actions>
                     </template>
                 </v-stepper>
             </v-card>
@@ -765,5 +808,23 @@ export default {
 }
 form {
     width: 95% !important;
+}
+.popup {
+    padding-top: 20px;
+    font-family: system-ui;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafafa;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 21px;
+        color: #0088ff;
+        font-weight: bold;
+    }
+}
+.v-stepper {
+    padding: 20px;
 }
 </style>

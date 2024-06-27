@@ -188,10 +188,6 @@ export default {
         toggleTheme() {
             document.body.classList.toggle("dark-mode", this.isChecked);
         },
-        // triggerToggleTheme() {
-        //     this.$emit("execute-toggle-theme");
-        //     this.themesun = !this.themesun; // إرسال حدث لتنفيذ دالة toggleTheme
-        // },
         Sign_Out() {
             localStorage.removeItem("id");
             localStorage.removeItem("charity_ID");

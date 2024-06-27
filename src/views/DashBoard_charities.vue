@@ -1349,51 +1349,34 @@
         <div>
             <v-dialog v-model="dialog_1" width="90%">
                 <v-card width="100%" class="popup">
-                    <div
-                        class="title"
-                        style="
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            color: var(--main-color);
-                            font-size: 20px;
-                            font-weight: bold;
-                        "
+                    <v-card-title
+                        class="d-flex justify-space-between align-center"
                     >
                         <div
-                            style="display: flex; align-items: center; gap: 5px"
+                            class="text-h4 ps-2"
+                            style="color: var(--main-color)"
                         >
                             <img
                                 src="../assets/images/filter.gif"
                                 alt=""
                                 width="65px"
                                 style="
-                                    background-color: white;
-                                    color: #0088ff;
                                     position: relative;
-                                    top: 30px;
-                                    left: 28px;
+                                    top: 23px;
+                                    left: 20px;
                                     transform: translate(-50%, -50%);
                                 "
                             />
-                            <div>الفلتر</div>
+                            الفلتر
                         </div>
-                        <div>
-                            <font-awesome-icon
-                                :icon="['fas', 'xmark']"
-                                @click="dialog_1 = false"
-                                style="cursor: pointer"
-                            />
-                        </div>
-                    </div>
-                    <span
-                        style="
-                            width: 100%;
-                            height: 4px;
-                            background: var(--secound-color);
-                            margin: 15px 0;
-                        "
-                    ></span>
+                        <v-btn
+                            style="color: var(--main-color)"
+                            icon="mdi-close"
+                            variant="text"
+                            @click="dialog_1 = false"
+                        ></v-btn>
+                    </v-card-title>
+
                     <div
                         class="body"
                         style="
@@ -1404,6 +1387,13 @@
                             gap: 10px;
                         "
                     >
+                        <span
+                            style="
+                                width: 100%;
+                                height: 4px;
+                                background: var(--secound-color);
+                            "
+                        ></span>
                         <div
                             class="feat"
                             style="
@@ -1432,6 +1422,7 @@
                                     style="padding-left: 150px"
                                 >
                                     <v-btn
+                                        id="filter"
                                         small
                                         v-model="isActive"
                                         @click="
@@ -1455,7 +1446,6 @@
                                             ]"
                                             class="svg_icon"
                                             style="
-                                                background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
@@ -1466,6 +1456,7 @@
                                     <v-btn
                                         small
                                         v-model="isActive"
+                                        id="filter"
                                         @click="
                                             toggleActive('down'),
                                                 funZtAClicked(),
@@ -1486,7 +1477,6 @@
                                             ]"
                                             class="svg_icon"
                                             style="
-                                                background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
@@ -1526,6 +1516,7 @@
                                     style="padding-left: 150px"
                                 >
                                     <v-btn
+                                        id="filter"
                                         small
                                         v-model="isActive"
                                         @click="
@@ -1549,7 +1540,6 @@
                                             ]"
                                             class="svg_icon"
                                             style="
-                                                background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
@@ -1559,6 +1549,7 @@
                                     </v-btn>
                                     <v-btn
                                         small
+                                        id="filter"
                                         v-model="isActive"
                                         @click="
                                             toggleActive('down'),
@@ -1579,7 +1570,6 @@
                                                 'arrow-up-short-wide',
                                             ]"
                                             style="
-                                                background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
@@ -1621,6 +1611,7 @@
                                 >
                                     <v-btn
                                         small
+                                        id="filter"
                                         v-model="isActive"
                                         @click="
                                             toggleActive('up'),
@@ -1642,7 +1633,6 @@
                                                 'arrow-up-wide-short',
                                             ]"
                                             style="
-                                                background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
@@ -1654,6 +1644,7 @@
                                     <v-btn
                                         small
                                         v-model="isActive"
+                                        id="filter"
                                         @click="
                                             toggleActive('down'),
                                                 funFat_LTS(),
@@ -1673,7 +1664,6 @@
                                                 'arrow-up-short-wide',
                                             ]"
                                             style="
-                                                background: #fff;
                                                 width: 50px;
                                                 font-weight: bold;
                                                 cursor: pointer;
@@ -1715,6 +1705,7 @@
                             >
                                 <v-btn
                                     small
+                                    id="filter"
                                     v-model="isActive"
                                     @click="
                                         toggleActive('up'),
@@ -1733,7 +1724,6 @@
                                     <font-awesome-icon
                                         :icon="['fas', 'arrow-up-wide-short']"
                                         style="
-                                            background: #fff;
                                             font-weight: bold;
                                             width: 50px;
                                             cursor: pointer;
@@ -1744,6 +1734,7 @@
                                 </v-btn>
                                 <v-btn
                                     small
+                                    id="filter"
                                     v-model="isActive"
                                     @click="
                                         toggleActive('down'),
@@ -1761,7 +1752,6 @@
                                     <font-awesome-icon
                                         :icon="['fas', 'arrow-up-short-wide']"
                                         style="
-                                            background: #fff;
                                             width: 50px;
                                             font-weight: bold;
                                             cursor: pointer;
@@ -1787,6 +1777,7 @@
                             justify-content: center !important;
                             align-items: center !important;
                             cursor: pointer;
+                            width: 100% !important;
                         "
                         v-model="isActive"
                         @click="
@@ -1798,6 +1789,7 @@
                                 (isActive4 = null),
                                 (dialog_1 = false)
                         "
+                        id="filter"
                         :class="{
                             active: isActive === 'up',
                         }"
@@ -3837,5 +3829,12 @@ label span[data-v-d1ccef3e]:active {
 }
 .body.dark-mode svg {
     color: var(--main-color) !important;
+}
+#filter {
+    padding: 0 !important;
+    &:hover {
+        transition: 0.5s !important;
+        color: var(--main-color) !important;
+    }
 }
 </style>
