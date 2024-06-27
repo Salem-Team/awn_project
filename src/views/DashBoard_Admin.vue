@@ -1737,7 +1737,7 @@ label span:active {
         gap: 20px;
         flex-wrap: wrap;
         margin-top: 25px;
-        justify-content: space-evenly;
+        justify-content: center;
         .small_box {
             width: 15%;
             box-shadow: 0 0 10px #ddd;
@@ -1758,7 +1758,6 @@ label span:active {
                 color: var(--main-color);
             }
             span {
-                // font-size: 20px;
                 font-weight: bold;
                 color: var(--therd-color);
             }

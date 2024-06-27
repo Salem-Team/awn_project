@@ -39,7 +39,7 @@
                             </template>
                         </v-stepper-header>
 
-                        <v-stepper-window style="height: 750px !important">
+                        <v-stepper-window style="height: 830px !important">
                             <Offline_error>
                                 <template v-slot:default>
                                     <div v-if="e1 === 1">
@@ -366,9 +366,10 @@
                                                 :type="inputType"
                                                 variant="outlined"
                                                 label="الباسورد"
-                                                placeholder="ادخل كلمة
-                    سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                                                placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                                                 class="mt-2"
+                                                @focus="isFocused = true"
+                                                @blur="isFocused = false"
                                                 :error-messages="
                                                     v$.user.password.$errors.map(
                                                         (e) => e.$message
@@ -382,8 +383,21 @@
                                                 @click:append-inner="
                                                     toggleShowPassword
                                                 "
+                                            ></v-text-field>
+                                            <span
+                                                class="hint"
+                                                v-if="!regex1 && isFocused"
+                                                style="
+                                                    display: block;
+                                                    margin-right: 15px;
+                                                    margin-bottom: 15px;
+                                                    font-size: small;
+                                                    color: #af0829;
+                                                "
                                             >
-                                            </v-text-field>
+                                                ادخل كلمة سر من 8 حروف أرقام
+                                                وحرف واحد كبير على الأقل
+                                            </span>
                                             <div
                                                 class="btn mt-4 mb-10"
                                                 @click="validateForm"
@@ -502,6 +516,7 @@ export default {
     data() {
         return {
             currentStep: 1,
+            regex1: true,
             e1: 1,
             steps: 2,
             isActive: { value: true },
@@ -655,12 +670,12 @@ export default {
                 },
                 password: {
                     required: helpers.withMessage("ادخل باسورد", required),
-                    isValidPassword(value) {
-                        // Define your regex pattern for the password
+                    regex1: function (value) {
                         const regexPattern =
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-                        this.validate = true;
-                        return regexPattern.test(value);
+                            /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/;
+                        const matchResult = regexPattern.test(value);
+                        this.regex1 = matchResult;
+                        return matchResult;
                     },
                 },
             },
@@ -807,11 +822,11 @@ export default {
     height: 600px !important;
 }
 form {
-    width: 95% !important;
+    width: 100% !important;
 }
 .popup {
     padding-top: 20px;
-    font-family: system-ui;
+    font-family: "Cairo", sans-serif !important;
     .header {
         display: flex;
         align-items: center;
@@ -826,5 +841,6 @@ form {
 }
 .v-stepper {
     padding: 20px;
+    width: 100% !important;
 }
 </style>
