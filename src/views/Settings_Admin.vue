@@ -72,6 +72,7 @@
                             <v-list-item
                                 :class="{ active: tab_1 === 'three' }"
                                 @click="tab_1 = 'three'"
+                                v-if="this.User_Type_own"
                             >
                                 <lord-icon
                                     src="https://cdn.lordicon.com/kgvlhryh.json"
@@ -94,6 +95,7 @@
                             <v-list-item
                                 :class="{ active: tab_1 === 'four' }"
                                 @click="tab_1 = 'four'"
+                                v-if="this.User_Type_own"
                             >
                                 <lord-icon
                                     src="https://cdn.lordicon.com/kiynvdns.json"
@@ -123,21 +125,13 @@
                             <div
                                 class="d-flex justify-content-between align-center"
                             >
-                                <!-- <img
+                                <img
                                     src="../assets/images/[removal.ai]_80da6822-cfbe-453e-a123-d4ec1cf3177c-remove-bg-ai_1719197829260.png"
                                     alt=""
                                     width="50px"
                                     style="filter: grayscale(1)"
-                                /> -->
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/rlovzwva.json"
-                                    trigger="loop"
-                                    state="loop-cycle"
-                                    delay="0"
-                                    style="width: 40px; height: 40px"
-                                    colors="primary:#0088ff"
-                                >
-                                </lord-icon>
+                                />
+
                                 <div class="title">الملف الشخصي</div>
                             </div>
 
@@ -384,7 +378,10 @@
                                                     </v-col>
                                                 </v-row>
                                             </v-tab>
-                                            <v-tab value="three">
+                                            <v-tab
+                                                value="three"
+                                                v-if="this.User_Type_own"
+                                            >
                                                 <v-row
                                                     class="fill-height"
                                                     align="center"
@@ -413,7 +410,10 @@
                                                     </v-col>
                                                 </v-row>
                                             </v-tab>
-                                            <v-tab value="four">
+                                            <v-tab
+                                                value="four"
+                                                v-if="this.User_Type_own"
+                                            >
                                                 <v-row
                                                     class="fill-height"
                                                     align="center"
@@ -1363,6 +1363,7 @@ export default {
         User_Data: "",
         randomPassword: "",
         dialog: false,
+        User_Type_own: false,
         passwordsMatchError: false,
         passwordsMatchError2: false,
         showPassword: false,
@@ -1626,6 +1627,7 @@ export default {
                     console.log(this.User_Data);
                     if (docSnap.data().type === "owner") {
                         this.User_Type = "owner";
+                        this.User_Type_own = true;
                         this.Charity_id = docSnap.data().charity_ID;
                         const docRef_Charities = doc(
                             db,
@@ -1986,7 +1988,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    background-image: url("../assets/images/winter-8433257.jpg");
+    // background-image: url("../assets/images/winter-8433257.jpg");
     background-size: cover;
     background-position: right top;
     background-attachment: fixed;
@@ -2305,7 +2307,7 @@ body.dark-mode .container_0 {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    background-image: url("../assets/images/mmmm.jpg");
+    // background-image: url("../assets/images/mmmm.jpg");/
     background-size: cover;
     background-position: right top;
     background-attachment: fixed;
@@ -2323,8 +2325,5 @@ body.dark-mode .container_0 {
         pointer-events: none; // تأكد من أن التراكب لا يمنع التفاعل مع المحتوى
         z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
     }
-}
-.body.dark-mode .right {
-    color: white !important;
 }
 </style>
