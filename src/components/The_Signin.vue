@@ -14,7 +14,7 @@
                     ></v-btn>
                 </v-card-title>
 
-                <div class="The_Signin" style="height: 500px">
+                <div class="The_Signin">
                     <v-container class="form_container mt-4">
                         <Offline_error>
                             <template v-slot:default>
@@ -37,6 +37,7 @@
                                     ></v-select>
 
                                     <v-text-field
+                                        v-show="show"
                                         v-model="user.nationalID"
                                         variant="outlined"
                                         label="الرقم القومي"
@@ -48,12 +49,15 @@
                                         "
                                     ></v-text-field>
                                     <v-text-field
+                                        v-show="show"
                                         v-model="user.password"
                                         :type="inputType"
                                         variant="outlined"
                                         label="الباسورد"
                                         placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                                         class="mt-2"
+                                        @focus="isFocused = true"
+                                        @blur="isFocused = false"
                                         :error-messages="
                                             v$.user.password.$errors.map(
                                                 (e) => e.$message
@@ -66,6 +70,20 @@
                                         "
                                         @click:append-inner="toggleShowPassword"
                                     ></v-text-field>
+                                    <span
+                                        class="hint"
+                                        v-if="!regex1 && isFocused"
+                                        style="
+                                            display: block;
+                                            margin-right: 15px;
+                                            margin-bottom: 15px;
+                                            font-size: small;
+                                            color: #af0829;
+                                        "
+                                    >
+                                        ادخل كلمة سر من 8 حروف أرقام وحرف واحد
+                                        كبير على الأقل
+                                    </span>
                                     <a
                                         class="ms-2 mb-1 cursor-pointer"
                                         style="color: var(--main-color)"
@@ -153,6 +171,8 @@ export default {
         return {
             showPassword: false,
             selectedRole: null,
+            regex1: true,
+            show: false,
             active: this.IsActive,
             roles: ["مشرف", "مالك", "مساعد"],
             isActive: { value: true }, // Assuming this controls visibility of something else
@@ -182,10 +202,12 @@ export default {
                 },
                 password: {
                     required: helpers.withMessage("ادخل باسورد", required),
-                    isValidPassword(value) {
+                    regex1: function (value) {
                         const regexPattern =
                             /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/;
-                        return regexPattern.test(value);
+                        const matchResult = regexPattern.test(value);
+                        this.regex1 = matchResult;
+                        return matchResult;
                     },
                 },
             },
@@ -278,11 +300,11 @@ export default {
 
 <style lang="scss" scoped>
 form {
-    width: 50% !important;
+    width: 100% !important;
 }
 .popup {
     padding: 20px;
-    font-family: system-ui;
+    font-family: "Cairo", sans-serif !important;
     .header {
         display: flex;
         align-items: center;
