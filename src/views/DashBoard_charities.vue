@@ -280,7 +280,12 @@
                             />
                             <div>التفاصيل</div>
                             <!--this a dialog to show the case's data-->
-                            <v-dialog activator="parent" width="90%" scrollable>
+                            <v-dialog
+                                activator="parent"
+                                width="90%"
+                                height="100%"
+                                scrollable
+                            >
                                 <template v-slot:default="{ isActive }">
                                     <v-card rounded="lg">
                                         <v-card-title
@@ -303,10 +308,15 @@
                                             ></v-btn>
                                         </v-card-title>
                                         <v-stepper
+                                            editable
                                             :ripple="false"
                                             v-model="e1"
                                             alt-labels
-                                            style="overflow: auto"
+                                            style="
+                                                overflow: auto;
+                                                position: relative;
+                                                height: 100%;
+                                            "
                                         >
                                             <template
                                                 v-slot:default="{ prev, next }"
@@ -326,10 +336,13 @@
                                                                 font-weight: bold;
                                                             "
                                                             :title="title[n]"
-                                                            :complete="e1 > n"
+                                                            :complete="false"
                                                             :step="`Step ${n}`"
                                                             :value="n"
                                                             ref="stepperItems"
+                                                            :icon="
+                                                                iconForStep[n]
+                                                            "
                                                         >
                                                         </v-stepper-item>
                                                     </template>
@@ -653,6 +666,34 @@
                                                             "
                                                             :text="text2"
                                                         />
+                                                        <div
+                                                            class="add_Patient"
+                                                        >
+                                                            <div
+                                                                class="Addbtn mb-6"
+                                                                style="
+                                                                    width: 250px;
+                                                                "
+                                                            >
+                                                                <v-btn
+                                                                    append-icon="mdi-plus"
+                                                                    @click="
+                                                                        addform_dis
+                                                                    "
+                                                                    color="#0088ff"
+                                                                    variant="outlined"
+                                                                    style="
+                                                                        font-size: 15px;
+                                                                        font-family: Cairo;
+                                                                        padding: 5px;
+                                                                        width: 100%;
+                                                                    "
+                                                                >
+                                                                    أضافه حاله
+                                                                    مرضيه اخرى
+                                                                </v-btn>
+                                                            </div>
+                                                        </div>
                                                         <div>
                                                             <div
                                                                 v-for="info in Disease_Information"
@@ -1189,12 +1230,23 @@
                                                     @click:next="next"
                                                     @click:prev="prev"
                                                     type="submit"
+                                                    style="
+                                                        padding: 0 1.5rem 1rem;
+                                                        position: absolute;
+                                                        top: 50%;
+                                                        left: 50%;
+                                                        transform: translate(
+                                                            -50%,
+                                                            576%
+                                                        );
+                                                    "
                                                 >
                                                     <template #prev="{ props }">
                                                         <v-btn
                                                             class="prev"
                                                             style="
                                                                 background-color: #eee;
+                                                                min-width: 150px;
                                                             "
                                                             @click="
                                                                 () =>
@@ -1217,15 +1269,19 @@
                                                     <template #next="{ props }">
                                                         <div>
                                                             <v-btn
+                                                                style="
+                                                                    min-width: 150px;
+                                                                "
                                                                 @click="
-                                                                    () =>
+                                                                    () => {
                                                                         props.onClick(
                                                                             'next'
-                                                                        )
+                                                                        );
+                                                                        animateSlideChange();
+                                                                    }
                                                                 "
                                                                 rounded="lg"
                                                                 size="large"
-                                                                class="next"
                                                             >
                                                                 <span>
                                                                     التالي</span
@@ -2104,6 +2160,17 @@ export default {
     },
     data() {
         return {
+            iconForStep: {
+                // Map step index to icon name
+                1: "mdi-account-box",
+                2: "mdi-currency-usd",
+                3: "mdi-hospital-box",
+                4: "mdi-home",
+                5: "mdi-human-male-female-child",
+                // ... and so on
+            },
+            Disease_Information: [],
+            Case_FamilyNeeds: "",
             search: "",
             empty: false,
             deficit: 0,
@@ -2377,7 +2444,7 @@ export default {
         close_function() {
             this.Show_Add = !this.Show_Add;
             this.dialog_2 = false;
-            this.Get_data();
+            // this.Get_data();
         },
         toggleActive(direction) {
             if (direction === "up") {
@@ -3530,7 +3597,6 @@ button.v-stepper-item.v-stepper-item--selected {
 // Btn Steppers
 .v-btn {
     display: flex;
-    width: 150px;
     padding: 5px;
     transition: background-color 0.3s, color 0.3s;
     span {
@@ -3691,9 +3757,6 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
 .v-stepper-item.v-stepper-item--selected[data-v-2ee767a5] {
     color: #0088ff;
 }
-.stepper-width.v-stepper-item__conten--selected [data-v-d1ccef3e] {
-    color: red !important;
-}
 
 .stepper-width::before {
     content: "";
@@ -3734,6 +3797,7 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
 @media (max-width: 1258px) {
     button.v-stepper-item.stepper-width[data-v-d1ccef3e] {
         flex-basis: 166px !important ;
+        font-size: 12px !important;
     }
     button.v-stepper-item.v-stepper-item--selected.stepper-width {
         font-size: 12px !important;
@@ -3765,6 +3829,11 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
         display: none;
     }
 }
+// @media (max-width: 1197px) {
+//     .stepper-width[data-v-2ee767a5]::before {
+//         display: none;
+//     }
+// }
 
 @media screen and (max-width: 700px) {
     button.v-stepper-item.stepper-width {
@@ -3797,15 +3866,7 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
     .d-flex.flex-column {
         width: 100% !important;
     }
-    // .add_Patient {
-    //     width: 100%;
-    //     display: flex;
-    //     justify-content: space-around;
-    //     .Addbtn.mb-6 {
-    //         margin-top: 3px !important;
-    //         width: 90% !important;
-    //     }
-    // }
+
     .text-medium-emphasis.mb-1.mt-4 {
         height: 400px !important;
     }
@@ -3818,6 +3879,15 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
     }
     .mt-10.notes {
         font-size: 14px !important;
+    }
+    .add_Patient {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        .Addbtn.mb-6 {
+            margin-top: 3px !important;
+            width: 90% !important;
+        }
     }
 }
 .custom_lable {
@@ -3838,4 +3908,72 @@ label span[data-v-d1ccef3e]:active {
 .body.dark-mode svg {
     color: var(--main-color) !important;
 }
+@media (max-width: 700px) {
+    .v-stepper-header.stepper_head {
+        gap: 29px !important;
+    }
+    .v-stepper-header.stepper_head {
+        margin-top: 5px !important;
+        min-height: 118px !important;
+        align-content: unset;
+    }
+    ::v-deep .v-stepper-item__content,
+    ::v-deep .v-stepper-item__title {
+        margin: 0 !important;
+    }
+    .v-icon {
+        display: block !important; /* Show the icon */
+        margin: 0 auto !important; /* Center the icon horizontally */
+        font-size: 24px !important; /* Adjust icon size as needed */
+    }
+    ::v-deep .stepper-width {
+        width: 50px !important;
+        height: 50px !important;
+        padding: 0 !important;
+    }
+    ::v-deep
+        button.v-stepper-item.stepper-width[data-v-d1ccef3e][data-v-d1ccef3e],
+    ::v-deep button.v-stepper-item.stepper-width {
+        flex-basis: auto !important;
+        gap: 20px !important;
+    }
+    ::v-deep .v-stepper__step--complete .v-stepper__step__step {
+        display: none;
+    }
+    .stepper-width {
+        margin: 0 !important;
+    }
+    .v-stepper-actions.d-flex.justify-center.ga-5 {
+        top: 85% !important;
+    }
+    .v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
+        min-height: 1200px !important;
+        overflow: hidden !important;
+    }
+    ::v-deep .v-tooltip {
+        color: red !important;
+    }
+    ::v-deep button.v-stepper-item .v-stepper-item__avatar.v-avatar {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 5px !important;
+    }
+
+    ::v-deep .v-stepper-item__avatar.v-avatar .v-icon {
+        width: 100% !important;
+        height: 100% !important;
+        font-size: 30px !important;
+    }
+    ::v-deep.v-stepper-actions.d-flex.justify-center.ga-5[data-v-d1ccef3e][data-v-d1ccef3e] {
+        top: 768px !important;
+    }
+    .v-overlay__content {
+        position: relative !important;
+    }
+}
+.v-btn[data-v-d1ccef3e]:hover {
+    background-color: #0088ff;
+    color: #fff;
+}
+// Fix Debloy issuse
 </style>

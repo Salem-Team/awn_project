@@ -13,7 +13,12 @@
         <v-divider class="border-opacity-20" color="#7a7a7a"></v-divider>
         <Offline_error>
             <template v-slot:default>
-                <v-stepper v-model="e1" alt-labels style="padding: 5px">
+                <v-stepper
+                    editable
+                    v-model="e1"
+                    alt-labels
+                    style="padding: 5px"
+                >
                     <template v-slot:default="{ prev, next }">
                         <v-stepper-header class="stepper_head">
                             <template v-for="n in steps" :key="`${n}-step`">
@@ -22,10 +27,11 @@
                                     :ripple="false"
                                     style="font-size: 13px; font-weight: bold"
                                     :title="title[n]"
-                                    :complete="e1 > n"
+                                    :complete="false"
                                     :step="`Step ${n}`"
                                     :value="n"
                                     ref="stepperItems"
+                                    :icon="iconForStep[n]"
                                 >
                                 </v-stepper-item>
                             </template>
@@ -835,10 +841,10 @@
                             type="submit"
                             style="
                                 padding: 0 1.5rem 1rem;
-                                /* position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, 576%); */
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, 576%);
                             "
                         >
                             <template #prev="{ props }">
@@ -927,6 +933,15 @@ export default {
     inject: ["Emitter"],
     data() {
         return {
+            iconForStep: {
+                // Map step index to icon name
+                1: "mdi-account-box",
+                2: "mdi-currency-usd",
+                3: "mdi-hospital-box",
+                4: "mdi-home",
+                5: "mdi-human-male-female-child",
+                // ... and so on
+            },
             dis_index: 0,
             dis_1: true,
             dis_2: true,
@@ -1558,7 +1573,7 @@ export default {
 }
 .main_popup {
     width: 90%;
-    height: 90%;
+    height: 96%;
     margin: auto;
     border: 2px solid #ddd;
     border-radius: 20px;
@@ -1871,6 +1886,7 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
 
 @media screen and (max-width: 700px) {
     button.v-stepper-item.stepper-width {
+        // 27/6
         flex-basis: 177px !important ;
     }
     .form > div[data-v-2ee767a5] {
@@ -1954,6 +1970,61 @@ hr.v-divider.v-theme--myCustomLightTheme.text-info.border-opacity-100 {
     }
     to {
         transform: scaleY(1.1);
+    }
+}
+
+@media (max-width: 700px) {
+    .v-stepper-header.stepper_head[data-v-2ee767a5][data-v-2ee767a5] {
+        gap: 29px !important;
+    }
+    .v-stepper-header.stepper_head[data-v-2ee767a5] {
+        margin-top: 5px !important;
+        min-height: 118px !important;
+        align-content: unset;
+    }
+    ::v-deep .v-stepper-item__content,
+    ::v-deep .v-stepper-item__title {
+        margin: 0 !important;
+    }
+    .v-icon {
+        display: block !important; /* Show the icon */
+        margin: 0 auto !important; /* Center the icon horizontally */
+        font-size: 24px !important; /* Adjust icon size as needed */
+    }
+    ::v-deep .stepper-width[data-v-2ee767a5] {
+        width: 50px !important;
+        height: 50px !important;
+        padding: 0 !important;
+    }
+    ::v-deep button.v-stepper-item.stepper-width[data-v-2ee767a5] {
+        flex-basis: auto !important;
+        gap: 20px !important;
+    }
+    ::v-deep .v-stepper__step--complete .v-stepper__step__step {
+        display: none;
+    }
+    .stepper-width[data-v-2ee767a5] {
+        margin: 0 !important;
+    }
+    .v-stepper-actions.d-flex.justify-center.ga-5 {
+        top: 95% !important;
+    }
+    .v-sheet.v-theme--myCustomLightTheme.v-stepper.v-stepper--alt-labels {
+        min-height: 930px !important;
+    }
+    ::v-deep .v-tooltip {
+        color: red !important;
+    }
+    ::v-deep button.v-stepper-item .v-stepper-item__avatar.v-avatar {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 5px !important;
+    }
+
+    ::v-deep .v-stepper-item__avatar.v-avatar .v-icon {
+        width: 100% !important;
+        height: 100% !important;
+        font-size: 30px !important;
     }
 }
 </style>
