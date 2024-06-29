@@ -1,7 +1,7 @@
 <template>
-    <v-dialog class="dialog" activator="parent" max-width="900" v-if="isActive">
+    <v-dialog class="dialog" activator="parent" max-width="90%" v-if="isActive">
         <template v-slot:default="{ isActive }">
-            <v-card rounded="lg">
+            <v-card class="popup" width="100%" rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
                     <div class="text-h5 ps-2" style="color: var(--main-color)">
                         حساب جديد
@@ -13,7 +13,12 @@
                         @click="isActive.value = false"
                     ></v-btn>
                 </v-card-title>
-                <v-stepper v-model="e1" alt-labels style="overflow: auto">
+                <v-stepper
+                    v-model="e1"
+                    alt-labels
+                    style="overflow: auto"
+                    width="100%"
+                >
                     <template v-slot:default="{ prev, next }">
                         <v-stepper-header>
                             <template v-for="n in steps" :key="`${n}-step`">
@@ -34,7 +39,7 @@
                             </template>
                         </v-stepper-header>
 
-                        <v-stepper-window style="height: 750px !important">
+                        <v-stepper-window style="height: 830px !important">
                             <Offline_error>
                                 <template v-slot:default>
                                     <div v-if="e1 === 1">
@@ -361,9 +366,10 @@
                                                 :type="inputType"
                                                 variant="outlined"
                                                 label="الباسورد"
-                                                placeholder="ادخل كلمة
-                    سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                                                placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
                                                 class="mt-2"
+                                                @focus="isFocused = true"
+                                                @blur="isFocused = false"
                                                 :error-messages="
                                                     v$.user.password.$errors.map(
                                                         (e) => e.$message
@@ -377,8 +383,21 @@
                                                 @click:append-inner="
                                                     toggleShowPassword
                                                 "
+                                            ></v-text-field>
+                                            <span
+                                                class="hint"
+                                                v-if="!regex1 && isFocused"
+                                                style="
+                                                    display: block;
+                                                    margin-right: 15px;
+                                                    margin-bottom: 15px;
+                                                    font-size: small;
+                                                    color: #af0829;
+                                                "
                                             >
-                                            </v-text-field>
+                                                ادخل كلمة سر من 8 حروف أرقام
+                                                وحرف واحد كبير على الأقل
+                                            </span>
                                             <div
                                                 class="btn mt-4 mb-10"
                                                 @click="validateForm"
@@ -402,10 +421,48 @@
                         <v-stepper-actions
                             style="color: var(--main-color)"
                             type="submit"
+                            class="d-flex justify-center ga-5"
                             :disabled="disabled"
                             @click:next="next"
                             @click:prev="prev"
-                        ></v-stepper-actions>
+                        >
+                            <template #prev="{ props }">
+                                <v-btn
+                                    class="prev"
+                                    style="background-color: #eee"
+                                    @click="() => props.onClick('prev')"
+                                    rounded="lg"
+                                    size="large"
+                                >
+                                    <span class="icon2 ml-3"
+                                        ><font-awesome-icon
+                                            icon="chevron-right"
+                                            size="lg"
+                                    /></span>
+                                    <span> رجوع</span>
+                                </v-btn>
+                            </template>
+                            <template #next="{ props }">
+                                <div>
+                                    <v-btn
+                                        @click="
+                                            () => {
+                                                props.onClick('next');
+                                            }
+                                        "
+                                        rounded="lg"
+                                        size="large"
+                                    >
+                                        <span> التالي</span>
+                                        <span class="icon1 mr-4">
+                                            <font-awesome-icon
+                                                icon="chevron-left"
+                                                size="lg"
+                                        /></span>
+                                    </v-btn>
+                                </div>
+                            </template>
+                        </v-stepper-actions>
                     </template>
                 </v-stepper>
             </v-card>
@@ -459,6 +516,7 @@ export default {
     data() {
         return {
             currentStep: 1,
+            regex1: true,
             e1: 1,
             steps: 2,
             isActive: { value: true },
@@ -612,12 +670,12 @@ export default {
                 },
                 password: {
                     required: helpers.withMessage("ادخل باسورد", required),
-                    isValidPassword(value) {
-                        // Define your regex pattern for the password
+                    regex1: function (value) {
                         const regexPattern =
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-                        this.validate = true;
-                        return regexPattern.test(value);
+                            /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/;
+                        const matchResult = regexPattern.test(value);
+                        this.regex1 = matchResult;
+                        return matchResult;
                     },
                 },
             },
@@ -764,6 +822,25 @@ export default {
     height: 600px !important;
 }
 form {
-    width: 95% !important;
+    width: 100% !important;
+}
+.popup {
+    padding-top: 20px;
+    font-family: "Cairo", sans-serif !important;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafafa;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 21px;
+        color: #0088ff;
+        font-weight: bold;
+    }
+}
+.v-stepper {
+    padding: 20px;
+    width: 100% !important;
 }
 </style>
