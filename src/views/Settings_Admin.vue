@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div class="My_profile">
         <!-- <Side_Bar /> -->
 
@@ -548,10 +549,514 @@
                                                         "
                                                         class="input_phone"
                                                     >
+=======
+    <v-container style="direction: rtl">
+        <v-row>
+            <v-col>
+                <v-card style="padding: 50px" :theme="this.theme">
+                    <h1 class="mx-auto w-100 text-center mb-5 text-primary">
+                        الاعدادات
+                    </h1>
+
+                    <div
+                        class="div w-100"
+                        style="display: flex; justify-content: end"
+                    >
+                        <v-switch
+                            label="تغير الثيم"
+                            inset
+                            @click="toggleTheme"
+                            size="x-large"
+                            :model-value="true"
+                            color="primary"
+                            class="mx-4"
+                        ></v-switch>
+                    </div>
+                    <div
+                        class="d-flex flex-row"
+                        style="
+                            font-size: 20px;
+                            font-family: 'Cairo', sans-serif;
+                            font-variation-settings: 'slnt' 0;
+                            font-optical-sizing: auto;
+                            font-weight: 400;
+                            font-style: normal;
+                        "
+                    >
+                        <v-tabs
+                            v-model="tab"
+                            color="primary"
+                            direction="vertical"
+                            class="tabtest1"
+                        >
+                            <v-tab
+                                prepend-icon="mdi-account"
+                                value="option-1"
+                                style="
+                                    font-size: 20px;
+                                    font-family: 'Cairo', sans-serif;
+                                    font-variation-settings: 'slnt' 0;
+                                    font-optical-sizing: auto;
+                                    font-weight: 400;
+                                    font-style: normal;
+                                "
+                                class="my-2"
+                                ><h1
+                                    style="
+                                        font-size: 20px;
+                                        font-family: 'Cairo', sans-serif;
+                                        font-variation-settings: 'slnt' 0;
+                                        font-optical-sizing: auto;
+                                        font-weight: 400;
+                                        font-style: normal;
+                                    "
+                                >
+                                    معلومات العامه
+                                </h1></v-tab
+                            >
+                            <v-tab
+                                prepend-icon="mdi-lock"
+                                text="معلومات الحمايه"
+                                value="option-2"
+                                style="font-size: 20px"
+                                class="my-2"
+                            ></v-tab>
+                            <v-tab
+                                prepend-icon="mdi-access-point"
+                                text=" الجمعيه"
+                                v-if="owneer"
+                                value="option-3"
+                                style="
+                                    font-size: 20px;
+                                    font-family: 'Cairo', sans-serif;
+                                    font-variation-settings: 'slnt' 0;
+                                    font-optical-sizing: auto;
+                                    font-weight: 400;
+                                    font-style: normal;
+                                "
+                                class="my-2"
+                            ></v-tab>
+                            <v-tab
+                                prepend-icon="mdi-account-box"
+                                text=" اضافه مساعدين"
+                                v-if="owneer"
+                                value="option-4"
+                                style="font-size: 20px"
+                                class="my-2"
+                            ></v-tab
+                            ><v-tab
+                                prepend-icon="mdi-plus"
+                                text="  الاشتراك"
+                                v-if="owneer"
+                                value="option-5"
+                                style="font-size: 20px"
+                                class="my-2"
+                            ></v-tab>
+                        </v-tabs>
+
+                        <v-window
+                            v-model="tab"
+                            style="width: 100%; margin-right: 40px"
+                        >
+                            <v-window-item value="option-1" style="width: 100%">
+                                <div
+                                    class="btn-dufult"
+                                    style="
+                                        display: flex;
+                                        justify-content: end;
+                                        margin: 14px;
+                                    "
+                                >
+                                    <v-btn
+                                        class="text-end"
+                                        icon
+                                        @click="isEditing = !isEditing"
+                                    >
+                                        <v-fade-transition leave-absolute>
+                                            <v-icon v-if="isEditing"
+                                                >mdi-close</v-icon
+                                            >
+
+                                            <v-icon v-else>mdi-pencil</v-icon>
+                                        </v-fade-transition>
+                                    </v-btn>
+                                </div>
+                                <v-sheet class="mx-auto" style="width: 100%">
+                                    <form @submit.prevent="validateForm1">
+                                        <div class="form">
+                                            <div>
+                                                <div
+                                                    class="mt-2 d-flex flex-column"
+                                                    style="width: 100%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="form1.name"
+                                                        label="الاسم "
+                                                        variant="outlined"
+                                                        style="width: 100%"
+                                                        placeholder="الاسم "
+                                                        :disabled="!isEditing"
+                                                        :class="[
+                                                            `${
+                                                                v$.form1.$errors.find(
+                                                                    (err) =>
+                                                                        err.$property ==
+                                                                        'name'
+                                                                )
+                                                                    ? 'danger'
+                                                                    : ''
+                                                            }`,
+                                                        ]"
+                                                    ></v-text-field>
+                                                    <span
+                                                        v-for="err in v$.$errors"
+                                                        :key="err.$uid"
+                                                        style="
+                                                            display: block;
+                                                            width: 100%;
+                                                            color: red;
+                                                        "
+                                                    >
+                                                        <span
+                                                            v-if="
+                                                                err.$property ==
+                                                                'name'
+                                                            "
+                                                            >{{
+                                                                err.$message
+                                                            }}</span
+                                                        >
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    class="mt-2 d-flex flex-column"
+                                                    style="width: 100%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="form1.email"
+                                                        label="الايميل"
+                                                        variant="outlined"
+                                                        :disabled="!isEditing"
+                                                        style="width: 100%"
+                                                        placeholder=" الايميل"
+                                                        :class="[
+                                                            `${
+                                                                v$.form1.$errors.find(
+                                                                    (err) =>
+                                                                        err.$property ==
+                                                                        'email'
+                                                                )
+                                                                    ? 'danger'
+                                                                    : ''
+                                                            }`,
+                                                        ]"
+                                                    >
+                                                    </v-text-field>
+                                                    <span
+                                                        v-for="err in v$.$errors"
+                                                        :key="err.$uid"
+                                                        style="
+                                                            display: block;
+                                                            width: 100%;
+                                                            color: red;
+                                                        "
+                                                    >
+                                                        <span
+                                                            v-if="
+                                                                err.$property ==
+                                                                'email'
+                                                            "
+                                                            >{{
+                                                                err.$message
+                                                            }}</span
+                                                        >
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div
+                                                    class="mt-2 d-flex flex-column"
+                                                    style="width: 100%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            form1.phoneNumber
+                                                        "
+                                                        label="التليفون "
+                                                        variant="outlined"
+                                                        class="mt-2"
+                                                        :disabled="!isEditing"
+                                                        style="width: 100%"
+                                                        placeholder=" التليفون"
+                                                        :class="[
+                                                            `${
+                                                                v$.form1.$errors.find(
+                                                                    (err) =>
+                                                                        err.$property ==
+                                                                        'phoneNumber'
+                                                                )
+                                                                    ? 'danger'
+                                                                    : ''
+                                                            }`,
+                                                        ]"
+                                                    ></v-text-field>
+                                                    <span
+                                                        v-for="err in v$.$errors"
+                                                        :key="err.$uid"
+                                                        style="
+                                                            display: block;
+                                                            width: 100%;
+                                                            color: red;
+                                                        "
+                                                    >
+                                                        <span
+                                                            v-if="
+                                                                err.$property ==
+                                                                'phoneNumber'
+                                                            "
+                                                            >{{
+                                                                err.$message
+                                                            }}</span
+                                                        >
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div
+                                                    class="mt-2 d-flex flex-column"
+                                                    style="width: 100%"
+                                                >
+                                                    <v-text-field
+                                                        v-model="
+                                                            form1.cardNumber
+                                                        "
+                                                        style="width: 100%"
+                                                        :disabled="!isEditing"
+                                                        label="الرقم القومي"
+                                                        variant="outlined"
+                                                        placeholder="الرقم القومي"
+                                                        :class="[
+                                                            `${
+                                                                v$.form1.$errors.find(
+                                                                    (err) =>
+                                                                        err.$property ==
+                                                                        'cardNumber'
+                                                                )
+                                                                    ? 'danger'
+                                                                    : ''
+                                                            }`,
+                                                        ]"
+                                                    ></v-text-field>
+                                                    <span
+                                                        v-for="err in v$.$errors"
+                                                        :key="err.$uid"
+                                                        style="
+                                                            display: block;
+                                                            width: 100%;
+                                                            color: red;
+                                                        "
+                                                    >
+                                                        <span
+                                                            v-if="
+                                                                err.$property ==
+                                                                'cardNumber'
+                                                            "
+                                                            >{{
+                                                                err.$message
+                                                            }}</span
+                                                        >
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="card w-25 text-start p-4"
+                                                style="margin-right: auto"
+                                            >
+                                                <v-btn
+                                                    :disabled="!isEditing"
+                                                    append-icon="mdi-arrow-left"
+                                                    variant="outlined"
+                                                    type="submit"
+                                                    color="primary"
+                                                    style="
+                                                        font-size: 35px;
+                                                        padding: 34px;
+                                                    "
+                                                    block
+                                                >
+                                                    التالي
+                                                </v-btn>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </v-sheet>
+                            </v-window-item>
+
+                            <v-window-item value="option-2" style="width: 100%">
+                                <div
+                                    class="btn-dufult"
+                                    style="
+                                        display: flex;
+                                        justify-content: end;
+                                        margin: 14px;
+                                    "
+                                >
+                                    <v-btn
+                                        class="text-end"
+                                        icon
+                                        @click="isEditing2 = !isEditing2"
+                                    >
+                                        <v-fade-transition leave-absolute>
+                                            <v-icon v-if="isEditing2"
+                                                >mdi-close</v-icon
+                                            >
+
+                                            <v-icon v-else>mdi-pencil</v-icon>
+                                        </v-fade-transition>
+                                    </v-btn>
+                                </div>
+                                <v-sheet class="mx-auto" style="width: 100%">
+                                    <form @submit.prevent="validateForm2">
+                                        <div class="form">
+                                            <div>
+                                                <div
+                                                    class="mt-2 d-flex flex-column"
+                                                    style="width: 100%"
+                                                >
+                                                    <v-text-field
+                                                        :disabled="!isEditing2"
+                                                        :append-icon="
+                                                            show1
+                                                                ? 'mdi-eye'
+                                                                : 'mdi-eye-off'
+                                                        "
+                                                        :rules="[
+                                                            rules.required,
+                                                            rules.min,
+                                                        ]"
+                                                        :type="
+                                                            show1
+                                                                ? 'text'
+                                                                : 'password'
+                                                        "
+                                                        hint="At least 8 characters"
+                                                        v-model="form2.password"
+                                                        label="الباسورد"
+                                                        name="input-10-1"
+                                                        placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
+                                                        counter
+                                                        @click:append="
+                                                            show1 = !show1
+                                                        "
+                                                    ></v-text-field>
+
+                                                    <span
+                                                        v-for="err in v$.$errors"
+                                                        :key="err.$uid"
+                                                        style="
+                                                            display: block;
+                                                            width: 100%;
+                                                            color: red;
+                                                        "
+                                                    >
+                                                        <span
+                                                            v-if="
+                                                                err.$property ==
+                                                                'password'
+                                                            "
+                                                            >{{
+                                                                err.$message
+                                                            }}</span
+                                                        >
+                                                    </span>
+                                                    <div
+                                                        class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
+                                                    >
+                                                        <v-Checkbox
+                                                            label="تذكرني"
+                                                        ></v-Checkbox>
+                                                        <a
+                                                            class="ms-2 mb-1"
+                                                            style="
+                                                                cursor: pointer;
+                                                            "
+                                                            @click="
+                                                                $router.push(
+                                                                    '/Reset_Password'
+                                                                )
+                                                            "
+                                                        >
+                                                            هل نسيت كلمة المرور؟
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="mt-2 d-flex flex-column"
+                                                    style="width: 100%"
+                                                >
+                                                    <h2 class="text-disabled">
+                                                        07952572059 : id
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="card text-start w-25 p-4"
+                                                style="margin-right: auto"
+                                            >
+                                                <v-btn
+                                                    append-icon="mdi-arrow-left"
+                                                    variant="outlined"
+                                                    type="submit"
+                                                    color="primary"
+                                                    style="
+                                                        font-size: 35px;
+                                                        padding: 34px;
+                                                    "
+                                                    block
+                                                    :disabled="!isEditing2"
+                                                >
+                                                    التالي
+                                                </v-btn>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </v-sheet>
+                            </v-window-item>
+                            <v-window-item value="option-3" style="width: 100%">
+                                <div
+                                    class="btn-dufult"
+                                    style="
+                                        display: flex;
+                                        justify-content: end;
+                                        margin: 14px;
+                                    "
+                                >
+                                    <v-btn
+                                        class="text-end"
+                                        icon
+                                        @click="isEditing3 = !isEditing3"
+                                    >
+                                        <v-fade-transition leave-absolute>
+                                            <v-icon v-if="isEditing3"
+                                                >mdi-close</v-icon
+                                            >
+
+                                            <v-icon v-else>mdi-pencil</v-icon>
+                                        </v-fade-transition>
+                                    </v-btn>
+                                </div>
+                                <v-sheet class="mx-auto" style="width: 100%">
+                                    <form @submit.prevent="validateForm3">
+                                        <div class="form">
+                                            <v-row>
+                                                <v-col>
+                                                    <div>
+>>>>>>> origin/master
                                                         <div
                                                             class="mt-2 d-flex flex-column"
                                                             style="width: 100%"
                                                         >
+<<<<<<< HEAD
                                                             <v-text-field
                                                                 v-model="
                                                                     User_Data
@@ -1317,10 +1822,1215 @@
             </div>
         </div>
     </div>
+=======
+                                                            <h2
+                                                                class="mt-0 mb-10 text-primary"
+                                                            >
+                                                                معلومات الجمعيه
+                                                            </h2>
+                                                            <v-text-field
+                                                                :disabled="
+                                                                    !isEditing3
+                                                                "
+                                                                v-model="
+                                                                    form3.nameassociation
+                                                                "
+                                                                label="اسم الجمعيه"
+                                                                variant="outlined"
+                                                                style="
+                                                                    width: 100%;
+                                                                "
+                                                                placeholder="الاسم "
+                                                                :class="[
+                                                                    `${
+                                                                        v$.form1.$errors.find(
+                                                                            (
+                                                                                err
+                                                                            ) =>
+                                                                                err.$property ==
+                                                                                'nameassociation'
+                                                                        )
+                                                                            ? 'danger'
+                                                                            : ''
+                                                                    }`,
+                                                                ]"
+                                                            ></v-text-field>
+                                                            <span
+                                                                v-for="err in v$.$errors"
+                                                                :key="err.$uid"
+                                                                style="
+                                                                    display: block;
+                                                                    width: 100%;
+                                                                    color: red;
+                                                                "
+                                                            >
+                                                                <span
+                                                                    v-if="
+                                                                        err.$property ==
+                                                                        'nameassociation'
+                                                                    "
+                                                                    >{{
+                                                                        err.$message
+                                                                    }}</span
+                                                                >
+                                                            </span>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex flex-column"
+                                                            style="width: 100%"
+                                                        >
+                                                            <v-text-field
+                                                                v-model="
+                                                                    form3.theaddress
+                                                                "
+                                                                :disabled="
+                                                                    !isEditing3
+                                                                "
+                                                                label="العنوان"
+                                                                variant="outlined"
+                                                                style="
+                                                                    width: 100%;
+                                                                "
+                                                                placeholder=" العنوان"
+                                                                :class="[
+                                                                    `${
+                                                                        v$.form1.$errors.find(
+                                                                            (
+                                                                                err
+                                                                            ) =>
+                                                                                err.$property ==
+                                                                                'theaddress'
+                                                                        )
+                                                                            ? 'danger'
+                                                                            : ''
+                                                                    }`,
+                                                                ]"
+                                                            >
+                                                            </v-text-field>
+                                                            <span
+                                                                v-for="err in v$.$errors"
+                                                                :key="err.$uid"
+                                                                style="
+                                                                    display: block;
+                                                                    width: 100%;
+                                                                    color: red;
+                                                                "
+                                                            >
+                                                                <span
+                                                                    v-if="
+                                                                        err.$property ==
+                                                                        'theaddress'
+                                                                    "
+                                                                    >{{
+                                                                        err.$message
+                                                                    }}</span
+                                                                >
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div
+                                                            class="d-flex flex-column"
+                                                            style="width: 100%"
+                                                        >
+                                                            <v-text-field
+                                                                v-model="
+                                                                    form3.Associationnumber
+                                                                "
+                                                                label="رقم الجمعيه "
+                                                                variant="outlined"
+                                                                :disabled="
+                                                                    !isEditing3
+                                                                "
+                                                                style="
+                                                                    width: 100%;
+                                                                "
+                                                                placeholder=" رقم الجمعيه"
+                                                                :class="[
+                                                                    `${
+                                                                        v$.form1.$errors.find(
+                                                                            (
+                                                                                err
+                                                                            ) =>
+                                                                                err.$property ==
+                                                                                'Associationnumber'
+                                                                        )
+                                                                            ? 'danger'
+                                                                            : ''
+                                                                    }`,
+                                                                ]"
+                                                            ></v-text-field>
+                                                            <span
+                                                                v-for="err in v$.$errors"
+                                                                :key="err.$uid"
+                                                                style="
+                                                                    display: block;
+                                                                    width: 100%;
+                                                                    color: red;
+                                                                "
+                                                            >
+                                                                <span
+                                                                    v-if="
+                                                                        err.$property ==
+                                                                        'Associationnumber'
+                                                                    "
+                                                                    >{{
+                                                                        err.$message
+                                                                    }}</span
+                                                                >
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </v-col>
+                                                <v-col>
+                                                    <div>
+                                                        <div
+                                                            class="mt-2 d-flex flex-column"
+                                                            style="width: 100%"
+                                                        >
+                                                            <div
+                                                                class="social-boxes p-20 rad-10"
+                                                            >
+                                                                <h2
+                                                                    class="mt-0 mb-10 text-primary"
+                                                                >
+                                                                    لينكات
+                                                                    التواصل
+                                                                </h2>
+
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-model="
+                                                                            form3.Facebook
+                                                                        "
+                                                                        :disabled="
+                                                                            !isEditing3
+                                                                        "
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                        label="Facebook Username"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-facebook"
+                                                                        placeholder="Facebook Username"
+                                                                        :class="[
+                                                                            `${
+                                                                                v$.form1.$errors.find(
+                                                                                    (
+                                                                                        err
+                                                                                    ) =>
+                                                                                        err.$property ==
+                                                                                        'Facebook'
+                                                                                )
+                                                                                    ? 'danger'
+                                                                                    : ''
+                                                                            }`,
+                                                                        ]"
+                                                                    ></v-text-field>
+                                                                </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'Facebook'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-model="
+                                                                            form3.Twitter
+                                                                        "
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                        :disabled="
+                                                                            !isEditing3
+                                                                        "
+                                                                        label="Twitter Username"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-twitter"
+                                                                        placeholder="Twitter Username"
+                                                                        :class="[
+                                                                            `${
+                                                                                v$.form1.$errors.find(
+                                                                                    (
+                                                                                        err
+                                                                                    ) =>
+                                                                                        err.$property ==
+                                                                                        'Twitter'
+                                                                                )
+                                                                                    ? 'danger'
+                                                                                    : ''
+                                                                            }`,
+                                                                        ]"
+                                                                    ></v-text-field>
+                                                                </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'Twitter'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        v-model="
+                                                                            form3.whatsapp
+                                                                        "
+                                                                        :disabled="
+                                                                            !isEditing3
+                                                                        "
+                                                                        style="
+                                                                            width: 100%;
+                                                                        "
+                                                                        label="whatsapp Username"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-whatsapp"
+                                                                        placeholder="whatsapp Username"
+                                                                        :class="[
+                                                                            `${
+                                                                                v$.form1.$errors.find(
+                                                                                    (
+                                                                                        err
+                                                                                    ) =>
+                                                                                        err.$property ==
+                                                                                        'whatsapp'
+                                                                                )
+                                                                                    ? 'danger'
+                                                                                    : ''
+                                                                            }`,
+                                                                        ]"
+                                                                    ></v-text-field>
+                                                                </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'whatsapp'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
+                                                                <div
+                                                                    class="d-flex align-center"
+                                                                >
+                                                                    <v-text-field
+                                                                        :disabled="
+                                                                            !isEditing3
+                                                                        "
+                                                                        v-model="
+                                                                            form3.Youtube
+                                                                        "
+                                                                        style="
+                                                                            width: 50%;
+                                                                        "
+                                                                        label="Youtube Username"
+                                                                        variant="outlined"
+                                                                        append-inner-icon="mdi-youtube"
+                                                                        placeholder="Youtube Username"
+                                                                        :class="[
+                                                                            `${
+                                                                                v$.form1.$errors.find(
+                                                                                    (
+                                                                                        err
+                                                                                    ) =>
+                                                                                        err.$property ==
+                                                                                        'Youtube'
+                                                                                )
+                                                                                    ? 'danger'
+                                                                                    : ''
+                                                                            }`,
+                                                                        ]"
+                                                                    ></v-text-field>
+                                                                </div>
+                                                                <span
+                                                                    v-for="err in v$.$errors"
+                                                                    :key="
+                                                                        err.$uid
+                                                                    "
+                                                                    style="
+                                                                        display: block;
+                                                                        width: 100%;
+                                                                        color: red;
+                                                                    "
+                                                                >
+                                                                    <span
+                                                                        v-if="
+                                                                            err.$property ==
+                                                                            'Youtube'
+                                                                        "
+                                                                        >{{
+                                                                            err.$message
+                                                                        }}</span
+                                                                    >
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </v-col>
+                                            </v-row>
+                                            <div
+                                                class="card w-25 text-start p-4"
+                                                style="margin-right: auto"
+                                            >
+                                                <v-btn
+                                                    append-icon="mdi-arrow-left"
+                                                    variant="outlined"
+                                                    type="submit"
+                                                    color="primary"
+                                                    style="
+                                                        font-size: 35px;
+                                                        padding: 34px;
+                                                    "
+                                                    block
+                                                    :disabled="!isEditing3"
+                                                >
+                                                    التالي
+                                                </v-btn>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </v-sheet></v-window-item
+                            >
+                            <v-window-item value="option-4" style="width: 100%">
+                                <div
+                                    class="btn-dufult"
+                                    style="
+                                        display: flex;
+                                        justify-content: end;
+                                        margin: 14px;
+                                    "
+                                >
+                                    <v-btn
+                                        class="text-end"
+                                        icon
+                                        @click="isEditing4 = !isEditing4"
+                                    >
+                                        <v-fade-transition leave-absolute>
+                                            <v-icon v-if="isEditing4"
+                                                >mdi-close</v-icon
+                                            >
+
+                                            <v-icon v-else>mdi-pencil</v-icon>
+                                        </v-fade-transition>
+                                    </v-btn>
+                                    <v-dialog max-width="500">
+                                        <template
+                                            v-slot:activator="{
+                                                props: activatorProps,
+                                            }"
+                                        >
+                                            <v-btn
+                                                class="ms-2"
+                                                icon
+                                                v-bind="activatorProps"
+                                                @click="
+                                                    isEditing6 = !isEditing6
+                                                "
+                                            >
+                                                <v-fade-transition
+                                                    leave-absolute
+                                                >
+                                                    <v-icon v-if="isEditing6"
+                                                        >mdi-plus</v-icon
+                                                    >
+
+                                                    <v-icon v-else
+                                                        >mdi-plus</v-icon
+                                                    >
+                                                </v-fade-transition>
+                                            </v-btn>
+                                        </template>
+
+                                        <template v-slot:default="{ isActive }">
+                                            <v-card
+                                                class="text-center"
+                                                title="اضافه مساعد"
+                                            >
+                                                <v-sheet
+                                                    class="bg-deep-purple pa-12"
+                                                    rounded
+                                                >
+                                                    <v-card
+                                                        class="mx-auto px-6 py-8"
+                                                        max-width="344"
+                                                    >
+                                                        <v-form
+                                                            v-model="form"
+                                                            @submit.prevent="
+                                                                onSubmit
+                                                            "
+                                                        >
+                                                            <v-text-field
+                                                                v-model="
+                                                                    namemosed
+                                                                "
+                                                                :readonly="
+                                                                    loading
+                                                                "
+                                                                :rules="[
+                                                                    required,
+                                                                ]"
+                                                                class="mb-2"
+                                                                label="الاسم"
+                                                                placeholder="الاسم"
+                                                                clearable
+                                                            ></v-text-field>
+
+                                                            <v-text-field
+                                                                v-model="
+                                                                    numbercardmosed
+                                                                "
+                                                                :readonly="
+                                                                    loading
+                                                                "
+                                                                :rules="[
+                                                                    required,
+                                                                ]"
+                                                                label="الرقم القومي"
+                                                                placeholder="الرقم القومي"
+                                                                clearable
+                                                            ></v-text-field>
+
+                                                            <br />
+
+                                                            <v-btn
+                                                                :disabled="
+                                                                    !form
+                                                                "
+                                                                :loading="
+                                                                    loading
+                                                                "
+                                                                @click="
+                                                                    isActive.value = false
+                                                                "
+                                                                color="deep-purple"
+                                                                size="large"
+                                                                type="submit"
+                                                                variant="elevated"
+                                                                block
+                                                            >
+                                                                اضافه
+                                                            </v-btn>
+                                                        </v-form>
+                                                    </v-card>
+                                                </v-sheet>
+
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+
+                                                    <v-btn
+                                                        text="اغلاق"
+                                                        color="deep-purple"
+                                                        @click="
+                                                            isActive.value = false
+                                                        "
+                                                    ></v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </template>
+                                    </v-dialog>
+                                </div>
+                                <form @submit.prevent="validateForm4">
+                                    <div style="display: flex">
+                                        <v-row class="mb-5">
+                                            <!-- <v-col
+                                                cols="6"
+                                                dot-color="red-lighten-2"
+                                                icon="mdi-star"
+                                            >
+                                                <v-card>
+                                                    <v-card-title
+                                                        class="text-h6 bg-red-lighten-2 text-center"
+                                                    >
+                                                        اسلام ابوسيف
+                                                    </v-card-title>
+                                                    <v-card-text
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
+                                                        class="bg-white text--primary text-center"
+                                                    >
+                                                        <div>
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الفورم"
+                                                                    value="اضافه الحالات من الفورم"
+                                                                    color="red-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FirstPerson
+                                                                            .select1
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الاكسيل"
+                                                                    value="اضافه الحالات من الاكسيل"
+                                                                    color="red-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FirstPerson
+                                                                            .select2
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    v-model="
+                                                                        form4
+                                                                            .FirstPerson
+                                                                            .select3
+                                                                    "
+                                                                    label="الاطلاع علي تقارير"
+                                                                    value="الاطلاع علي تقارير"
+                                                                    color="red-lighten-2"
+                                                                ></v-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-col>
+                                            <v-col
+                                                cols="6"
+                                                dot-color="purple-lighten-2"
+                                                icon="mdi-star"
+                                            >
+                                                <v-card>
+                                                    <v-card-title
+                                                        class="text-h6 bg-purple-lighten-2 text-center"
+                                                    >
+                                                        محمد محمود
+                                                    </v-card-title>
+                                                    <v-card-text
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
+                                                        class="bg-white text--primary text-center"
+                                                    >
+                                                        <div>
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    v-model="
+                                                                        form4
+                                                                            .TwoPerson
+                                                                            .select1
+                                                                    "
+                                                                    label="اضافه الحالات من الفورم"
+                                                                    value="اضافه الحالات من الفورم"
+                                                                    color="purple-lighten-2"
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    v-model="
+                                                                        form4
+                                                                            .TwoPerson
+                                                                            .select2
+                                                                    "
+                                                                    label="اضافه الحالات من الاكسيل"
+                                                                    value="اضافه الحالات من الاكسيل"
+                                                                    color="purple-lighten-2"
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    v-model="
+                                                                        form4
+                                                                            .TwoPerson
+                                                                            .select3
+                                                                    "
+                                                                    label="الاطلاع علي تقارير"
+                                                                    value="الاطلاع علي تقارير"
+                                                                    color="purple-lighten-2"
+                                                                ></v-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-col>
+                                            <v-col
+                                                cols="6"
+                                                dot-color="green-lighten-1"
+                                                icon="mdi-star"
+                                            >
+                                                <v-card>
+                                                    <v-card-title
+                                                        class="text-h6 bg-green-lighten-1 text-center"
+                                                    >
+                                                        اسلام ابوسيف
+                                                    </v-card-title>
+                                                    <v-card-text
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
+                                                        class="bg-white text--primary text-center"
+                                                    >
+                                                        <div>
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الفورم"
+                                                                    value="اضافه الحالات من الفورم"
+                                                                    color="green-lighten-1"
+                                                                    v-model="
+                                                                        form4
+                                                                            .ThreePerson
+                                                                            .select1
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    v-model="
+                                                                        form4
+                                                                            .ThreePerson
+                                                                            .select2
+                                                                    "
+                                                                    label="اضافه الحالات من الاكسيل"
+                                                                    value="اضافه الحالات من الاكسيل"
+                                                                    color="green-lighten-1"
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    v-model="
+                                                                        form4
+                                                                            .ThreePerson
+                                                                            .select3
+                                                                    "
+                                                                    label="الاطلاع علي تقارير"
+                                                                    value="الاطلاع علي تقارير"
+                                                                    color="green-lighten-1"
+                                                                ></v-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-col>
+                                            -->
+                                            <!-- <v-col
+                                                cols="6"
+                                                dot-color="indigo-lighten-2"
+                                                icon="mdi-star"
+                                            >
+                                                <v-card>
+                                                    <v-card-title
+                                                        class="text-h6 bg-indigo-lighten-2 text-center"
+                                                    >
+                                                        اسلام ابوسيف
+                                                    </v-card-title>
+                                                    <v-card-text
+                                                        class="bg-white text--primary text-center"
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                        "
+                                                    >
+                                                        <div>
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الفورم"
+                                                                    value="اضافه الحالات من الفورم"
+                                                                    color="indigo-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FourPerson
+                                                                            .select1
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الاكسيل"
+                                                                    value="اضافه الحالات من الاكسيل"
+                                                                    color="indigo-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FourPerson
+                                                                            .select2
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="الاطلاع علي تقارير"
+                                                                    value="الاطلاع علي تقارير"
+                                                                    color="indigo-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FourPerson
+                                                                            .select3
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-col> -->
+                                            <v-col
+                                                v-for="(
+                                                    item, index
+                                                ) in storedArray"
+                                                :key="index"
+                                                cols="6"
+                                                dot-color="indigo-lighten-2"
+                                                icon="mdi-star"
+                                                style="padding: 22px"
+                                            >
+                                                <v-card>
+                                                    <v-card-title
+                                                        style="
+                                                            justify-content: space-between;
+                                                            background: rgb(
+                                                                121,
+                                                                134,
+                                                                203
+                                                            );
+                                                        "
+                                                        class="text-h6 w-100 bg-indigo-lighten-2 d-flex"
+                                                    >
+                                                        <h4
+                                                            style="color: white"
+                                                        >
+                                                            {{ item }}
+                                                        </h4>
+                                                        <v-icon
+                                                            @click="
+                                                                removeItem(
+                                                                    index
+                                                                )
+                                                            "
+                                                            >mdi-close-circle</v-icon
+                                                        >
+                                                    </v-card-title>
+                                                    <v-card-text
+                                                        class="bg-white text--primary text-center"
+                                                        style="
+                                                            margin-right: 0px !important;
+                                                            padding-top: 17px;
+                                                        "
+                                                    >
+                                                        <div>
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الفورم"
+                                                                    value="اضافه الحالات من الفورم"
+                                                                    color="indigo-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FourPerson
+                                                                            .select1
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="اضافه الحالات من الاكسيل"
+                                                                    value="اضافه الحالات من الاكسيل"
+                                                                    color="indigo-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FourPerson
+                                                                            .select2
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+
+                                                            <div
+                                                                class="card d-flex"
+                                                            >
+                                                                <v-checkbox
+                                                                    :disabled="
+                                                                        !isEditing4
+                                                                    "
+                                                                    label="الاطلاع علي تقارير"
+                                                                    value="الاطلاع علي تقارير"
+                                                                    color="indigo-lighten-2"
+                                                                    v-model="
+                                                                        form4
+                                                                            .FourPerson
+                                                                            .select3
+                                                                    "
+                                                                ></v-checkbox>
+                                                            </div>
+                                                        </div>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-col>
+                                        </v-row>
+                                    </div>
+
+                                    <div
+                                        class="card w-25 text-start p-4"
+                                        style="margin-right: auto"
+                                    >
+                                        <v-btn
+                                            :disabled="!isEditing4"
+                                            append-icon="mdi-arrow-left"
+                                            variant="outlined"
+                                            type="submit"
+                                            color="primary"
+                                            style="
+                                                font-size: 35px;
+                                                padding: 34px;
+                                            "
+                                            block
+                                        >
+                                            التالي
+                                        </v-btn>
+                                    </div>
+                                </form>
+                            </v-window-item>
+                            <v-window-item value="option-5" style="width: 100%">
+                                <div
+                                    class="btn-dufult"
+                                    style="
+                                        display: flex;
+                                        justify-content: end;
+                                        margin: 14px;
+                                    "
+                                >
+                                    <v-btn
+                                        class="text-end"
+                                        icon
+                                        @click="isEditing5 = !isEditing5"
+                                    >
+                                        <v-fade-transition leave-absolute>
+                                            <v-icon v-if="isEditing5"
+                                                >mdi-close</v-icon
+                                            >
+
+                                            <v-icon v-else>mdi-pencil</v-icon>
+                                        </v-fade-transition>
+                                    </v-btn>
+                                </div>
+                                <v-sheet class="mx-auto" style="width: 100%">
+                                    <form @submit.prevent="validateForm5">
+                                        <v-item-group
+                                            mandatory
+                                            value="5000"
+                                            v-model="form5.togglecard"
+                                        >
+                                            <v-container>
+                                                <v-row>
+                                                    <v-col cols="12" md="4">
+                                                        <v-item
+                                                            v-slot="{
+                                                                isSelected,
+                                                                toggle,
+                                                            }"
+                                                        >
+                                                            <v-card
+                                                                :color="
+                                                                    isSelected
+                                                                        ? 'green-lighten-1'
+                                                                        : ''
+                                                                "
+                                                                class="d-flex align-center"
+                                                                height="200"
+                                                                dark
+                                                                :disabled="
+                                                                    !isEditing5
+                                                                "
+                                                                @click="toggle"
+                                                            >
+                                                                <v-scroll-y-transition>
+                                                                    <div
+                                                                        class="text-h4 flex-grow-1 text-center"
+                                                                    >
+                                                                        <h1>
+                                                                            5000
+                                                                        </h1>
+                                                                        <p
+                                                                            class="my-2"
+                                                                        >
+                                                                            حاله
+                                                                        </p>
+                                                                    </div>
+                                                                </v-scroll-y-transition>
+                                                            </v-card>
+                                                        </v-item> </v-col
+                                                    ><v-col cols="12" md="4">
+                                                        <v-item
+                                                            v-slot="{
+                                                                isSelected,
+                                                                toggle,
+                                                            }"
+                                                        >
+                                                            <v-card
+                                                                :disabled="
+                                                                    !isEditing5
+                                                                "
+                                                                :color="
+                                                                    isSelected
+                                                                        ? 'green-lighten-1'
+                                                                        : ''
+                                                                "
+                                                                class="d-flex align-center"
+                                                                height="200"
+                                                                dark
+                                                                @click="toggle"
+                                                            >
+                                                                <v-scroll-y-transition>
+                                                                    <div
+                                                                        class="text-h4 flex-grow-1 text-center"
+                                                                    >
+                                                                        <h1>
+                                                                            1000
+                                                                        </h1>
+                                                                        <p
+                                                                            class="my-2"
+                                                                        >
+                                                                            حاله
+                                                                        </p>
+                                                                    </div>
+                                                                </v-scroll-y-transition>
+                                                            </v-card>
+                                                        </v-item> </v-col
+                                                    ><v-col cols="12" md="4">
+                                                        <v-item
+                                                            v-slot="{
+                                                                isSelected,
+                                                                toggle,
+                                                            }"
+                                                        >
+                                                            <v-card
+                                                                :disabled="
+                                                                    !isEditing5
+                                                                "
+                                                                :color="
+                                                                    isSelected
+                                                                        ? 'green-lighten-1'
+                                                                        : ''
+                                                                "
+                                                                class="d-flex align-center"
+                                                                height="200"
+                                                                dark
+                                                                @click="toggle"
+                                                            >
+                                                                <v-scroll-y-transition>
+                                                                    <div
+                                                                        class="text-h4 flex-grow-1 text-center"
+                                                                    >
+                                                                        <h1>
+                                                                            3000
+                                                                        </h1>
+                                                                        <p
+                                                                            class="my-2"
+                                                                        >
+                                                                            حاله
+                                                                        </p>
+                                                                    </div>
+                                                                </v-scroll-y-transition>
+                                                            </v-card>
+                                                        </v-item>
+                                                    </v-col>
+                                                </v-row>
+                                            </v-container>
+                                        </v-item-group>
+                                        <v-row class="mt-5">
+                                            <v-col>
+                                                <v-text-field
+                                                    :disabled="!isEditing5"
+                                                    v-model="form5.cardnumber"
+                                                    style="width: 100%"
+                                                    label="رقم البطاقه"
+                                                    variant="outlined"
+                                                    append-inner-icon="mdi-ticket"
+                                                    placeholder="رقم البطاقه"
+                                                    :class="[
+                                                        `${
+                                                            v$.form1.$errors.find(
+                                                                (err) =>
+                                                                    err.$property ==
+                                                                    'cardnumber'
+                                                            )
+                                                                ? 'danger'
+                                                                : ''
+                                                        }`,
+                                                    ]"
+                                                ></v-text-field>
+                                                <span
+                                                    v-for="err in v$.$errors"
+                                                    :key="err.$uid"
+                                                    style="
+                                                        display: block;
+                                                        width: 100%;
+                                                        color: red;
+                                                    "
+                                                >
+                                                    <span
+                                                        v-if="
+                                                            err.$property ==
+                                                            'cardnumber'
+                                                        "
+                                                        >{{
+                                                            err.$message
+                                                        }}</span
+                                                    >
+                                                </span>
+                                            </v-col>
+                                        </v-row>
+
+                                        <div
+                                            class="card w-25 text-start p-4"
+                                            style="margin-right: auto"
+                                        >
+                                            <v-btn
+                                                append-icon="mdi-arrow-left"
+                                                variant="outlined"
+                                                type="submit"
+                                                color="primary"
+                                                style="
+                                                    font-size: 35px;
+                                                    padding: 34px;
+                                                "
+                                                :disabled="!isEditing5"
+                                                block
+                                            >
+                                                التالي
+                                            </v-btn>
+                                        </div>
+                                    </form>
+                                </v-sheet>
+                            </v-window-item>
+                        </v-window>
+                    </div>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+>>>>>>> origin/master
 </template>
 
 <script>
 import useVuelidate from "@vuelidate/core";
+<<<<<<< HEAD
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
@@ -1370,12 +3080,29 @@ export default {
         showPassword2: false,
         showPassword3: false,
         User_Type: null,
+=======
+import {
+    required,
+    minLength,
+    maxLength,
+    // alpha,
+    numeric,
+    // regex,
+    // between,
+    helpers,
+} from "@vuelidate/validators";
+export default {
+    data: () => ({
+        showPassword: false,
+        owneer: true,
+>>>>>>> origin/master
         owneerform: [],
         isEditing: null,
         isEditing2: null,
         isEditing3: null,
         isEditing4: null,
         isEditing5: null,
+<<<<<<< HEAD
         isEditing6: true,
         form: false,
         storedArray: [],
@@ -1393,6 +3120,25 @@ export default {
         rules: {
             required: (value) => !!value || "Required.",
             min: (v) => v.length >= 6 || "Min 6 characters",
+=======
+        isEditing6: null,
+        form: false,
+        storedArray: [],
+        namemosed1: null,
+        namemosed2: null,
+        namemosed3: null,
+        namemosed4: null,
+        namemosed5: null,
+        namemosed6: null,
+        formmosed2: [],
+        namemosed: null,
+        numbercardmosed: null,
+        loading: false,
+        tab: "option-1",
+        rules: {
+            required: (value) => !!value || "Required.",
+            min: (v) => v.length >= 8 || "Min 8 characters",
+>>>>>>> origin/master
             emailMatch: () => `The email and password you entered don't match`,
         },
         form1: {
@@ -1403,6 +3149,7 @@ export default {
         },
         form2: {
             password: "",
+<<<<<<< HEAD
             Newpassword: "",
             Newpassword2: "",
         },
@@ -1421,11 +3168,20 @@ export default {
             Charities_specialty: [],
             Package_type: "",
             Fame_year: "",
+=======
+        },
+
+        form3: {
+            nameassociation: "",
+            theaddress: "",
+            Associationnumber: "",
+>>>>>>> origin/master
             Facebook: "",
             Twitter: "",
             whatsapp: "",
             Youtube: "",
         },
+<<<<<<< HEAD
         validationRules: {
             facebookRule: [
                 (v) =>
@@ -1450,6 +3206,30 @@ export default {
         },
         form4: {},
 
+=======
+        form4: {
+            FirstPerson: {
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+            TwoPerson: {
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+            ThreePerson: {
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+            FourPerson: {
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+        },
+>>>>>>> origin/master
         form5: {
             toggle5000: 500,
             cardnumber: "",
@@ -1459,12 +3239,16 @@ export default {
         checkbox: false,
         theme: "",
         modtheme: true,
+<<<<<<< HEAD
         visible: false,
+=======
+>>>>>>> origin/master
         testform1: [],
         testform2: [],
         testform3: [],
         testform4: [],
         testform5: [],
+<<<<<<< HEAD
         activities: ["إطعام", "كفالة", "زواج", "علاج"],
 
         items: [
@@ -1489,10 +3273,47 @@ export default {
             /^\d+$/.test(v) || "رقم الهاتف يجب أن يكون أرقام فقط",
         nationalNumberRule: (v) =>
             v.length === 14 || "الرقم القومي يجب أن يكون 14 رقم",
+=======
+        items: [
+            {
+                color: "red-lighten-2",
+                icon: "mdi-star",
+                name: "اسلام ابوسيف",
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+            {
+                color: "purple-lighten-2",
+                icon: "mdi-book-variant",
+                name: "محمد محمود",
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+            {
+                color: "green-lighten-1",
+                icon: "mdi-airballoon",
+                name: "خالد ابراهيم",
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+            {
+                color: "indigo-lighten-2",
+                icon: "mdi-layers-triple",
+                name: "سمير خالد ",
+                select1: "",
+                select2: "",
+                select3: "",
+            },
+        ],
+>>>>>>> origin/master
     }),
     setup() {
         return { v$: useVuelidate() };
     },
+<<<<<<< HEAD
     // components: { Side_Bar },
     validations() {
         return {
@@ -1520,6 +3341,100 @@ export default {
                 Twitter: {},
                 whatsapp: {},
                 Youtube: {},
+=======
+    validations() {
+        return {
+            form1: {
+                name: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    minLength: helpers.withMessage(
+                        "لا يجب ان تقل عن 10 حروف ",
+                        minLength(10)
+                    ),
+                    maxLength: helpers.withMessage(
+                        "لا يجب ان تذيد عن 100 حروف ",
+                        maxLength(100)
+                    ),
+
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                email: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                    minLength: helpers.withMessage(
+                        "لا يجب ان تقل عن 3 حروف ",
+                        minLength(3)
+                    ),
+                    maxLength: helpers.withMessage(
+                        "لا يجب ان تذيد عن 100 حروف ",
+                        maxLength(100)
+                    ),
+                },
+                phoneNumber: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                cardNumber: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "يجب أن تحتوي على حروف عربية فقط",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+            },
+            form2: {
+                password: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+            },
+            form3: {
+                nameassociation: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "اللغه العربيه مدعمه",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                theaddress: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    regex: helpers.withMessage(
+                        "اللغه العربيه مدعمه",
+                        /[\u0600-\u06FF\s]+/
+                    ),
+                },
+                Associationnumber: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage("ارقام فقط", numeric),
+                },
+
+                Facebook: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+
+                Twitter: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+                whatsapp: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage("ارقام فقط", numeric),
+                },
+                Youtube: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                },
+>>>>>>> origin/master
             },
             form4: {
                 FirstPerson: {},
@@ -1527,6 +3442,7 @@ export default {
                 ThreePerson: {},
                 FourPerson: {},
             },
+<<<<<<< HEAD
         };
     },
     computed: {
@@ -1683,6 +3599,28 @@ export default {
                 this.User_Charity.Fame_year
             );
         },
+=======
+            form5: {
+                togglecard: {},
+                cardnumber: {
+                    required: helpers.withMessage("حقل مطلوب", required),
+                    numeric: helpers.withMessage(
+                        "  يجب ان تكون ارقام فقط",
+                        numeric
+                    ),
+                },
+                // toggle3000: {},
+            },
+        };
+    },
+    computed: {
+        // Define a computed property to determine the input type based on showPassword
+        inputType() {
+            return this.showPassword ? "text" : "password";
+        },
+    },
+    methods: {
+>>>>>>> origin/master
         toggleTheme() {
             if (this.modtheme) {
                 this.theme = "dark";
@@ -1695,6 +3633,7 @@ export default {
         toggleShowPassword() {
             this.showPassword = !this.showPassword;
         },
+<<<<<<< HEAD
         toggleShowPassword2() {
             this.showPassword2 = !this.showPassword2;
         },
@@ -1708,6 +3647,11 @@ export default {
                 this.form1.email = this.User_Data.email;
                 this.form1.phoneNumber = this.User_Data.phones;
                 this.form1.cardNumber = this.User_Data.nationalID;
+=======
+        async validateForm1() {
+            const res = await this.v$.form1.$validate();
+            if (res) {
+>>>>>>> origin/master
                 this.testform1.push(
                     { name: this.form1.name },
                     { email: this.form1.email },
@@ -1715,8 +3659,15 @@ export default {
                     { cardNumber: this.form1.cardNumber }
                 );
                 this.owneerform.push({ Generalinformation: this.testform1 });
+<<<<<<< HEAD
                 this.test_num_form = 2;
                 console.log(this.testform1);
+=======
+                const arr = document.querySelectorAll(
+                    ".v-slide-group__content .v-btn"
+                )[1];
+                arr.click();
+>>>>>>> origin/master
                 this.v$.$reset();
                 this.form1.name = "";
                 this.form1.email = "";
@@ -1728,6 +3679,7 @@ export default {
         },
         async validateForm2() {
             const res = await this.v$.form2.$validate();
+<<<<<<< HEAD
             if (this.form2.password === this.form2.Newpassword) {
                 this.passwordsMatchError = true;
 
@@ -1751,6 +3703,18 @@ export default {
                 this.form2.password = "";
                 this.form2.Newpassword = "";
                 this.form2.Newpassword2 = "";
+=======
+            if (res) {
+                this.testform2.push({ password: this.form2.password });
+                this.owneerform.push({ Protectioninformation: this.testform2 });
+                const arr = document.querySelectorAll(
+                    ".v-slide-group__content .v-btn"
+                )[2];
+                arr.click();
+
+                this.v$.$reset();
+                this.form2.password = "";
+>>>>>>> origin/master
 
                 this.testform2 = [];
             }
@@ -1758,6 +3722,7 @@ export default {
         async validateForm3() {
             const res = await this.v$.form3.$validate();
             if (res) {
+<<<<<<< HEAD
                 this.form3.title = this.User_Charity.title;
                 this.form3.phone = this.User_Charity.phone;
                 this.form3.description = this.User_Charity.description;
@@ -1778,11 +3743,30 @@ export default {
                     },
                     { Charities_Package_type: this.form3.Package_type },
                     { Charities_Fame_year: this.form3.Fame_year }
+=======
+                this.testform3.push(
+                    { nameassociation: this.form3.nameassociation },
+                    { theaddress: this.form3.theaddress },
+                    { Associationnumber: this.form3.Associationnumber },
+                    {
+                        Facebook: this.form3.Facebook,
+                    },
+                    {
+                        Twitter: this.form3.Twitter,
+                    },
+                    {
+                        whatsapp: this.form3.whatsapp,
+                    },
+                    {
+                        Youtube: this.form3.Youtube,
+                    }
+>>>>>>> origin/master
                 );
                 this.owneerform.push({
                     AssociationInformation: this.testform3,
                 });
 
+<<<<<<< HEAD
                 this.test_num_form = 4;
                 console.log(this.testform3);
 
@@ -1800,6 +3784,21 @@ export default {
                 this.User_Charity.Twitter = "";
                 this.User_Charity.whatsapp = "";
                 this.User_Charity.Youtube = "";
+=======
+                const arr = document.querySelectorAll(
+                    ".v-slide-group__content .v-btn"
+                )[3];
+                arr.click();
+
+                this.v$.$reset();
+                this.form3.nameassociation = "";
+                this.form3.theaddress = "";
+                this.form3.Associationnumber = "";
+                this.form3.Facebook = "";
+                this.form3.Twitter = "";
+                this.form3.whatsapp = "";
+                this.form3.Youtube = "";
+>>>>>>> origin/master
 
                 this.testform3 = [];
             }
@@ -1807,6 +3806,7 @@ export default {
         async validateForm4() {
             const res = await this.v$.form4.$validate();
             if (res) {
+<<<<<<< HEAD
                 // this.testform4.push(this.storedArray);
 
                 this.testform4.push({
@@ -1824,10 +3824,35 @@ export default {
 
                 this.v$.$reset();
                 this.form4.AssistantPowers = "";
+=======
+                this.testform4.push(
+                    { FirstPerson: this.form4.FirstPerson },
+                    { TwoPerson: this.form4.TwoPerson },
+                    { ThreePerson: this.form4.ThreePerson },
+                    { FourPerson: this.form4.FourPerson }
+                );
+                // if (this.showDiv1) {
+                //     this.testform4.push({
+                //         DescriptionRoom2: this.form4.DescriptionRoom2,
+                //     });
+                // }
+                this.owneerform.push({ Helpers: this.testform4 });
+                const arr = document.querySelectorAll(
+                    ".v-slide-group__content .v-btn"
+                )[4];
+                arr.click();
+
+                this.v$.$reset();
+                this.form4.FirstPerson = "";
+                this.form4.TwoPerson = "";
+                this.form4.ThreePerson = "";
+                this.form4.FourPerson = "";
+>>>>>>> origin/master
             }
 
             this.testform4 = [];
         },
+<<<<<<< HEAD
 
         async validate() {
             const { valid } = await this.$refs.form.validate();
@@ -1836,6 +3861,38 @@ export default {
                 this.Add_Assistant();
                 this.dialog = false;
             }
+=======
+        async validateForm5() {
+            const res = await this.v$.form5.$validate();
+            if (res) {
+                this.testform5.push(
+                    {
+                        togglecard:
+                            this.form5.togglecard == 0
+                                ? 5000
+                                : this.form5.togglecard == 1
+                                ? 1000
+                                : 3000,
+                    },
+                    { cardnumber: this.form5.cardnumber }
+                );
+                this.owneerform.push({ Subscription: this.testform5 });
+
+                console.log(this.testform5);
+                console.log(this.owneerform);
+                this.v$.$reset();
+                this.form5.togglecard = "";
+                this.form5.cardnumber = "";
+
+                this.testform5 = [];
+                this.owneerform = [];
+            }
+        },
+        async validate() {
+            const { valid } = await this.$refs.form.validate();
+
+            if (valid) alert("Form is valid");
+>>>>>>> origin/master
         },
         reset() {
             this.$refs.form.reset();
@@ -1847,6 +3904,7 @@ export default {
             window.location.reload();
         },
 
+<<<<<<< HEAD
         required(v) {
             return !!v || "الحقل مطلوب";
         },
@@ -1905,12 +3963,40 @@ export default {
                     className: "custom-toast-error",
                 });
             }
+=======
+        onSubmit() {
+            if (!this.form) return;
+
+            // استرجاع البيانات القديمة من localStorage
+            const oldData =
+                JSON.parse(localStorage.getItem("formmosed2")) || [];
+
+            // إضافة القيمة الجديدة إلى القيمة القديمة
+            oldData.push(this.namemosed != "" ? this.namemosed : "");
+
+            // حفظ القيمة المحدثة في localStorage
+            localStorage.setItem("formmosed2", JSON.stringify(oldData));
+            this.storedArray = oldData;
+        },
+        required(v) {
+            return !!v || "الحقل مطلوب";
+        },
+        removeItem(index) {
+            // حذف العنصر من الـ array
+            this.storedArray.splice(index, 1);
+            // تحديث الـ array في LocalStorage بعد حذف العنصر
+            localStorage.setItem(
+                "formmosed2",
+                JSON.stringify(this.storedArray)
+            );
+>>>>>>> origin/master
         },
     },
     mounted() {
         const oldData = JSON.parse(localStorage.getItem("formmosed2")) || [];
         localStorage.setItem("formmosed2", JSON.stringify(oldData));
         this.storedArray = oldData;
+<<<<<<< HEAD
         this.generateRandomPassword();
 
         this.Check_User();
@@ -1925,11 +4011,17 @@ export default {
         script.src = "https://cdn.lordicon.com/lordicon.js";
         script.async = true;
         document.head.appendChild(script);
+=======
+>>>>>>> origin/master
     },
 };
 </script>
 
+<<<<<<< HEAD
 <style lang="scss" scoped>
+=======
+<style>
+>>>>>>> origin/master
 /* Start Friends Page */
 .friends-page {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1979,6 +4071,7 @@ export default {
     font-size: 40px;
     opacity: 0.2;
 }
+<<<<<<< HEAD
 .v-input__control {
     color: black !important;
 }
@@ -2326,4 +4419,7 @@ body.dark-mode .container_0 {
         z-index: 0; // تأكد من أن التراكب يكون خلف المحتوى
     }
 }
+=======
+/* End Friends Page */
+>>>>>>> origin/master
 </style>

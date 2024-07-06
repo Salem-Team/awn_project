@@ -2,10 +2,14 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import "tailwindcss/tailwind.css";
+<<<<<<< HEAD
 import "bootstrap/dist/css/bootstrap.css";
 import "notyf/notyf.min.css";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+=======
+
+>>>>>>> origin/master
 // pinia config
 import { createPinia } from "pinia";
 
@@ -13,15 +17,21 @@ import { createPinia } from "pinia";
 import mitt from "mitt";
 const Emitter = mitt();
 
+<<<<<<< HEAD
 //VueDraggable
 import VueDraggable from "vue-draggable";
 
 // Vuetify
+=======
+// Vuetify
+
+>>>>>>> origin/master
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+<<<<<<< HEAD
 
 const vuetify = createVuetify({
     theme: {
@@ -32,6 +42,9 @@ const vuetify = createVuetify({
             },
         },
     },
+=======
+const vuetify = createVuetify({
+>>>>>>> origin/master
     components,
     directives,
 });
@@ -70,6 +83,7 @@ const app = initializeApp(firebaseConfig);
 app;
 
 createApp(App)
+<<<<<<< HEAD
     .use(router)
     .use(vuetify)
     .use(VueDraggable)
@@ -77,4 +91,12 @@ createApp(App)
     .provide("Emitter", Emitter)
     .use(createPinia())
     .use(Toast, { position: "top-right", timeout: 3000 })
+=======
+    //.use(store)
+    .use(router)
+    .use(vuetify)
+    .component("font-awesome-icon", FontAwesomeIcon)
+    .provide("Emitter", Emitter)
+    .use(createPinia())
+>>>>>>> origin/master
     .mount("#app");

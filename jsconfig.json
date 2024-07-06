@@ -10,3 +10,7 @@
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master

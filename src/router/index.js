@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import DashBoard_charities from "@/views/DashBoard_charities.vue";
 import DashBoard_Admin from "@/views/DashBoard_Admin.vue";
 import Settings_Admin from "@/views/Settings_Admin.vue";
+<<<<<<< HEAD
 import Reset_Password from "@/views/Reset_Password.vue";
 import { doc, getDoc } from "firebase/firestore";
 import { initializeApp } from "@firebase/app";
@@ -22,6 +23,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+=======
+import Reset_Password from "@/components/Reset_Password.vue";
+>>>>>>> origin/master
 const routes = [
     {
         path: "/",
@@ -32,17 +36,28 @@ const routes = [
         path: "/DashBoard_charities",
         name: "DashBoard_charities",
         component: DashBoard_charities,
+<<<<<<< HEAD
         meta: { requiresAuth: true, requiredAuthority: "owner" },
+=======
+>>>>>>> origin/master
     },
     {
         path: "/DashBoard_Admin",
         name: "DashBoard_Admin",
         component: DashBoard_Admin,
+<<<<<<< HEAD
         meta: { requiresAuth: true, requiredAuthority: "admin" },
     },
     {
         path: "/Settings_Admin",
         name: "Settings_Admin",
+=======
+    },
+
+    {
+        path: "/Settings_Admin",
+        name: "/Settings_Admin",
+>>>>>>> origin/master
         component: Settings_Admin,
     },
     {
@@ -57,6 +72,7 @@ const router = createRouter({
     routes,
 });
 
+<<<<<<< HEAD
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     const requiredAuthority = to.meta.requiredAuthority;
@@ -119,4 +135,6 @@ async function Check_User() {
     }
 }
 
+=======
+>>>>>>> origin/master
 export default router;
