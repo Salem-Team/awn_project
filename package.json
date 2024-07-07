@@ -6,7 +6,8 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
-        "lint": "vue-cli-service lint"
+        "lint": "vue-cli-service lint",
+        "prettier": "prettier --write ."
     },
     "dependencies": {
         "@fortawesome/vue-fontawesome": "^3.0.6",
@@ -15,7 +16,6 @@
         "axios": "^1.6.8",
         "bootstrap": "^5.3.3",
         "bootstrap-vue": "^2.23.1",
-<<<<<<< HEAD
         "chart.js": "^4.4.2",
         "chartjs-plugin-datalabels": "^2.2.0",
         "core-js": "^3.8.3",
@@ -39,20 +39,6 @@
         "wbm": "^1.1.16",
         "xlsx": "^0.18.5",
         "xlsx-js-style": "^1.2.0"
-=======
-        "core-js": "^3.8.3",
-        "emit": "^0.0.2",
-        "express": "^4.19.2",
-        "firebase": "^10.11.0",
-        "nodemailer": "^6.9.13",
-        "read-excel-file": "^5.8.0",
-        "twilio": "^5.0.4",
-        "vue": "^3.4.26",
-        "vue-router": "^4.0.3",
-        "vuex": "^4.0.0",
-        "wbm": "^1.1.16",
-        "xlsx": "^0.18.5"
->>>>>>> origin/master
     },
     "devDependencies": {
         "@babel/core": "^7.12.16",
@@ -77,84 +63,10 @@
         "jest": "^27.0.5",
         "mitt": "^3.0.1",
         "pinia": "^2.1.7",
-        "prettier": "^2.4.1",
+        "prettier": "^2.8.8",
         "sass": "^1.32.7",
         "sass-loader": "^12.0.0",
         "tailwindcss": "^3.4.3",
-<<<<<<< HEAD
         "vuetify": "^3.6.4"
     }
 }
-=======
-        "vuetify": "^3.5.16"
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> origin/master

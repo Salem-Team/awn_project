@@ -2,9 +2,8 @@
     <nav>
         <TheHeader />
     </nav>
-<<<<<<< HEAD
 
-    <router-view style="margin-top: 125px !important" />
+    <router-view style="margin-top: 150px !important" />
 </template>
 
 <script>
@@ -32,19 +31,6 @@ export default {
             }
         },
     },
-=======
-    <router-view />
-</template>
-
-<script>
-// @ is an alias to /src
-import TheHeader from "@/components/TheHeader.vue";
-
-export default {
-    components: {
-        TheHeader,
-    },
->>>>>>> origin/master
 };
 </script>
 
@@ -52,16 +38,11 @@ export default {
 * {
     direction: rtl !important;
 }
-<<<<<<< HEAD
 :root {
-    // --main-color: #45b9bf;
     --main-color: #0088ff;
     --secound-color: #eee;
     --therd-color: #7a7a7a;
 }
-=======
-
->>>>>>> origin/master
 body {
     direction: rtl;
     font-family: "Cairo", sans-serif;
@@ -81,8 +62,6 @@ a {
 .container {
     width: 90%;
     margin: auto;
-<<<<<<< HEAD
-    max-width: -webkit-fill-available !important;
 }
 /* أنماط CSS للثيم المظلم */
 .dark-theme {
@@ -301,7 +280,5 @@ body.dark-mode .use .title {
 }
 .body.dark-mode .right {
     color: white !important;
-=======
->>>>>>> origin/master
 }
 </style>

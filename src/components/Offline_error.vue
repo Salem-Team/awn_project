@@ -12,10 +12,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 245px;
             height: 500px;
-            z-index: 100;
-            background: #fff;
-            width: 100%;
         "
     >
         <svg
@@ -115,7 +113,6 @@ export default {
         return {
             snackbar: false,
             isInternetAvailable: true, // Internet availability flag
-            isFocused: false, // أو القيمة التي تريدها
         };
     },
     async created() {
@@ -127,10 +124,6 @@ export default {
             console.log("Internet disconnected");
         }
     },
-    methods: {
-        focusHandler() {
-            this.isFocused = true;
-        },
-    },
+    methods: {},
 };
 </script>

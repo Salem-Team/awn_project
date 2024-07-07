@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <v-dialog activator="parent" max-width="90%">
         <template v-slot:default="{ isActive }">
             <v-card class="popup" rounded="lg">
@@ -9,24 +8,13 @@
                     </div>
                     <v-btn
                         style="color: var(--main-color)"
-=======
-    <v-dialog activator="parent" max-width="900">
-        <template v-slot:default="{ isActive }">
-            <v-card rounded="lg">
-                <v-card-title class="d-flex justify-space-between align-center">
-                    <div class="text-h5 text-medium-emphasis ps-2">
-                        تسجيل دخول
-                    </div>
-                    <v-btn
->>>>>>> origin/master
                         icon="mdi-close"
                         variant="text"
                         @click="isActive.value = false"
                     ></v-btn>
                 </v-card-title>
-<<<<<<< HEAD
 
-                <div class="The_Sginin">
+                <div class="The_Signin">
                     <v-container class="form_container mt-4">
                         <Offline_error>
                             <template v-slot:default>
@@ -139,103 +127,6 @@
                                 </form>
                             </template>
                         </Offline_error>
-=======
-                <div class="The_Signin">
-                    <v-container class="form_container mt-4">
-                        <span class="pr-8">{{ radio }}</span>
-                        <!--get the data from the Charities using v-model-->
-                        <form
-                            ref="form"
-                            @submit.prevent="validateForm"
-                            class="ma-auto"
-                            action="post"
-                        >
-                            <v-radio-group
-                                inline
-                                label="أختر صلاحية الدخول "
-                                v-model="radio"
-                            >
-                                <v-radio
-                                    label="مشرف"
-                                    value="مشرف"
-                                    @click="handleRadioInput('مشرف')"
-                                ></v-radio>
-                                <v-radio
-                                    label="مالك"
-                                    value="مالك"
-                                    @click="handleRadioInput('مالك')"
-                                ></v-radio>
-                            </v-radio-group>
-                            <v-text-field
-                                v-model="user.nationalID"
-                                variant="outlined"
-                                label="الرقم القومي"
-                                class="mt-2"
-                                :error-messages="
-                                    v$.user.nationalID.$errors.map(
-                                        (e) => e.$message
-                                    )
-                                "
-                            ></v-text-field>
-                            <v-text-field
-                                v-model="user.password"
-                                :type="inputType"
-                                variant="outlined"
-                                label="الباسورد"
-                                placeholder="ادخل كلمة سر من 8 حروف أرقام وحرف واحد كبير على الأقل"
-                                class="mt-2"
-                                :error-messages="
-                                    v$.user.password.$errors.map(
-                                        (e) => e.$message
-                                    )
-                                "
-                                :append-inner-icon="
-                                    showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                                "
-                                @click:append-inner="toggleShowPassword"
-                            ></v-text-field>
-                            <!-- remember me checkbox -->
-                            <div
-                                class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4"
-                            >
-                                <v-checkbox label="تذكرني"></v-checkbox>
-                                <a
-                                    class="ms-2 mb-1 cursor-pointer text-primary"
-                                    @click.stop="isActive.value = false"
-                                    @click="$router.push('/Reset_Password')"
-                                >
-                                    هل نسيت كلمة المرور؟
-                                </a>
-                            </div>
-                            <v-btn
-                                class="d-flex align-center mt-4 bg-blue-lighten-1 mb-10"
-                                type="submit"
-                                style="
-                                    width: 100%;
-                                    font-size: 16px;
-                                    margin: auto;
-                                "
-                                @click="Sing_In"
-                            >
-                                تسجيل الدخول
-                            </v-btn>
-                            <v-divider></v-divider>
-                            <!-- create account -->
-                            <v-col
-                                cols="12"
-                                class="text-center text-base d-flex align-center justify-space-between flex-wrap mt-4 mb-4"
-                            >
-                                <span>هل أنت جديد على منصتنا؟ </span>
-                                <div
-                                    class="register cursor-pointer text-primary"
-                                    @click="openRegistrationDialog"
-                                >
-                                    حساب جديد
-                                </div>
-                                <TheRegister />
-                            </v-col>
-                        </form>
->>>>>>> origin/master
                     </v-container>
                 </div>
             </v-card>
@@ -244,10 +135,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import Offline_error from "@/components/Offline_error.vue";
-=======
->>>>>>> origin/master
 import TheRegister from "@/components/The_Register.vue";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, numeric, helpers } from "@vuelidate/validators";
@@ -271,14 +159,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
-<<<<<<< HEAD
     components: { TheRegister, Offline_error },
     props: ["Check_User"],
     inject: ["Emitter"],
-=======
-    components: { TheRegister },
-    props: ["Check_User", "IsActive"],
->>>>>>> origin/master
     setup() {
         return {
             v$: useVuelidate(),
@@ -287,7 +170,6 @@ export default {
     data() {
         return {
             showPassword: false,
-<<<<<<< HEAD
             selectedRole: null,
             regex1: true,
             show: false,
@@ -300,13 +182,6 @@ export default {
                 nationalID: "",
                 password: "Mo-on-1000",
                 type: "",
-=======
-            radio: "",
-            showRegisterDialog: false,
-            user: {
-                nationalID: "",
-                password: "Mo-on-1000",
->>>>>>> origin/master
             },
         };
     },
@@ -327,19 +202,12 @@ export default {
                 },
                 password: {
                     required: helpers.withMessage("ادخل باسورد", required),
-<<<<<<< HEAD
                     regex1: function (value) {
                         const regexPattern =
                             /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[a-zA-Z]).{8,}$/;
                         const matchResult = regexPattern.test(value);
                         this.regex1 = matchResult;
                         return matchResult;
-=======
-                    isValidPassword(value) {
-                        const regexPattern =
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-                        return regexPattern.test(value);
->>>>>>> origin/master
                     },
                 },
             },
@@ -350,7 +218,6 @@ export default {
             return this.showPassword ? "text" : "password";
         },
     },
-<<<<<<< HEAD
     mounted() {
         // Method to check internet connection status
         this.startInternetCheckerUse();
@@ -378,14 +245,6 @@ export default {
         },
         closeRegistrationDialog() {
             this.showRegistrationDialog = false;
-=======
-    methods: {
-        openRegistrationDialog() {
-            // Close the signin dialog
-            this.$emit("update:isActive", false);
-            // Open the registration dialog
-            this.showRegisterDialog = true;
->>>>>>> origin/master
         },
         handleForgotPasswordClick() {
             // Close the signin dialog
@@ -393,13 +252,6 @@ export default {
             // Navigate to the reset password page
             this.$router.push("/Reset_Password");
         },
-<<<<<<< HEAD
-=======
-        closeDialogs() {
-            this.showRegisterDialog = false;
-            this.$emit("update:isActive", false);
-        },
->>>>>>> origin/master
         toggleShowPassword() {
             this.showPassword = !this.showPassword;
         },
@@ -415,11 +267,7 @@ export default {
                 if (!this.v$.$error) {
                     console.log("Data filled and Form submitted successfully");
                     console.log("User", this.user);
-<<<<<<< HEAD
                     this.isActive = false; // Close the dialog
-=======
-                    this.$emit("update:isActive", false);
->>>>>>> origin/master
                     this.v$.$reset();
                 } else {
                     console.log("Data not all filled Validation errors found");
@@ -428,16 +276,6 @@ export default {
                 console.log("Data required");
             }
         },
-<<<<<<< HEAD
-=======
-        handleRadioInput(value) {
-            if (value === "مشرف") {
-                this.user.nationalID = "12345678901111";
-            } else if (value === "مالك") {
-                this.user.nationalID = "876898746783876";
-            }
-        },
->>>>>>> origin/master
         async Sing_In() {
             const querySnapshot = await getDocs(collection(db, "Users"));
             querySnapshot.forEach((doc) => {
@@ -445,7 +283,6 @@ export default {
                     doc.data().nationalID === this.user.nationalID &&
                     doc.data().password === this.user.password
                 ) {
-<<<<<<< HEAD
                     console.log(doc.id, " => ", doc.data().charity_ID);
                     localStorage.setItem("id", doc.id);
                     localStorage.setItem("charity_ID", doc.data().charity_ID);
@@ -453,14 +290,6 @@ export default {
                         this.Check_User();
                     }, 100);
                     this.isActive = false; // Close the dialog
-=======
-                    console.log(doc.id, " => ", doc.data().nationalID);
-                    localStorage.setItem("id", doc.id);
-                    setTimeout(() => {
-                        this.Check_User();
-                    }, 100);
-                    this.$emit("update:isActive", false);
->>>>>>> origin/master
                     this.v$.$reset();
                 }
             });
@@ -471,7 +300,6 @@ export default {
 
 <style lang="scss" scoped>
 form {
-<<<<<<< HEAD
     width: 100% !important;
 }
 .popup {
@@ -488,8 +316,5 @@ form {
         color: #0088ff;
         font-weight: bold;
     }
-=======
-    width: 50% !important;
->>>>>>> origin/master
 }
 </style>

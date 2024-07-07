@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <!-- Handle offline error and empty data -->
     <Offline_error>
         <template v-slot:default>
@@ -162,110 +161,10 @@
             </div>
         </template>
     </Offline_error>
-=======
-    <div
-        class="box px-5 py-3 mt-5 border rounded"
-        v-for="(charity, index) in paginatedCharities"
-        :key="charity.id"
-    >
-        <span>{{ (currentPage - 1) * 5 + index + 1 }}</span>
-        <div class="Charities">
-            <v-container class="Charities_container mt-4">
-                <!--get the Charities data from the database-->
-                <div class="Charity">
-                    <div class="d-flex align-center flex-wrap justify-around">
-                        <h3>اسم الجمعية :</h3>
-                        <p>{{ charity.title }}</p>
-                        <v-spacer></v-spacer>
-                        <h3>عدد الحالات :</h3>
-                        <p>{{ charity.cases_number || 0 }}</p>
-                    </div>
-                </div>
-                <!--the Charities_specialty-->
-                <v-container
-                    class="text-right d-flex align-center flex-wrap justify-around"
-                    v-model="Charities.Charities_specialty"
-                >
-                    <h3
-                        class="mb-2 text-right d-flex align-center flex-wrap justify-around"
-                    >
-                        تخصص الجمعية:
-                    </h3>
-                    <v-card
-                        elevation="2"
-                        v-for="(
-                            activity, index_1
-                        ) in charity.Charities_specialty"
-                        :key="index_1"
-                        class="ma-2 pa-3"
-                        rounded="lg"
-                        :value="activity"
-                        >{{ activity }}</v-card
-                    >
-                </v-container>
-                <br />
-                <!--the Charities_descripetion-->
-                <div class="d-flex align-center flex-wrap justify-around">
-                    <h3>وصف قصير للجمعية :</h3>
-                    <p>{{ charity.descripetion }}</p>
-                </div>
-                <br />
-                <!--the Charities_Package_type-->
-                <div class="d-flex align-center flex-wrap justify-around">
-                    <h3>نوع الإشتراك :</h3>
-                    <p>{{ charity.Package_type }}</p>
-                </div>
-                <br />
-                <!--the Charities_Social_media-->
-                <h3>منصات التواصل :</h3>
-                <br />
-                <!-- return the icon according to the Charities_Social_media links-->
-
-                <div class="d-flex align-center justify-between">
-                    <a
-                        v-if="charity.facebook && charity.facebookLink"
-                        :href="charity.facebookLink"
-                        ><v-icon>mdi-facebook</v-icon></a
-                    >
-                    <a
-                        v-if="charity.youtube && charity.youtubeLink"
-                        :href="charity.youtubeLink"
-                        ><v-icon>mdi-youtube</v-icon></a
-                    >
-                    <a
-                        v-if="charity.linkedin && charity.linkedinLink"
-                        :href="charity.linkedinLink"
-                        ><v-icon>mdi-linkedin</v-icon></a
-                    >
-                    <a
-                        v-if="charity.whatsapp && charity.whatsappLink"
-                        :href="charity.whatsappLink"
-                        ><v-icon>mdi-whatsapp</v-icon></a
-                    >
-                    <a
-                        v-if="charity.instagram && charity.instagramLink"
-                        :href="charity.instagramLink"
-                        ><v-icon>mdi-instagram</v-icon></a
-                    >
-                </div>
-            </v-container>
-        </div>
-    </div>
-    <div class="text-center">
-        <v-pagination
-            v-model="currentPage"
-            next-icon="mdi-menu-left"
-            prev-icon="mdi-menu-right"
-            :length="Math.ceil(CharitiesDB.length / 5)"
-            :total-visible="5"
-        ></v-pagination>
-    </div>
->>>>>>> origin/master
 </template>
 
 <script>
 import { ref } from "vue";
-<<<<<<< HEAD
 import Offline_error from "@/components/Offline_error.vue";
 import Empty_error from "@/components/Empty_error.vue";
 // Get Data
@@ -276,10 +175,6 @@ import {
     deleteDoc,
     doc,
 } from "@firebase/firestore";
-=======
-// Get Data
-import { getDocs, getFirestore, collection } from "@firebase/firestore";
->>>>>>> origin/master
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
 
@@ -297,7 +192,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default {
-<<<<<<< HEAD
     components: { Empty_error, Offline_error },
     inject: ["Emitter"],
     emits: ["child-result1"],
@@ -307,27 +201,16 @@ export default {
             currentPage: 1,
             text: "لا توجد بيانات",
             loading: false, // Loading state
-=======
-    data() {
-        return {
-            currentPage: 1,
->>>>>>> origin/master
             activities: ref(["كفالة", "إطعام"]),
             // ref to store the Charities data
             Charities: {}, // Initialize as an empty object
             CharitiesDB: [],
-<<<<<<< HEAD
             CharitiesDB_length: 0,
         };
     },
     mounted() {
         // Method to check internet connection status
         this.startInternetCheckerUse();
-=======
-        };
-    },
-    mounted() {
->>>>>>> origin/master
         //call the function
         this.Get_Data();
     },
@@ -339,7 +222,6 @@ export default {
         },
     },
     methods: {
-<<<<<<< HEAD
         // Method to check internet connection status
         startInternetCheckerUse() {
             this.Emitter.emit("startInternetChecker");
@@ -397,17 +279,6 @@ export default {
             } catch (error) {
                 console.error("Error deleting charity:", error);
             }
-=======
-        // Get Data
-        async Get_Data() {
-            const querySnapshot = await getDocs(collection(db, "Charities"));
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                const charityData = doc.data();
-                this.detectSocialMediaType(charityData);
-                this.CharitiesDB.push(charityData);
-            });
->>>>>>> origin/master
         },
         //fuction to detect the Social_media link type
         detectSocialMediaType(charity) {
@@ -447,7 +318,6 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
 <style lang="scss" scoped>
 .Charities {
     display: flex;
@@ -557,6 +427,3 @@ export default {
     }
 }
 </style>
-=======
-<style lang="scss" scoped></style>
->>>>>>> origin/master
