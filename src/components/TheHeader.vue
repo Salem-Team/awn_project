@@ -95,13 +95,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-import { mapState } from "vuex";
 export default {
     name: "TheHeader",
     inject: ["Emitter"],
-    computed: {
-        ...mapState(["User"]),
-    },
+
     mounted() {
         this.Check_User();
     },

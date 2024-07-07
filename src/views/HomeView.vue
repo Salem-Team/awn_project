@@ -242,19 +242,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-import { useStore } from "vuex"; // استيراد useStore من Vuex
-import { mapState } from "vuex";
 // import TheHeader from "@/components/TheHeader.vue";
 export default {
     components: { Offline_error },
     props: ["Check_user"],
     inject: ["Emitter"],
     setup() {
-        const store = useStore(); // استخدام useStore للوصول إلى store
-
         return {
-            store, // إضافة store إلى القالب
-            ...mapState(store, ["User"]), // استخدام mapState لتحديد الحالة من Vuex
             v$: useVuelidate(),
         };
     },
@@ -278,6 +272,7 @@ export default {
                 User_FullName: "",
                 type: "",
             },
+            isFocused: false,
         };
     },
     //form validation
