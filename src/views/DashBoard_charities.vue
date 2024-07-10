@@ -2714,7 +2714,159 @@ export default {
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, {
                     header: 1,
                 });
+                const groupedDataObjects = [];
+                for (let i = 0; i < jsonData.length; i += 11) {
+                    const chunk = jsonData.slice(i, i + 11);
+                    const obj = {
+                        Date: chunk[0][0],
+                        data: chunk.slice(2),
+                    };
+                    groupedDataObjects.push(obj);
+                }
+                const titledGroupedData = groupedDataObjects.reduce(
+                    (acc, group) => {
+                        if (group && group.data && group.data.length > 0) {
+                            const data = group.data;
+                            let invalid = false;
+                            let emptyCells = []; // مصفوفة لتخزين مؤشرات الخلايا الفارغة
 
+                            // التحقق من السلاسل الفارغة وجمع مؤشرات الخلايا الفارغة
+                            data.forEach((cell, index) => {
+                                if (!cell[1]) {
+                                    emptyCells.push(index);
+                                } else if (
+                                    typeof cell[1] !== "string" &&
+                                    (index === 2 || index === 8)
+                                ) {
+                                    invalid = true;
+                                }
+                            });
+
+                            // التحقق من أنواع البيانات المحددة وأطوالها
+                            if (
+                                typeof data[4][1] !== "number" ||
+                                typeof data[5][1] !== "number" ||
+                                typeof data[2][1] !== "string" ||
+                                data[2][1].length !== 14 ||
+                                typeof data[8][1] !== "string" ||
+                                data[8][1].length !== 11
+                            ) {
+                                invalid = true;
+                            }
+
+                            // التحقق من تكرار الرقم القومي
+                            if (
+                                data[2][1] &&
+                                this.nationalIDs.includes(data[2][1])
+                            ) {
+                                this.duplicateNationalIDs.push(data[2][1]);
+                                this.showSuccessAlert = false;
+                                this.validationErrors.push(
+                                    `تم العثور على  رقم قومي مكرر: في ${group.Date}  :   ${data[2][1]} `
+                                );
+                            } else {
+                                this.nationalIDs.push(data[2][1]);
+                            }
+                            if (data[2][1] && data[2][1].length < 14) {
+                                invalid = true;
+                                this.showSuccessAlert = false;
+                                this.validationErrors.push(
+                                    `تم العثور على رقم قومي أقل من 14 رقمًا : ${data[2][1]} في : ${group.Date}`
+                                );
+                            }
+
+                            // إذا كان هناك خطأ في التحقق أو وجود خلايا فارغة أو أرقام قومية مكررة
+                            if (
+                                invalid ||
+                                emptyCells.length > 0 ||
+                                this.duplicateNationalIDs.length > 0
+                            ) {
+                                this.validationError = true;
+
+                                // طباعة مؤشرات الخلايا الفارغة إذا لم تكن الـ array فارغة
+                                if (emptyCells.length > 0) {
+                                    invalid = true;
+                                    this.showSuccessAlert = false;
+                                    this.validationErrors.push(
+                                        `تم العثور على بيانات فارغه فى ${
+                                            group.Date
+                                        } وهى ${emptyCells
+                                            .map((index) => data[index][0])
+                                            .join(", ")}`
+                                    );
+                                }
+
+                                // طباعة مؤشرات الأرقام القومية المكررة إذا لم تكن الـ array فارغة
+
+                                setTimeout(() => {
+                                    this.validationErrors = [];
+                                }, 300000);
+                            } else {
+                                this.showSuccessAlert = true;
+                            }
+                            // بقية الكود...
+
+                            const obj = {
+                                personal_info: {
+                                    name: data[0][1],
+                                    nick_name: data[1][1],
+                                    national_id: data[2][1],
+                                    governorate: data[3][1],
+                                    house_number: data[4][1],
+                                    floor_number: data[5][1],
+                                    address: data[6][1],
+                                    marital_status: data[7][1],
+                                    phone: data[8][1],
+                                },
+                                financial_info: {
+                                    required: "",
+                                    income: "",
+                                    deficit: "",
+                                },
+                                diseases: {
+                                    patient_name: "",
+                                    disease: "",
+                                    get_treatment: "",
+                                    not_available: "",
+                                },
+                                housing_condition: {
+                                    number_rooms: "",
+                                    house_type: "",
+                                    bathroom_type: "",
+                                    floor_type: "",
+                                    description_kitchen: "",
+                                    DescriptionRoom1: "",
+                                    DescriptionRoom2: "",
+                                    DescriptionRoom3: "",
+                                    DescriptionRoom4: "",
+                                    DescriptionRoom5: "",
+                                },
+                                family_needs: "",
+                            };
+                            acc[group.Date] = obj; // استخدام التاريخ كمفتاح
+                        } else {
+                            console.error("خطأ: المصفوفة group غير متكاملة");
+                        }
+                        return acc;
+                    },
+                    {}
+                );
+                console.log("Titled Grouped Data:", titledGroupedData);
+                if (jsonData.length < 110 || jsonData.length > 110) {
+                    let MsErros = true;
+                    this.validationErrors = [];
+                    if (MsErros) {
+                        this.notExcel = true;
+                        setTimeout(() => {
+                            this.notExcel = false;
+                        }, 3000);
+                        return;
+                    }
+                }
+                // مثال تحديث الحالة
+                this.jsonData = jsonData;
+                this.excelFile = file;
+                this.jsonData = titledGroupedData;
                 this.convertToJSON(jsonData);
             };
             reader.readAsArrayBuffer(file);
@@ -3063,7 +3215,7 @@ export default {
                 });
                 saveAs(blob, "data.json");
             } else {
-                this.showSuccessAlert = false;
+                this.showSuccessAlert = true;
             }
         },
     },
