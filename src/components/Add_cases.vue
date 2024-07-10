@@ -857,8 +857,8 @@ import {
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
 // import Gsap animations
-import { gsap } from "gsap";
-import { nextTick } from "vue";
+// import { gsap } from "gsap";
+// import { nextTick } from "vue";
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDF7ohgD5ohpCZwHQz1wmsPixR7dv19ETo",
@@ -1168,55 +1168,55 @@ export default {
             this.Emitter.emit("startInternetChecker");
         },
         // animation headers
-        animateIcons() {
-            this.$refs.stepperItems.forEach((item, index) => {
-                nextTick(() => {
-                    gsap.fromTo(
-                        item.$el,
-                        {
-                            opacity: 0, // البداية من opacity 0.5
-                            x: 50 * (index + 1), // الوضع الأولي للإحداثي y
-                        },
-                        {
-                            duration: 0.5, // مدة الحركة
-                            opacity: 1, // النهاية عند opacity 1
-                            x: 0, // النهاية عند الإحداثي y صفر
-                            delay: index * 0.2, // تأخير حسب الترتيب
-                            ease: "power2.out", // نوع الانتقال
-                        }
-                    );
-                });
-            });
-        },
-        // second ani
-        animateSlideChange() {
-            const slides = [
-                this.$refs.slide1,
-                this.$refs.slide2,
-                this.$refs.slide3,
-                this.$refs.slide4,
-                this.$refs.slide5,
-            ];
+        // animateIcons() {
+        //     this.$refs.stepperItems.forEach((item, index) => {
+        //         nextTick(() => {
+        //             gsap.fromTo(
+        //                 item.$el,
+        //                 {
+        //                     opacity: 0, // البداية من opacity 0.5
+        //                     x: 50 * (index + 1), // الوضع الأولي للإحداثي y
+        //                 },
+        //                 {
+        //                     duration: 0.5, // مدة الحركة
+        //                     opacity: 1, // النهاية عند opacity 1
+        //                     x: 0, // النهاية عند الإحداثي y صفر
+        //                     delay: index * 0.2, // تأخير حسب الترتيب
+        //                     ease: "power2.out", // نوع الانتقال
+        //                 }
+        //             );
+        //         });
+        //     });
+        // },
+        // // second ani
+        // animateSlideChange() {
+        //     const slides = [
+        //         this.$refs.slide1,
+        //         this.$refs.slide2,
+        //         this.$refs.slide3,
+        //         this.$refs.slide4,
+        //         this.$refs.slide5,
+        //     ];
 
-            slides.forEach((slide, index) => {
-                nextTick(() => {
-                    gsap.fromTo(
-                        slide,
-                        {
-                            opacity: 0.5, // البداية من opacity 0.5
-                            x: 100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
-                        },
-                        {
-                            duration: 0.7, // مدة الحركة
-                            opacity: 1, // النهاية عند opacity 1
-                            x: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
-                            // delay: index * 0.1, // تأخير حسب الترتيب
-                            ease: "power2.out", // نوع الانتقال
-                        }
-                    );
-                });
-            });
-        },
+        //     slides.forEach((slide, index) => {
+        //         nextTick(() => {
+        //             gsap.fromTo(
+        //                 slide,
+        //                 {
+        //                     opacity: 0.5, // البداية من opacity 0.5
+        //                     x: 100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
+        //                 },
+        //                 {
+        //                     duration: 0.7, // مدة الحركة
+        //                     opacity: 1, // النهاية عند opacity 1
+        //                     x: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
+        //                     // delay: index * 0.1, // تأخير حسب الترتيب
+        //                     ease: "power2.out", // نوع الانتقال
+        //                 }
+        //             );
+        //         });
+        //     });
+        // },
         addform_dis() {
             this.dis_index++;
             this.diseases_3.push({
@@ -1487,20 +1487,13 @@ export default {
         "financial_info_2.incom": function () {
             this.calculateDifference();
         },
-        e1(newVal, oldVal) {
-            if (newVal !== oldVal) {
-                this.$nextTick(() => {
-                    this.animateSlideChange();
-                });
-            }
-        },
     },
     mounted() {
         // Method to check internet connection status
         this.startInternetCheckerUse();
 
-        this.animateIcons();
-        this.animateSlideChange();
+        // this.animateIcons();
+        // this.animateSlideChange();
     },
 };
 </script>

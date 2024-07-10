@@ -2253,7 +2253,7 @@ import {
 } from "@firebase/firestore";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "@firebase/app";
-import { gsap } from "gsap";
+// import { gsap } from "gsap";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -2464,56 +2464,56 @@ export default {
     },
     methods: {
         // animation headers
-        animateIcons() {
-            // فحص ما إذا كانت stepperItems معرّفة وليست فارغة
-            if (this.$refs.stepperItems && this.$refs.stepperItems.length) {
-                this.$refs.stepperItems.forEach((item, index) => {
-                    gsap.fromTo(
-                        item.$el,
-                        {
-                            opacity: 0, // البداية من opacity 0
-                            x: 50 * (index + 1), // الوضع الأولي للإحداثي x
-                        },
-                        {
-                            duration: 0.5, // مدة الحركة
-                            opacity: 1, // النهاية عند opacity 1
-                            x: 0, // النهاية عند الإحداثي x صفر
-                            delay: index * 0.2, // تأخير حسب الترتيب
-                            ease: "power2.out", // نوع الانتقال
-                        }
-                    );
-                });
-            } else {
-                console.error("stepperItems غير معرّفة أو فارغة");
-            }
-        },
+        // animateIcons() {
+        //     // فحص ما إذا كانت stepperItems معرّفة وليست فارغة
+        //     if (this.$refs.stepperItems && this.$refs.stepperItems.length) {
+        //         this.$refs.stepperItems.forEach((item, index) => {
+        //             gsap.fromTo(
+        //                 item.$el,
+        //                 {
+        //                     opacity: 0, // البداية من opacity 0
+        //                     x: 50 * (index + 1), // الوضع الأولي للإحداثي x
+        //                 },
+        //                 {
+        //                     duration: 0.5, // مدة الحركة
+        //                     opacity: 1, // النهاية عند opacity 1
+        //                     x: 0, // النهاية عند الإحداثي x صفر
+        //                     delay: index * 0.2, // تأخير حسب الترتيب
+        //                     ease: "power2.out", // نوع الانتقال
+        //                 }
+        //             );
+        //         });
+        //     } else {
+        //         console.error("stepperItems غير معرّفة أو فارغة");
+        //     }
+        // },
         // second ani
-        animateSlideChange() {
-            const slides = [
-                this.$refs.slide1,
-                this.$refs.slide2,
-                this.$refs.slide3,
-                this.$refs.slide4,
-                this.$refs.slide5,
-            ];
+        // animateSlideChange() {
+        //     const slides = [
+        //         this.$refs.slide1,
+        //         this.$refs.slide2,
+        //         this.$refs.slide3,
+        //         this.$refs.slide4,
+        //         this.$refs.slide5,
+        //     ];
 
-            slides.forEach((slide, index) => {
-                gsap.fromTo(
-                    slide,
-                    {
-                        opacity: 0.5, // البداية من opacity 0.5
-                        x: 100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
-                    },
-                    {
-                        duration: 0.7, // مدة الحركة
-                        opacity: 1, // النهاية عند opacity 1
-                        x: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
-                        // delay: index * 0.1, // تأخير حسب الترتيب
-                        ease: "power2.out", // نوع الانتقال
-                    }
-                );
-            });
-        },
+        //     slides.forEach((slide, index) => {
+        //         gsap.fromTo(
+        //             slide,
+        //             {
+        //                 opacity: 0.5, // البداية من opacity 0.5
+        //                 x: 100 * (index + 1), // الوضع الأولي للإحداثي y (من الأعلى)
+        //             },
+        //             {
+        //                 duration: 0.7, // مدة الحركة
+        //                 opacity: 1, // النهاية عند opacity 1
+        //                 x: 0, // النهاية عند الإحداثي y = 0 (الأسفل)
+        //                 // delay: index * 0.1, // تأخير حسب الترتيب
+        //                 ease: "power2.out", // نوع الانتقال
+        //             }
+        //         );
+        //     });
+        // },
         // Method to check internet connection status
         startInternetCheckerUse() {
             this.Emitter.emit("startInternetChecker");
@@ -3219,21 +3219,8 @@ export default {
             }
         },
     },
-    watch: {
-        e1(newVal, oldVal) {
-            if (newVal !== oldVal) {
-                this.$nextTick(() => {
-                    this.animateSlideChange();
-                });
-            }
-        },
-    },
     async mounted() {
         await this.Get_data();
-        this.$nextTick(() => {
-            this.animateIcons();
-            this.animateSlideChange();
-        });
     },
 };
 </script>
